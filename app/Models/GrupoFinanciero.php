@@ -14,8 +14,15 @@ class GrupoFinanciero extends Model
 
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
-    protected $fillable   = ['nb_grupo_financiero','id_tipo_grupo_financiero','tx_observaciones','id_status'];
-    
+    protected $fillable   = [
+                            'nb_grupo_financiero',
+                            'tx_observaciones',
+                            'id_usuario',
+                            'id_status',
+                            'fe_creado',
+                            'fe_actualizado'
+                            ]; 
+       
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
     public function status(){

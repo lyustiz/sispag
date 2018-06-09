@@ -14,7 +14,18 @@ class Status extends Model
 
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
-    protected $fillable   = ['nb_status','id_tipo_status','tx_observaciones','id_status'];
+    protected $fillable   = [
+                            'nb_status',
+                            'co_status',
+                            'nb_status_secundario',
+                            'id_grupo',
+                            'bo_status',
+                            'id_padre',
+                            'tx_observacion',
+                            'id_usuario',
+                            'fe_creado',
+                            'fe_actualizado'
+                            ];
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
     

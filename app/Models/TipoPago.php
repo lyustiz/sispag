@@ -14,7 +14,14 @@ class TipoPago extends Model
 
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
-    protected $fillable   = ['nb_tipo_pago','id_tipo_tipo_pago','tx_observaciones','id_status'];
+    protected $fillable   = [
+                            'nb_tipo_pago',
+                            'tx_observaciones',
+                            'id_usuario',
+                            'id_status',
+                            'fe_creado',
+                            'fe_actualizado'
+                            ]; 
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 

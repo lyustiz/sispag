@@ -14,7 +14,17 @@ class Usuario extends Model
 
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
-    protected $fillable   = ['nb_usuario','id_tipo_usuario','tx_observaciones','id_status'];
+    protected $fillable   = [
+                            'tx_usuario',
+                            'tx_password',
+                            'nu_cedula',
+                            'nb_nombre',
+                            'nb_apellido',
+                            'tx_observaciones',
+                            'id_status',
+                            'fe_creado',
+                            'fe_actualizado'
+                            ]; 
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
     

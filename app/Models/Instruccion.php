@@ -14,8 +14,17 @@ class Instruccion extends Model
 
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
-    protected $fillable   = ['nb_instruccion','id_tipo_instruccion','tx_observaciones','id_status'];
-    
+    protected $fillable   = [
+                            'tx_concepto',
+                            'mo_divisa',
+                            'id_moneda',
+                            'tx_observacion',
+                            'id_usuario',
+                            'id_status',
+                            'fe_creado',
+                            'fe_actualizado'
+                            ]; 
+                            
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
     public function status(){
