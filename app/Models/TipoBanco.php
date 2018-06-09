@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class TipoBanco extends Model
+{
+    protected $table 	  = 'tipo_banco';
+
+	protected $primaryKey = 'id_tipo_banco';
+	
+	const 	  CREATED_AT  = 'fe_creado';
+
+	const 	  UPDATED_AT  = 'fe_actualizado';
+
+    protected $fillable   = ['nb_tipo_banco','id_tipo_tipo_banco','tx_observaciones','id_status'];
+    
+    protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+
+    public function status(){
+    
+        return $this->BelongsTo('App\Models\Status', 'id_status');
+    
+    }
+
+    public function usuario(){
+    
+        return $this->BelongsTo('App\Models\Usuario', 'id_usuario');
+    
+    }
+}

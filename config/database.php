@@ -63,7 +63,7 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
-            'schema' => 'PAGOS',
+            'schema' => env('DB_SCHEMA', 'pubic'),
             'sslmode' => 'prefer',
         ],
 
