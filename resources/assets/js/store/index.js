@@ -4,6 +4,8 @@ import auth from './modules/auth'
 import snackbar from './modules/snackbar'
 import users from './modules/users'
 
+
+
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'

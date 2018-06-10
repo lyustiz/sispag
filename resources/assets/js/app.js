@@ -20,7 +20,10 @@ Vue.component('register-button', require('./components/RegisterButtonComponent.v
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
 Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
 Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
-Vue.component('gravatar', require('./components/GravatarComponent.vue'));
+Vue.component('pagos-lista', require('./components/PagosLista.vue'));
+Vue.component('pagos-form', require('./components/PagosForm.vue'));
+Vue.component('banco-lista', require('./components/BancoLista.vue'));
+Vue.component('banco-form', require('./components/BancoForm.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
@@ -68,6 +71,7 @@ const app = new Vue({
       this.$nextTick(this.$refs.email.focus)
     },
     updateUser () {
+      
       this.updatingUser = true
       this.$store.dispatch(actions.UPDATE_USER, this.user).then(response => {
         this.showMessage('User modified ok!')

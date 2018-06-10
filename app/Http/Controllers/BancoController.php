@@ -14,7 +14,9 @@ class BancoController extends Controller
      */
     public function index()
     {
-        //
+        $bancos = Banco::with(['tipoBanco','status'])->get();
+        
+        return $bancos;
     }
 
     /**
@@ -35,7 +37,21 @@ class BancoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+       
+        $validate = request()->validate([
+
+            'nb_banco'          => 'required',
+            'id_tipo_banco'     => 'required',
+            'tx_observaciones'  => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+
+        ]);
+
+        $banco = Banco::create($request->all());
+
+        return compact('banco');
     }
 
     /**
@@ -46,7 +62,7 @@ class BancoController extends Controller
      */
     public function show(Banco $banco)
     {
-        //
+        return compact('banco');
     }
 
     /**
@@ -57,7 +73,7 @@ class BancoController extends Controller
      */
     public function edit(Banco $banco)
     {
-        //
+        
     }
 
     /**
@@ -69,7 +85,22 @@ class BancoController extends Controller
      */
     public function update(Request $request, Banco $banco)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_banco'          => 'required',
+            'id_tipo_banco'     => 'required',
+            'tx_observaciones'  => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+
+        ]);
+        
+        $banco = Banco::find($banco->id_banco)->update($request->all());
+
+        /*$banco->nb_banco  = $request->nb_banco;
+        $banco->save();*/
+
+        return compact('banco');
     }
 
     /**
