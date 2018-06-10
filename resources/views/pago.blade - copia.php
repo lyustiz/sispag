@@ -4,9 +4,8 @@
 
     <v-container fluid grid-list-md text-xs-center>
 
-        Inicio
+    <pago-lista></pago-lista>
 
     </v-container>
 
 @endsection
-

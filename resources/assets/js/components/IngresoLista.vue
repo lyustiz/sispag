@@ -5,9 +5,9 @@
                 <v-card>
                   
                     <v-card-title class="blue accent-1 white--text">
-                        <h3>Bancos</h3>
+                        <h3>Ingreso</h3>
                         <v-spacer></v-spacer>
-                        <v-btn @click="insBanco" color="green" dark>
+                        <v-btn @click="insIngreso" color="green" dark>
                         <v-icon>add</v-icon>
                             agregar        
                         </v-btn> 
@@ -33,14 +33,14 @@
                         :search ="buscar"
                         >
 
-                        <template slot="items" slot-scope="banco">
+                        <template slot="items" slot-scope="Ingreso">
                             
-                            <td class="text-xs-left">{{ banco.item.nb_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.tipo_banco.nb_tipo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.status.nb_status }}</td>
+                            <td class="text-xs-left">{{ Ingreso.item.nb_banco }}</td>
+                            <td class="text-xs-left">{{ Ingreso.item.tipo_banco.nb_tipo_banco }}</td>
+                            <td class="text-xs-left">{{ Ingreso.item.status.nb_status }}</td>
                             <!--acciones-->
                             <td class="justify-center layout px-0">
-                                <v-btn icon @click="updBanco(banco.item )" >
+                                <v-btn icon @click="updBanco(Ingreso.item )" >
                                     <v-icon color="orange">edit</v-icon>
                                 </v-btn>
                                 <v-btn icon @click="updBanco" >
@@ -84,7 +84,7 @@
 
           <v-card-text> 
 
-              <banco-form :accion="accion" :banco="banco" @cerrarModal="cerrarModal"></banco-form>
+              <Ingreso-form :accion="accion" :Ingreso="Ingreso" @cerrarModal="cerrarModal"></Ingreso-form>
             
           </v-card-text>
           
@@ -113,7 +113,7 @@ export default {
         buscar: '',
         nro:     1,
         accion: '',
-        banco:  '',
+        Ingreso:  '',
         nb_accion: '',
         headers: [
         { text: 'Nombre',   value: 'nb_banco' },
@@ -127,11 +127,11 @@ export default {
     {
         cerrarModal(){
             this.modal = false;
-            this.banco = '';
+            this.Ingreso = '';
         },
         list () {
 
-            axios.get('/api/v1/banco')
+            axios.get('/api/v1/Ingreso')
             .then(respuesta => {
                     this.bancos = respuesta.data;
             })
@@ -139,23 +139,23 @@ export default {
                     
             })
         },
-        updBanco (banco) {
+        updBanco (Ingreso) {
 
-            this.nb_accion  = 'Editar Banco: ' + banco.nb_banco;
+            this.nb_accion  = 'Editar Ingreso: ' + Ingreso.nb_banco;
             this.accion     = 'upd';
             this.modal      = true;
-            this.banco      = banco;
+            this.Ingreso      = Ingreso;
         },
         insBanco () {
 
-            this.nb_accion  = 'Agregar Banco:';
+            this.nb_accion  = 'Agregar Ingreso:';
             this.accion     = 'ins';
             this.modal      = true;
             
         },
-        delBanco (banco) {
+        delBanco (Ingreso) {
 
-            console.log('eliminar Banco')
+            console.log('eliminar Ingreso')
             
         }
     }

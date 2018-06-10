@@ -88,7 +88,7 @@
     >
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <span class="hidden-xs-only">{{ config('app.shortname', 'SisGesPag') }}</span>
+            <span class="hidden-xs-only">{{ config('app.shortname', 'SIPDIVEN') }}</span>
         </v-toolbar-title>
         <div class="d-flex align-center" style="margin-left: auto">
             <v-btn icon>
@@ -140,7 +140,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn :loading="updatingUser" flat color="green" @click="updateUser" v-if="editingUser">
-                    <v-icon right dark>Salvar</v-icon>
+                    <v-icon right dark>save</v-icon>
                     Guardar
                 </v-btn>
                 <v-btn flat color="orange" @click="editUser()" v-else>

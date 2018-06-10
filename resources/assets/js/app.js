@@ -24,6 +24,8 @@ Vue.component('pagos-lista', require('./components/PagosLista.vue'));
 Vue.component('pagos-form', require('./components/PagosForm.vue'));
 Vue.component('banco-lista', require('./components/BancoLista.vue'));
 Vue.component('banco-form', require('./components/BancoForm.vue'));
+Vue.component('ingreso-lista', require('./components/IngresoLista.vue'));
+Vue.component('ingreso-form', require('./components/IngresoForm.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
@@ -53,10 +55,11 @@ const app = new Vue({
     updatingUser: false,
     items: [
       { icon: 'home', text: 'Home', href: '/home' },
-      { icon: 'home', text: 'Landing Page', href: '/' },
-      { icon: 'settings', text: 'Settings' },
-      { icon: 'chat_bubble', text: 'Contact' },
-      { heading: 'Links' },
+      { icon: 'airplay', text: 'Landing Page', href: '/' },
+      { heading: 'Modulos' },
+      { icon: 'account_balance', text: 'Banco', href: '/banco' },
+      { icon: 'attach_money', text: 'Ingresos', href: '/ingreso' },
+      
       //{ heading: 'Administració', role: 'Manager' }
     ]
   }),
@@ -74,7 +77,7 @@ const app = new Vue({
       
       this.updatingUser = true
       this.$store.dispatch(actions.UPDATE_USER, this.user).then(response => {
-        this.showMessage('User modified ok!')
+        this.showMessage('Usuario Modificado Correctamente')
       }).catch(error => {
         console.dir(error)
         this.showError(error)
@@ -122,7 +125,7 @@ const app = new Vue({
     changePassword () {
       this.changingPassword = true
       this.$store.dispatch(actions.REMEMBER_PASSWORD, this.user.email).then(response => {
-        this.showMessage(`Email sent to change password`)
+        this.showMessage(`Correo para reinicio de contraseña`)
       }).catch(error => {
         console.dir(error)
         this.showError(error)

@@ -8,13 +8,90 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/lista', function () {
-    return view('lista');
+Route::get('/ingresos', function () {
+    return view('pago');
 });
 
+Route::get('/banco', function () {
+    return view('banco');
+});
+
+Route::get('/categoria', function(){ 
+    return view('categoria');
+});
+
+Route::get('/claseente', function(){ 
+    return view('claseente');
+});
+
+Route::get('/ente', function(){ 
+    return view('ente');
+});
+
+Route::get('/etapaenvio', function(){ 
+    return view('etapaenvio');
+});
+
+Route::get('/grupobancos', function(){ 
+    return view('grupobancos');
+});
+
+Route::get('/grupoente', function(){ 
+    return view('grupoente');
+});
+
+Route::get('/grupofinanciero', function(){ 
+    return view('grupofinanciero');
+});
+
+Route::get('/grupostatus', function(){ 
+    return view('grupostatus');
+});
+
+Route::get('/ingreso', function(){ 
+    return view('ingreso');
+});
+
+Route::get('/instruccion', function(){ 
+    return view('instruccion');
+});
+
+Route::get('/moneda', function(){ 
+    return view('moneda');
+});
+
+Route::get('/status', function(){ 
+    return view('status');
+});
+
+Route::get('/tasa', function(){ 
+    return view('tasa');
+});
+
+Route::get('/tipobanco', function(){ 
+    return view('tipobanco');
+});
+
+Route::get('/tipoente', function(){ 
+    return view('tipoente');
+});
+
+Route::get('/tipoingreso', function(){ 
+    return view('tipoingreso');
+});
+
+Route::get('/tipopago', function(){ 
+    return view('tipopago');
+});
+
+Route::get('/usuario', function(){ 
+    return view('usuario');
+});
+
+/*
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::Resource('/banco', 'BancoController');
+//Route::Resource('/banco', 'BancoController');
 
 Route::Resource('/categoria', 'CategoriaController');
 
@@ -51,5 +128,5 @@ Route::Resource('/tipoingreso', 'TipoIngresoController');
 Route::Resource('/tipopago', 'TipoPagoController');
 
 Route::Resource('/usuario', 'UsuarioController');
-
+*/
 Auth::routes();

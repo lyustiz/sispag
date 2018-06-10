@@ -4,7 +4,7 @@
 
     <v-container fluid grid-list-md text-xs-center>
 
-        Inicio
+    <ingreso-lista></ingreso-lista>
 
     </v-container>
 

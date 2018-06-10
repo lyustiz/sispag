@@ -13456,6 +13456,8 @@ Vue.component('pagos-lista', __webpack_require__(70));
 Vue.component('pagos-form', __webpack_require__(75));
 Vue.component('banco-lista', __webpack_require__(104));
 Vue.component('banco-form', __webpack_require__(80));
+Vue.component('ingreso-lista', __webpack_require__(109));
+Vue.component('ingreso-form', __webpack_require__(110));
 
 window.Vuetify = __webpack_require__(85);
 Vue.use(Vuetify);
@@ -13484,7 +13486,7 @@ var app = new Vue({
       logoutLoading: false,
       changingPassword: false,
       updatingUser: false,
-      items: [{ icon: 'home', text: 'Home', href: '/home' }, { icon: 'home', text: 'Landing Page', href: '/' }, { icon: 'settings', text: 'Settings' }, { icon: 'chat_bubble', text: 'Contact' }, { heading: 'Links' }]
+      items: [{ icon: 'home', text: 'Home', href: '/home' }, { icon: 'airplay', text: 'Landing Page', href: '/' }, { heading: 'Modulos' }, { icon: 'account_balance', text: 'Banco', href: '/banco' }, { icon: 'attach_money', text: 'Ingresos', href: '/ingreso' }]
     };
   },
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
@@ -13500,7 +13502,7 @@ var app = new Vue({
 
       this.updatingUser = true;
       this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["h" /* UPDATE_USER */], this.user).then(function (response) {
-        _this.showMessage('User modified ok!');
+        _this.showMessage('Usuario Modificado Correctamente');
       }).catch(function (error) {
         console.dir(error);
         _this.showError(error);
@@ -13552,7 +13554,7 @@ var app = new Vue({
 
       this.changingPassword = true;
       this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["e" /* REMEMBER_PASSWORD */], this.user.email).then(function (response) {
-        _this3.showMessage('Email sent to change password');
+        _this3.showMessage('Correo para reinicio de contrase\xF1a');
       }).catch(function (error) {
         console.dir(error);
         _this3.showError(error);
@@ -36172,7 +36174,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -36183,6 +36185,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -36358,7 +36362,27 @@ var render = function() {
                   _c(
                     "v-card-title",
                     { staticClass: "blue accent-1 white--text" },
-                    [_c("h3", [_vm._v("Ingresos")])]
+                    [
+                      _c("h3", [_vm._v("Bancos")]),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "green", dark: "" },
+                          on: { click: _vm.insBanco }
+                        },
+                        [
+                          _c("v-icon", [_vm._v("add")]),
+                          _vm._v(
+                            "\n                        agregar        \n                    "
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
                   ),
                   _vm._v(" "),
                   _c(
@@ -36513,26 +36537,7 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "v-card-actions",
-                    [
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: { color: "green", dark: "" },
-                          on: { click: _vm.insBanco }
-                        },
-                        [
-                          _c("v-icon", [_vm._v("add")]),
-                          _vm._v(
-                            "\n                        agregar        \n                    "
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
+                  _c("v-card-actions")
                 ],
                 1
               )
@@ -36565,7 +36570,7 @@ var render = function() {
             [
               _c(
                 "v-toolbar",
-                { attrs: { dark: "", color: "primary" } },
+                { attrs: { dark: "", color: "blue accent-1 white--text" } },
                 [
                   _c(
                     "v-btn",
@@ -36613,6 +36618,571 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7fcf963f", module.exports)
+  }
+}
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(111)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(113)
+/* template */
+var __vue_template__ = __webpack_require__(114)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\IngresoLista.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e23b256e", Component.options)
+  } else {
+    hotAPI.reload("data-v-e23b256e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\IngresoForm.vue"
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(112);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(7)("4baad67f", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e23b256e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./IngresoLista.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e23b256e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./IngresoLista.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 113 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+
+        this.bancos = this.list();
+    },
+    data: function data() {
+        return {
+            modal: false,
+            bancos: '',
+            buscar: '',
+            nro: 1,
+            accion: '',
+            Ingreso: '',
+            nb_accion: '',
+            headers: [{ text: 'Nombre', value: 'nb_banco' }, { text: 'Tipo', value: 'id_tipo_banco' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
+        };
+    },
+
+    methods: {
+        cerrarModal: function cerrarModal() {
+            this.modal = false;
+            this.Ingreso = '';
+        },
+        list: function list() {
+            var _this = this;
+
+            axios.get('/api/v1/Ingreso').then(function (respuesta) {
+                _this.bancos = respuesta.data;
+            }).catch(function (error) {});
+        },
+        updBanco: function updBanco(Ingreso) {
+
+            this.nb_accion = 'Editar Ingreso: ' + Ingreso.nb_banco;
+            this.accion = 'upd';
+            this.modal = true;
+            this.Ingreso = Ingreso;
+        },
+        insBanco: function insBanco() {
+
+            this.nb_accion = 'Agregar Ingreso:';
+            this.accion = 'ins';
+            this.modal = true;
+        },
+        delBanco: function delBanco(Ingreso) {
+
+            console.log('eliminar Ingreso');
+        }
+    }
+});
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-container",
+    { attrs: { fluid: "", "grid-list-md": "", "text-xs-center": "" } },
+    [
+      _c(
+        "v-layout",
+        { attrs: { row: "", "justify-center": "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs11: "" } },
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-card-title",
+                    { staticClass: "blue accent-1 white--text" },
+                    [
+                      _c("h3", [_vm._v("Ingreso")]),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "green", dark: "" },
+                          on: { click: _vm.insIngreso }
+                        },
+                        [
+                          _c("v-icon", [_vm._v("add")]),
+                          _vm._v(
+                            "\n                        agregar        \n                    "
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs6: "" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              "append-icon": "search",
+                              label: "Buscar",
+                              "single-line": "",
+                              "hide-details": ""
+                            },
+                            model: {
+                              value: _vm.buscar,
+                              callback: function($$v) {
+                                _vm.buscar = $$v
+                              },
+                              expression: "buscar"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c(
+                            "v-data-table",
+                            {
+                              attrs: {
+                                headers: _vm.headers,
+                                items: _vm.bancos,
+                                search: _vm.buscar
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "items",
+                                  fn: function(Ingreso) {
+                                    return [
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-left" },
+                                        [_vm._v(_vm._s(Ingreso.item.nb_banco))]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-left" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              Ingreso.item.tipo_banco
+                                                .nb_tipo_banco
+                                            )
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-left" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              Ingreso.item.status.nb_status
+                                            )
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "justify-center layout px-0"
+                                        },
+                                        [
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: { icon: "" },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.updBanco(Ingreso.item)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "v-icon",
+                                                { attrs: { color: "orange" } },
+                                                [_vm._v("edit")]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: { icon: "" },
+                                              on: { click: _vm.updBanco }
+                                            },
+                                            [
+                                              _c(
+                                                "v-icon",
+                                                { attrs: { color: "red" } },
+                                                [_vm._v("delete")]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ])
+                            },
+                            [
+                              _c(
+                                "v-alert",
+                                {
+                                  attrs: {
+                                    slot: "no-results",
+                                    value: true,
+                                    color: "info",
+                                    icon: "info"
+                                  },
+                                  slot: "no-results"
+                                },
+                                [
+                                  _vm._v(
+                                    '\n                       La busqueda "' +
+                                      _vm._s(_vm.buscar) +
+                                      '" Sin resultados\n                    '
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-card-actions")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: {
+            fullscreen: "",
+            "hide-overlay": "",
+            transition: "dialog-bottom-transition"
+          },
+          model: {
+            value: _vm.modal,
+            callback: function($$v) {
+              _vm.modal = $$v
+            },
+            expression: "modal"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-toolbar",
+                { attrs: { dark: "", color: "blue accent-1 white--text" } },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { icon: "", dark: "" },
+                      nativeOn: {
+                        click: function($event) {
+                          return _vm.cerrarModal($event)
+                        }
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("close")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-toolbar-title", [_vm._v(_vm._s(_vm.nb_accion))])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c("Ingreso-form", {
+                    attrs: { accion: _vm.accion, Ingreso: _vm.Ingreso },
+                    on: { cerrarModal: _vm.cerrarModal }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e23b256e", module.exports)
   }
 }
 
