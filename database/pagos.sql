@@ -1,4 +1,4 @@
-   /*
+/*
 Navicat PGSQL Data Transfer
 
 Source Server         : local
@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90601
 File Encoding         : 65001
 
-Date: 2018-06-10 20:08:43
+Date: 2018-06-10 21:35:37
 */
 
 
@@ -62,6 +62,18 @@ CREATE SEQUENCE "pagos"."ente_id_ente_seq"
  START 8
  CACHE 1;
 SELECT setval('"pagos"."ente_id_ente_seq"', 8, true);
+
+-- ----------------------------
+-- Sequence structure for esquema_id_esquema_seq
+-- ----------------------------
+DROP SEQUENCE "pagos"."esquema_id_esquema_seq";
+CREATE SEQUENCE "pagos"."esquema_id_esquema_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 8
+ CACHE 1;
+SELECT setval('"pagos"."esquema_id_esquema_seq"', 8, true);
 
 -- ----------------------------
 -- Sequence structure for etapa_envio_id_etapa_envio_seq
@@ -141,8 +153,9 @@ CREATE SEQUENCE "pagos"."instruccion_id_instruccion_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 2
  CACHE 1;
+SELECT setval('"pagos"."instruccion_id_instruccion_seq"', 2, true);
 
 -- ----------------------------
 -- Sequence structure for moneda_id_moneda_seq
@@ -383,6 +396,37 @@ INSERT INTO "pagos"."ente" VALUES ('7', 'MPP ECONOMIA Y FINANZAS', '1', null, '1
 INSERT INTO "pagos"."ente" VALUES ('8', 'GOBERNACION TACHIRA', '1', null, '1', '1', null, null);
 
 -- ----------------------------
+-- Table structure for esquema
+-- ----------------------------
+DROP TABLE IF EXISTS "pagos"."esquema";
+CREATE TABLE "pagos"."esquema" (
+"id_esquema" int4 DEFAULT nextval('"pagos".esquema_id_esquema_seq'::regclass) NOT NULL,
+"nb_esquema" varchar(50) COLLATE "default" NOT NULL,
+"tx_requerimiento" varchar(50) COLLATE "default" NOT NULL,
+"id_esquema_padre" varchar(50) COLLATE "default" NOT NULL,
+"tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
+"id_usuario" int4 NOT NULL,
+"id_status" int4 NOT NULL,
+"fe_creado" timestamp(6),
+"fe_actualizado" timestamp(6)
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of esquema
+-- ----------------------------
+INSERT INTO "pagos"."esquema" VALUES ('1', 'VOI', 'NRO VOI', '0', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."esquema" VALUES ('2', 'CENCOEX', 'NRO SOLICITUD', '0', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."esquema" VALUES ('3', 'PAGOS PROPIOS BCV', 'N/A', '0', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."esquema" VALUES ('4', 'INSTRUCCION BCV', 'TIPO', '0', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."esquema" VALUES ('5', 'DEUDA', 'TIPO', '4', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."esquema" VALUES ('6', 'GASTOS REPRESENTACION', 'TIPO', '4', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."esquema" VALUES ('7', 'ONT', 'TIPO', '4', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."esquema" VALUES ('8', 'GASTO PROPIO ENTE', 'TIPO', '0', 'N/A', '1', '1', null, null);
+
+-- ----------------------------
 -- Table structure for etapa_envio
 -- ----------------------------
 DROP TABLE IF EXISTS "pagos"."etapa_envio";
@@ -545,9 +589,13 @@ INSERT INTO "pagos"."ingreso" VALUES ('4', '4', '3', '3', '54545.98', '89.00', '
 DROP TABLE IF EXISTS "pagos"."instruccion";
 CREATE TABLE "pagos"."instruccion" (
 "id_instruccion" int4 DEFAULT nextval('"pagos".instruccion_id_instruccion_seq'::regclass) NOT NULL,
-"tx_concepto" varchar(200) COLLATE "default",
-"mo_divisa" float8,
-"id_moneda" int4 NOT NULL,
+"id_esquema" int4 NOT NULL,
+"nu_esquema" varchar(20) COLLATE "default",
+"tx_ofi_cta_mte" varchar(20) COLLATE "default",
+"bo_ofi_cta_mte" bool,
+"fe_instruccion" timestamp(6),
+"fe_liq_bcv" timestamp(6),
+"id_banco" int4 NOT NULL,
 "tx_observacion" varchar(100) COLLATE "default",
 "id_usuario" int4,
 "id_status" int4,
@@ -561,6 +609,8 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of instruccion
 -- ----------------------------
+INSERT INTO "pagos"."instruccion" VALUES ('1', '1', 'VOI 0101', 'MPPEF-01-2018', 'f', '2018-06-02 00:00:00', '2018-06-07 00:00:00', '8', null, '1', '1', null, null);
+INSERT INTO "pagos"."instruccion" VALUES ('2', '2', 'SOLICITUD 0101', 'VP-001-2018', 'f', '2018-06-03 00:00:00', '2018-06-05 00:00:00', '6', null, '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for moneda
@@ -942,11 +992,6 @@ ALTER TABLE "pagos"."grupo_status" ADD PRIMARY KEY ("id_grupo_status");
 -- Primary Key structure for table ingreso
 -- ----------------------------
 ALTER TABLE "pagos"."ingreso" ADD PRIMARY KEY ("id_ingreso");
-
--- ----------------------------
--- Primary Key structure for table instruccion
--- ----------------------------
-ALTER TABLE "pagos"."instruccion" ADD PRIMARY KEY ("id_instruccion");
 
 -- ----------------------------
 -- Primary Key structure for table moneda

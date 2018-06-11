@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Instruccion;
+use App\Models\Esquema;
 use Illuminate\Http\Request;
 
-class InstruccionController extends Controller
+class EsquemaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class InstruccionController extends Controller
      */
     public function index()
     {
-        $instrucciones = Instruccion::with(['esquema', 'banco', 'status'])->get();
-        
-        return $instrucciones;
+        //
     }
 
     /**
@@ -43,10 +41,10 @@ class InstruccionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Instruccion  $instruccion
+     * @param  \App\Models\Esquema  $esquema
      * @return \Illuminate\Http\Response
      */
-    public function show(Instruccion $instruccion)
+    public function show(Esquema $esquema)
     {
         //
     }
@@ -54,10 +52,10 @@ class InstruccionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Instruccion  $instruccion
+     * @param  \App\Models\Esquema  $esquema
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instruccion $instruccion)
+    public function edit(Esquema $esquema)
     {
         //
     }
@@ -66,10 +64,10 @@ class InstruccionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Instruccion  $instruccion
+     * @param  \App\Models\Esquema  $esquema
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Instruccion $instruccion)
+    public function update(Request $request, Esquema $esquema)
     {
         //
     }
@@ -77,10 +75,10 @@ class InstruccionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Instruccion  $instruccion
+     * @param  \App\Models\Esquema  $esquema
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Instruccion $instruccion)
+    public function destroy(Esquema $esquema)
     {
         //
     }

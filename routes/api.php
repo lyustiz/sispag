@@ -27,4 +27,6 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
 
     Route::Resource('/solicitud', 'SolicitudController');
 
+    Route::Resource('/instruccion', 'InstruccionController');
+
 });

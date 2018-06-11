@@ -4,47 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Banco extends Model
+class Esquema extends Model
 {
-    protected $table 	  = 'banco';
+    protected $table 	  = 'esquema';
 
-	protected $primaryKey = 'id_banco';
+	protected $primaryKey = 'id_esquema';
 	
 	const 	  CREATED_AT  = 'fe_creado';
 
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'nb_banco',
-                            'id_tipo_banco',
+                            'nb_esquema',
+                            'tx_requerimiento',
+                            'id_esquema_padre',
                             'tx_observaciones',
                             'id_usuario',
                             'id_status',
                             'fe_creado',
                             'fe_actualizado'
                             ]; 
-    
+
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
     public function instruccion(){
     
-        return $this->HasMany('App\Models\Instruccion', 'id_banco');
+        return $this->HasMany('App\Models\Instruccion', 'id_esquema');
     
     }
-    
-    
-    public function ingreso(){
-    
-        return $this->HasMany('App\Models\Ingreso', 'id_banco');
-    
-    }
-    
-    public function tipoBanco(){
-    
-        return $this->BelongsTo('App\Models\TipoBanco', 'id_tipo_banco');
-    
-    }
-    
+
     public function status(){
     
         return $this->BelongsTo('App\Models\Status', 'id_status');
@@ -56,5 +44,4 @@ class Banco extends Model
         return $this->BelongsTo('App\Models\Usuario', 'id_usuario');
     
     }
-
 }

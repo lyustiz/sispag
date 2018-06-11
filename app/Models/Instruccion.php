@@ -15,17 +15,34 @@ class Instruccion extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'tx_concepto',
-                            'mo_divisa',
-                            'id_moneda',
+                            'id_esquema',
+                            'nu_esquema',
+                            'tx_ofi_cta_mte',
+                            'bo_ofi_cta_mte',
+                            'fe_instruccion',
+                            'fe_liq_bcv',
+                            'id_banco',
                             'tx_observacion',
                             'id_usuario',
                             'id_status',
                             'fe_creado',
                             'fe_actualizado'
                             ]; 
-                            
+
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+    
+
+    public function esquema(){
+    
+        return $this->BelongsTo('App\Models\Esquema', 'id_esquema');
+    
+    }   
+    
+    public function banco(){
+    
+        return $this->BelongsTo('App\Models\Banco', 'id_banco');
+    
+    } 
 
     public function status(){
     

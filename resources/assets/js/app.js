@@ -28,6 +28,8 @@ Vue.component('ingreso-lista', require('./components/IngresoLista.vue'));
 Vue.component('ingreso-form', require('./components/IngresoForm.vue'));
 Vue.component('solicitud-lista', require('./components/SolicitudLista.vue'));
 Vue.component('solicitud-form', require('./components/SolicitudForm.vue'));
+Vue.component('instruccion-lista', require('./components/InstruccionLista.vue'));
+Vue.component('instruccion-form', require('./components/InstruccionForm.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
@@ -60,8 +62,8 @@ const app = new Vue({
       { icon: 'airplay', text: 'Landing Page', href: '/' },
       { heading: 'Modulos' },
       { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
-      { icon: 'record_voice_over', text: 'Solicitud', href: '/solicitud' },
-      { icon: 'how_to_reg', text: 'Intruccion', href: '/instruccion' },
+      { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' },
+      { icon: 'how_to_reg', text: 'Intrucciones', href: '/instruccion' },
       { heading: 'Datos Maestros' },
       { icon: 'account_balance', text: 'Banco', href: '/banco' },
       { icon: 'store_mall_directory', text: 'Entes', href: '/home' },
