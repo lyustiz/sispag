@@ -23,4 +23,8 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     
     Route::Resource('/banco', 'BancoController');
 
+    Route::Resource('/ingreso', 'IngresoController');
+
+    Route::Resource('/solicitud', 'SolicitudController');
+
 });

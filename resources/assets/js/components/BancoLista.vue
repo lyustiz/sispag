@@ -59,7 +59,16 @@
                     </v-card-text>
 
                     <v-card-actions>
-                        
+                        <v-btn
+                        absolute
+                        dark
+                        fab
+                        bottom
+                        right
+                        color="pink"
+                        >
+                        <v-icon>add</v-icon>
+                        </v-btn>
                     </v-card-actions>
                
                 </v-card>

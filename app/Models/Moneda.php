@@ -25,6 +25,19 @@ class Moneda extends Model
                         
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+    
+
+    public function ingreso(){
+    
+        return $this->HasMany('App\Models\Ingreso', 'id_moneda');
+    
+    }
+
+    public function solicitud(){
+    
+        return $this->HasMany('App\Models\Solicitud', 'id_moneda');
+    
+    }
 
     public function status(){
     

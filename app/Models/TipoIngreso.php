@@ -25,6 +25,12 @@ class TipoIngreso extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function ingreso(){
+    
+        return $this->HasMany('App\Models\Ingreso', 'id_tipo_ingreso');
+    
+    }
+
     public function status(){
     
         return $this->BelongsTo('App\Models\Status', 'id_status');

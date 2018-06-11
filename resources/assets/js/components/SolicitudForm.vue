@@ -7,73 +7,33 @@
                 <v-card>
                     
                     <v-card-title class="red accent-1 white--text">
-                        <h2>Ingreso</h2>
+                        <h2>Solicitud</h2>
                     </v-card-title>
                     
                     <v-card-text>
                     <v-layout wrap>
                     
-                        <input v-model="form.id_ingreso" required type="hidden">
+                        <input v-model="form.id_solicitud" required type="hidden">
                         <input v-model="form.id_usuario" required type="hidden">
-
-                        <v-flex xs12 sm6>
-                            <v-select
-                            :items="['Petroleo', 'Oro']"
-                            v-model="form.id_tipo_ingreso"
-                            label="Tipo Ingreso"
-                            autocomplete
-                            required
-                            ></v-select>
-                        </v-flex>
-
-                        <v-flex xs12 sm6>  
-                            <v-select
-                            :items="['CUSPA', 'Bandes']"
-                            v-model="form.id_ente"
-                            label="Ente Receptor"
-                            autocomplete
-                            required
-                            ></v-select>
-                        </v-flex>
 
                         <v-flex xs12>  
                             <v-select
-                            :items="['Venezuela', 'BVC']"
-                            v-model="form.id_banco"
-                            label="Banco Receptor"
+                            :items="['CUSPA', 'MPP DEFENSA', 'GOBERNACION ARAGUA']"
+                            v-model="form.id_ente"
+                            label="Ente Solicitante"
                             autocomplete
                             required
                             ></v-select>
                         </v-flex>
 
-                        <v-flex xs12 sm4>
+                        <v-flex xs12 sm6>
                             <v-text-field
-                            v-model="form.mo_ingreso"
-                            :rules="rules.mo_ingreso"
-                            label="Monto Ingreso"
-                            placeholder="Ingrese monto"
-                            hint="Ej 845.456,12"
+                            v-model="form.nu_solicitud"
+                            :rules="rules.nu_solicitud"
+                            label="Numero Solicitud"
+                            placeholder="Ingrese Numero de la Solicitud"
+                            hint="Ej MPPEF-01-2018"
                             required
-                            ></v-text-field>
-                        </v-flex>
-
-                        <v-flex xs12 sm4>
-                            <v-select
-                            :items="['EURO', 'DOLARES']"
-                            v-model="form.id_moneda"
-                            label="Moneda"
-                            autocomplete
-                            required
-                            ></v-select>
-                        </v-flex>
-
-                        <v-flex xs12 sm4>
-                            <v-text-field
-                            v-model="form.mo_tasa"
-                            :rules="rules.mo_tasa"
-                            label="Tasa de Cambio"
-                            placeholder="Ingrese Tasa"
-                            hint="Ej 107,02"
                             ></v-text-field>
                         </v-flex>
 
@@ -94,23 +54,54 @@
                             <v-text-field
                             slot="activator"
                             v-model="date"
-                            :rules="rules.fe_ingreso"
-                            label="Seleccione Fecha"
+                            :rules="rules.fe_solicitud"
+                            label="Fecha de la Solicitud"
                             prepend-icon="event"
                             readonly
                             required
                             ></v-text-field>
                             <v-date-picker v-model="date" @input="$refs.menu1.save(date)"></v-date-picker>
-
                         </v-menu>
                         </v-flex>
+                        
+                        <v-flex xs12>
+                            <v-text-field
+                            v-model="form.tx_concepto"
+                            :rules="rules.tx_concepto"
+                            label="Concepto de la Solicitud"
+                            placeholder="Ingrese Descripcion"
+                            required
+                            ></v-text-field>
+                        </v-flex>
+                        
+                        <v-flex xs12 sm6>
+                            <v-text-field
+                            v-model="form.mo_solicitud"
+                            :rules="rules.mo_solicitud"
+                            label="Monto Solicitud"
+                            placeholder="Ingrese monto"
+                            hint="Ej 845.456,12"
+                            required
+                            ></v-text-field>
+                        </v-flex>
+
+                        <v-flex xs12 sm6>
+                            <v-select
+                            :items="['EURO', 'DOLARES']"
+                            v-model="form.id_moneda"
+                            label="Moneda"
+                            autocomplete
+                            required
+                            ></v-select>
+                        </v-flex>
+                        
                         <v-flex xs12 sm6>  
                             <v-select
                             :items="[{'id_status': 1, 'nb_status' :'Confirmado'}, {'id_status': 2, 'nb_status' :'Pendiente'}]"
                             item-text="nb_status"
                             item-value="id_status"
                             v-model="form.id_status"
-                            label="Status del Ingreso"
+                            label="Status de la Solicitud"
                             autocomplete
                             required
                             ></v-select>
@@ -172,27 +163,31 @@ export default {
             dateFormatted: '',
             menu1: false,
             form:{
-                id_ingreso: '',
-                id_tipo_ingreso: '',
+                id_solicitud: '',
+                nu_solicitud: '',
+                tx_concepto: '',
+                mo_solicitud: '',
+                fe_solicitud: '',
                 id_ente: '',
                 id_moneda: '',
-                mo_ingreso: '',
-                mo_tasa: '',
-                fe_ingreso: '',
-                id_banco: '',
+                id_categoria: '',
                 tx_observaciones: '',
                 id_usuario: '',
                 id_status: ''
             },
             rules:{
-               mo_ingreso: [
+                mo_solicitud: [
                     v => !!v || 'Campo Requerido',
                     ],
-                mo_tasa: [
+                nu_solicitud: [
                     v => !!v || 'Campo Requerido',
                     () => true
                     ], 
-                fe_ingreso: [
+                fe_solicitud: [
+                    v => !!v || 'Campo Requerido',
+                    () => true
+                    ], 
+                tx_concepto: [
                     v => !!v || 'Campo Requerido',
                     () => true
                     ], 
@@ -200,7 +195,7 @@ export default {
             
         }
     },
-    props: ['accion','ingreso'],
+    props: ['accion','solicitud'],
     mixins: [ withSnackbar ],
     computed: {
       computedDateFormatted () {
@@ -212,7 +207,9 @@ export default {
             this.dateFormatted = this.formatDate(this.date)
         },
         accion: function (val) {
+            
             this.btnAccion = val;
+
             if(val=='upd')
             {
                 this.mapForm()
@@ -248,12 +245,12 @@ export default {
         },
         mapForm(){
 
-            if(this.ingreso)
+            if(this.solicitud)
             {
-                for(var key in this.ingreso) {
+                for(var key in this.solicitud) {
 
                     if(this.form.hasOwnProperty(key)) {
-                        this.form[key] = this.ingreso[key];
+                        this.form[key] = this.solicitud[key];
                     }
                 }
             }else{
@@ -278,7 +275,7 @@ export default {
             
             this.form.id_usuario = this.$store.getters.user.id
            
-            axios.put('/api/v1/ingreso/'+ this.ingreso.id_ingreso, this.form)
+            axios.put('/api/v1/solicitud/'+ this.solicitud.id_solicitud, this.form)
             .then(respuesta => {
                     this.showMessage(respuesta)
             })
@@ -290,7 +287,7 @@ export default {
             
             this.form.id_usuario = this.$store.getters.user.id
             
-            axios.post('/api/v1/ingreso', this.form)
+            axios.post('/api/v1/solicitud', this.form)
             .then(respuesta => {
                     this.showMessage(respuesta)
             })

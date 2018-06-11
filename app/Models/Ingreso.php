@@ -16,12 +16,12 @@ class Ingreso extends Model
 
     protected $fillable   = [
                             'id_tipo_ingreso',
-                            'id_grupo_ente',
+                            'id_ente',
                             'id_moneda',
                             'mo_ingreso',
-                            'id_tasa',
+                            'mo_tasa',
                             'fe_ingreso',
-                            'id_grupo_banco',
+                            'id_banco',
                             'fe_periodo_inicio',
                             'fe_periodo_fin',
                             'tx_observaciones',
@@ -33,6 +33,31 @@ class Ingreso extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    
+    public function tipoIngreso(){
+    
+        return $this->BelongsTo('App\Models\TipoIngreso', 'id_tipo_ingreso');
+    
+    }
+    
+    public function ente(){
+    
+        return $this->BelongsTo('App\Models\Ente', 'id_ente');
+    
+    }
+    
+    public function moneda(){
+    
+        return $this->BelongsTo('App\Models\Moneda', 'id_moneda');
+    
+    }
+    
+    public function banco(){
+    
+        return $this->BelongsTo('App\Models\Banco', 'id_banco');
+    
+    }
+    
     public function status(){
     
         return $this->BelongsTo('App\Models\Status', 'id_status');

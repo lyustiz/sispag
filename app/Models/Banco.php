@@ -26,6 +26,12 @@ class Banco extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function ingreso(){
+    
+        return $this->HasMany('App\Models\Ingreso', 'id_banco');
+    
+    }
+    
     public function tipoBanco(){
     
         return $this->BelongsTo('App\Models\TipoBanco', 'id_tipo_banco');

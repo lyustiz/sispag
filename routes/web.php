@@ -52,6 +52,11 @@ Route::get('/ingreso', function(){
     return view('ingreso');
 });
 
+Route::get('/solicitud', function(){ 
+    return view('solicitud');
+});
+
+
 Route::get('/instruccion', function(){ 
     return view('instruccion');
 });

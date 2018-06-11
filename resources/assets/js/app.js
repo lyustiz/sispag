@@ -26,6 +26,8 @@ Vue.component('banco-lista', require('./components/BancoLista.vue'));
 Vue.component('banco-form', require('./components/BancoForm.vue'));
 Vue.component('ingreso-lista', require('./components/IngresoLista.vue'));
 Vue.component('ingreso-form', require('./components/IngresoForm.vue'));
+Vue.component('solicitud-lista', require('./components/SolicitudLista.vue'));
+Vue.component('solicitud-form', require('./components/SolicitudForm.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
@@ -57,8 +59,14 @@ const app = new Vue({
       { icon: 'home', text: 'Home', href: '/home' },
       { icon: 'airplay', text: 'Landing Page', href: '/' },
       { heading: 'Modulos' },
+      { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
+      { icon: 'record_voice_over', text: 'Solicitud', href: '/solicitud' },
+      { icon: 'how_to_reg', text: 'Intruccion', href: '/instruccion' },
+      { heading: 'Datos Maestros' },
       { icon: 'account_balance', text: 'Banco', href: '/banco' },
-      { icon: 'attach_money', text: 'Ingresos', href: '/ingreso' },
+      { icon: 'store_mall_directory', text: 'Entes', href: '/home' },
+      { icon: 'format_list_numbered_rtl', text: 'Categorias', href: '/home' },
+      { icon: 'attach_money', text: 'Monedas', href: '/home' },
       
       //{ heading: 'Administració', role: 'Manager' }
     ]

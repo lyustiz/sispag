@@ -4,19 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ente extends Model
+class Solicitud extends Model
 {
-    protected $table 	  = 'ente';
+    protected $table 	  = 'solicitud';
 
-	protected $primaryKey = 'id_ente';
+	protected $primaryKey = 'id_solicitud';
 	
 	const 	  CREATED_AT  = 'fe_creado';
 
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'nb_ente',
-                            'id_clase_ente',
+                            'nu_solicitud',
+                            'tx_concepto',
+                            'mo_solicitud',
+                            'fe_solicitd',
+                            'id_ente',
+                            'id_moneda',
+                            'id_categoria',
                             'tx_observaciones',
                             'id_usuario',
                             'id_status',
@@ -25,20 +30,25 @@ class Ente extends Model
                             ]; 
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+    
+    public function ente(){
+    
+        return $this->BelongsTo('App\Models\Ente', 'id_ente');
+    
+    }
 
+    public function categoria(){
     
-    public function ingreso(){
-    
-        return $this->HasMany('App\Models\Ingreso', 'id_ente');
+        return $this->BelongsTo('App\Models\Categoria', 'id_categoria');
     
     }
 
-    public function solicitud(){
+    public function moneda(){
     
-        return $this->HasMany('App\Models\Solicitud', 'id_ente');
+        return $this->BelongsTo('App\Models\Moneda', 'id_moneda');
     
     }
-    
+
     public function status(){
     
         return $this->BelongsTo('App\Models\Status', 'id_status');

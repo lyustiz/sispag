@@ -24,6 +24,12 @@ class Categoria extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function solicitud(){
+    
+        return $this->HasMany('App\Models\Solicitud', 'id_categoria');
+    
+    }
+
     public function status(){
     
         return $this->BelongsTo('App\Models\Status', 'id_status');

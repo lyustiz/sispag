@@ -6,9 +6,9 @@
                 <v-card>
                   
                     <v-card-title class="blue accent-1 white--text">
-                        <h3>Ingresos</h3>
+                        <h3>Solicitudes</h3>
                         <v-spacer></v-spacer>
-                        <v-btn @click="insIngreso" color="green" dark>
+                        <v-btn @click="insSolicitud" color="green" dark>
                         <v-icon>add</v-icon>
                             agregar        
                         </v-btn> 
@@ -29,8 +29,8 @@
                         
                         <v-flex xs12 sm6>
                         <v-select
-                            label="Tipo Ingreso"
-                            :items="['PDVSA', 'VENTA DE ORO', 'PRESTAMO DE PAÍS','PRESTAMOS DE ORGANISMOS MULTILATERAL']"
+                            label="Categoria Solicitud"
+                            :items="['ALIMENTOS', 'CLAP', 'FANB']"
                             v-model="buscar"
                         ></v-select>
                         </v-flex>
@@ -40,22 +40,21 @@
 
                         <v-data-table
                         :headers="headers"
-                        :items  ="ingresos"
+                        :items  ="solicitudes"
                         :search ="buscar"
-                        item-key="id_ingreso"
+                        item-key="id_solicitud"
                         >
-                        <template slot="items" slot-scope="ingreso">
+                        <template slot="items" slot-scope="solicitud">
                             
-                            <td class="text-xs-left" @click="ingreso.expanded = !ingreso.expanded" >{{ ingreso.item.tipo_ingreso.nb_tipo_ingreso }}</td>
-                            <td class="text-xs-left">{{ ingreso.item.ente.nb_ente }}</td>
-                            <td class="text-xs-left">{{ ingreso.item.banco.nb_banco }}</td>
-                            <td class="text-xs-left">{{ ingreso.item.moneda.nb_moneda }}</td>
-                            <td class="text-xs-right">{{ ingreso.item.mo_ingreso }}</td>
-                            <td class="text-xs-right">{{ ingreso.item.mo_tasa }}</td>
-                            <td class="text-xs-left">{{ ingreso.item.fe_ingreso| formDate }}</td>
+                            <td class="text-xs-left" @click="solicitud.expanded = !solicitud.expanded" >{{ solicitud.item.ente.nb_ente }}</td>
+                            <td class="text-xs-left">{{ solicitud.item.mo_solicitud }}</td>
+                            <td class="text-xs-left">{{ solicitud.item.tx_concepto }}</td>
+                            <td class="text-xs-left">{{ solicitud.item.categoria.nb_categoria }}</td>
+                            <td class="text-xs-right">{{ solicitud.item.fe_solicitud | formDate}}</td>
+                            <td class="text-xs-right">{{ solicitud.item.status.nb_status }}</td>
                             <!--acciones-->
                             <td class="justify-center layout px-0">
-                                <v-btn icon @click="updIngreso(ingreso.item )" >
+                                <v-btn icon @click="updSolicitud(solicitud.item )" >
                                     <v-icon color="orange">edit</v-icon>
                                 </v-btn>
                                 <v-btn icon >
@@ -68,14 +67,14 @@
                             
                         </template>
 
-                        <template slot="expand" slot-scope="ingreso">
+                        <template slot="expand" slot-scope="solicitud">
                             <v-card flat>
-                                <v-card-text>Detalle Ingreso  {{ingreso.item}}</v-card-text>
+                                <v-card-text>Detalle Solicitud  {{solicitud.item}}</v-card-text>
                             </v-card>
                         </template>
 
-                        <template slot="pageText" slot-scope="ingreso">
-                         Pagina {{ ingreso.pageStart }} - {{ ingreso.pageStop }} de {{ ingreso.itemsLength }}
+                        <template slot="pageText" slot-scope="solicitud">
+                         Pagina {{ solicitud.pageStart }} - {{ solicitud.pageStop }} de {{ solicitud.itemsLength }}
                         </template>
 
                         <v-alert slot="no-results" :value="true" color="info" icon="info">
@@ -105,7 +104,7 @@
 
           <v-card-text> 
 
-              <ingreso-form :accion="accion" :ingreso="ingreso" @cerrarModal="cerrarModal"></ingreso-form>
+              <solicitud-form :accion="accion" :solicitud="solicitud" @cerrarModal="cerrarModal"></solicitud-form>
             
           </v-card-text>
           
@@ -125,7 +124,7 @@ Vue.use(require('vue-moment'));
 export default {
     created() {
 
-        this.ingresos  = this.list();
+        this.solicitudes  = this.list();
     },
     filters: {
 
@@ -133,28 +132,28 @@ export default {
 
             if (!value) return ''
             value = value.toString();
-            return value.substr(6, 2)+'/'+value.substr(4, 2)+'/'+value.substr(0, 4);
+            return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4);
         }
 
     },
     data () {
     return {
         modal:     false,
-        ingresos:  false,
+        solicitudes:  false,
         buscar:    '',
         busTipIng: '',
         accion:    '',
-        ingreso:   false,
+        solicitud:   false,
         nb_accion: false,
         headers: [
-        { text: 'Tipo Ingreso',  value: 'tipo_ingreso.nb_tipo_ingreso' },
-        { text: 'Ente Receptor', value: 'ente.nb_ente' },
-        { text: 'Banco Receptor',value: 'banco.nb_banco' },
-        { text: 'Moneda',        value: 'moneda.nb_moneda' },
-        { text: 'Monto',         value: 'mo_ingreso' },
-        { text: 'Tasa',          value: 'mo_tasa' },
-        { text: 'Fecha',         value: 'fe_ingreso' },
-        { text: 'Acciones',      value: 'id_status'  },
+
+        { text: 'Ente Solic.', value: 'ente.nb_ente' },
+        { text: 'Monto',       value: 'mo_solicitud' },
+        { text: 'Concepto',    value: 'tx_concepto' },
+        { text: 'Categoria',   value: 'categoria.nb_categoria' },
+        { text: 'Fecha',       value: 'fe_solicitud' },
+        { text: 'Estatus',     value: 'status.nb_status' },
+        { text: 'Acciones',    value: 'id_status'  },
         ]
     }
     },
@@ -162,45 +161,42 @@ export default {
     {
         customFilter(items, search, filter) {
 
-            console.log(items )
-            console.log(search )
-            console.log(filter )
-            //search = search.toString().toLowerCase()
-            return items.filter(row => filter(row["tipo_ingreso.nb_tipo_ingreso"], search));
+            return items.filter(row => filter(row["categoria.nb_categoria"], search));
         },
         cerrarModal(){
 
             this.modal = false;
-            this.ingreso = '';
+            this.solicitud = '';
 
         },
         list () {
-
-            axios.get('/api/v1/ingreso')
+            
+            axios.get('/api/v1/solicitud')
             .then(respuesta => {
-                    this.ingresos = respuesta.data;
+                console.log(respuesta.data);
+                    this.solicitudes = respuesta.data;
             })
             .catch(error => {
                     
             })
         },
-        updIngreso (ingreso) {
+        updSolicitud (solicitud) {
             
-            this.nb_accion  = 'Editar Ingreso: ' + ingreso.tipo_ingreso.nb_tipo_ingreso;
+            this.nb_accion  = 'Editar Solicitud: ' + solicitud.ente.nb_ente;
             this.accion     = 'upd';
             this.modal      = true;
-            this.ingreso    = ingreso;
+            this.solicitud  = solicitud;
         },
-        insIngreso () {
+        insSolicitud () {
 
-            this.nb_accion  = 'Agregar Ingreso:';
+            this.nb_accion  = 'Agregar Solicitud:';
             this.accion     = 'ins';
             this.modal      = true;
             
         },
-        delIngreso (ingreso) {
+        delSolicitud (solicitud) {
 
-            console.log('eliminar Ingreso')
+            console.log('eliminar Solicitud')
             
         }
     }

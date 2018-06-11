@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ingreso;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 
-class IngresoController extends Controller
+class SolicitudController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class IngresoController extends Controller
      */
     public function index()
     {
-        $ingresos = Ingreso::with(['tipoIngreso', 'ente', 'moneda', 'banco', 'status'])->get();
+        $solicitudes = Solicitud::with(['ente', 'moneda', 'categoria', 'status'])->get();
         
-        return $ingresos;
+        return $solicitudes;
     }
 
     /**
@@ -43,10 +43,10 @@ class IngresoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Ingreso  $ingreso
+     * @param  \App\Models\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function show(Ingreso $ingreso)
+    public function show(Solicitud $solicitud)
     {
         //
     }
@@ -54,10 +54,10 @@ class IngresoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Ingreso  $ingreso
+     * @param  \App\Models\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ingreso $ingreso)
+    public function edit(Solicitud $solicitud)
     {
         //
     }
@@ -66,10 +66,10 @@ class IngresoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ingreso  $ingreso
+     * @param  \App\Models\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ingreso $ingreso)
+    public function update(Request $request, Solicitud $solicitud)
     {
         //
     }
@@ -77,10 +77,10 @@ class IngresoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Ingreso  $ingreso
+     * @param  \App\Models\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ingreso $ingreso)
+    public function destroy(Solicitud $solicitud)
     {
         //
     }
