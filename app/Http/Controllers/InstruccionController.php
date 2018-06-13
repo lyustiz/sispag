@@ -14,7 +14,7 @@ class InstruccionController extends Controller
      */
     public function index()
     {
-        $instrucciones = Instruccion::with(['esquema', 'banco', 'status'])->get();
+        $instrucciones = Instruccion::with(['esquema','solicitud.ente', 'solicitud.categoria', 'status'])->get();
         
         return $instrucciones;
     }

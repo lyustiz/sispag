@@ -46,12 +46,13 @@
                         >
                         <template slot="items" slot-scope="instruccion">
                             
-                            <td class="text-xs-left" @click="instruccion.expanded = !instruccion.expanded" >{{ instruccion.item.esquema.nb_esquema }}</td>
-                            <td class="text-xs-left">{{ instruccion.item.nu_esquema }}</td>
-                            <td class="text-xs-left">{{ instruccion.item.tx_ofi_cta_mte }}</td>
+                            <td class="text-xs-left" @click="instruccion.expanded = !instruccion.expanded" >{{ instruccion.item.solicitud.categoria.nb_categoria }}</td>
+                            <td class="text-xs-right">{{ instruccion.item.solicitud.ente.nb_ente }}</td>
+                            <td class="text-xs-right">{{ instruccion.item.solicitud.tx_concepto  }}</td>
+                            <td class="text-xs-left">{{ instruccion.item.mo_instruccion }}</td>
                             <td class="text-xs-left">{{ instruccion.item.fe_instruccion | formDate }}</td>
-                            <td class="text-xs-right">{{ instruccion.item.fe_liq_bcv | formDate }}</td>
-                            <td class="text-xs-right">{{ instruccion.item.banco.nb_banco }}</td>
+                            <td class="text-xs-left">{{ instruccion.item.esquema.nb_esquema }}</td>
+                            
                             <!--acciones-->
                             <td class="justify-center layout px-0">
                                 <v-btn icon @click="updIngreso(instruccion.item )" >
@@ -146,12 +147,12 @@ export default {
         instruccion:   false,
         nb_accion: false,
         headers: [
+        { text: 'Categoria',     value: 'solicitud.categoria.nb_categoria' },
+        { text: 'Ente',    value: 'instruccion.ente.nb_ente' },
+        { text: 'Concepto', value: 'instruccion.tx_concepto' },
+        { text: 'Monto',  value: 'mo_instruccion' },
+        { text: 'Fecha',  value: 'fe_instruccion' },
         { text: 'Esquema Pago', value: 'esquema.nb_esquema' },
-        { text: 'Nro Pago',     value: 'nu_esquema' },
-        { text: 'Ofi Cta Mte',  value: 'tx_ofi_cta_mte' },
-        { text: 'Fecha Instr',  value: 'fe_instruccion' },
-        { text: 'Fech Liq BCV', value: 'fe_liq_bcv' },
-        { text: 'Banco Liq',    value: 'banco.nb_banco' },
         { text: 'Acciones',     value: 'id_status'  },
         ]
     }
@@ -160,11 +161,7 @@ export default {
     {
         customFilter(items, search, filter) {
 
-            console.log(items )
-            console.log(search )
-            console.log(filter )
-            //search = search.toString().toLowerCase()
-            return items.filter(row => filter(row["tipo_instruccion.nb_tipo_instruccion"], search));
+            return items.filter(row => filter(row["solicitud.categoria.nb_categoria"], search));
         },
         cerrarModal(){
 

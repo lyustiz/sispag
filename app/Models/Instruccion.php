@@ -15,19 +15,21 @@ class Instruccion extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
+                            'id_solicitud',
+                            'tx_concepto',
                             'id_esquema',
                             'nu_esquema',
                             'tx_ofi_cta_mte',
                             'bo_ofi_cta_mte',
                             'fe_instruccion',
-                            'fe_liq_bcv',
-                            'id_banco',
+                            'mo_instruccion',
                             'tx_observacion',
                             'id_usuario',
                             'id_status',
                             'fe_creado',
                             'fe_actualizado'
                             ]; 
+                            
 
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
     
@@ -38,9 +40,9 @@ class Instruccion extends Model
     
     }   
     
-    public function banco(){
+    public function solicitud(){
     
-        return $this->BelongsTo('App\Models\Banco', 'id_banco');
+        return $this->BelongsTo('App\Models\Solicitud', 'id_solicitud');
     
     } 
 
