@@ -29,8 +29,8 @@
                         
                         <v-flex xs12 sm6>
                         <v-select
-                            label="Esquema de Pago"
-                            :items="['CENCOEX', 'VOI']"
+                            label="Categoria"
+                            :items="['ALIMENTOS', 'VOI']"
                             v-model="buscar"
                         ></v-select>
                         </v-flex>
@@ -167,6 +167,7 @@ export default {
 
             this.modal = false;
             this.instruccion = '';
+            this.list();
 
         },
         list () {

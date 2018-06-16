@@ -4,7 +4,7 @@ import mutations from './mutations'
 const state = {
   show: false,
   color: 'error',
-  text: 'An error occurred',
+  text: 'Ha ocurrido un error',
   subText: '',
   timeout: 6000
 }

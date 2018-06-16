@@ -43,7 +43,7 @@
                                 <v-btn icon @click="updBanco(banco.item )" >
                                     <v-icon color="orange">edit</v-icon>
                                 </v-btn>
-                                <v-btn icon @click="updBanco" >
+                                <v-btn icon @click="true" >
                                     <v-icon color="red">delete</v-icon>
                                 </v-btn>
                             </td>
@@ -137,6 +137,7 @@ export default {
         cerrarModal(){
             this.modal = false;
             this.banco = '';
+            this.list();
         },
         list () {
 
