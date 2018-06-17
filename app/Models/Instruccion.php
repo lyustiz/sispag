@@ -23,6 +23,7 @@ class Instruccion extends Model
                             'bo_ofi_cta_mte',
                             'fe_instruccion',
                             'mo_instruccion',
+                            'id_moneda',
                             'tx_observacion',
                             'id_usuario',
                             'id_status',
@@ -32,11 +33,16 @@ class Instruccion extends Model
                             
 
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
-    
 
     public function esquema(){
     
         return $this->BelongsTo('App\Models\Esquema', 'id_esquema');
+    
+    }
+    
+    public function moneda(){
+    
+        return $this->BelongsTo('App\Models\Moneda', 'id_moneda');
     
     }   
     

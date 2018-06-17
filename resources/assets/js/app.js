@@ -31,6 +31,7 @@ Vue.component('solicitud-form', require('./components/SolicitudForm.vue'));
 Vue.component('instruccion-lista', require('./components/InstruccionLista.vue'));
 Vue.component('instruccion-form', require('./components/InstruccionForm.vue'));
 Vue.component('test', require('./components/Test.vue'));
+Vue.component('list-select', require('./components/ListSelect.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)

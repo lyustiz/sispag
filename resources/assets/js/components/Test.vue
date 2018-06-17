@@ -1,122 +1,184 @@
 <template>
-        <v-container fluid grid-list-md text-xs-center>
-        <v-layout row justify-center>
-            <v-flex xs11>
-                <v-card>
-                  
 
-                    <v-card-text>
-                        
-                        <v-flex xs6>
-                        <v-text-field
-                            v-model="buscar"
-                            append-icon="search"
-                            label="Buscar"
-                            hide-details
-                        ></v-text-field>
-                        </v-flex>
-                        
-                        <v-flex xs12>
-
-                        <v-data-table
-                        :headers="headers"
-                        :items  ="lista"
-                        :search ="buscar"
-                        v-model="selected"
-                        light
-                        item-key="id_banco"
-                        rows-per-page-text="Res x Pag"
-
-                        >
-
-                        <template slot="items" slot-scope="banco">
-                            
-                            <tr :active="banco.selected" @click="banco.selected = !banco.selected">
-                            <td>
-                                <v-checkbox
-                                :input-value="banco.selected"
-                                primary
-                                hide-details
-                                ></v-checkbox>
-                            </td>
-                  
-
-                            <td v-for="encabezado in encabezados" 
-                                :key="encabezado.text" 
-                                class="text-xs-left"
-                                >
-                                {{ banco.item[encabezado.value] }}
-                            </td>
-
-                            </tr>
-
-                        </template>
-
-                        <v-alert slot="no-results" :value="true" color="info" icon="info">
-                           Busqueda de: "{{ buscar }}" Sin resultados
-                        </v-alert>
-
-                        <template slot="pageText" slot-scope="item">
-                             {{item.pageStart}} - {{item.pageStop}} de {{item.itemsLength}}
-                        </template>
-
-                        </v-data-table>
-                        </v-flex>
-                    </v-card-text>
-
-                    <v-card-actions>
-                        <v-btn
-                        absolute
-                        dark
-                        fab
-                        bottom
-                        right
-                        color="pink"
-                        >
-                        <v-icon>add</v-icon>
-                        </v-btn>
-                    </v-card-actions>
-               
-                </v-card>
-            </v-flex>
-        </v-layout>
-
-
+    <v-container grid-list-xs>
+        
     
+   <v-card>
+       
+       <v-card-title primary-title>
+           <div>
+               <h3 class="headline mb-0">headline</h3>
+               <div>description</div>
+           </div>
+           
+       </v-card-title>
+       <v-card-actions>
+           <v-btn-toggle v-model="toggle_exclusive" >
+              <v-btn flat @click.native="dialogo = true" color="primary">
+                Ingresos<v-icon>monetization_on</v-icon>
+              </v-btn>
+              <v-btn flat @click.native="dialogo2 = true" color="primary">
+                Solicitud<v-icon>record_voice_over</v-icon>
+              </v-btn>
+              <v-btn flat @click.native="dialogo3 = true" color="primary">
+                Instruccion<v-icon>how_to_reg</v-icon>
+              </v-btn>
+            </v-btn-toggle>
+       </v-card-actions>
+
+       <v-card-text>
+         
+         <v-layout row wrap>
+             <v-flex xs12 sm4>
+                 <v-card v-if="ingreso">
+                        <v-toolbar dark color="primary">
+                        <v-card-title primary-title primary>
+                        Ingreso
+                        </v-card-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="ingreso=false">
+                            <v-icon>clear</v-icon>
+                        </v-btn>  
+                        </v-toolbar>
+                     
+                        <v-card-text>
+                            <div>{{ingreso}}</div>
+                            <v-text-field
+                                name="name"
+                                v-model="ingreso.moneda.nb_moneda"
+                                label="Moneda"
+                                readonly
+                            ></v-text-field>
+                            <v-text-field
+                                name="name"
+                                v-model="ingreso.mo_cuenta"
+                                label="Monto Total"
+                                readonly
+                            ></v-text-field>
+                            <v-text-field
+                                name="name"
+                                label="Monto Disponible"
+                            ></v-text-field>
+                            <v-text-field
+                                v-model="instruido"
+                                name="name"
+                                label="Monto Instruccion "
+                            ></v-text-field>
+                        </v-card-text>
+                 </v-card>
+             </v-flex>
+             <v-flex xs12 sm4>
+                 <v-card>
+                     <div v-show="solicitud">{{solicitud}}</div>
+                 </v-card>
+             </v-flex>
+             <v-flex xs12 sm4>
+                 <v-card>
+                     <div v-show="instruccion">{{instruccion}}</div>
+                 </v-card>
+             </v-flex>
+         </v-layout>
 
 
-    </v-container>
+       </v-card-text>
+       
+   </v-card>
+    
+     <v-dialog v-model="dialogo"> 
+        
+            <list-select   
+                tabla="cuenta" 
+                :encabezados="[
+                                { text: 'moneda',   value: 'moneda.nb_moneda' },
+                                { text: 'Monto',    value: 'mo_cuenta' },
+                                { text: 'Status',   value: 'status.nb_status' },
+                                ]"
+                @seleccion="getIngreso"
+            >
+            </list-select>
+     </v-dialog>
+     <v-dialog v-model="dialogo2" > 
+             <list-select   
+                tabla="solicitud" 
+                :encabezados="[
+                                { text: 'Ente',     value: 'ente.nb_ente' },
+                                { text: 'Monto',    value: 'mo_solicitud' },
+                                { text: 'Status',   value: 'status.nb_status' },
+                                ]"
+                @seleccion="getSolicitud"
+            >
+            </list-select>
+
+      </v-dialog>
+      <v-dialog v-model="dialogo3" > 
+             <list-select   
+                tabla="moneda" 
+                :encabezados="[
+                                { text: 'Codigo',   value: 'nb_moneda' },
+                                { text: 'Simbolo',    value: 'co_moneda' },
+                                { text: 'Status',   value: 'status.nb_status' },
+                                ]"
+                @seleccion="getInstruccion"
+            >
+            </list-select>
+
+      </v-dialog>
+
+      </v-container>
+
 </template>
 
 <script>
 export default {
-created() {
+    created() {
         
-        this.lista  = this.list();
+       // this.lista  = this.list();
     },
     data () {
-    return {
-        selected: [],
-        lista: '',
-        buscar: '',
-        item:  '',
-        headers: this.encabezados
-    }
+        return {
+            dialogo: false,
+            dialogo2: false,
+            dialogo3: false,
+            toggle_exclusive: false,
+            ingreso: false,
+            solicitud: false,
+            instruccion: false
+        }
     },
-    props: ['tabla', 'encabezados', 'items'],
+    computed:
+    {
+        instruido()
+        {
+            if(this.ingreso)
+            {
+                let instrucciones = this.ingreso.moneda.instruccion;
+                var total = 0;
+                instrucciones.forEach(function(item) {
+                  total =+ item.mo_instruccion;
+                });
+
+                return total;
+            }
+
+            return 0;
+
+        }
+    },
     methods:
     {
-        list () {
+        getIngreso(item){
+            this.dialogo = false;
+            this.ingreso = item;
+        },
+        getSolicitud(item){
+            this.dialogo2 = false;
+            this.solicitud = item;
+        },
+        getInstruccion(item){
+            this.dialogo3 = false;
+            this.instruccion = item;
+        },
 
-            axios.get('/api/v1/'+this.tabla)
-            .then(respuesta => {
-                console.log(respuesta.data)
-                    this.lista = respuesta.data;
-            })
-            .catch(error => {
-                    
-            })
-        }
     }
 }
 </script>

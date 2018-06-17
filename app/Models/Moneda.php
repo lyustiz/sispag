@@ -15,6 +15,7 @@ class Moneda extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
+                            'nb_moneda',
                             'co_moneda',
                             'tx_observaciones',
                             'id_usuario',
@@ -36,6 +37,12 @@ class Moneda extends Model
     public function solicitud(){
     
         return $this->HasMany('App\Models\Solicitud', 'id_moneda');
+    
+    }
+
+    public function instruccion(){
+    
+        return $this->HasMany('App\Models\Instruccion', 'id_moneda');
     
     }
 

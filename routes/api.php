@@ -23,6 +23,10 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     
     Route::Resource('/banco', 'BancoController');
 
+    Route::Resource('/moneda', 'MonedaController');
+
+    Route::Resource('/cuenta', 'CuentaController');
+
     Route::Resource('/ingreso', 'IngresoController');
 
     Route::Resource('/solicitud', 'SolicitudController');

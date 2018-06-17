@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Moneda;
+use App\Models\Cuenta;
 use Illuminate\Http\Request;
 
-class MonedaController extends Controller
+class CuentaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,25 @@ class MonedaController extends Controller
      */
     public function index()
     {
-        $moneda = Moneda::with(['status'])->get();
-        
-        return $moneda;
+        $cuentas  = Cuenta::with(['moneda.instruccion','status'])->get();
+        return $cuentas;
     }
-    
+
+    public function prueba()
+    {
+       // $sumIntruida = \DB::table('instruccion')->where('id_moneda', '=', 1)->sum('mo_instruccion');
+        
+       //$sumIntruida = \App\Models\Instruccion::get()->where('id_moneda', '=', 1)->sum('mo_instruccion');
+
+       $cuentas  = Cuenta::with(['moneda.instruccion','status'])->get()->toArray();
+
+       // $Intruido = \App\Models\Instruccion::get()->where('id_moneda', '=', 1)->sum('mo_instruccion');
+        //$cuentas =  $cuentas->put('instruido', $Intruido); 
+        return $cuentas;
+
+        //return $sumIntruida;
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,10 +58,10 @@ class MonedaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Moneda  $moneda
+     * @param  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
-    public function show(Moneda $moneda)
+    public function show(Cuenta $cuenta)
     {
         //
     }
@@ -55,10 +69,10 @@ class MonedaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Moneda  $moneda
+     * @param  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
-    public function edit(Moneda $moneda)
+    public function edit(Cuenta $cuenta)
     {
         //
     }
@@ -67,10 +81,10 @@ class MonedaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Moneda  $moneda
+     * @param  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Moneda $moneda)
+    public function update(Request $request, Cuenta $cuenta)
     {
         //
     }
@@ -78,10 +92,10 @@ class MonedaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Moneda  $moneda
+     * @param  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Moneda $moneda)
+    public function destroy(Cuenta $cuenta)
     {
         //
     }

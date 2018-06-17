@@ -34,6 +34,12 @@ class Status extends Model
         return $this->HasMany('App\Models\Banco', 'id_status');
     
     }
+
+    public function cuenta(){
+    
+        return $this->HasMany('App\Models\Cuenta', 'id_status');
+    
+    }
     
     public function categoria(){
         
