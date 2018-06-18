@@ -5,8 +5,8 @@
             <v-flex xs11>
                 <v-card>
                   
-                    <v-card-title class="blue accent-1 white--text">
-                        <h3>Instruccion</h3>
+                    <v-card-title v-if="titulo" class="blue accent-1 white--text">
+                        <h3>Instruccion {{notitle}}</h3>
                         <v-spacer></v-spacer>
                         <v-btn @click="insIngreso" color="green" dark>
                         <v-icon>add</v-icon>
@@ -140,7 +140,7 @@ export default {
     data () {
     return {
         modal:     false,
-        instrucciones:  false,
+        instrucciones:  false, 
         buscar:    '',
         busTipIng: '',
         accion:    '',
@@ -157,6 +157,7 @@ export default {
         ]
     }
     },
+    props:['titulo'],
     methods:
     {
         customFilter(items, search, filter) {

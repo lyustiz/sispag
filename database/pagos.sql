@@ -1,4 +1,4 @@
-/*   
+/*
 Navicat PGSQL Data Transfer
 
 Source Server         : local
@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90601
 File Encoding         : 65001
 
-Date: 2018-06-10 21:35:37
+Date: 2018-06-17 21:01:15
 */
 
 
@@ -23,9 +23,9 @@ CREATE SEQUENCE "pagos"."banco_id_banco_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 19
+ START 20
  CACHE 1;
-SELECT setval('"pagos"."banco_id_banco_seq"', 19, true);
+SELECT setval('"pagos"."banco_id_banco_seq"', 20, true);
 
 -- ----------------------------
 -- Sequence structure for categoria_id_categoria_seq
@@ -50,6 +50,41 @@ CREATE SEQUENCE "pagos"."clase_ente_id_clase_ente_seq"
  START 2
  CACHE 1;
 SELECT setval('"pagos"."clase_ente_id_clase_ente_seq"', 2, true);
+
+-- ----------------------------
+-- Sequence structure for cuenta_id_cuenta_seq
+-- ----------------------------
+DROP SEQUENCE "pagos"."cuenta_id_cuenta_seq";
+CREATE SEQUENCE "pagos"."cuenta_id_cuenta_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 2
+ CACHE 1;
+SELECT setval('"pagos"."cuenta_id_cuenta_seq"', 2, true);
+
+-- ----------------------------
+-- Sequence structure for det_cuenta_id_det_cuenta_seq
+-- ----------------------------
+DROP SEQUENCE "pagos"."det_cuenta_id_det_cuenta_seq";
+CREATE SEQUENCE "pagos"."det_cuenta_id_det_cuenta_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for ejecucion_pago_id_ejecucion_seq
+-- ----------------------------
+DROP SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_seq";
+CREATE SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 3
+ CACHE 1;
+SELECT setval('"pagos"."ejecucion_pago_id_ejecucion_seq"', 3, true);
 
 -- ----------------------------
 -- Sequence structure for ente_id_ente_seq
@@ -88,15 +123,16 @@ CREATE SEQUENCE "pagos"."etapa_envio_id_etapa_envio_seq"
 SELECT setval('"pagos"."etapa_envio_id_etapa_envio_seq"', 3, true);
 
 -- ----------------------------
--- Sequence structure for grupo_bancos_id_grupo_banco_seq
+-- Sequence structure for grupo_banco_id_grupo_banco_seq
 -- ----------------------------
-DROP SEQUENCE "pagos"."grupo_bancos_id_grupo_banco_seq";
-CREATE SEQUENCE "pagos"."grupo_bancos_id_grupo_banco_seq"
+DROP SEQUENCE "pagos"."grupo_banco_id_grupo_banco_seq";
+CREATE SEQUENCE "pagos"."grupo_banco_id_grupo_banco_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 4
  CACHE 1;
+SELECT setval('"pagos"."grupo_banco_id_grupo_banco_seq"', 4, true);
 
 -- ----------------------------
 -- Sequence structure for grupo_ente_id_grupo_ente_seq
@@ -106,8 +142,9 @@ CREATE SEQUENCE "pagos"."grupo_ente_id_grupo_ente_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 5
  CACHE 1;
+SELECT setval('"pagos"."grupo_ente_id_grupo_ente_seq"', 5, true);
 
 -- ----------------------------
 -- Sequence structure for grupo_financiero_id_grupo_financiero_seq
@@ -153,9 +190,9 @@ CREATE SEQUENCE "pagos"."instruccion_id_instruccion_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 2
+ START 3
  CACHE 1;
-SELECT setval('"pagos"."instruccion_id_instruccion_seq"', 2, true);
+SELECT setval('"pagos"."instruccion_id_instruccion_seq"', 3, true);
 
 -- ----------------------------
 -- Sequence structure for moneda_id_moneda_seq
@@ -170,6 +207,18 @@ CREATE SEQUENCE "pagos"."moneda_id_moneda_seq"
 SELECT setval('"pagos"."moneda_id_moneda_seq"', 5, true);
 
 -- ----------------------------
+-- Sequence structure for pagos_id_pago_seq
+-- ----------------------------
+DROP SEQUENCE "pagos"."pagos_id_pago_seq";
+CREATE SEQUENCE "pagos"."pagos_id_pago_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
+SELECT setval('"pagos"."pagos_id_pago_seq"', 1, true);
+
+-- ----------------------------
 -- Sequence structure for solicitud_id_solicitud_seq
 -- ----------------------------
 DROP SEQUENCE "pagos"."solicitud_id_solicitud_seq";
@@ -177,9 +226,9 @@ CREATE SEQUENCE "pagos"."solicitud_id_solicitud_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 3
+ START 4
  CACHE 1;
-SELECT setval('"pagos"."solicitud_id_solicitud_seq"', 3, true);
+SELECT setval('"pagos"."solicitud_id_solicitud_seq"', 4, true);
 
 -- ----------------------------
 -- Sequence structure for status_id_status_seq
@@ -225,9 +274,9 @@ CREATE SEQUENCE "pagos"."tipo_ente_id_tipo_ente_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 2
+ START 3
  CACHE 1;
-SELECT setval('"pagos"."tipo_ente_id_tipo_ente_seq"', 2, true);
+SELECT setval('"pagos"."tipo_ente_id_tipo_ente_seq"', 3, true);
 
 -- ----------------------------
 -- Sequence structure for tipo_ingreso_id_tipo_ingreso_seq
@@ -261,9 +310,9 @@ CREATE SEQUENCE "pagos"."users_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 4
  CACHE 1;
-SELECT setval('"pagos"."users_id_seq"', 1, true);
+SELECT setval('"pagos"."users_id_seq"', 4, true);
 
 -- ----------------------------
 -- Sequence structure for usuario_id_usuario_seq
@@ -288,7 +337,8 @@ CREATE TABLE "pagos"."banco" (
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
 "fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_actualizado" timestamp(6),
+"id_grupo_banco" int4
 )
 WITH (OIDS=FALSE)
 
@@ -297,23 +347,21 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of banco
 -- ----------------------------
-INSERT INTO "pagos"."banco" VALUES ('1', 'BANDES', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('4', 'FONDEN', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('5', 'BANCO DE VENEZUELA', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', '2018-06-09 23:31:49');
-INSERT INTO "pagos"."banco" VALUES ('6', 'BANCO DEL TESORO', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('7', 'BCV', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('8', 'NOVO BANCO', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('9', 'GAZPROM BANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('10', 'NOOR CAPITAL', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('11', 'ZIRAAT BANKASI', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('12', 'EVROFINANCE MOSNARBANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('13', 'BPM ', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('14', 'MONDIAL BANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('15', 'FAISAL BANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('16', 'KUNLUNi.	KUNLUN', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."banco" VALUES ('17', 'BANCO PRUEBA', '1', 'prueba', '1', '1', '2018-06-10 00:57:40', '2018-06-10 02:14:06');
-INSERT INTO "pagos"."banco" VALUES ('18', 'prueba 2', '1', 'www', '1', '1', '2018-06-10 01:37:14', '2018-06-10 01:37:14');
-INSERT INTO "pagos"."banco" VALUES ('19', 'prueba 2', '1', 'www', '1', '1', '2018-06-10 01:37:34', '2018-06-10 01:37:34');
+INSERT INTO "pagos"."banco" VALUES ('1', 'BANDES', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '4');
+INSERT INTO "pagos"."banco" VALUES ('4', 'FONDEN', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '4');
+INSERT INTO "pagos"."banco" VALUES ('5', 'BANCO DE VENEZUELA', '1', null, '1', '2', '2018-06-08 00:00:00', '2018-06-17 21:40:59', '4');
+INSERT INTO "pagos"."banco" VALUES ('6', 'BANCO DEL TESORO', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '4');
+INSERT INTO "pagos"."banco" VALUES ('7', 'BCV', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '4');
+INSERT INTO "pagos"."banco" VALUES ('8', 'NOVO BANCO', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('9', 'GAZPROM BANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('10', 'NOOR CAPITAL', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('11', 'ZIRAAT BANKASI', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('12', 'EVROFINANCE MOSNARBANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('13', 'BPM ', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('14', 'MONDIAL BANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('15', 'FAISAL BANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('16', 'KUNLUN', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
+INSERT INTO "pagos"."banco" VALUES ('17', 'PRUEBA BANCO', '1', 'prueba', '1', '1', '2018-06-10 00:57:40', '2018-06-17 21:20:40', '4');
 
 -- ----------------------------
 -- Table structure for categoria
@@ -368,13 +416,89 @@ INSERT INTO "pagos"."clase_ente" VALUES ('1', 'PUBLICO', 'N/A', '1', '1', '2018-
 INSERT INTO "pagos"."clase_ente" VALUES ('2', 'PRIVADO', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
 
 -- ----------------------------
+-- Table structure for cuenta
+-- ----------------------------
+DROP TABLE IF EXISTS "pagos"."cuenta";
+CREATE TABLE "pagos"."cuenta" (
+"id_cuenta" int4 DEFAULT nextval('"pagos".cuenta_id_cuenta_seq'::regclass) NOT NULL,
+"id_moneda" int4,
+"mo_disponible" numeric(15,2),
+"mo_instruido" numeric(15,2),
+"tx_observaciones" varchar(100) COLLATE "default",
+"id_usuario" int4,
+"id_status" int4,
+"fe_creado" timestamp(6),
+"fe_actualizado" timestamp(6)
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of cuenta
+-- ----------------------------
+INSERT INTO "pagos"."cuenta" VALUES ('1', '1', '32657658.00', '76765873.00', null, '1', '1', null, null);
+INSERT INTO "pagos"."cuenta" VALUES ('2', '2', '45343663.00', '354534345.00', null, '1', '1', null, null);
+
+-- ----------------------------
+-- Table structure for det_cuenta
+-- ----------------------------
+DROP TABLE IF EXISTS "pagos"."det_cuenta";
+CREATE TABLE "pagos"."det_cuenta" (
+"id_det_cuenta" int4 DEFAULT nextval('"pagos".det_cuenta_id_det_cuenta_seq'::regclass) NOT NULL,
+"id_cuenta" int4,
+"nu_cuenta" float8,
+"mo_monto" float8,
+"tx_observaciones" varchar(100) COLLATE "default",
+"id_usuario" int4,
+"id_status" int4,
+"fe_creado" timestamp(6),
+"fe_actualizado" timestamp(6)
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of det_cuenta
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ejecucion_pago
+-- ----------------------------
+DROP TABLE IF EXISTS "pagos"."ejecucion_pago";
+CREATE TABLE "pagos"."ejecucion_pago" (
+"id_ejecucion" int4 DEFAULT nextval('"pagos".ejecucion_pago_id_ejecucion_seq'::regclass) NOT NULL,
+"id_pago" int4 NOT NULL,
+"id_banco" int4 NOT NULL,
+"fe_envio_inst" timestamp(6),
+"id_etapa_envio" int4 NOT NULL,
+"tx_observacion" varchar(100) COLLATE "default",
+"id_usuario" int4,
+"id_status" int4,
+"fe_creado" timestamp(6),
+"fe_actualizado" timestamp(6)
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of ejecucion_pago
+-- ----------------------------
+INSERT INTO "pagos"."ejecucion_pago" VALUES ('1', '1', '5', '2018-07-12 00:00:00', '1', null, '1', '1', '2018-06-12 00:00:00', null);
+INSERT INTO "pagos"."ejecucion_pago" VALUES ('2', '1', '3', '2018-07-12 00:00:00', '2', null, '1', '1', '2018-07-12 00:00:00', null);
+INSERT INTO "pagos"."ejecucion_pago" VALUES ('3', '1', '2', '2018-08-12 00:00:00', '3', null, '1', '1', '2018-07-12 00:00:00', null);
+
+-- ----------------------------
 -- Table structure for ente
 -- ----------------------------
 DROP TABLE IF EXISTS "pagos"."ente";
 CREATE TABLE "pagos"."ente" (
 "id_ente" int4 DEFAULT nextval('"pagos".ente_id_ente_seq'::regclass) NOT NULL,
 "nb_ente" varchar(100) COLLATE "default" NOT NULL,
-"id_clase_ente" int4 NOT NULL,
+"id_tipo_ente" int4 NOT NULL,
+"id_grupo_ente" int4 NOT NULL,
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
@@ -388,12 +512,12 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of ente
 -- ----------------------------
-INSERT INTO "pagos"."ente" VALUES ('1', 'BCV', '1', null, '1', '1', null, null);
-INSERT INTO "pagos"."ente" VALUES ('2', 'FONDEN', '1', null, '1', '1', null, null);
-INSERT INTO "pagos"."ente" VALUES ('3', 'CORPOVEX', '1', null, '1', '1', null, null);
-INSERT INTO "pagos"."ente" VALUES ('5', 'MPP EDUCACION', '1', null, '1', '1', null, null);
-INSERT INTO "pagos"."ente" VALUES ('7', 'MPP ECONOMIA Y FINANZAS', '1', null, '1', '1', null, null);
-INSERT INTO "pagos"."ente" VALUES ('8', 'GOBERNACION TACHIRA', '1', null, '1', '1', null, null);
+INSERT INTO "pagos"."ente" VALUES ('1', 'BCV', '1', '4', null, '1', '1', null, null);
+INSERT INTO "pagos"."ente" VALUES ('2', 'FONDEN', '1', '4', null, '1', '1', null, null);
+INSERT INTO "pagos"."ente" VALUES ('3', 'CORPOVEX', '1', '4', null, '1', '1', null, null);
+INSERT INTO "pagos"."ente" VALUES ('5', 'MPP EDUCACION', '3', '4', null, '1', '1', null, null);
+INSERT INTO "pagos"."ente" VALUES ('7', 'MPP ECONOMIA Y FINANZAS', '3', '4', null, '1', '1', null, null);
+INSERT INTO "pagos"."ente" VALUES ('8', 'GOBERNACION TACHIRA', '2', '4', null, '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for esquema
@@ -451,13 +575,12 @@ INSERT INTO "pagos"."etapa_envio" VALUES ('2', 'INTERMEDIARIO', 'N/A', '1', '1',
 INSERT INTO "pagos"."etapa_envio" VALUES ('3', 'BENEFICIARIO', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
 
 -- ----------------------------
--- Table structure for grupo_bancos
+-- Table structure for grupo_banco
 -- ----------------------------
-DROP TABLE IF EXISTS "pagos"."grupo_bancos";
-CREATE TABLE "pagos"."grupo_bancos" (
-"id_grupo_banco" int4 DEFAULT nextval('"pagos".grupo_bancos_id_grupo_banco_seq'::regclass) NOT NULL,
-"id_banco" int4 NOT NULL,
-"id_grupo_financiero" int4 NOT NULL,
+DROP TABLE IF EXISTS "pagos"."grupo_banco";
+CREATE TABLE "pagos"."grupo_banco" (
+"id_grupo_banco" int4 DEFAULT nextval('"pagos".grupo_banco_id_grupo_banco_seq'::regclass) NOT NULL,
+"nb_grupo_banco" varchar(30) COLLATE "default",
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
@@ -469,8 +592,12 @@ WITH (OIDS=FALSE)
 ;
 
 -- ----------------------------
--- Records of grupo_bancos
+-- Records of grupo_banco
 -- ----------------------------
+INSERT INTO "pagos"."grupo_banco" VALUES ('1', 'RECEPTOR', null, '1', '1', null, null);
+INSERT INTO "pagos"."grupo_banco" VALUES ('2', 'CORRESPONSAL', null, '1', '1', null, null);
+INSERT INTO "pagos"."grupo_banco" VALUES ('3', 'BENEFICIARIO', null, '1', '1', null, null);
+INSERT INTO "pagos"."grupo_banco" VALUES ('4', 'RESPONSABLE PAGO (NAC)', null, '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for grupo_ente
@@ -478,8 +605,7 @@ WITH (OIDS=FALSE)
 DROP TABLE IF EXISTS "pagos"."grupo_ente";
 CREATE TABLE "pagos"."grupo_ente" (
 "id_grupo_ente" int4 DEFAULT nextval('"pagos".grupo_ente_id_grupo_ente_seq'::regclass) NOT NULL,
-"id_ente" int4 NOT NULL,
-"id_tipo_ente" int4 NOT NULL,
+"nb_grupo_ente" varchar(50) COLLATE "default",
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
@@ -493,6 +619,8 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of grupo_ente
 -- ----------------------------
+INSERT INTO "pagos"."grupo_ente" VALUES ('4', 'RECEPTOR', null, '1', '1', '2018-06-12 00:00:00', null);
+INSERT INTO "pagos"."grupo_ente" VALUES ('5', 'SOLICITANTE', null, '1', '1', '2018-06-12 00:00:00', null);
 
 -- ----------------------------
 -- Table structure for grupo_financiero
@@ -560,16 +688,14 @@ CREATE TABLE "pagos"."ingreso" (
 "id_ente" int4,
 "id_moneda" int4,
 "mo_ingreso" numeric,
-"mo_tasa" numeric,
+"id_tasa" int4,
 "fe_ingreso" int4,
-"id_banco" int4,
-"fe_periodo_inicio" int4,
-"fe_periodo_fin" int4,
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
 "fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_actualizado" timestamp(6),
+"id_banco" int4
 )
 WITH (OIDS=FALSE)
 
@@ -578,10 +704,10 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of ingreso
 -- ----------------------------
-INSERT INTO "pagos"."ingreso" VALUES ('1', '1', '1', '1', '5000.00', '34.45', '20180501', '1', '20180501', '20180501', 'ninguna', '1', '1', '2018-01-01 00:00:00', '2018-01-01 00:00:00');
-INSERT INTO "pagos"."ingreso" VALUES ('2', '2', '1', '2', '3455.55', '13.54', '20180501', '1', '20180501', '20180501', 'ninguna', '1', '1', null, null);
-INSERT INTO "pagos"."ingreso" VALUES ('3', '3', '2', '2', '57687.66', '107.66', '20180602', '5', '20180602', '20180602', null, '1', '1', null, null);
-INSERT INTO "pagos"."ingreso" VALUES ('4', '4', '3', '3', '54545.98', '89.00', '20180602', '8', '20180602', '20180602', null, '1', '1', null, null);
+INSERT INTO "pagos"."ingreso" VALUES ('1', '1', '1', '1', '5000.00', '1', '20180501', 'ninguna', '1', '1', '2018-01-01 00:00:00', '2018-01-01 00:00:00', '1');
+INSERT INTO "pagos"."ingreso" VALUES ('2', '2', '1', '2', '3455.55', '2', '20180501', 'ninguna', '1', '1', null, null, '1');
+INSERT INTO "pagos"."ingreso" VALUES ('3', '3', '2', '2', '57687.66', '1', '20180602', null, '1', '1', null, null, '1');
+INSERT INTO "pagos"."ingreso" VALUES ('4', '4', '3', '3', '54545.98', '2', '20180602', null, '1', '1', null, null, '1');
 
 -- ----------------------------
 -- Table structure for instruccion
@@ -589,13 +715,15 @@ INSERT INTO "pagos"."ingreso" VALUES ('4', '4', '3', '3', '54545.98', '89.00', '
 DROP TABLE IF EXISTS "pagos"."instruccion";
 CREATE TABLE "pagos"."instruccion" (
 "id_instruccion" int4 DEFAULT nextval('"pagos".instruccion_id_instruccion_seq'::regclass) NOT NULL,
+"id_solicitud" int4 NOT NULL,
+"tx_concepto" varchar(100) COLLATE "default",
 "id_esquema" int4 NOT NULL,
 "nu_esquema" varchar(20) COLLATE "default",
 "tx_ofi_cta_mte" varchar(20) COLLATE "default",
 "bo_ofi_cta_mte" bool,
 "fe_instruccion" timestamp(6),
-"fe_liq_bcv" timestamp(6),
-"id_banco" int4 NOT NULL,
+"mo_instruccion" float8,
+"id_moneda" int4 NOT NULL,
 "tx_observacion" varchar(100) COLLATE "default",
 "id_usuario" int4,
 "id_status" int4,
@@ -609,8 +737,8 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of instruccion
 -- ----------------------------
-INSERT INTO "pagos"."instruccion" VALUES ('1', '1', 'VOI 0101', 'MPPEF-01-2018', 'f', '2018-06-02 00:00:00', '2018-06-07 00:00:00', '8', null, '1', '1', null, null);
-INSERT INTO "pagos"."instruccion" VALUES ('2', '2', 'SOLICITUD 0101', 'VP-001-2018', 'f', '2018-06-03 00:00:00', '2018-06-05 00:00:00', '6', null, '1', '1', null, null);
+INSERT INTO "pagos"."instruccion" VALUES ('1', '1', 'lanchas', '1', 'nro001', 'ofi-001', 't', '2018-02-01 00:00:00', '5635736', '1', null, '1', '1', null, null);
+INSERT INTO "pagos"."instruccion" VALUES ('3', '1', 'maiz', '1', 'voi 2', 'ofi2', 't', '2018-06-01 00:00:00', '797867.02', '1', null, '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for moneda
@@ -624,8 +752,8 @@ CREATE TABLE "pagos"."moneda" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamptz(6),
-"fe_actualizado" timestamptz(6)
+"fe_creado" timestamp(6),
+"fe_actualizado" timestamp(6)
 )
 WITH (OIDS=FALSE)
 
@@ -642,11 +770,40 @@ COMMENT ON COLUMN "pagos"."moneda"."fe_actualizado" IS 'Fecha y hora de actualiz
 -- ----------------------------
 -- Records of moneda
 -- ----------------------------
-INSERT INTO "pagos"."moneda" VALUES ('1', 'Dolar', 'USD', '$', 'N/A', '1', '1', '2018-06-08 00:00:00-04', null);
-INSERT INTO "pagos"."moneda" VALUES ('2', 'Euro', 'EUR', '€', 'N/A', '1', '1', '2018-06-08 00:00:00-04', null);
-INSERT INTO "pagos"."moneda" VALUES ('3', 'Reminbi', 'RMB', '¥', 'N/A', '1', '1', '2018-06-08 00:00:00-04', null);
-INSERT INTO "pagos"."moneda" VALUES ('4', 'Rublo', 'RUB', '₽', 'N/A', '1', '1', '2018-06-08 00:00:00-04', null);
-INSERT INTO "pagos"."moneda" VALUES ('5', 'Dirham', 'AED', 'Dhs', 'N/A', '1', '1', '2018-06-08 00:00:00-04', null);
+INSERT INTO "pagos"."moneda" VALUES ('1', 'Dolar', 'USD', '$', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."moneda" VALUES ('2', 'Euro', 'EUR', '€', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."moneda" VALUES ('3', 'Reminbi', 'RMB', '¥', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."moneda" VALUES ('4', 'Rublo', 'RUB', '₽', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."moneda" VALUES ('5', 'Dirham', 'AED', 'Dhs', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+
+-- ----------------------------
+-- Table structure for pagos
+-- ----------------------------
+DROP TABLE IF EXISTS "pagos"."pagos";
+CREATE TABLE "pagos"."pagos" (
+"id_pago" int4 DEFAULT nextval('"pagos".pagos_id_pago_seq'::regclass) NOT NULL,
+"id_instruccion" int4 NOT NULL,
+"fe_liq_bcv" timestamp(6),
+"id_banco" int4 NOT NULL,
+"fe_pago" timestamp(6),
+"id_moneda" int4 NOT NULL,
+"id_tasa" int4 NOT NULL,
+"mo_final_pago" float8,
+"id_tipo_pago" int4 NOT NULL,
+"tx_observacion" varchar(100) COLLATE "default",
+"id_usuario" int4,
+"id_status" int4,
+"fe_creado" timestamp(6),
+"fe_actualizado" timestamp(6)
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of pagos
+-- ----------------------------
+INSERT INTO "pagos"."pagos" VALUES ('1', '3', '2018-07-12 00:00:00', '2', '2018-06-12 00:00:00', '3', '1', '5682535.89', '1', null, '1', '1', '2018-06-12 00:00:00', null);
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -664,6 +821,7 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of password_resets
 -- ----------------------------
+INSERT INTO "pagos"."password_resets" VALUES ('cgranados@bandes.gob.ve', '$2y$10$p2uwRfD7RATtuCoCkAdA7.Mi0EW2R7pq.aibKIXXmy8MDuZPIquzW', '2018-06-11 12:19:36');
 INSERT INTO "pagos"."password_resets" VALUES ('lyustis@gmail.com', '$2y$10$bkbN9hwCGmzhPhIbClz8gexKRa8Gwx5NcWrhCsyLXM430lYQA7VbK', '2018-06-08 03:41:35');
 
 -- ----------------------------
@@ -694,7 +852,8 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 INSERT INTO "pagos"."solicitud" VALUES ('1', '0001', 'MAIZ BLANCO', '3242535.89', '2018-06-01 00:00:00', '1', '1', '1', 'N/A', '1', '1', null, null);
 INSERT INTO "pagos"."solicitud" VALUES ('2', '0201', 'PARACAIDAS', '5654654.43', '2018-06-02 00:00:00', '2', '2', '3', 'N/A', '1', '1', null, null);
-INSERT INTO "pagos"."solicitud" VALUES ('3', '0303', 'AMBULANCIA', '232535.23', '2018-06-02 00:00:00', '3', '1', '2', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."solicitud" VALUES ('3', '0303', 'AMBULANCIA', '232535.23', '2018-06-02 00:00:00', '3', '1', '3', 'N/A', '1', '1', null, null);
+INSERT INTO "pagos"."solicitud" VALUES ('4', '0004', 'ARROZ', '433466.00', '2018-08-01 00:00:00', '3', '1', '1', 'N/A', '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for status
@@ -743,12 +902,12 @@ CREATE TABLE "pagos"."tasa" (
 "id_tasa" int4 DEFAULT nextval('"pagos".tasa_id_tasa_seq'::regclass) NOT NULL,
 "id_moneda" int4,
 "mo_tasa" numeric(10,2),
-"fe_registro" timestamptz(6),
+"fe_tasa" timestamp(6),
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamptz(6),
-"fe_actualizado" timestamptz(6)
+"fe_creado" timestamp(6),
+"fe_actualizado" timestamp(6)
 )
 WITH (OIDS=FALSE)
 
@@ -757,7 +916,7 @@ COMMENT ON TABLE "pagos"."tasa" IS 'TABLA QUE DEFINE LOS VALORES DE LAS TASAS AC
 COMMENT ON COLUMN "pagos"."tasa"."id_tasa" IS 'Indentificador único del registro';
 COMMENT ON COLUMN "pagos"."tasa"."id_moneda" IS 'id moneda a quien se le aplica la tasa';
 COMMENT ON COLUMN "pagos"."tasa"."mo_tasa" IS 'Monto o valor de la tasa aplicada a la moneda';
-COMMENT ON COLUMN "pagos"."tasa"."fe_registro" IS 'Fecha registro de la tasa';
+COMMENT ON COLUMN "pagos"."tasa"."fe_tasa" IS 'Fecha registro de la tasa';
 COMMENT ON COLUMN "pagos"."tasa"."tx_observaciones" IS 'Observaciones en caso de aplicar al campo insertado o modificado';
 COMMENT ON COLUMN "pagos"."tasa"."id_usuario" IS 'Id usuario que interviene en el registro';
 COMMENT ON COLUMN "pagos"."tasa"."id_status" IS 'Estatus del registro actual';
@@ -767,7 +926,7 @@ COMMENT ON COLUMN "pagos"."tasa"."fe_actualizado" IS 'Fecha y hora de actualizac
 -- ----------------------------
 -- Records of tasa
 -- ----------------------------
-INSERT INTO "pagos"."tasa" VALUES ('1', '1', '24.20', '2018-06-08 00:00:00-04', 'N/A', '1', '1', '2018-06-08 00:00:00-04', null);
+INSERT INTO "pagos"."tasa" VALUES ('1', '1', '24.20', '2018-06-08 00:00:00', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
 
 -- ----------------------------
 -- Table structure for tipo_banco
@@ -806,7 +965,8 @@ INSERT INTO "pagos"."tipo_banco" VALUES ('2', 'INTERNACIONAL', 'N/A', '1', '1', 
 DROP TABLE IF EXISTS "pagos"."tipo_ente";
 CREATE TABLE "pagos"."tipo_ente" (
 "id_tipo_ente" int4 DEFAULT nextval('"pagos".tipo_ente_id_tipo_ente_seq'::regclass) NOT NULL,
-"nb_grupo_ente" varchar(100) COLLATE "default" NOT NULL,
+"nb_tipo_ente" varchar(100) COLLATE "default" NOT NULL,
+"id_clase_ente" int4 NOT NULL,
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
@@ -820,8 +980,9 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of tipo_ente
 -- ----------------------------
-INSERT INTO "pagos"."tipo_ente" VALUES ('1', 'RECEPTOR', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."tipo_ente" VALUES ('2', 'SOLICITANTE', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."tipo_ente" VALUES ('1', 'ALCALDIAS', '1', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."tipo_ente" VALUES ('2', 'GOBERNACIONES', '1', 'N/A', '1', '1', '2018-06-12 00:00:00', null);
+INSERT INTO "pagos"."tipo_ente" VALUES ('3', 'MINISTERIOS', '1', 'N/A', '1', '1', '2018-06-12 00:00:00', null);
 
 -- ----------------------------
 -- Table structure for tipo_ingreso
@@ -903,7 +1064,8 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO "pagos"."users" VALUES ('1', 'luisa', 'lyustis@gmail.com', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', 'zivom4FKcsETXY45AfpHbA8zDNDSyvfDSDUZaKT0WXEWbI8rp5L7iSyNVZPs', null, '2018-06-09 15:32:29');
+INSERT INTO "pagos"."users" VALUES ('1', 'luisa', 'lyustis@gmail.com', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', 'PD3OMZX63KE6EPS3GPRpXjdMnWRBSIxg4ihU4ch6tGU6BjhM00Q4a7PUX6xf', null, '2018-06-09 15:32:29');
+INSERT INTO "pagos"."users" VALUES ('4', 'carlos', 'cgranados@bandes.gob.ve', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', '338W36NHAFmrSauuDL5L7awis4RxwmV95JR42bJUhnFeu8DoFDDWzQz2ylZ9', null, null);
 
 -- ----------------------------
 -- Table structure for usuario
@@ -942,6 +1104,9 @@ COMMENT ON COLUMN "pagos"."usuario"."fe_actualizado" IS 'Fecha y hora de actuali
 -- ----------------------------
 -- Alter Sequences Owned By 
 -- ----------------------------
+ALTER SEQUENCE "pagos"."det_cuenta_id_det_cuenta_seq" OWNED BY "det_cuenta"."id_det_cuenta";
+ALTER SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_seq" OWNED BY "ejecucion_pago"."id_ejecucion";
+ALTER SEQUENCE "pagos"."pagos_id_pago_seq" OWNED BY "pagos"."id_pago";
 
 -- ----------------------------
 -- Primary Key structure for table banco
@@ -959,6 +1124,16 @@ ALTER TABLE "pagos"."categoria" ADD PRIMARY KEY ("id_categoria");
 ALTER TABLE "pagos"."clase_ente" ADD PRIMARY KEY ("id_clase_ente");
 
 -- ----------------------------
+-- Primary Key structure for table det_cuenta
+-- ----------------------------
+ALTER TABLE "pagos"."det_cuenta" ADD PRIMARY KEY ("id_det_cuenta");
+
+-- ----------------------------
+-- Primary Key structure for table ejecucion_pago
+-- ----------------------------
+ALTER TABLE "pagos"."ejecucion_pago" ADD PRIMARY KEY ("id_ejecucion");
+
+-- ----------------------------
 -- Primary Key structure for table ente
 -- ----------------------------
 ALTER TABLE "pagos"."ente" ADD PRIMARY KEY ("id_ente");
@@ -967,11 +1142,6 @@ ALTER TABLE "pagos"."ente" ADD PRIMARY KEY ("id_ente");
 -- Primary Key structure for table etapa_envio
 -- ----------------------------
 ALTER TABLE "pagos"."etapa_envio" ADD PRIMARY KEY ("id_etapa_envio");
-
--- ----------------------------
--- Primary Key structure for table grupo_bancos
--- ----------------------------
-ALTER TABLE "pagos"."grupo_bancos" ADD PRIMARY KEY ("id_grupo_banco");
 
 -- ----------------------------
 -- Primary Key structure for table grupo_ente
@@ -999,9 +1169,19 @@ ALTER TABLE "pagos"."ingreso" ADD PRIMARY KEY ("id_ingreso");
 ALTER TABLE "pagos"."moneda" ADD PRIMARY KEY ("id_moneda");
 
 -- ----------------------------
+-- Primary Key structure for table pagos
+-- ----------------------------
+ALTER TABLE "pagos"."pagos" ADD PRIMARY KEY ("id_pago");
+
+-- ----------------------------
 -- Indexes structure for table password_resets
 -- ----------------------------
 CREATE INDEX "password_resets_email_index" ON "pagos"."password_resets" USING btree (email);
+
+-- ----------------------------
+-- Primary Key structure for table solicitud
+-- ----------------------------
+ALTER TABLE "pagos"."solicitud" ADD PRIMARY KEY ("id_solicitud");
 
 -- ----------------------------
 -- Primary Key structure for table status
@@ -1032,6 +1212,11 @@ ALTER TABLE "pagos"."tipo_ingreso" ADD PRIMARY KEY ("id_tipo_ingreso");
 -- Primary Key structure for table tipo_pago
 -- ----------------------------
 ALTER TABLE "pagos"."tipo_pago" ADD PRIMARY KEY ("id_tipo_pago");
+
+-- ----------------------------
+-- Primary Key structure for table users
+-- ----------------------------
+ALTER TABLE "pagos"."users" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table usuario

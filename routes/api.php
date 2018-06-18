@@ -22,6 +22,15 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::put('/user', 'LoggedUserController@update');
     
     Route::Resource('/banco', 'BancoController');
+    Route::Resource('/tipoBanco', 'TipoBancoController');
+    Route::Resource('/grupoBanco', 'GrupoBancoController');
+
+    Route::Resource('/ente', 'EnteController');
+    Route::Resource('/grupoEnte', 'TipoEnteController');
+    Route::Resource('/tipoEnte', 'GrupoEnteController');
+
+    Route::Resource('/categoria', 'CategoriaController');
+    
 
     Route::Resource('/moneda', 'MonedaController');
 
@@ -30,7 +39,10 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::Resource('/ingreso', 'IngresoController');
 
     Route::Resource('/solicitud', 'SolicitudController');
+    Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
 
     Route::Resource('/instruccion', 'InstruccionController');
+
+    Route::Resource('/esquema', 'EsquemaController');
 
 });

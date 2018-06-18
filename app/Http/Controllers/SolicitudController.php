@@ -20,6 +20,20 @@ class SolicitudController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function solicitudCategoria($idCategoria)
+    {
+        $solicitudes = Solicitud::with(['ente', 'moneda', 'categoria', 'status'])
+                                ->where('id_categoria', '=', $idCategoria)
+                                ->get();
+        
+        return $solicitudes;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -14,7 +14,21 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+
+        $categorias = Categoria::with(['solicitud','status'])->get();
+        
+        return $categorias;
+
+    }
+    
+
+    public function combo()
+    {
+
+        $categorias = Categoria::selct(['id_categoria', 'nb_categoria'])->get();
+        
+        return $categorias;
+
     }
 
     /**

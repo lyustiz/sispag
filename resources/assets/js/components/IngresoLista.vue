@@ -5,13 +5,14 @@
             <v-flex xs11>
                 <v-card>
                   
-                    <v-card-title class="blue accent-1 white--text">
+                    <v-card-title  class="blue accent-1 white--text">
                         <h3>Ingresos</h3>
                         <v-spacer></v-spacer>
-                        <v-btn @click="insIngreso" color="green" dark>
-                        <v-icon>add</v-icon>
-                            agregar        
-                        </v-btn> 
+                        
+
+                        <v-btn fab @click="insIngreso" dark small color="green">
+                            <v-icon dark>add</v-icon>
+                        </v-btn>
                     </v-card-title>
 
                     <v-card-text>
@@ -158,10 +159,11 @@ export default {
         ]
     }
     },
+    props:['notitle'],
     methods:
     {
         customFilter(items, search, filter) {
-
+e
             console.log(items )
             console.log(search )
             console.log(filter )
@@ -178,6 +180,7 @@ export default {
 
             axios.get('/api/v1/ingreso')
             .then(respuesta => {
+                console.log(respuesta.data)
                     this.ingresos = respuesta.data;
             })
             .catch(error => {

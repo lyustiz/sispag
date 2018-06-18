@@ -34,13 +34,25 @@
                         ></v-text-field>
                         </v-flex>
 
-                        <v-flex xs12>
+                        <v-flex xs12 sm6>
                             <v-select
-                            :items="[{'id_tipo_banco': 1, 'nb_tipo_banc' :'Nacional'}, {'id_tipo_banco': 2, 'nb_tipo_banc' :'Internacional'}]"
-                            item-text="nb_tipo_banc"
+                            :items="listas.tipoBanco"
+                            item-text="nb_tipo_banco"
                             item-value="id_tipo_banco"
                             v-model="form.id_tipo_banco"
                             label="Tipo Banco"
+                            autocomplete
+                            required
+                            ></v-select>
+                        </v-flex>
+
+                        <v-flex xs12 sm6>
+                            <v-select
+                            :items="listas.grupoBanco"
+                            item-text="nb_grupo_banco"
+                            item-value="id_grupo_banco"
+                            v-model="form.id_grupo_banco"
+                            label="Grupo Banco"
                             autocomplete
                             required
                             ></v-select>
@@ -79,7 +91,7 @@
                             </v-btn>
                         </div>
                         <div v-else>
-                            <v-btn @click="store" :disabled="!valido" color="green">
+                            <v-btn @click="store" :disabled="!valido" dark color="green">
                                 <v-icon>save_alt</v-icon>
                                 Guardar
                             </v-btn>
@@ -106,6 +118,11 @@
 import withSnackbar from '../components/mixins/withSnackbar';
 
 export default {
+    mixins: [ withSnackbar ],
+     created() {
+       this.listTipos(); 
+       this.listGrupos();
+    },
     data () {
         return {
             valido: false,
@@ -114,9 +131,14 @@ export default {
                 id_banco: '',
                 nb_banco: '',
                 id_tipo_banco: '',
+                id_grupo_banco: '',
                 id_status: '',
                 tx_observaciones: '',
                 id_usuario:''
+            },
+            listas:{
+                tipoBanco: [],
+                grupoBanco: []
             },
             rules:{
                nb_banco: [
@@ -131,7 +153,6 @@ export default {
         }
     },
     props: ['accion','banco'],
-    mixins: [ withSnackbar ],
     watch: {
         accion: function (val) {
             this.btnAccion = val;
@@ -142,7 +163,6 @@ export default {
                 this.clear();
             }
             
-           
         },
         banco: function (val) {
             this.mapForm()
@@ -189,7 +209,7 @@ export default {
            
             axios.put('/api/v1/banco/'+ this.banco.id_banco, this.form)
             .then(respuesta => {
-                    this.showMessage(respuesta)
+                    this.showMessage(respuesta.data.msj)
             })
             .catch(error => {
                     this.showError(error);
@@ -204,8 +224,26 @@ export default {
                     this.showMessage(respuesta)
             })
             .catch(error => {
-                console.log(error);
+                
                     this.showError(error);
+            })
+        },
+        listTipos(){
+             axios.get('/api/v1/tipoBanco')
+            .then(respuesta => {
+                this.listas.tipoBanco = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+        },
+        listGrupos(){
+             axios.get('/api/v1/grupoBanco')
+            .then(respuesta => {
+                this.listas.grupoBanco = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)    
             })
         }
     }

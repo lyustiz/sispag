@@ -14,7 +14,9 @@ class EsquemaController extends Controller
      */
     public function index()
     {
-        //
+        $esquema = Esquema::with(['status'])->get();
+        
+        return $esquema;
     }
 
     /**

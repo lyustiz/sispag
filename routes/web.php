@@ -27,6 +27,10 @@ Route::get('/categoria', function(){
     return view('categoria');
 });
 
+Route::get('/esquema', function(){ 
+    return view('esquema');
+});
+
 Route::get('/claseente', function(){ 
     return view('claseente');
 });

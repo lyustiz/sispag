@@ -4,7 +4,7 @@
 
     <v-container fluid grid-list-md text-xs-center>
 
-    <ente-lista></ente-lista>
+    <categoria-lista></categoria-lista>
 
     </v-container>
 

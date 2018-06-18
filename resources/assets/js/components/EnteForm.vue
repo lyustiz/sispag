@@ -7,14 +7,14 @@
                 <v-card>
                     
                     <v-card-title class="red accent-1 white--text">
-                        <h2>Moneda</h2>
+                        <h2>Ente</h2>
                     </v-card-title>
                     
                     <v-card-text>
                     <v-layout wrap>
                     
                         <input
-                            v-model="form.id_moneda"
+                            v-model="form.id_ente"
                             required
                             type="hidden"
                         >
@@ -26,42 +26,45 @@
 
                         <v-flex xs12 >
                         <v-text-field
-                            :rules="rules.nb_moneda"
-                            v-model="form.nb_moneda"
-                            label="Nombre del Moneda"
+                            :rules="rules.nb_ente"
+                            v-model="form.nb_ente"
+                            label="Nombre del Ente"
                             placeholder="Indique Nombre"
                             required
                         ></v-text-field>
                         </v-flex>
 
                         <v-flex xs12 sm6>
-                            <v-text-field
-                            :rules="rules.co_moneda"
-                            v-model="form.co_moneda"
-                            label="Codigo Moneda"
-                            placeholder="Indique Codigo"
+                            <v-select
+                            :items="listas.tipoEnte"
+                            item-text="nb_tipo_ente"
+                            item-value="id_tipo_ente"
+                            v-model="form.id_tipo_ente"
+                            label="Tipo Ente"
+                            autocomplete
                             required
-                        ></v-text-field>
+                            ></v-select>
                         </v-flex>
 
                         <v-flex xs12 sm6>
-                           <v-text-field
-                            :rules="rules.tx_signo"
-                            v-model="form.tx_signo"
-                            label="Signo Moneda"
-                            placeholder="Indique Signo"
+                            <v-select
+                            :items="listas.grupoEnte"
+                            item-text="nb_grupo_ente"
+                            item-value="id_grupo_ente"
+                            v-model="form.id_grupo_ente"
+                            label="Grupo Ente"
+                            autocomplete
                             required
-                        ></v-text-field>
+                            ></v-select>
                         </v-flex>
-
-
+                        {{listas.grupoEnte}}
                         <v-flex xs12>  
                             <v-select
                             :items="[{'id_status': 1, 'nb_status' :'Activo'}, {'id_status': 2, 'nb_status' :'Inactivo'}]"
                             item-text="nb_status"
                             item-value="id_status"
                             v-model="form.id_status"
-                            label="Status del Moneda"
+                            label="Status del Ente"
                             autocomplete
                             required
                             ></v-select>
@@ -116,27 +119,32 @@ import withSnackbar from '../components/mixins/withSnackbar';
 
 export default {
     mixins: [ withSnackbar ],
+     created() {
+       this.listTipos(); 
+       this.listGrupos();
+       
+    },
     data () {
         return {
             valido: false,
             btnAccion: '',
             form:{
-                id_moneda: '',
-                nb_moneda: '',
-                co_moneda: '',
-                tx_signo: '',
+                id_ente: '',
+                nb_ente: '',
+                id_tipo_ente: '',
+                id_grupo_ente: '',
                 id_status: '',
                 tx_observaciones: '',
                 id_usuario:''
             },
             listas:{
-                tipoMoneda: [],
-                grupoMoneda: []
+                tipoEnte: [],
+                grupoEnte: []
             },
             rules:{
-               nb_moneda: [
+               nb_ente: [
                     v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Moneda debe tener almenos 3 caracteres',
+                    v => !!v  && v.length >= 3 || 'Nombre del Ente debe tener almenos 3 caracteres',
                     ],
                 tx_observaciones: [
                     () => true
@@ -145,7 +153,7 @@ export default {
             
         }
     },
-    props: ['accion','moneda'],
+    props: ['accion','ente'],
     watch: {
         accion: function (val) {
             this.btnAccion = val;
@@ -155,9 +163,8 @@ export default {
             }else{
                 this.clear();
             }
-            
         },
-        moneda: function (val) {
+        ente: function (val) {
             this.mapForm()
         }
     },
@@ -170,12 +177,12 @@ export default {
         },
         mapForm(){
 
-            if(this.moneda)
+            if(this.ente)
             {
-                for(var key in this.moneda) {
+                for(var key in this.ente) {
 
                     if(this.form.hasOwnProperty(key)) {
-                        this.form[key] = this.moneda[key];
+                        this.form[key] = this.ente[key];
                     }
                 }
             }else{
@@ -200,7 +207,7 @@ export default {
             
             this.form.id_usuario = this.$store.getters.user.id
            
-            axios.put('/api/v1/moneda/'+ this.moneda.id_moneda, this.form)
+            axios.put('/api/v1/ente/'+ this.ente.id_ente, this.form)
             .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
             })
@@ -212,7 +219,7 @@ export default {
             
             this.form.id_usuario = this.$store.getters.user.id
             
-            axios.post('/api/v1/moneda', this.form)
+            axios.post('/api/v1/ente', this.form)
             .then(respuesta => {
                     this.showMessage(respuesta)
             })
@@ -221,6 +228,24 @@ export default {
                     this.showError(error);
             })
         },
+        listTipos(){
+             axios.get('/api/v1/tipoEnte')
+            .then(respuesta => {
+                this.listas.tipoEnte = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+        },
+        listGrupos(){
+             axios.get('/api/v1/grupoEnte')
+            .then(respuesta => {
+                this.listas.grupoEnte = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+        }
     }
     
 }

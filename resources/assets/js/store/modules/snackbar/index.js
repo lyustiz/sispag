@@ -6,7 +6,7 @@ const state = {
   color: 'error',
   text: 'Ha ocurrido un error',
   subText: '',
-  timeout: 6000
+  timeout: 3000
 }
 
 export default {

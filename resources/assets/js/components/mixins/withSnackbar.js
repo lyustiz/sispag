@@ -12,7 +12,23 @@ export default {
       this.showSnackBar(message, 'success')
     },
     showError (error) {
-      this.showSnackBar(error, 'error')
+                
+      if(error.response.data.errors)
+      {
+      
+        let msg    = '';
+
+        for (var idx in error.response.data.errors) {
+          msg = msg + error.response.data.errors[idx];
+        }
+         this.showSnackBar(msg, 'error')
+
+      }else{
+
+        this.showSnackBar(error, 'error')
+        
+      }
+      
     },
     cleanState () {
       setTimeout(() => {

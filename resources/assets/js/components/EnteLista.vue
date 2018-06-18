@@ -5,10 +5,10 @@
                 <v-card>
                   
                     <v-card-title class="blue accent-1 white--text">
-                        <h3>Bancos</h3>
+                        <h3>Entes</h3>
                         <v-spacer></v-spacer>
                         
-                        <v-btn fab @click="insBanco" dark small color="green">
+                        <v-btn fab @click="insEnte" dark small color="green">
                             <v-icon dark>add</v-icon>
                         </v-btn>
                     </v-card-title>
@@ -29,20 +29,20 @@
 
                         <v-data-table
                         :headers="headers"
-                        :items  ="bancos"
+                        :items  ="entes"
                         :search ="buscar"
                         rows-per-page-text="Res. x Pag"
                         >
 
-                        <template slot="items" slot-scope="banco">
+                        <template slot="items" slot-scope="ente">
                             
-                            <td class="text-xs-left">{{ banco.item.nb_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.tipo_banco.nb_tipo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.grupo_banco.nb_grupo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.status.nb_status }}</td>
+                            <td class="text-xs-left">{{ ente.item.nb_ente }}</td>
+                            <td class="text-xs-left">{{ ente.item.tipo_ente.nb_tipo_ente }}</td>
+                            <td class="text-xs-left">{{ ente.item.grupo_ente.nb_grupo_ente }}</td>
+                            <td class="text-xs-left">{{ ente.item.status.nb_status }}</td>
                             <!--acciones-->
                             <td class="justify-center layout px-0">
-                                <v-btn icon @click="updBanco(banco.item )" >
+                                <v-btn icon @click="updEnte(ente.item )" >
                                     <v-icon color="orange">edit</v-icon>
                                 </v-btn>
                                 <v-btn icon @click="true" >
@@ -86,7 +86,7 @@
 
           <v-card-text> 
 
-              <banco-form :accion="accion" :banco="banco" @cerrarModal="cerrarModal"></banco-form>
+              <ente-form :accion="accion" :ente="ente" @cerrarModal="cerrarModal"></ente-form>
             
           </v-card-text>
           
@@ -106,21 +106,21 @@
 export default {
     created() {
         
-        this.bancos  = this.list();
+        this.entes  = this.list();
     },
     data () {
     return {
         modal: false,
-        bancos: '',
+        entes: '',
         buscar: '',
         nro:     1,
         accion: '',
-        banco:  '',
+        ente:  '',
         nb_accion: '',
         headers: [
-        { text: 'Nombre',   value: 'nb_banco' },
-        { text: 'Tipo',     value: 'tipo_banco.nb_tipo_banco' },
-        { text: 'Grupo',    value: 'grupo_banco.nb_grupo_banco' },
+        { text: 'Nombre',   value: 'nb_ente' },
+        { text: 'Tipo',     value: 'tipo_ente.nb_tipo_ente' },
+        { text: 'Grupo',    value: 'grupo_ente.nb_grupo_ente' },
         { text: 'Status',   value: 'id_status' },
         { text: 'Acciones', value: 'id_status'  },
         ]
@@ -130,36 +130,37 @@ export default {
     {
         cerrarModal(){
             this.modal = false;
-            this.banco = '';
+            this.ente = '';
             this.list();
         },
         list () {
 
-            axios.get('/api/v1/banco')
+            axios.get('/api/v1/ente')
             .then(respuesta => {
-                    this.bancos = respuesta.data;
+                console.log(respuesta.data)
+                this.entes = respuesta.data;
             })
             .catch(error => {
                     
             })
         },
-        updBanco (banco) {
+        updEnte (ente) {
 
-            this.nb_accion  = 'Editar Banco: ' + banco.nb_banco;
+            this.nb_accion  = 'Editar Ente: ' + ente.nb_ente;
             this.accion     = 'upd';
             this.modal      = true;
-            this.banco      = banco;
+            this.ente      = ente;
         },
-        insBanco () {
+        insEnte () {
 
-            this.nb_accion  = 'Agregar Banco:';
+            this.nb_accion  = 'Agregar Ente:';
             this.accion     = 'ins';
             this.modal      = true;
             
         },
-        delBanco (banco) {
+        delEnte (ente) {
 
-            console.log('eliminar Banco')
+            console.log('eliminar Ente')
             
         }
     }

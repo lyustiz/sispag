@@ -7,14 +7,14 @@
                 <v-card>
                     
                     <v-card-title class="red accent-1 white--text">
-                        <h2>Moneda</h2>
+                        <h2>Categoria</h2>
                     </v-card-title>
                     
                     <v-card-text>
                     <v-layout wrap>
                     
                         <input
-                            v-model="form.id_moneda"
+                            v-model="form.id_categoria"
                             required
                             type="hidden"
                         >
@@ -26,34 +26,13 @@
 
                         <v-flex xs12 >
                         <v-text-field
-                            :rules="rules.nb_moneda"
-                            v-model="form.nb_moneda"
-                            label="Nombre del Moneda"
+                            :rules="rules.nb_categoria"
+                            v-model="form.nb_categoria"
+                            label="Nombre del Categoria"
                             placeholder="Indique Nombre"
                             required
                         ></v-text-field>
                         </v-flex>
-
-                        <v-flex xs12 sm6>
-                            <v-text-field
-                            :rules="rules.co_moneda"
-                            v-model="form.co_moneda"
-                            label="Codigo Moneda"
-                            placeholder="Indique Codigo"
-                            required
-                        ></v-text-field>
-                        </v-flex>
-
-                        <v-flex xs12 sm6>
-                           <v-text-field
-                            :rules="rules.tx_signo"
-                            v-model="form.tx_signo"
-                            label="Signo Moneda"
-                            placeholder="Indique Signo"
-                            required
-                        ></v-text-field>
-                        </v-flex>
-
 
                         <v-flex xs12>  
                             <v-select
@@ -61,7 +40,7 @@
                             item-text="nb_status"
                             item-value="id_status"
                             v-model="form.id_status"
-                            label="Status del Moneda"
+                            label="Status del Categoria"
                             autocomplete
                             required
                             ></v-select>
@@ -121,22 +100,22 @@ export default {
             valido: false,
             btnAccion: '',
             form:{
-                id_moneda: '',
-                nb_moneda: '',
-                co_moneda: '',
-                tx_signo: '',
+                id_categoria: '',
+                nb_categoria: '',
+                id_tipo_categoria: '',
+                id_grupo_categoria: '',
                 id_status: '',
                 tx_observaciones: '',
                 id_usuario:''
             },
             listas:{
-                tipoMoneda: [],
-                grupoMoneda: []
+                tipoCategoria: [],
+                grupoCategoria: []
             },
             rules:{
-               nb_moneda: [
+               nb_categoria: [
                     v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Moneda debe tener almenos 3 caracteres',
+                    v => !!v  && v.length >= 3 || 'Nombre del Categoria debe tener almenos 3 caracteres',
                     ],
                 tx_observaciones: [
                     () => true
@@ -145,7 +124,7 @@ export default {
             
         }
     },
-    props: ['accion','moneda'],
+    props: ['accion','categoria'],
     watch: {
         accion: function (val) {
             this.btnAccion = val;
@@ -157,7 +136,7 @@ export default {
             }
             
         },
-        moneda: function (val) {
+        categoria: function (val) {
             this.mapForm()
         }
     },
@@ -170,12 +149,12 @@ export default {
         },
         mapForm(){
 
-            if(this.moneda)
+            if(this.categoria)
             {
-                for(var key in this.moneda) {
+                for(var key in this.categoria) {
 
                     if(this.form.hasOwnProperty(key)) {
-                        this.form[key] = this.moneda[key];
+                        this.form[key] = this.categoria[key];
                     }
                 }
             }else{
@@ -200,7 +179,7 @@ export default {
             
             this.form.id_usuario = this.$store.getters.user.id
            
-            axios.put('/api/v1/moneda/'+ this.moneda.id_moneda, this.form)
+            axios.put('/api/v1/categoria/'+ this.categoria.id_categoria, this.form)
             .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
             })
@@ -212,7 +191,7 @@ export default {
             
             this.form.id_usuario = this.$store.getters.user.id
             
-            axios.post('/api/v1/moneda', this.form)
+            axios.post('/api/v1/categoria', this.form)
             .then(respuesta => {
                     this.showMessage(respuesta)
             })

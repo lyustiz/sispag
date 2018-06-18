@@ -15,7 +15,7 @@ class TipoEnte extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'nb_grupo_ente',
+                            'nb_tipo_ente',
                             'tx_observaciones',
                             'id_usuario',
                             'id_status',
@@ -24,6 +24,14 @@ class TipoEnte extends Model
                             ]; 
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+    
+
+    public function ente(){
+    
+        return $this->HasMany('App\Models\Ente', 'id_tipo_ente');
+    
+    }
+
 
     public function status(){
     

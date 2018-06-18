@@ -32,8 +32,16 @@ Vue.component('instruccion-lista', require('./components/InstruccionLista.vue'))
 Vue.component('instruccion-form', require('./components/InstruccionForm.vue'));
 Vue.component('test', require('./components/Test.vue'));
 Vue.component('list-select', require('./components/ListSelect.vue'));
+Vue.component('ente-lista', require('./components/EnteLista.vue'));
+Vue.component('ente-form', require('./components/EnteForm.vue'));
+Vue.component('categoria-lista', require('./components/CategoriaLista.vue'));
+Vue.component('categoria-form', require('./components/CategoriaForm.vue'));
+Vue.component('moneda-lista', require('./components/MonedaLista.vue'));
+Vue.component('moneda-form', require('./components/MonedaForm.vue'));
+Vue.component('esquema-lista', require('./components/EsquemaLista.vue'));
+Vue.component('esquema-form', require('./components/EsquemaForm.vue'));
 
-window.Vuetify = require('vuetify');
+window.Vuetify = require('vuetify'); 
 Vue.use(Vuetify)
 
 import store from './store'
@@ -66,11 +74,13 @@ const app = new Vue({
       { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
       { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' },
       { icon: 'how_to_reg', text: 'Intrucciones', href: '/instruccion' },
+      { icon: 'how_to_reg', text: 'Intrucciones2', href: '/test' },
       { heading: 'Datos Maestros' },
       { icon: 'account_balance', text: 'Banco', href: '/banco' },
-      { icon: 'store_mall_directory', text: 'Entes', href: '/home' },
-      { icon: 'format_list_numbered_rtl', text: 'Categorias', href: '/home' },
-      { icon: 'attach_money', text: 'Monedas', href: '/home' },
+      { icon: 'store_mall_directory', text: 'Entes', href: '/ente' },
+      { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' },
+      { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
+      { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' },
       
       //{ heading: 'Administració', role: 'Manager' }
     ]

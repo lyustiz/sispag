@@ -16,7 +16,8 @@ class Ente extends Model
 
     protected $fillable   = [
                             'nb_ente',
-                            'id_clase_ente',
+                            'id_tipo_ente',
+                            'id_grupo_ente',
                             'tx_observaciones',
                             'id_usuario',
                             'id_status',
@@ -26,7 +27,18 @@ class Ente extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function tipoEnte(){
     
+        return $this->BelongsTo('App\Models\TipoEnte', 'id_tipo_ente');
+    
+    }
+
+    public function grupoEnte(){
+    
+        return $this->BelongsTo('App\Models\GrupoEnte', 'id_grupo_ente');
+    
+    }
+
     public function ingreso(){
     
         return $this->HasMany('App\Models\Ingreso', 'id_ente');

@@ -14,7 +14,9 @@ class TipoEnteController extends Controller
      */
     public function index()
     {
-        //
+        $tipoEnte = TipoEnte::with(['status'])->get();
+        
+        return $tipoEnte;
     }
 
     /**

@@ -5,10 +5,10 @@
                 <v-card>
                   
                     <v-card-title class="blue accent-1 white--text">
-                        <h3>Bancos</h3>
+                        <h3>Esquemas</h3>
                         <v-spacer></v-spacer>
                         
-                        <v-btn fab @click="insBanco" dark small color="green">
+                        <v-btn fab @click="insEsquema" dark small color="green">
                             <v-icon dark>add</v-icon>
                         </v-btn>
                     </v-card-title>
@@ -29,20 +29,20 @@
 
                         <v-data-table
                         :headers="headers"
-                        :items  ="bancos"
+                        :items  ="esquemas"
                         :search ="buscar"
                         rows-per-page-text="Res. x Pag"
                         >
 
-                        <template slot="items" slot-scope="banco">
+                        <template slot="items" slot-scope="esquema">
                             
-                            <td class="text-xs-left">{{ banco.item.nb_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.tipo_banco.nb_tipo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.grupo_banco.nb_grupo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.status.nb_status }}</td>
+                            <td class="text-xs-left">{{ esquema.item.nb_esquema }}</td>
+                            <td class="text-xs-left">{{ esquema.item.tx_requerimiento }}</td>
+                            <td class="text-xs-left">{{ esquema.item.id_esquema_padre }}</td>
+                            <td class="text-xs-left">{{ esquema.item.status.nb_status }}</td>
                             <!--acciones-->
                             <td class="justify-center layout px-0">
-                                <v-btn icon @click="updBanco(banco.item )" >
+                                <v-btn icon @click="updEsquema(esquema.item )" >
                                     <v-icon color="orange">edit</v-icon>
                                 </v-btn>
                                 <v-btn icon @click="true" >
@@ -86,7 +86,7 @@
 
           <v-card-text> 
 
-              <banco-form :accion="accion" :banco="banco" @cerrarModal="cerrarModal"></banco-form>
+              <esquema-form :accion="accion" :esquema="esquema" @cerrarModal="cerrarModal"></esquema-form>
             
           </v-card-text>
           
@@ -106,21 +106,21 @@
 export default {
     created() {
         
-        this.bancos  = this.list();
+        this.esquemas  = this.list();
     },
     data () {
     return {
         modal: false,
-        bancos: '',
+        esquemas: '',
         buscar: '',
         nro:     1,
         accion: '',
-        banco:  '',
+        esquema:  '',
         nb_accion: '',
         headers: [
-        { text: 'Nombre',   value: 'nb_banco' },
-        { text: 'Tipo',     value: 'tipo_banco.nb_tipo_banco' },
-        { text: 'Grupo',    value: 'grupo_banco.nb_grupo_banco' },
+        { text: 'Nombre',   value: 'nb_esquema' },
+        { text: 'Requiere', value: 'tx_requerimiento' },
+        { text: 'Grupo',    value: 'id_esquema_padre' },
         { text: 'Status',   value: 'id_status' },
         { text: 'Acciones', value: 'id_status'  },
         ]
@@ -130,36 +130,36 @@ export default {
     {
         cerrarModal(){
             this.modal = false;
-            this.banco = '';
+            this.esquema = '';
             this.list();
         },
         list () {
 
-            axios.get('/api/v1/banco')
+            axios.get('/api/v1/esquema')
             .then(respuesta => {
-                    this.bancos = respuesta.data;
+                    this.esquemas = respuesta.data;
             })
             .catch(error => {
                     
             })
         },
-        updBanco (banco) {
+        updEsquema (esquema) {
 
-            this.nb_accion  = 'Editar Banco: ' + banco.nb_banco;
+            this.nb_accion  = 'Editar Esquema: ' + esquema.nb_esquema;
             this.accion     = 'upd';
             this.modal      = true;
-            this.banco      = banco;
+            this.esquema      = esquema;
         },
-        insBanco () {
+        insEsquema () {
 
-            this.nb_accion  = 'Agregar Banco:';
+            this.nb_accion  = 'Agregar Esquema:';
             this.accion     = 'ins';
             this.modal      = true;
             
         },
-        delBanco (banco) {
+        delEsquema (esquema) {
 
-            console.log('eliminar Banco')
+            console.log('eliminar Esquema')
             
         }
     }

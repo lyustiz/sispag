@@ -14,7 +14,9 @@ class GrupoEnteController extends Controller
      */
     public function index()
     {
-        //
+        $grupoEnte = GrupoEnte::with(['status'])->get();
+        
+        return $grupoEnte;
     }
 
     /**

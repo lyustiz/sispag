@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GrupoBancos;
+use App\Models\GrupoBanco;
 use Illuminate\Http\Request;
 
-class GrupoBancosController extends Controller
+class GrupoBancoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class GrupoBancosController extends Controller
      */
     public function index()
     {
-        //
+        $grupoBanco = GrupoBanco::with(['status'])->get();
+        
+        return $grupoBanco;
     }
 
     /**

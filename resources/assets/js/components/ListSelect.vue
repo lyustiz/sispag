@@ -63,7 +63,6 @@ import withSnackbar from './mixins/withSnackbar'
 export default {
 mixins: [withSnackbar],
 created() {
-        
         this.lista  = this.list();
     },
     data () {
@@ -72,9 +71,6 @@ created() {
         lista: '',
         buscar: '',
         headers: this.encabezados,
-        pagination: {
-        sortBy: 'nb_banco'
-      },
     }
     },
     props: ['tabla', 'encabezados', 'items'],

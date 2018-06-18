@@ -13,8 +13,10 @@ class BancoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $bancos = Banco::with(['tipoBanco','status'])->get();
+    {$bancos = Banco::with(['tipoBanco','grupoBanco','status'])->get();
+        
+        return $bancos;
+        $bancos = Banco::with(['tipoBanco','grupoBanco','status'])->get();
         
         return $bancos;
     }
@@ -89,7 +91,6 @@ class BancoController extends Controller
 
             'nb_banco'          => 'required',
             'id_tipo_banco'     => 'required',
-            'tx_observaciones'  => 'required',
             'id_usuario'        => 'required',
             'id_status'         => 'required',
 
@@ -100,7 +101,7 @@ class BancoController extends Controller
         /*$banco->nb_banco  = $request->nb_banco;
         $banco->save();*/
 
-        return compact('banco');
+        return ['msj'=>'Banco Editado'];
     }
 
     /**

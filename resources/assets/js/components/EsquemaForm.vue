@@ -7,14 +7,14 @@
                 <v-card>
                     
                     <v-card-title class="red accent-1 white--text">
-                        <h2>Moneda</h2>
+                        <h2>Esquema</h2>
                     </v-card-title>
                     
                     <v-card-text>
                     <v-layout wrap>
                     
                         <input
-                            v-model="form.id_moneda"
+                            v-model="form.id_esquema"
                             required
                             type="hidden"
                         >
@@ -26,34 +26,37 @@
 
                         <v-flex xs12 >
                         <v-text-field
-                            :rules="rules.nb_moneda"
-                            v-model="form.nb_moneda"
-                            label="Nombre del Moneda"
+                            :rules="rules.nb_esquema"
+                            v-model="form.nb_esquema"
+                            label="Nombre del Esquema"
                             placeholder="Indique Nombre"
                             required
                         ></v-text-field>
                         </v-flex>
 
                         <v-flex xs12 sm6>
-                            <v-text-field
-                            :rules="rules.co_moneda"
-                            v-model="form.co_moneda"
-                            label="Codigo Moneda"
-                            placeholder="Indique Codigo"
+                            <v-select
+                            :items="listas.tipoEsquema"
+                            item-text="nb_tipo_esquema"
+                            item-value="id_tipo_esquema"
+                            v-model="form.id_tipo_esquema"
+                            label="Tipo Esquema"
+                            autocomplete
                             required
-                        ></v-text-field>
+                            ></v-select>
                         </v-flex>
 
                         <v-flex xs12 sm6>
-                           <v-text-field
-                            :rules="rules.tx_signo"
-                            v-model="form.tx_signo"
-                            label="Signo Moneda"
-                            placeholder="Indique Signo"
+                            <v-select
+                            :items="listas.grupoEsquema"
+                            item-text="nb_grupo_esquema"
+                            item-value="id_grupo_esquema"
+                            v-model="form.id_grupo_esquema"
+                            label="Grupo Esquema"
+                            autocomplete
                             required
-                        ></v-text-field>
+                            ></v-select>
                         </v-flex>
-
 
                         <v-flex xs12>  
                             <v-select
@@ -61,7 +64,7 @@
                             item-text="nb_status"
                             item-value="id_status"
                             v-model="form.id_status"
-                            label="Status del Moneda"
+                            label="Status del Esquema"
                             autocomplete
                             required
                             ></v-select>
@@ -121,22 +124,22 @@ export default {
             valido: false,
             btnAccion: '',
             form:{
-                id_moneda: '',
-                nb_moneda: '',
-                co_moneda: '',
-                tx_signo: '',
+                id_esquema: '',
+                nb_esquema: '',
+                tx_requerimiento: '',
+                id_esquema_padre: '',
                 id_status: '',
                 tx_observaciones: '',
                 id_usuario:''
             },
             listas:{
-                tipoMoneda: [],
-                grupoMoneda: []
+                tipoEsquema: [],
+                grupoEsquema: []
             },
             rules:{
-               nb_moneda: [
+               nb_esquema: [
                     v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Moneda debe tener almenos 3 caracteres',
+                    v => !!v  && v.length >= 3 || 'Nombre del Esquema debe tener almenos 3 caracteres',
                     ],
                 tx_observaciones: [
                     () => true
@@ -145,7 +148,7 @@ export default {
             
         }
     },
-    props: ['accion','moneda'],
+    props: ['accion','esquema'],
     watch: {
         accion: function (val) {
             this.btnAccion = val;
@@ -157,7 +160,7 @@ export default {
             }
             
         },
-        moneda: function (val) {
+        esquema: function (val) {
             this.mapForm()
         }
     },
@@ -170,12 +173,12 @@ export default {
         },
         mapForm(){
 
-            if(this.moneda)
+            if(this.esquema)
             {
-                for(var key in this.moneda) {
+                for(var key in this.esquema) {
 
                     if(this.form.hasOwnProperty(key)) {
-                        this.form[key] = this.moneda[key];
+                        this.form[key] = this.esquema[key];
                     }
                 }
             }else{
@@ -200,7 +203,7 @@ export default {
             
             this.form.id_usuario = this.$store.getters.user.id
            
-            axios.put('/api/v1/moneda/'+ this.moneda.id_moneda, this.form)
+            axios.put('/api/v1/esquema/'+ this.esquema.id_esquema, this.form)
             .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
             })
@@ -212,7 +215,7 @@ export default {
             
             this.form.id_usuario = this.$store.getters.user.id
             
-            axios.post('/api/v1/moneda', this.form)
+            axios.post('/api/v1/esquema', this.form)
             .then(respuesta => {
                     this.showMessage(respuesta)
             })

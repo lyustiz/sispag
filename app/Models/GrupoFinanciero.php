@@ -25,6 +25,11 @@ class GrupoFinanciero extends Model
        
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    /*public function banco()
+    {
+        return $this->belongsToMany('App\Models\Banco', 'grupo_bancos', 'id_grupo_financiero', 'id_banco');
+    }*/
+
     public function status(){
     
         return $this->BelongsTo('App\Models\Status', 'id_status');

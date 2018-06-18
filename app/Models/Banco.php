@@ -17,6 +17,7 @@ class Banco extends Model
     protected $fillable   = [
                             'nb_banco',
                             'id_tipo_banco',
+                            'id_grupo_banco',
                             'tx_observaciones',
                             'id_usuario',
                             'id_status',
@@ -31,6 +32,11 @@ class Banco extends Model
         return $this->HasMany('App\Models\Instruccion', 'id_banco');
     
     }
+
+  /*  public function grupoFinanciero()
+    {
+        return $this->belongsToMany('App\Models\GrupoFinanciero', 'grupo_bancos', 'id_banco', 'id_grupo_financiero');
+    }*/
     
     
     public function ingreso(){
@@ -42,6 +48,12 @@ class Banco extends Model
     public function tipoBanco(){
     
         return $this->BelongsTo('App\Models\TipoBanco', 'id_tipo_banco');
+    
+    }
+
+    public function grupoBanco(){
+    
+        return $this->BelongsTo('App\Models\GrupoBanco', 'id_grupo_banco');
     
     }
     

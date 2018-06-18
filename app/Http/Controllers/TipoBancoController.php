@@ -14,7 +14,9 @@ class TipoBancoController extends Controller
      */
     public function index()
     {
-        //
+        $tipoBanco = TipoBanco::with(['status'])->get();
+        
+        return $tipoBanco;
     }
 
     /**

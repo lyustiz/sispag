@@ -5,10 +5,10 @@
                 <v-card>
                   
                     <v-card-title class="blue accent-1 white--text">
-                        <h3>Bancos</h3>
+                        <h3>Categorias de Pago</h3>
                         <v-spacer></v-spacer>
                         
-                        <v-btn fab @click="insBanco" dark small color="green">
+                        <v-btn fab @click="insCategoria" dark small color="green">
                             <v-icon dark>add</v-icon>
                         </v-btn>
                     </v-card-title>
@@ -29,20 +29,18 @@
 
                         <v-data-table
                         :headers="headers"
-                        :items  ="bancos"
+                        :items  ="categorias"
                         :search ="buscar"
                         rows-per-page-text="Res. x Pag"
                         >
 
-                        <template slot="items" slot-scope="banco">
+                        <template slot="items" slot-scope="categoria">
                             
-                            <td class="text-xs-left">{{ banco.item.nb_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.tipo_banco.nb_tipo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.grupo_banco.nb_grupo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.status.nb_status }}</td>
+                            <td class="text-xs-left">{{ categoria.item.nb_categoria }}</td>
+                            <td class="text-xs-left">{{ categoria.item.status.nb_status }}</td>
                             <!--acciones-->
                             <td class="justify-center layout px-0">
-                                <v-btn icon @click="updBanco(banco.item )" >
+                                <v-btn icon @click="updCategoria(categoria.item )" >
                                     <v-icon color="orange">edit</v-icon>
                                 </v-btn>
                                 <v-btn icon @click="true" >
@@ -86,7 +84,7 @@
 
           <v-card-text> 
 
-              <banco-form :accion="accion" :banco="banco" @cerrarModal="cerrarModal"></banco-form>
+              <categoria-form :accion="accion" :categoria="categoria" @cerrarModal="cerrarModal"></categoria-form>
             
           </v-card-text>
           
@@ -106,21 +104,19 @@
 export default {
     created() {
         
-        this.bancos  = this.list();
+        this.categorias  = this.list();
     },
     data () {
     return {
         modal: false,
-        bancos: '',
+        categorias: '',
         buscar: '',
         nro:     1,
         accion: '',
-        banco:  '',
+        categoria:  '',
         nb_accion: '',
         headers: [
-        { text: 'Nombre',   value: 'nb_banco' },
-        { text: 'Tipo',     value: 'tipo_banco.nb_tipo_banco' },
-        { text: 'Grupo',    value: 'grupo_banco.nb_grupo_banco' },
+        { text: 'Nombre',   value: 'nb_categoria' },
         { text: 'Status',   value: 'id_status' },
         { text: 'Acciones', value: 'id_status'  },
         ]
@@ -130,36 +126,36 @@ export default {
     {
         cerrarModal(){
             this.modal = false;
-            this.banco = '';
+            this.categoria = '';
             this.list();
         },
         list () {
 
-            axios.get('/api/v1/banco')
+            axios.get('/api/v1/categoria')
             .then(respuesta => {
-                    this.bancos = respuesta.data;
+                    this.categorias = respuesta.data;
             })
             .catch(error => {
                     
             })
         },
-        updBanco (banco) {
+        updCategoria (categoria) {
 
-            this.nb_accion  = 'Editar Banco: ' + banco.nb_banco;
+            this.nb_accion  = 'Editar Categoria: ' + categoria.nb_categoria;
             this.accion     = 'upd';
             this.modal      = true;
-            this.banco      = banco;
+            this.categoria      = categoria;
         },
-        insBanco () {
+        insCategoria () {
 
-            this.nb_accion  = 'Agregar Banco:';
+            this.nb_accion  = 'Agregar Categoria:';
             this.accion     = 'ins';
             this.modal      = true;
             
         },
-        delBanco (banco) {
+        delCategoria (categoria) {
 
-            console.log('eliminar Banco')
+            console.log('eliminar Categoria')
             
         }
     }

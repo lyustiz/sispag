@@ -123,7 +123,7 @@ Vue.use(require('vue-moment'));
 
 export default {
     created() {
-
+        
         this.solicitudes  = this.list();
     },
     filters: {

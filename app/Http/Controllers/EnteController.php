@@ -14,7 +14,9 @@ class EnteController extends Controller
      */
     public function index()
     {
-        //
+        $ente = Ente::with(['tipoEnte', 'grupoEnte','status'])->get();
+        
+        return $ente;
     }
 
     /**
