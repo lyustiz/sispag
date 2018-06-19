@@ -31,6 +31,8 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
 
     Route::Resource('/categoria', 'CategoriaController');
     
+    Route::Resource('/pago', 'PagoController');
+    Route::Resource('/tipoPago', 'TipoPagoController');
 
     Route::Resource('/moneda', 'MonedaController');
 

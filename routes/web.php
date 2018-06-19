@@ -15,7 +15,7 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/ingresos', function () {
+Route::get('/pago', function () {
     return view('pago');
 });
 

@@ -68,13 +68,13 @@ const app = new Vue({
     changingPassword: false,
     updatingUser: false,
     items: [
-      { icon: 'home', text: 'Home', href: '/home' },
-      { icon: 'airplay', text: 'Landing Page', href: '/' },
+
       { heading: 'Modulos' },
       { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
       { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' },
       { icon: 'how_to_reg', text: 'Intrucciones', href: '/instruccion' },
       { icon: 'how_to_reg', text: 'Intrucciones2', href: '/test' },
+      { icon: 'play_for_work', text: 'pagos', href: '/pago' },
       { heading: 'Datos Maestros' },
       { icon: 'account_balance', text: 'Banco', href: '/banco' },
       { icon: 'store_mall_directory', text: 'Entes', href: '/ente' },

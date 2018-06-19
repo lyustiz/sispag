@@ -25,6 +25,13 @@ class TipoPago extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function pago(){
+    
+        return $this->HasMany('App\Models\Pago', 'id_tipo_pago');
+    
+    }
+
+
     public function status(){
     
         return $this->BelongsTo('App\Models\Status', 'id_status');

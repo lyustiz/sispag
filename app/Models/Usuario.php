@@ -39,6 +39,12 @@ class Usuario extends Model
         return $this->HasMany('App\Models\Banco', 'id_status');
     
     }
+
+    public function pago(){
+    
+        return $this->HasMany('App\Models\Pago', 'id_status');
+    
+    }
     
     public function categoria(){
         

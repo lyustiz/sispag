@@ -4,7 +4,7 @@
 
     <v-container fluid grid-list-md text-xs-center>
 
-    <pago-lista></pago-lista>
+    <pagos-lista></pagos-lista>
 
     </v-container>
 

@@ -1,4 +1,4 @@
-/*
+ /*
 Navicat PGSQL Data Transfer
 
 Source Server         : local
@@ -11,9 +11,9 @@ Target Server Type    : PGSQL
 Target Server Version : 90601
 File Encoding         : 65001
 
-Date: 2018-06-17 21:01:15
+Date: 2018-06-18 22:07:08
 */
-
+  
 
 -- ----------------------------
 -- Sequence structure for banco_id_banco_seq
@@ -777,10 +777,10 @@ INSERT INTO "pagos"."moneda" VALUES ('4', 'Rublo', 'RUB', '₽', 'N/A', '1', '1'
 INSERT INTO "pagos"."moneda" VALUES ('5', 'Dirham', 'AED', 'Dhs', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
 
 -- ----------------------------
--- Table structure for pagos
+-- Table structure for pago
 -- ----------------------------
-DROP TABLE IF EXISTS "pagos"."pagos";
-CREATE TABLE "pagos"."pagos" (
+DROP TABLE IF EXISTS "pagos"."pago";
+CREATE TABLE "pagos"."pago" (
 "id_pago" int4 DEFAULT nextval('"pagos".pagos_id_pago_seq'::regclass) NOT NULL,
 "id_instruccion" int4 NOT NULL,
 "fe_liq_bcv" timestamp(6),
@@ -801,9 +801,9 @@ WITH (OIDS=FALSE)
 ;
 
 -- ----------------------------
--- Records of pagos
+-- Records of pago
 -- ----------------------------
-INSERT INTO "pagos"."pagos" VALUES ('1', '3', '2018-07-12 00:00:00', '2', '2018-06-12 00:00:00', '3', '1', '5682535.89', '1', null, '1', '1', '2018-06-12 00:00:00', null);
+INSERT INTO "pagos"."pago" VALUES ('1', '3', '2018-07-12 00:00:00', '2', '2018-06-12 00:00:00', '3', '1', '5682535.89', '1', null, '1', '1', '2018-06-12 00:00:00', null);
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -1064,7 +1064,7 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO "pagos"."users" VALUES ('1', 'luisa', 'lyustis@gmail.com', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', 'PD3OMZX63KE6EPS3GPRpXjdMnWRBSIxg4ihU4ch6tGU6BjhM00Q4a7PUX6xf', null, '2018-06-09 15:32:29');
+INSERT INTO "pagos"."users" VALUES ('1', 'luisa', 'lyustis@gmail.com', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', '0HjUp6rXmpofEjHhGXAl43LiWMnM0mMez4lViCQWFe5KgTYEVDvYTQrYxVsy', null, '2018-06-09 15:32:29');
 INSERT INTO "pagos"."users" VALUES ('4', 'carlos', 'cgranados@bandes.gob.ve', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', '338W36NHAFmrSauuDL5L7awis4RxwmV95JR42bJUhnFeu8DoFDDWzQz2ylZ9', null, null);
 
 -- ----------------------------
@@ -1106,7 +1106,7 @@ COMMENT ON COLUMN "pagos"."usuario"."fe_actualizado" IS 'Fecha y hora de actuali
 -- ----------------------------
 ALTER SEQUENCE "pagos"."det_cuenta_id_det_cuenta_seq" OWNED BY "det_cuenta"."id_det_cuenta";
 ALTER SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_seq" OWNED BY "ejecucion_pago"."id_ejecucion";
-ALTER SEQUENCE "pagos"."pagos_id_pago_seq" OWNED BY "pagos"."id_pago";
+ALTER SEQUENCE "pagos"."pagos_id_pago_seq" OWNED BY "pago"."id_pago";
 
 -- ----------------------------
 -- Primary Key structure for table banco
@@ -1169,9 +1169,9 @@ ALTER TABLE "pagos"."ingreso" ADD PRIMARY KEY ("id_ingreso");
 ALTER TABLE "pagos"."moneda" ADD PRIMARY KEY ("id_moneda");
 
 -- ----------------------------
--- Primary Key structure for table pagos
+-- Primary Key structure for table pago
 -- ----------------------------
-ALTER TABLE "pagos"."pagos" ADD PRIMARY KEY ("id_pago");
+ALTER TABLE "pagos"."pago" ADD PRIMARY KEY ("id_pago");
 
 -- ----------------------------
 -- Indexes structure for table password_resets

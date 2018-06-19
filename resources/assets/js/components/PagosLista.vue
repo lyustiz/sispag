@@ -1,16 +1,23 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
+        
         <v-layout row justify-center>
             <v-flex xs11>
                 <v-card>
                   
-                    <v-card-title class="blue accent-1 white--text">
-                        <h3>Ingresos</h3>
+                    <v-card-title v-if="titulo" class="blue accent-1 white--text">
+                        <h3>Instruccion {{notitle}}</h3>
+                        <v-spacer></v-spacer>
+                        <v-btn @click="insIngreso" color="green" dark>
+                        <v-icon>add</v-icon>
+                            agregar        
+                        </v-btn> 
                     </v-card-title>
 
                     <v-card-text>
                         
-                        <v-flex xs6>
+                        <v-layout wrap>
+                        <v-flex xs12 sm6>
                         <v-text-field
                             v-model="buscar"
                             append-icon="search"
@@ -20,29 +27,59 @@
                         ></v-text-field>
                         </v-flex>
                         
+                        <v-flex xs12 sm6>
+                        <v-select
+                            label="Categoria"
+                            :items="['ALIMENTOS', 'VOI']"
+                            v-model="buscar"
+                        ></v-select>
+                        </v-flex>
+                        </v-layout>
+                        
                         <v-flex xs12>
 
                         <v-data-table
                         :headers="headers"
-                        :items  ="bancos"
+                        :items  ="instrucciones"
                         :search ="buscar"
+                        item-key="id_instruccion"
                         >
-
-                        <template slot="items" slot-scope="banco">
+                        <template slot="items" slot-scope="instruccion">
                             
-                            <td class="text-xs-left">{{ banco.item.nb_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.tipo_banco.nb_tipo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.status.nb_status }}</td>
-                            <!--acciones-->
-                            <td class="justify-center layout px-0">
-                                <v-btn icon @click="updBanco(banco.item )" >
-                                    <v-icon color="orange">edit</v-icon>
-                                </v-btn>
-                                <v-btn icon @click="updBanco" >
-                                    <v-icon color="red">delete</v-icon>
-                                </v-btn>
-                            </td>
+                            <td class="text-xs-left" @click="instruccion.expanded = !instruccion.expanded" >{{ instruccion.item.solicitud.categoria.nb_categoria }}</td>
+                            <td class="text-xs-right">{{ instruccion.item.solicitud.ente.nb_ente }}</td>
+                            <td class="text-xs-right">{{ instruccion.item.solicitud.tx_concepto  }}</td>
+                            <td class="text-xs-left">{{ instruccion.item.mo_instruccion }}</td>
+                            <td class="text-xs-left">{{ instruccion.item.fe_instruccion | formDate }}</td>
+                            <td class="text-xs-left">{{ instruccion.item.esquema.nb_esquema }}</td>
+                            
+                        </template>
 
+                        <template slot="expand" slot-scope="instruccion">
+                            <v-card flat>
+                                <v-card-text><v-card-title class="red accent-1 white--text">
+                        <h2>Pagos</h2>
+                    </v-card-title>
+                    {{instruccion.item.id_intruccion}}
+
+                                        <list-select   
+                                            tabla="pago" 
+                                            :encabezados="[
+                                                            { text: 'moneda',   value: 'moneda.nb_moneda' },
+                                                            { text: 'Monto',    value: 'mo_final_pago' },
+                                                            { text: 'Tipo Pago',    value: 'tipo_pago.nb_tipo_pago' },
+                                                            { text: 'Status',   value: 'status.nb_status' },
+                                                            ]"
+                                            @seleccion="true"
+                                        >
+                                        </list-select>
+
+                                </v-card-text>
+                            </v-card>
+                        </template>
+
+                        <template slot="pageText" slot-scope="instruccion">
+                         Pagina {{ instruccion.pageStart }} - {{ instruccion.pageStop }} de {{ instruccion.itemsLength }}
                         </template>
 
                         <v-alert slot="no-results" :value="true" color="info" icon="info">
@@ -52,25 +89,15 @@
                         </v-data-table>
                         </v-flex>
                     </v-card-text>
-
-                    <v-card-actions>
-                        <v-btn @click="insBanco" color="green" dark>
-                        <v-icon>add</v-icon>
-                            agregar        
-                        </v-btn>
-                    </v-card-actions>
-               
                 </v-card>
             </v-flex>
         </v-layout>
-
-    
 
       <v-dialog v-model="modal" fullscreen hide-overlay transition="dialog-bottom-transition">
         
         <v-card>
          
-          <v-toolbar dark color="primary">
+          <v-toolbar dark color="blue accent-1 white--text">
 
             <v-btn icon dark @click.native="cerrarModal">
               <v-icon>close</v-icon>
@@ -82,7 +109,7 @@
 
           <v-card-text> 
 
-              <banco-form :accion="accion" :banco="banco" @cerrarModal="cerrarModal"></banco-form>
+              <instruccion-form :accion="accion" :instruccion="instruccion" @cerrarModal="cerrarModal"></instruccion-form>
             
           </v-card-text>
           
@@ -97,62 +124,86 @@
 
 <script>
 
+Vue.use(require('vue-moment'));
+
 export default {
     created() {
-        
-        this.bancos  = this.list();
-        
+
+        this.instrucciones  = this.list();
+    },
+    filters: {
+
+        formDate: function (value) {
+
+            if (!value) return ''
+            value = value.toString();
+            return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4);
+        }
+
     },
     data () {
     return {
-        modal: false,
-        bancos: '',
-        buscar: '',
-        nro:     1,
-        accion: '',
-        banco:  '',
-        nb_accion: '',
+        modal:     false,
+        instrucciones:  false, 
+        buscar:    '',
+        busTipIng: '',
+        accion:    '',
+        instruccion:   false,
+        nb_accion: false,
         headers: [
-        { text: 'Nombre',   value: 'nb_banco' },
-        { text: 'Tipo',     value: 'id_tipo_banco' },
-        { text: 'Status',   value: 'id_status' },
-        { text: 'Acciones', value: 'id_status'  },
+        { text: 'Categoria',     value: 'solicitud.categoria.nb_categoria' },
+        { text: 'Ente',    value: 'instruccion.ente.nb_ente' },
+        { text: 'Concepto', value: 'instruccion.tx_concepto' },
+        { text: 'Monto',  value: 'mo_instruccion' },
+        { text: 'Fecha',  value: 'fe_instruccion' },
+        { text: 'Esquema Pago', value: 'esquema.nb_esquema' },
         ]
     }
     },
+    props:['titulo'],
     methods:
     {
+        customFilter(items, search, filter) {
+
+            return items.filter(row => filter(row["solicitud.categoria.nb_categoria"], search));
+        },
         cerrarModal(){
+
             this.modal = false;
-            this.banco = '';
+            this.instruccion = '';
+            this.list();
+
         },
         list () {
 
-            axios.get('/api/v1/banco')
+            axios.get('/api/v1/instruccion')
             .then(respuesta => {
-                    this.bancos = respuesta.data;
+                console.log(respuesta.data);
+                    this.instrucciones = respuesta.data;
             })
             .catch(error => {
                     
             })
-        },
-        updBanco (banco) {
 
-            this.nb_accion  = 'Editar Banco: ' + banco.nb_banco;
+            
+        },
+        updIngreso (instruccion) {
+            
+            this.nb_accion  = 'Editar Instruccion: ' + instruccion.esquema.nb_esquema;
             this.accion     = 'upd';
             this.modal      = true;
-            this.banco      = banco;
+            this.instruccion    = instruccion;
         },
-        insBanco () {
+        insIngreso () {
 
-            this.nb_accion  = 'Agregar Banco:';
+            this.nb_accion  = 'Agregar Instruccion:';
             this.accion     = 'ins';
             this.modal      = true;
             
         },
-        delBanco (banco) {
+        delIngreso (instruccion) {
 
-            console.log('eliminar Banco')
+            console.log('eliminar Ingreso')
             
         }
     }

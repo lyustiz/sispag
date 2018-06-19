@@ -13,9 +13,7 @@ class BancoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {$bancos = Banco::with(['tipoBanco','grupoBanco','status'])->get();
-        
-        return $bancos;
+    {
         $bancos = Banco::with(['tipoBanco','grupoBanco','status'])->get();
         
         return $bancos;
