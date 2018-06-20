@@ -1,22 +1,25 @@
 <?php
 
-namespace App\Models;
+namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EtapaEnvio extends Model
+class EjecucionPago extends Model
 {
-    protected $table 	  = 'etapa_envio';
+    protected $table 	  = 'ejecucion_pago';
 
-	protected $primaryKey = 'id_etapa_envio';
+	protected $primaryKey = 'id_ejecucion_pago';
 	
 	const 	  CREATED_AT  = 'fe_creado';
 
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'nb_etapa_envio',
-                            'tx_observaciones',
+                            'id_pago',
+                            'id_banco',
+                            'fe_envio_inst',
+                            'id_etapa_envio',
+                            'tx_observacion',
                             'id_usuario',
                             'id_status',
                             'fe_creado',
@@ -25,12 +28,25 @@ class EtapaEnvio extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
-    public function ejecucionPago(){
+
+    public function pago(){
     
-        return $this->HasMany('App\Models\EjecucionPago', 'id_etapa_envio');
+        return $this->BelongsTo('App\Models\Pago', 'id_pago');
     
     }
+
+    public function banco(){
     
+        return $this->BelongsTo('App\Models\Banco', 'id_pago');
+    
+    }
+
+    public function etapaEnvio(){
+    
+        return $this->BelongsTo('App\Models\EtapaEnvio', 'id_etapa_envio');
+    
+    }
+
     public function status(){
     
         return $this->BelongsTo('App\Models\Status', 'id_status');

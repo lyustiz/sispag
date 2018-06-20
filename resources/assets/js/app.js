@@ -20,6 +20,7 @@ Vue.component('register-button', require('./components/RegisterButtonComponent.v
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
 Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
 Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
+Vue.component('pagos-list', require('./components/PagosList.vue'));
 Vue.component('pagos-lista', require('./components/PagosLista.vue'));
 Vue.component('pagos-form', require('./components/PagosForm.vue'));
 Vue.component('banco-lista', require('./components/BancoLista.vue'));
@@ -40,6 +41,8 @@ Vue.component('moneda-lista', require('./components/MonedaLista.vue'));
 Vue.component('moneda-form', require('./components/MonedaForm.vue'));
 Vue.component('esquema-lista', require('./components/EsquemaLista.vue'));
 Vue.component('esquema-form', require('./components/EsquemaForm.vue'));
+Vue.component('ejecucion-lista', require('./components/EjecucionLista.vue'));
+Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
 
 window.Vuetify = require('vuetify'); 
 Vue.use(Vuetify)

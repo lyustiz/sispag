@@ -50,6 +50,12 @@ class Banco extends Model
         return $this->HasMany('App\Models\Pago', 'id_banco');
     
     }
+
+    public function ejecucionPago(){
+    
+        return $this->HasMany('App\Models\EjecucionPago', 'id_banco');
+    
+    }
     
     public function tipoBanco(){
     

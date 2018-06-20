@@ -32,7 +32,10 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::Resource('/categoria', 'CategoriaController');
     
     Route::Resource('/pago', 'PagoController');
+    Route::get('/pago/instruccion/{id_instruccion}', 'PagoController@pagoInstruccion');
     Route::Resource('/tipoPago', 'TipoPagoController');
+    Route::Resource('/ejecucionPago', 'EjecucionPagoController');
+    Route::get('/ejecucionPago/pago/{id_pago}', 'EjecucionPagoController@ejecucionPagoPago');
 
     Route::Resource('/moneda', 'MonedaController');
 

@@ -32,6 +32,12 @@ class Pago extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
     
+    public function ejecucionPago(){
+    
+        return $this->HasMany('App\Models\Pago', 'id_pago');
+    
+    }
+    
     public function moneda(){
     
         return $this->BelongsTo('App\Models\Moneda', 'id_moneda');

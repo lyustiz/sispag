@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pago;
+use App\models\EjecucionPago;
 use Illuminate\Http\Request;
 
-class PagoController extends Controller
+class EjecucionPagoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class PagoController extends Controller
      */
     public function index()
     {
-        $pagos = Pago::with(['moneda', 'banco', 'tipoPago', 'status'])->get();
+        $Ejecuciones = EjecucionPago::with(['pago', 'banco', 'etapaEnvio','status'])->get();
         
-        return $pagos;
+        return $Ejecuciones;
     }
 
     /**
@@ -43,33 +43,30 @@ class PagoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pago  $pago
+     * @param  \App\models\EjecucionPago  $ejecucionPago
      * @return \Illuminate\Http\Response
      */
-    public function show(Pago $pago)
+    public function show(EjecucionPago $ejecucionPago)
     {
-        dd($pago);
-        $pago = Pago::with(['moneda', 'banco', 'tipoPago', 'status'])
-                    ->where('id_instruccion','=', $pago->id_pago)
-                    ->get();
-        
-        return $pago;
+        //
     }
 
-    public function pagoInstruccion($id_instruccion)
-    {        
-        $pago = Pago::with(['moneda', 'banco', 'tipoPago', 'status'])
-                    ->where('id_instruccion','=', $id_instruccion)
+    public function ejecucionPagoPago($id_pago)
+    {
+
+        $ejecucion = EjecucionPago::with(['pago', 'banco', 'etapaEnvio', 'status'])
+                    ->where('id_pago','=', $id_pago)
                     ->get();
-        return $pago;
+        return $ejecucion;
     }
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pago  $pago
+     * @param  \App\models\EjecucionPago  $ejecucionPago
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pago $pago)
+    public function edit(EjecucionPago $ejecucionPago)
     {
         //
     }
@@ -78,10 +75,10 @@ class PagoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pago  $pago
+     * @param  \App\models\EjecucionPago  $ejecucionPago
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pago $pago)
+    public function update(Request $request, EjecucionPago $ejecucionPago)
     {
         //
     }
@@ -89,10 +86,10 @@ class PagoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pago  $pago
+     * @param  \App\models\EjecucionPago  $ejecucionPago
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pago $pago)
+    public function destroy(EjecucionPago $ejecucionPago)
     {
         //
     }

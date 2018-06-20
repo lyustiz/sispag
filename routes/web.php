@@ -1,6 +1,5 @@
 <?php
 
-
 Route::get('/prueba', 'CuentaController@prueba');
 
 Route::get('/', function () {

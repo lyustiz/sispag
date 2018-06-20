@@ -1,4 +1,4 @@
- /*
+/*
 Navicat PGSQL Data Transfer
 
 Source Server         : local
@@ -11,9 +11,9 @@ Target Server Type    : PGSQL
 Target Server Version : 90601
 File Encoding         : 65001
 
-Date: 2018-06-18 22:07:08
+Date: 2018-06-19 23:01:43
 */
-  
+
 
 -- ----------------------------
 -- Sequence structure for banco_id_banco_seq
@@ -35,9 +35,9 @@ CREATE SEQUENCE "pagos"."categoria_id_categoria_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 6
+ START 10
  CACHE 1;
-SELECT setval('"pagos"."categoria_id_categoria_seq"', 6, true);
+SELECT setval('"pagos"."categoria_id_categoria_seq"', 10, true);
 
 -- ----------------------------
 -- Sequence structure for clase_ente_id_clase_ente_seq
@@ -214,9 +214,9 @@ CREATE SEQUENCE "pagos"."pagos_id_pago_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 3
  CACHE 1;
-SELECT setval('"pagos"."pagos_id_pago_seq"', 1, true);
+SELECT setval('"pagos"."pagos_id_pago_seq"', 3, true);
 
 -- ----------------------------
 -- Sequence structure for solicitud_id_solicitud_seq
@@ -301,6 +301,18 @@ CREATE SEQUENCE "pagos"."tipo_pago_id_tipo_pago_seq"
  START 2
  CACHE 1;
 SELECT setval('"pagos"."tipo_pago_id_tipo_pago_seq"', 2, true);
+
+-- ----------------------------
+-- Sequence structure for tr_bitacora_id_bitacora_seq
+-- ----------------------------
+DROP SEQUENCE "pagos"."tr_bitacora_id_bitacora_seq";
+CREATE SEQUENCE "pagos"."tr_bitacora_id_bitacora_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 4
+ CACHE 1;
+SELECT setval('"pagos"."tr_bitacora_id_bitacora_seq"', 4, true);
 
 -- ----------------------------
 -- Sequence structure for users_id_seq
@@ -391,6 +403,7 @@ INSERT INTO "pagos"."categoria" VALUES ('3', 'FANB', 'N/A', '1', '1', '2018-06-0
 INSERT INTO "pagos"."categoria" VALUES ('4', 'DEUDA', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
 INSERT INTO "pagos"."categoria" VALUES ('5', 'BILLETES', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
 INSERT INTO "pagos"."categoria" VALUES ('6', 'MEDICAMENTOS', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."categoria" VALUES ('10', 'pruebaupd', 'prueba actualizacion', '1', '1', '2018-06-19 11:11:45.828125', '2018-06-19 11:16:08.939453');
 
 -- ----------------------------
 -- Table structure for clase_ente
@@ -424,6 +437,8 @@ CREATE TABLE "pagos"."cuenta" (
 "id_moneda" int4,
 "mo_disponible" numeric(15,2),
 "mo_instruido" numeric(15,2),
+"mo_aprobado" numeric(15,2),
+"mo_total" numeric(15,2),
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4,
 "id_status" int4,
@@ -437,8 +452,6 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of cuenta
 -- ----------------------------
-INSERT INTO "pagos"."cuenta" VALUES ('1', '1', '32657658.00', '76765873.00', null, '1', '1', null, null);
-INSERT INTO "pagos"."cuenta" VALUES ('2', '2', '45343663.00', '354534345.00', null, '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for det_cuenta
@@ -487,8 +500,8 @@ WITH (OIDS=FALSE)
 -- Records of ejecucion_pago
 -- ----------------------------
 INSERT INTO "pagos"."ejecucion_pago" VALUES ('1', '1', '5', '2018-07-12 00:00:00', '1', null, '1', '1', '2018-06-12 00:00:00', null);
-INSERT INTO "pagos"."ejecucion_pago" VALUES ('2', '1', '3', '2018-07-12 00:00:00', '2', null, '1', '1', '2018-07-12 00:00:00', null);
-INSERT INTO "pagos"."ejecucion_pago" VALUES ('3', '1', '2', '2018-08-12 00:00:00', '3', null, '1', '1', '2018-07-12 00:00:00', null);
+INSERT INTO "pagos"."ejecucion_pago" VALUES ('2', '1', '8', '2018-07-12 00:00:00', '2', null, '1', '1', '2018-07-12 00:00:00', null);
+INSERT INTO "pagos"."ejecucion_pago" VALUES ('3', '1', '7', '2018-08-12 00:00:00', '3', null, '1', '1', '2018-07-12 00:00:00', null);
 
 -- ----------------------------
 -- Table structure for ente
@@ -803,7 +816,9 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of pago
 -- ----------------------------
-INSERT INTO "pagos"."pago" VALUES ('1', '3', '2018-07-12 00:00:00', '2', '2018-06-12 00:00:00', '3', '1', '5682535.89', '1', null, '1', '1', '2018-06-12 00:00:00', null);
+INSERT INTO "pagos"."pago" VALUES ('1', '3', '2018-07-12 00:00:00', '2', '2018-06-12 00:00:00', '1', '1', '5682535.89', '1', null, '1', '1', '2018-06-12 00:00:00', null);
+INSERT INTO "pagos"."pago" VALUES ('2', '1', '2018-06-19 00:00:00', '1', '2018-06-19 00:00:00', '1', '1', '42552363.66', '2', null, '1', '1', null, null);
+INSERT INTO "pagos"."pago" VALUES ('3', '1', '2018-06-19 00:00:00', '1', '2018-06-19 00:00:00', '1', '1', '3242432.76', '2', null, '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -1041,8 +1056,34 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of tipo_pago
 -- ----------------------------
-INSERT INTO "pagos"."tipo_pago" VALUES ('1', 'TOTAL', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
-INSERT INTO "pagos"."tipo_pago" VALUES ('2', 'PARCIAL', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."tipo_pago" VALUES ('1', 'Total', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+INSERT INTO "pagos"."tipo_pago" VALUES ('2', 'Parcial', 'N/A', '1', '1', '2018-06-08 00:00:00', null);
+
+-- ----------------------------
+-- Table structure for tr_bitacora
+-- ----------------------------
+DROP TABLE IF EXISTS "pagos"."tr_bitacora";
+CREATE TABLE "pagos"."tr_bitacora" (
+"id_bitacora" int4 DEFAULT nextval('"pagos".tr_bitacora_id_bitacora_seq'::regclass) NOT NULL,
+"co_accion" varchar(50) COLLATE "default" NOT NULL,
+"tx_tabla" varchar(100) COLLATE "default" NOT NULL,
+"in_id_tabla" int4 NOT NULL,
+"tx_old_valor" varchar(100) COLLATE "default",
+"tx_new_valor" varchar(100) COLLATE "default",
+"fe_accion" timestamp(6),
+"id_usuario" int4 NOT NULL
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of tr_bitacora
+-- ----------------------------
+INSERT INTO "pagos"."tr_bitacora" VALUES ('1', 'INS', 'categoria', '10', null, '(10,prueba,N/A,1,1,"2018-06-19 11:11:45.828125",)', '2018-06-19 11:11:45.828125', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('2', 'UPD', 'categoria', '10', '(10,prueba,N/A,1,1,"2018-06-19 11:11:45.828125",)', '(10,pruebaupd,"prueba actualizacion",1,1,"2018-06-19 11:11:45.828125","2018-06-19 11:16:08.939453")', '2018-06-19 11:16:08.939453', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('3', 'UPD', 'ejecucion_pago', '1', '(2,1,3,"2018-07-12 00:00:00",2,,1,1,"2018-07-12 00:00:00",)', '(2,1,8,"2018-07-12 00:00:00",2,,1,1,"2018-07-12 00:00:00",)', '2018-06-19 22:56:55.216197', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('4', 'UPD', 'ejecucion_pago', '1', '(3,1,2,"2018-08-12 00:00:00",3,,1,1,"2018-07-12 00:00:00",)', '(3,1,7,"2018-08-12 00:00:00",3,,1,1,"2018-07-12 00:00:00",)', '2018-06-19 22:56:58.264371', '1');
 
 -- ----------------------------
 -- Table structure for users
@@ -1064,7 +1105,7 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO "pagos"."users" VALUES ('1', 'luisa', 'lyustis@gmail.com', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', '0HjUp6rXmpofEjHhGXAl43LiWMnM0mMez4lViCQWFe5KgTYEVDvYTQrYxVsy', null, '2018-06-09 15:32:29');
+INSERT INTO "pagos"."users" VALUES ('1', 'luisa', 'lyustis@gmail.com', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', 'PD3OMZX63KE6EPS3GPRpXjdMnWRBSIxg4ihU4ch6tGU6BjhM00Q4a7PUX6xf', null, '2018-06-09 15:32:29');
 INSERT INTO "pagos"."users" VALUES ('4', 'carlos', 'cgranados@bandes.gob.ve', '$2y$10$6Qs4V0VTicMSgbL8crvEgef.TL5aOEDmuI/NkCrmOgADWwTlxSi66', '338W36NHAFmrSauuDL5L7awis4RxwmV95JR42bJUhnFeu8DoFDDWzQz2ylZ9', null, null);
 
 -- ----------------------------
@@ -1104,9 +1145,14 @@ COMMENT ON COLUMN "pagos"."usuario"."fe_actualizado" IS 'Fecha y hora de actuali
 -- ----------------------------
 -- Alter Sequences Owned By 
 -- ----------------------------
-ALTER SEQUENCE "pagos"."det_cuenta_id_det_cuenta_seq" OWNED BY "det_cuenta"."id_det_cuenta";
-ALTER SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_seq" OWNED BY "ejecucion_pago"."id_ejecucion";
-ALTER SEQUENCE "pagos"."pagos_id_pago_seq" OWNED BY "pago"."id_pago";
+ALTER SEQUENCE "pagos"."tr_bitacora_id_bitacora_seq" OWNED BY "tr_bitacora"."id_bitacora";
+
+-- ----------------------------
+-- Triggers structure for table banco
+-- ----------------------------
+CREATE TRIGGER "trg_tr_banco" AFTER INSERT OR UPDATE ON "pagos"."banco"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table banco
@@ -1114,9 +1160,23 @@ ALTER SEQUENCE "pagos"."pagos_id_pago_seq" OWNED BY "pago"."id_pago";
 ALTER TABLE "pagos"."banco" ADD PRIMARY KEY ("id_banco");
 
 -- ----------------------------
+-- Triggers structure for table categoria
+-- ----------------------------
+CREATE TRIGGER "trg_tr_categoria" AFTER INSERT OR UPDATE ON "pagos"."categoria"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table categoria
 -- ----------------------------
 ALTER TABLE "pagos"."categoria" ADD PRIMARY KEY ("id_categoria");
+
+-- ----------------------------
+-- Triggers structure for table clase_ente
+-- ----------------------------
+CREATE TRIGGER "trg_tr_clase_ente" AFTER INSERT OR UPDATE ON "pagos"."clase_ente"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table clase_ente
@@ -1124,9 +1184,30 @@ ALTER TABLE "pagos"."categoria" ADD PRIMARY KEY ("id_categoria");
 ALTER TABLE "pagos"."clase_ente" ADD PRIMARY KEY ("id_clase_ente");
 
 -- ----------------------------
+-- Triggers structure for table cuenta
+-- ----------------------------
+CREATE TRIGGER "trg_tr_cuenta" AFTER INSERT OR UPDATE ON "pagos"."cuenta"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
+-- Triggers structure for table det_cuenta
+-- ----------------------------
+CREATE TRIGGER "trg_tr_det_cuenta" AFTER INSERT OR UPDATE ON "pagos"."det_cuenta"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table det_cuenta
 -- ----------------------------
 ALTER TABLE "pagos"."det_cuenta" ADD PRIMARY KEY ("id_det_cuenta");
+
+-- ----------------------------
+-- Triggers structure for table ejecucion_pago
+-- ----------------------------
+CREATE TRIGGER "trg_tr_ejecucion_pago" AFTER INSERT OR UPDATE ON "pagos"."ejecucion_pago"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table ejecucion_pago
@@ -1134,9 +1215,30 @@ ALTER TABLE "pagos"."det_cuenta" ADD PRIMARY KEY ("id_det_cuenta");
 ALTER TABLE "pagos"."ejecucion_pago" ADD PRIMARY KEY ("id_ejecucion");
 
 -- ----------------------------
+-- Triggers structure for table ente
+-- ----------------------------
+CREATE TRIGGER "trg_tr_ente" AFTER INSERT OR UPDATE ON "pagos"."ente"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table ente
 -- ----------------------------
 ALTER TABLE "pagos"."ente" ADD PRIMARY KEY ("id_ente");
+
+-- ----------------------------
+-- Triggers structure for table esquema
+-- ----------------------------
+CREATE TRIGGER "trg_tr_esquema" AFTER INSERT OR UPDATE ON "pagos"."esquema"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
+-- Triggers structure for table etapa_envio
+-- ----------------------------
+CREATE TRIGGER "trg_tr_etapa_envio" AFTER INSERT OR UPDATE ON "pagos"."etapa_envio"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table etapa_envio
@@ -1144,9 +1246,30 @@ ALTER TABLE "pagos"."ente" ADD PRIMARY KEY ("id_ente");
 ALTER TABLE "pagos"."etapa_envio" ADD PRIMARY KEY ("id_etapa_envio");
 
 -- ----------------------------
+-- Triggers structure for table grupo_banco
+-- ----------------------------
+CREATE TRIGGER "trg_tr_grupo_banco" AFTER INSERT OR UPDATE ON "pagos"."grupo_banco"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
+-- Triggers structure for table grupo_ente
+-- ----------------------------
+CREATE TRIGGER "trg_tr_grupo_ente" AFTER INSERT OR UPDATE ON "pagos"."grupo_ente"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table grupo_ente
 -- ----------------------------
 ALTER TABLE "pagos"."grupo_ente" ADD PRIMARY KEY ("id_grupo_ente");
+
+-- ----------------------------
+-- Triggers structure for table grupo_financiero
+-- ----------------------------
+CREATE TRIGGER "trg_tr_grupo_financiero" AFTER INSERT OR UPDATE ON "pagos"."grupo_financiero"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table grupo_financiero
@@ -1154,14 +1277,42 @@ ALTER TABLE "pagos"."grupo_ente" ADD PRIMARY KEY ("id_grupo_ente");
 ALTER TABLE "pagos"."grupo_financiero" ADD PRIMARY KEY ("id_grupo_financiero");
 
 -- ----------------------------
+-- Triggers structure for table grupo_status
+-- ----------------------------
+CREATE TRIGGER "trg_tr_grupo_status" AFTER INSERT OR UPDATE ON "pagos"."grupo_status"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table grupo_status
 -- ----------------------------
 ALTER TABLE "pagos"."grupo_status" ADD PRIMARY KEY ("id_grupo_status");
 
 -- ----------------------------
+-- Triggers structure for table ingreso
+-- ----------------------------
+CREATE TRIGGER "trg_tr_ingreso" AFTER INSERT OR UPDATE ON "pagos"."ingreso"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table ingreso
 -- ----------------------------
 ALTER TABLE "pagos"."ingreso" ADD PRIMARY KEY ("id_ingreso");
+
+-- ----------------------------
+-- Triggers structure for table instruccion
+-- ----------------------------
+CREATE TRIGGER "trg_tr_instruccion" AFTER INSERT OR UPDATE ON "pagos"."instruccion"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
+-- Triggers structure for table moneda
+-- ----------------------------
+CREATE TRIGGER "trg_tr_moneda" AFTER INSERT OR UPDATE ON "pagos"."moneda"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table moneda
@@ -1179,9 +1330,23 @@ ALTER TABLE "pagos"."pago" ADD PRIMARY KEY ("id_pago");
 CREATE INDEX "password_resets_email_index" ON "pagos"."password_resets" USING btree (email);
 
 -- ----------------------------
+-- Triggers structure for table solicitud
+-- ----------------------------
+CREATE TRIGGER "trg_tr_solicitud" AFTER INSERT OR UPDATE ON "pagos"."solicitud"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table solicitud
 -- ----------------------------
 ALTER TABLE "pagos"."solicitud" ADD PRIMARY KEY ("id_solicitud");
+
+-- ----------------------------
+-- Triggers structure for table status
+-- ----------------------------
+CREATE TRIGGER "trg_tr_status" AFTER INSERT OR UPDATE ON "pagos"."status"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table status
@@ -1189,9 +1354,23 @@ ALTER TABLE "pagos"."solicitud" ADD PRIMARY KEY ("id_solicitud");
 ALTER TABLE "pagos"."status" ADD PRIMARY KEY ("id_status");
 
 -- ----------------------------
+-- Triggers structure for table tasa
+-- ----------------------------
+CREATE TRIGGER "trg_tr_tasa" AFTER INSERT OR UPDATE ON "pagos"."tasa"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table tasa
 -- ----------------------------
 ALTER TABLE "pagos"."tasa" ADD PRIMARY KEY ("id_tasa");
+
+-- ----------------------------
+-- Triggers structure for table tipo_banco
+-- ----------------------------
+CREATE TRIGGER "trg_tipo_banco" AFTER INSERT OR UPDATE ON "pagos"."tipo_banco"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table tipo_banco
@@ -1199,9 +1378,23 @@ ALTER TABLE "pagos"."tasa" ADD PRIMARY KEY ("id_tasa");
 ALTER TABLE "pagos"."tipo_banco" ADD PRIMARY KEY ("id_tipo_banco");
 
 -- ----------------------------
+-- Triggers structure for table tipo_ente
+-- ----------------------------
+CREATE TRIGGER "trg_tipo_ente" AFTER INSERT OR UPDATE ON "pagos"."tipo_ente"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table tipo_ente
 -- ----------------------------
 ALTER TABLE "pagos"."tipo_ente" ADD PRIMARY KEY ("id_tipo_ente");
+
+-- ----------------------------
+-- Triggers structure for table tipo_ingreso
+-- ----------------------------
+CREATE TRIGGER "trg_tipo_ingreso" AFTER INSERT OR UPDATE ON "pagos"."tipo_ingreso"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table tipo_ingreso
@@ -1209,14 +1402,33 @@ ALTER TABLE "pagos"."tipo_ente" ADD PRIMARY KEY ("id_tipo_ente");
 ALTER TABLE "pagos"."tipo_ingreso" ADD PRIMARY KEY ("id_tipo_ingreso");
 
 -- ----------------------------
+-- Triggers structure for table tipo_pago
+-- ----------------------------
+CREATE TRIGGER "trg_tipo_pago" AFTER INSERT OR UPDATE ON "pagos"."tipo_pago"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
+
+-- ----------------------------
 -- Primary Key structure for table tipo_pago
 -- ----------------------------
 ALTER TABLE "pagos"."tipo_pago" ADD PRIMARY KEY ("id_tipo_pago");
 
 -- ----------------------------
+-- Primary Key structure for table tr_bitacora
+-- ----------------------------
+ALTER TABLE "pagos"."tr_bitacora" ADD PRIMARY KEY ("id_bitacora");
+
+-- ----------------------------
 -- Primary Key structure for table users
 -- ----------------------------
 ALTER TABLE "pagos"."users" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Triggers structure for table usuario
+-- ----------------------------
+CREATE TRIGGER "trg_usuario" AFTER INSERT OR UPDATE ON "pagos"."usuario"
+FOR EACH ROW
+EXECUTE PROCEDURE "pagos"."sp_ins_bitacora"();
 
 -- ----------------------------
 -- Primary Key structure for table usuario

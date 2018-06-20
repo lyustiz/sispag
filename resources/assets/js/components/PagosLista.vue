@@ -56,23 +56,11 @@
                         </template>
 
                         <template slot="expand" slot-scope="instruccion">
+                           
                             <v-card flat>
-                                <v-card-text><v-card-title class="red accent-1 white--text">
-                        <h2>Pagos</h2>
-                    </v-card-title>
-                    {{instruccion.item.id_intruccion}}
+                                <v-card-text>
 
-                                        <list-select   
-                                            tabla="pago" 
-                                            :encabezados="[
-                                                            { text: 'moneda',   value: 'moneda.nb_moneda' },
-                                                            { text: 'Monto',    value: 'mo_final_pago' },
-                                                            { text: 'Tipo Pago',    value: 'tipo_pago.nb_tipo_pago' },
-                                                            { text: 'Status',   value: 'status.nb_status' },
-                                                            ]"
-                                            @seleccion="true"
-                                        >
-                                        </list-select>
+                                        <pagos-list :id-instruccion="instruccion.item.id_instruccion"></pagos-list>
 
                                 </v-card-text>
                             </v-card>
