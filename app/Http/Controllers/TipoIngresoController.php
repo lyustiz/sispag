@@ -14,7 +14,9 @@ class TipoIngresoController extends Controller
      */
     public function index()
     {
-        //
+        $tipIngresos = TipoIngreso::with(['status'])->get();
+        
+        return $tipIngresos;
     }
 
     /**

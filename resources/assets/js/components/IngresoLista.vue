@@ -121,12 +121,12 @@
 
 <script>
 
-Vue.use(require('vue-moment'));
-
+import withSnackbar from '../components/mixins/withSnackbar';
 export default {
+    mixins: [ withSnackbar ],
     created() {
 
-        this.ingresos  = this.list();
+        this.list();
     },
     filters: {
 
@@ -134,14 +134,14 @@ export default {
 
             if (!value) return ''
             value = value.toString();
-            return value.substr(6, 2)+'/'+value.substr(4, 2)+'/'+value.substr(0, 4);
+            return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4);
         }
 
     },
     data () {
     return {
         modal:     false,
-        ingresos:  false,
+        ingresos:  [],
         buscar:    '',
         busTipIng: '',
         accion:    '',
@@ -163,28 +163,23 @@ export default {
     methods:
     {
         customFilter(items, search, filter) {
-e
-            console.log(items )
-            console.log(search )
-            console.log(filter )
-            //search = search.toString().toLowerCase()
             return items.filter(row => filter(row["tipo_ingreso.nb_tipo_ingreso"], search));
         },
         cerrarModal(){
 
             this.modal = false;
             this.ingreso = '';
+            this.list();
 
         },
         list () {
 
             axios.get('/api/v1/ingreso')
             .then(respuesta => {
-                console.log(respuesta.data)
                     this.ingresos = respuesta.data;
             })
             .catch(error => {
-                    
+                    this.showError(error) 
             })
         },
         updIngreso (ingreso) {

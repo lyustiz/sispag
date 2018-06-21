@@ -18,7 +18,9 @@
 
                         <v-flex xs12 sm6>
                             <v-select
-                            :items="['Petroleo', 'Oro']"
+                            :items="listas.tipoIngreso"
+                            item-text="nb_tipo_ingreso"
+                            item-value="id_tipo_ingreso"
                             v-model="form.id_tipo_ingreso"
                             label="Tipo Ingreso"
                             autocomplete
@@ -28,7 +30,9 @@
 
                         <v-flex xs12 sm6>  
                             <v-select
-                            :items="['CUSPA', 'Bandes']"
+                            :items="listas.entes"
+                            item-text="nb_ente"
+                            item-value="id_ente"
                             v-model="form.id_ente"
                             label="Ente Receptor"
                             autocomplete
@@ -38,7 +42,9 @@
 
                         <v-flex xs12>  
                             <v-select
-                            :items="['Venezuela', 'BVC']"
+                            :items="listas.bancos"
+                            item-text="nb_banco"
+                            item-value="id_banco"
                             v-model="form.id_banco"
                             label="Banco Receptor"
                             autocomplete
@@ -59,7 +65,9 @@
 
                         <v-flex xs12 sm4>
                             <v-select
-                            :items="['EURO', 'DOLARES']"
+                            :items="listas.monedas"
+                            item-text="nb_moneda"
+                            item-value="id_moneda"
                             v-model="form.id_moneda"
                             label="Moneda"
                             autocomplete
@@ -93,14 +101,14 @@
                         >
                             <v-text-field
                             slot="activator"
-                            v-model="date"
+                            v-model="form.fe_ingreso"
                             :rules="rules.fe_ingreso"
                             label="Seleccione Fecha"
                             prepend-icon="event"
                             readonly
                             required
                             ></v-text-field>
-                            <v-date-picker v-model="date" @input="$refs.menu1.save(date)"></v-date-picker>
+                            <v-date-picker v-model="form.fe_ingreso" @input="$refs.menu1.save(date)"></v-date-picker>
 
                         </v-menu>
                         </v-flex>
@@ -164,6 +172,13 @@
 import withSnackbar from '../components/mixins/withSnackbar';
 
 export default {
+    mixins: [ withSnackbar ],
+    created() {
+       this.listEntes(); 
+       this.listTipoIngreso(); 
+       this.listBancos(); 
+       this.listMonedas(); 
+    },
     data () {
         return {
             valido: false,
@@ -184,6 +199,12 @@ export default {
                 id_usuario: '',
                 id_status: ''
             },
+            listas:{
+                entes: [],
+                tipoIngreso: [],
+                bancos: [],
+                monedas: [],
+            },
             rules:{
                mo_ingreso: [
                     v => !!v || 'Campo Requerido',
@@ -201,7 +222,6 @@ export default {
         }
     },
     props: ['accion','ingreso'],
-    mixins: [ withSnackbar ],
     computed: {
       computedDateFormatted () {
         return this.formatDate(this.date)
@@ -219,7 +239,6 @@ export default {
             }else{
                 this.clear();
             }
-            
         },
         banco: function (val) {
             this.mapForm()
@@ -280,7 +299,7 @@ export default {
            
             axios.put('/api/v1/ingreso/'+ this.ingreso.id_ingreso, this.form)
             .then(respuesta => {
-                    this.showMessage(respuesta)
+                    this.showMessage(respuesta.data.msj)
             })
             .catch(error => {
                     this.showError(error);
@@ -292,11 +311,49 @@ export default {
             
             axios.post('/api/v1/ingreso', this.form)
             .then(respuesta => {
-                    this.showMessage(respuesta)
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
             })
             .catch(error => {
                 console.log(error);
                     this.showError(error);
+            })
+        },
+        listEntes(){
+             axios.get('/api/v1/ente/grupo/4')
+            .then(respuesta => {
+                this.listas.entes = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+        },
+        listTipoIngreso(){
+             axios.get('/api/v1/tipoIngreso')
+            .then(respuesta => {
+                this.listas.tipoIngreso = respuesta.data;
+                
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+        },
+        listBancos(){
+             axios.get('/api/v1/banco/grupo/1')
+            .then(respuesta => {
+                this.listas.bancos = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+        },
+        listMonedas(){
+             axios.get('/api/v1/moneda')
+            .then(respuesta => {
+                this.listas.monedas = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)    
             })
         }
     }

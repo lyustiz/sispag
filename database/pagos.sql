@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90601
 File Encoding         : 65001
 
-Date: 2018-06-19 23:01:43
+Date: 2018-06-20 23:41:21
 */
 
 
@@ -23,9 +23,9 @@ CREATE SEQUENCE "pagos"."banco_id_banco_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 20
+ START 21
  CACHE 1;
-SELECT setval('"pagos"."banco_id_banco_seq"', 20, true);
+SELECT setval('"pagos"."banco_id_banco_seq"', 21, true);
 
 -- ----------------------------
 -- Sequence structure for categoria_id_categoria_seq
@@ -59,9 +59,9 @@ CREATE SEQUENCE "pagos"."cuenta_id_cuenta_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 2
+ START 4
  CACHE 1;
-SELECT setval('"pagos"."cuenta_id_cuenta_seq"', 2, true);
+SELECT setval('"pagos"."cuenta_id_cuenta_seq"', 4, true);
 
 -- ----------------------------
 -- Sequence structure for det_cuenta_id_det_cuenta_seq
@@ -178,9 +178,9 @@ CREATE SEQUENCE "pagos"."ingreso_id_ingreso_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 4
+ START 15
  CACHE 1;
-SELECT setval('"pagos"."ingreso_id_ingreso_seq"', 4, true);
+SELECT setval('"pagos"."ingreso_id_ingreso_seq"', 15, true);
 
 -- ----------------------------
 -- Sequence structure for instruccion_id_instruccion_seq
@@ -310,9 +310,9 @@ CREATE SEQUENCE "pagos"."tr_bitacora_id_bitacora_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 4
+ START 22
  CACHE 1;
-SELECT setval('"pagos"."tr_bitacora_id_bitacora_seq"', 4, true);
+SELECT setval('"pagos"."tr_bitacora_id_bitacora_seq"', 22, true);
 
 -- ----------------------------
 -- Sequence structure for users_id_seq
@@ -374,6 +374,7 @@ INSERT INTO "pagos"."banco" VALUES ('14', 'MONDIAL BANK', '2', 'N/A', '1', '1', 
 INSERT INTO "pagos"."banco" VALUES ('15', 'FAISAL BANK', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
 INSERT INTO "pagos"."banco" VALUES ('16', 'KUNLUN', '2', 'N/A', '1', '1', '2018-06-08 00:00:00', null, '1');
 INSERT INTO "pagos"."banco" VALUES ('17', 'PRUEBA BANCO', '1', 'prueba', '1', '1', '2018-06-10 00:57:40', '2018-06-17 21:20:40', '4');
+INSERT INTO "pagos"."banco" VALUES ('21', 'BANCO RECEPTOR', '2', '4535353', '1', '1', '2018-06-21 03:13:28', '2018-06-21 03:13:46', '1');
 
 -- ----------------------------
 -- Table structure for categoria
@@ -452,6 +453,8 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of cuenta
 -- ----------------------------
+INSERT INTO "pagos"."cuenta" VALUES ('3', '1', '234234234.00', '194575766.00', '194575766.00', '323888333.00', null, '1', '1', null, null);
+INSERT INTO "pagos"."cuenta" VALUES ('4', '2', '64656283.50', '97287883.00', '97287883.00', '161944166.50', null, '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for det_cuenta
@@ -528,9 +531,9 @@ WITH (OIDS=FALSE)
 INSERT INTO "pagos"."ente" VALUES ('1', 'BCV', '1', '4', null, '1', '1', null, null);
 INSERT INTO "pagos"."ente" VALUES ('2', 'FONDEN', '1', '4', null, '1', '1', null, null);
 INSERT INTO "pagos"."ente" VALUES ('3', 'CORPOVEX', '1', '4', null, '1', '1', null, null);
-INSERT INTO "pagos"."ente" VALUES ('5', 'MPP EDUCACION', '3', '4', null, '1', '1', null, null);
+INSERT INTO "pagos"."ente" VALUES ('5', 'MPP EDUCACION', '3', '5', null, '1', '1', null, null);
 INSERT INTO "pagos"."ente" VALUES ('7', 'MPP ECONOMIA Y FINANZAS', '3', '4', null, '1', '1', null, null);
-INSERT INTO "pagos"."ente" VALUES ('8', 'GOBERNACION TACHIRA', '2', '4', null, '1', '1', null, null);
+INSERT INTO "pagos"."ente" VALUES ('8', 'GOBERNACION TACHIRA', '2', '5', null, '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for esquema
@@ -701,8 +704,8 @@ CREATE TABLE "pagos"."ingreso" (
 "id_ente" int4,
 "id_moneda" int4,
 "mo_ingreso" numeric,
-"id_tasa" int4,
-"fe_ingreso" int4,
+"mo_tasa" numeric(5,2),
+"fe_ingreso" timestamp,
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
@@ -717,10 +720,12 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of ingreso
 -- ----------------------------
-INSERT INTO "pagos"."ingreso" VALUES ('1', '1', '1', '1', '5000.00', '1', '20180501', 'ninguna', '1', '1', '2018-01-01 00:00:00', '2018-01-01 00:00:00', '1');
-INSERT INTO "pagos"."ingreso" VALUES ('2', '2', '1', '2', '3455.55', '2', '20180501', 'ninguna', '1', '1', null, null, '1');
-INSERT INTO "pagos"."ingreso" VALUES ('3', '3', '2', '2', '57687.66', '1', '20180602', null, '1', '1', null, null, '1');
-INSERT INTO "pagos"."ingreso" VALUES ('4', '4', '3', '3', '54545.98', '2', '20180602', null, '1', '1', null, null, '1');
+INSERT INTO "pagos"."ingreso" VALUES ('1', '1', '1', '1', '5000.00', '1.00', '2018-06-13 00:00:00', 'ninguna 2', '1', '1', '2018-01-01 00:00:00', '2018-06-21 03:10:32', '1');
+INSERT INTO "pagos"."ingreso" VALUES ('2', '2', '1', '2', '3455.55', '2.00', '2018-06-01 00:00:00', 'ninguna', '1', '1', null, null, '1');
+INSERT INTO "pagos"."ingreso" VALUES ('3', '3', '2', '2', '57687.66', '1.00', '2018-06-01 00:00:00', null, '1', '1', null, null, '1');
+INSERT INTO "pagos"."ingreso" VALUES ('4', '4', '3', '3', '54545.98', '2.00', '2018-06-01 00:00:00', null, '1', '1', null, null, '1');
+INSERT INTO "pagos"."ingreso" VALUES ('14', '1', '2', '3', '453436', '35.00', '2018-06-06 00:00:00', 'prueba', '1', '1', '2018-06-21 03:04:34', '2018-06-21 03:10:59', '11');
+INSERT INTO "pagos"."ingreso" VALUES ('15', '4', '3', '1', '5353453', '54.00', '2018-06-06 00:00:00', '5353', '1', '1', '2018-06-21 03:09:04', '2018-06-21 03:09:04', '12');
 
 -- ----------------------------
 -- Table structure for instruccion
@@ -1084,6 +1089,22 @@ INSERT INTO "pagos"."tr_bitacora" VALUES ('1', 'INS', 'categoria', '10', null, '
 INSERT INTO "pagos"."tr_bitacora" VALUES ('2', 'UPD', 'categoria', '10', '(10,prueba,N/A,1,1,"2018-06-19 11:11:45.828125",)', '(10,pruebaupd,"prueba actualizacion",1,1,"2018-06-19 11:11:45.828125","2018-06-19 11:16:08.939453")', '2018-06-19 11:16:08.939453', '1');
 INSERT INTO "pagos"."tr_bitacora" VALUES ('3', 'UPD', 'ejecucion_pago', '1', '(2,1,3,"2018-07-12 00:00:00",2,,1,1,"2018-07-12 00:00:00",)', '(2,1,8,"2018-07-12 00:00:00",2,,1,1,"2018-07-12 00:00:00",)', '2018-06-19 22:56:55.216197', '1');
 INSERT INTO "pagos"."tr_bitacora" VALUES ('4', 'UPD', 'ejecucion_pago', '1', '(3,1,2,"2018-08-12 00:00:00",3,,1,1,"2018-07-12 00:00:00",)', '(3,1,7,"2018-08-12 00:00:00",3,,1,1,"2018-07-12 00:00:00",)', '2018-06-19 22:56:58.264371', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('6', 'INS', 'cuenta', '3', null, '(3,1,234234234.00,34242.00,242442.00,3434242.00,,1,1,,)', '2018-06-20 19:39:35.045275', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('7', 'UPD', 'cuenta', '3', '(3,1,234234234.00,34242.00,242442.00,3434242.00,,1,1,,)', '(3,1,234234234.00,194575766.00,194575766.00,323888333.00,,1,1,,)', '2018-06-20 19:40:34.973702', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('8', 'INS', 'cuenta', '4', null, '(4,2,64656283.50,97287883.00,97287883.00,161944166.50,,1,1,,)', '2018-06-20 19:42:10.165147', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('9', 'UPD', 'ente', '8', '(8,"GOBERNACION TACHIRA",2,4,,1,1,,)', '(8,"GOBERNACION TACHIRA",2,5,,1,1,,)', '2018-06-20 20:50:26.07098', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('10', 'UPD', 'ente', '5', '(5,"MPP EDUCACION",3,4,,1,1,,)', '(5,"MPP EDUCACION",3,5,,1,1,,)', '2018-06-20 21:49:21.722533', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('11', 'UPD', 'ingreso', '1', '(1,1,1,1,5000.00,1.00,20180501,ninguna,1,1,"2018-01-01 00:00:00","2018-01-01 00:00:00",1)', '(1,1,1,1,5000.00,1.00,0,ninguna,1,1,"2018-01-01 00:00:00","2018-01-01 00:00:00",1)', '2018-06-20 22:21:01.059423', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('12', 'UPD', 'ingreso', '2', '(2,2,1,2,3455.55,2.00,20180501,ninguna,1,1,,,1)', '(2,2,1,2,3455.55,2.00,0,ninguna,1,1,,,1)', '2018-06-20 22:21:02.704634', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('13', 'UPD', 'ingreso', '3', '(3,3,2,2,57687.66,1.00,20180602,,1,1,,,1)', '(3,3,2,2,57687.66,1.00,0,,1,1,,,1)', '2018-06-20 22:21:04.153637', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('14', 'UPD', 'ingreso', '4', '(4,4,3,3,54545.98,2.00,20180602,,1,1,,,1)', '(4,4,3,3,54545.98,2.00,0,,1,1,,,1)', '2018-06-20 22:21:22.42938', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('15', 'UPD', 'ingreso', '1', '(1,1,1,1,5000.00,1.00,0,ninguna,1,1,"2018-01-01 00:00:00","2018-01-01 00:00:00",1)', '(1,1,1,1,5000.00,1.00,,ninguna,1,1,"2018-01-01 00:00:00","2018-01-01 00:00:00",1)', '2018-06-20 22:23:42.407154', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('16', 'UPD', 'ingreso', '2', '(2,2,1,2,3455.55,2.00,0,ninguna,1,1,,,1)', '(2,2,1,2,3455.55,2.00,,ninguna,1,1,,,1)', '2018-06-20 22:23:45.662661', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('17', 'UPD', 'ingreso', '3', '(3,3,2,2,57687.66,1.00,0,,1,1,,,1)', '(3,3,2,2,57687.66,1.00,,,1,1,,,1)', '2018-06-20 22:23:47.919065', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('18', 'UPD', 'ingreso', '4', '(4,4,3,3,54545.98,2.00,0,,1,1,,,1)', '(4,4,3,3,54545.98,2.00,,,1,1,,,1)', '2018-06-20 22:23:50.265369', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('19', 'INS', 'ingreso', '5', null, '(5,1,1,1,4546,1.23,"2018-06-01 00:00:00",,1,1,"2018-06-21 02:30:10","2018-06-21 02:30:10",8)', '2018-06-20 22:30:10.980493', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('21', 'INS', 'banco', '21', null, '(21,"banco receptor",2,4535353,1,1,"2018-06-21 03:13:28","2018-06-21 03:13:28",1)', '2018-06-20 23:13:28.562444', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('22', 'UPD', 'banco', '21', '(21,"banco receptor",2,4535353,1,1,"2018-06-21 03:13:28","2018-06-21 03:13:28",1)', '(21,"BANCO RECEPTOR",2,4535353,1,1,"2018-06-21 03:13:28","2018-06-21 03:13:46",1)', '2018-06-20 23:13:46.714723', '1');
 
 -- ----------------------------
 -- Table structure for users

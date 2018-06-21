@@ -19,6 +19,32 @@ class EnteController extends Controller
         return $ente;
     }
 
+    public function enteGrupo($grupo)
+    {
+        $ente = Ente::grupo($grupo)->get();
+        
+        return $ente;
+    }
+
+    public function enteTipo($tipo)
+    {
+        $ente = Ente::tipo($tipo)->get();
+        
+        return $ente;
+    }
+
+    public function enteTipoGrupo($tipo, $grupo)
+    {
+        $ente = Ente::with(['tipoEnte', 'grupoEnte','status'])->tipo($tipo)->grupo($grupo)->get();
+        
+        return $ente;
+    }
+
+
+
+
+
+
     /**
      * Show the form for creating a new resource.
      *

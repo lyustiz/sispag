@@ -27,17 +27,18 @@ class Banco extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+
+    public function scopeGrupo($query, $grupo)
+    {
+        return $query->where('id_grupo_banco', $grupo);
+    }
+    
+
     public function instruccion(){
     
         return $this->HasMany('App\Models\Instruccion', 'id_banco');
     
     }
-
-  /*  public function grupoFinanciero()
-    {
-        return $this->belongsToMany('App\Models\GrupoFinanciero', 'grupo_bancos', 'id_banco', 'id_grupo_financiero');
-    }*/
-    
     
     public function ingreso(){
     

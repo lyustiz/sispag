@@ -27,6 +27,16 @@ class Ente extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function scopeTipo($query, $tipo)
+    {
+        return $query->where('id_tipo_ente', $tipo);
+    }
+    
+    public function scopeGrupo($query, $grupo)
+    {
+        return $query->where('id_grupo_ente', $grupo);
+    }
+    
     public function tipoEnte(){
     
         return $this->BelongsTo('App\Models\TipoEnte', 'id_tipo_ente');

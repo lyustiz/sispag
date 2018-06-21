@@ -37,7 +37,23 @@ class IngresoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+
+            'id_tipo_ingreso'   => 'required',
+            'id_ente'           => 'required',
+            'id_moneda'         => 'required',
+            'mo_ingreso'        => 'required',
+            'fe_ingreso'        => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+            'id_banco'          => 'required'
+
+        ]);
+        
+
+        $ingreso = Ingreso::create($request->all());
+
+        return (['msj'=>'Registro Agregado Correctamente ', 'ingreso' =>$ingreso]);
     }
 
     /**
@@ -71,7 +87,22 @@ class IngresoController extends Controller
      */
     public function update(Request $request, Ingreso $ingreso)
     {
-        //
+        $validate = request()->validate([
+
+            'id_tipo_ingreso'   => 'required',
+            'id_ente'           => 'required',
+            'id_moneda'         => 'required',
+            'mo_ingreso'        => 'required',
+            'fe_ingreso'        => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+            'id_banco'          => 'required'
+
+        ]);
+                
+        $ingreso = Ingreso::find($ingreso->id_ingreso)->update($request->all());
+
+        return (['msj'=>'Registro Actualizado Correctamente ', 'ingreso' =>$ingreso]);
     }
 
     /**

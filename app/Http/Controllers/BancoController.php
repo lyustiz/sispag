@@ -19,6 +19,13 @@ class BancoController extends Controller
         return $bancos;
     }
 
+    public function bancoGrupo($grupo)
+    {
+        $bancos = Banco::grupo($grupo)->get();
+        
+        return $bancos;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -51,7 +58,7 @@ class BancoController extends Controller
 
         $banco = Banco::create($request->all());
 
-        return compact('banco');
+        return (['msj'=>'Registro Agregado Correctamente ', 'banco' =>$banco]);
     }
 
     /**

@@ -22,14 +22,21 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::put('/user', 'LoggedUserController@update');
     
     Route::Resource('/banco', 'BancoController');
+    Route::Get('/banco/grupo/{id_grupo_banco}', 'BancoController@bancoGrupo');
     Route::Resource('/tipoBanco', 'TipoBancoController');
     Route::Resource('/grupoBanco', 'GrupoBancoController');
+    
 
     Route::Resource('/ente', 'EnteController');
+    Route::Get('/ente/tipo/{id_tipo_ente}', 'EnteController@enteTipo');
+    Route::Get('/ente/grupo/{id_grupo_ente}', 'EnteController@enteGrupo');
+    Route::Get('/ente/tipo/{id_tipo_ente}/grupo/{id_grupo_ente}', 'EnteController@enteTipoGrupo');
     Route::Resource('/grupoEnte', 'TipoEnteController');
     Route::Resource('/tipoEnte', 'GrupoEnteController');
 
     Route::Resource('/categoria', 'CategoriaController');
+
+    Route::Resource('/tipoIngreso', 'TipoIngresoController');
     
     Route::Resource('/pago', 'PagoController');
     Route::get('/pago/instruccion/{id_instruccion}', 'PagoController@pagoInstruccion');

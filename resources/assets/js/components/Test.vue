@@ -179,24 +179,49 @@
                         label="Esquema de Pago"
                     ></v-select>
                     <v-text-field
-                        v-model="instruccion"
+                        v-model="form.nu_esquemq_pag"
                         name="name"
                         label="Nro Esquema de Pago"
                     ></v-text-field>
                     <v-text-field
-                        v-model="instruccion"
+                        v-model="form.tx_ofi_cta_mdte"
                         name="name"
                         label="Oficio Cuenta Mandante"
                     ></v-text-field>
+
+
+                        <v-flex>
+                        <v-menu
+                            ref="menu1"
+                            :close-on-content-click="false"
+                            v-model="menu1"
+                            :nudge-right="40"
+                            :return-value.sync="date"
+                            lazy
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            locale="es"
+                            min-width="290px"
+                        >
+                            <v-text-field
+                            slot="activator"
+                            v-model="form.fe_instruccion"
+                            label="Seleccione Fecha"
+                            prepend-icon="event"
+                            readonly
+                            required
+                            ></v-text-field>
+                            <v-date-picker v-model="form.fe_instruccion" @input="$refs.menu1.save(date)"></v-date-picker>
+                        </v-menu>
+                            
+                        </v-flex>
+                
+                    
                     <v-text-field
-                        v-model="instruccion"
+                        v-model="form.tx_observaciones"
                         name="name"
-                        label="Fecha Instruccion"
-                    ></v-text-field>
-                    <v-text-field
-                        v-model="instruccion"
-                        name="name"
-                        label="Monto Instuccion"
+                        label="observaciones"
                     ></v-text-field>
                 </v-card-text>
                 </v-card>
@@ -266,6 +291,17 @@ export default {
             ingreso:    false,
             solicitud:  false,
             detInstr: false,
+            menu1: false,
+            date: '',
+            form:{
+                id_esquema_pago: '',
+                nu_esquemq_pago: '',
+                tx_ofi_cta_mdte: '',
+                fe_instruccion: '',
+                tx_observaciones: '',
+                mo_instruccion: ''
+
+            },
             instruccion: '',
             categoria:  false,
             esquema:    false,
@@ -287,7 +323,15 @@ export default {
     computed:{
         tablaCategoria(){
             return 'solicitud/categoria/'+this.categoria;
-        }
+        },
+         computedDateFormatted () {
+        return this.formatDate(this.date)
+      }
+    },
+    watch: {
+        date (val) {
+            this.dateFormatted = this.formatDate(this.date)
+        },
     },
     methods:
     {
