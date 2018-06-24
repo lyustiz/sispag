@@ -41,10 +41,6 @@ class EnteController extends Controller
     }
 
 
-
-
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -63,7 +59,18 @@ class EnteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_ente'          => 'required',
+            'id_tipo_ente'     => 'required',
+            'id_grupo_ente'    => 'required',
+            'id_usuario'       => 'required',
+            'id_status'        => 'required',
+        ]);
+        
+        $ente = Ente::create($request->all());
+
+        return (['msj' => 'Registro Agregado Correctamente ', 'ente' =>$ente]);
     }
 
     /**
@@ -97,7 +104,18 @@ class EnteController extends Controller
      */
     public function update(Request $request, Ente $ente)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_ente'          => 'required',
+            'id_tipo_ente'     => 'required',
+            'id_grupo_ente'    => 'required',
+            'id_usuario'       => 'required',
+            'id_status'        => 'required',
+        ]);
+        
+        $ente = Ente::find($ente->id_ente)->update($request->all());
+
+        return ['msj' => 'Ente Editado'];
     }
 
     /**
@@ -108,6 +126,8 @@ class EnteController extends Controller
      */
     public function destroy(Ente $ente)
     {
-        //
+        $ente = $ente->delete();
+
+        return ['msj' => 'Ente Eliminado'];
     }
 }

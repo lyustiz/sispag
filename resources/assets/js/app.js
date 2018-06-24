@@ -15,6 +15,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('form-buttons', require('./components/FormButtons.vue'));
+Vue.component('dialogo', require('./components/Dialogo.vue'));
 Vue.component('login-button', require('./components/LoginButtonComponent.vue'));
 Vue.component('register-button', require('./components/RegisterButtonComponent.vue'));
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));

@@ -29,6 +29,7 @@
                             item-text="nb_tipo_banco"
                             item-value="id_tipo_banco"
                             v-model="form.id_tipo_banco"
+                            :rules="rules.select"
                             label="Tipo Banco"
                             autocomplete
                             required
@@ -41,6 +42,7 @@
                             item-text="nb_grupo_banco"
                             item-value="id_grupo_banco"
                             v-model="form.id_grupo_banco"
+                            :rules="rules.select"
                             label="Grupo Banco"
                             autocomplete
                             required
@@ -53,6 +55,7 @@
                             item-text="nb_status"
                             item-value="id_status"
                             v-model="form.id_status"
+                            :rules="rules.select"
                             label="Status del Banco"
                             autocomplete
                             required
@@ -73,40 +76,14 @@
                     
                     <v-card-actions>
 
-                        <div v-if="btnAccion=='upd'">
-
-                            <v-tooltip bottom>
-                                <v-btn slot="activator" fab small @click="update" :disabled="!valido"  class="warning">
-                                    <v-icon>edit</v-icon>
-                                </v-btn>
-                            <span>Editar</span>
-                            </v-tooltip>
-   
-                        </div>
-
-                        <div v-else>
-                            <v-tooltip bottom>
-                                <v-btn slot="activator" fab small @click="store" :disabled="!valido"  class="success">
-                                    <v-icon>save_alt</v-icon>
-                                </v-btn>
-                            <span>Guardar</span>
-                            </v-tooltip>
-
-
-                            <v-tooltip bottom>
-                                <v-btn  slot="activator" fab small @click="clear"  class="info">
-                                    <v-icon>refresh</v-icon>
-                                </v-btn>
-                            <span>Limpiar</span>
-                            </v-tooltip>
-                        </div>
-
-                        <v-tooltip bottom>
-                            <v-btn slot="activator" fab small @click="cancel"  class="error">
-                                <v-icon>close</v-icon>
-                            </v-btn>
-                        <span>Cancelar</span>
-                        </v-tooltip>
+                        <form-buttons
+                            @update="update"
+                            @store="store"
+                            @clear="clear"
+                            @cancel="cancel"
+                            :btnAccion="btnAccion"
+                            :valido="valido"
+                        ></form-buttons>   
 
                     </v-card-actions>
                                        
@@ -149,9 +126,9 @@ export default {
                     v => !!v || 'Campo Requerido',
                     v => !!v  && v.length >= 3 || 'Nombre del Banco debe tener almenos 3 caracteres',
                     ],
-                tx_observaciones: [
-                    () => true
-                    ], 
+                select: [
+                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
+                    ],  
             }
             
         }

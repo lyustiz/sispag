@@ -31,8 +31,8 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::Get('/ente/tipo/{id_tipo_ente}', 'EnteController@enteTipo');
     Route::Get('/ente/grupo/{id_grupo_ente}', 'EnteController@enteGrupo');
     Route::Get('/ente/tipo/{id_tipo_ente}/grupo/{id_grupo_ente}', 'EnteController@enteTipoGrupo');
-    Route::Resource('/grupoEnte', 'TipoEnteController');
-    Route::Resource('/tipoEnte', 'GrupoEnteController');
+    Route::Resource('/grupoEnte', 'GrupoEnteController');
+    Route::Resource('/tipoEnte', 'TipoEnteController');
 
     Route::Resource('/categoria', 'CategoriaController');
 

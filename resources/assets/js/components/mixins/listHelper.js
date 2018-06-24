@@ -14,6 +14,7 @@ export default {
             buscar: '',
             accion: '',
             nb_accion: '',
+            dialogo: false,
 
         }
     },
@@ -25,6 +26,13 @@ export default {
             this.item = '';
             this.list();
         },
+        insItem () {
+
+            this.nb_accion  = 'Agregar:';
+            this.accion     = 'ins';
+            this.modal      = true;
+            
+        },
         updItem (item) {
 
             this.nb_accion  = 'Editar:';
@@ -32,13 +40,18 @@ export default {
             this.modal      = true;
             this.item       = item;
         },
-        insItem () {
+        delForm (item) {
 
-            this.nb_accion  = 'Agregar:';
-            this.accion     = 'ins';
-            this.modal      = true;
+            this.dialogo = true;
+            this.item = item;
+            
+        },
+        delCancel () {
+
+            this.dialogo = false;
             
         }
+        
 
    
     }
