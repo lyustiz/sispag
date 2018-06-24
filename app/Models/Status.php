@@ -29,6 +29,11 @@ class Status extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
     
+    public function scopeGrupo($query, $grupo)
+    {
+        return $query->where('id_grupo', $grupo);
+    }
+
     public function banco(){
     
         return $this->HasMany('App\Models\Banco', 'id_status');

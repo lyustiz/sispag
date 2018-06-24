@@ -13,17 +13,6 @@
                     <v-card-text>
                     <v-layout wrap>
                     
-                        <input
-                            v-model="form.id_banco"
-                            required
-                            type="hidden"
-                        >
-                        <input
-                            v-model="form.id_usuario"
-                            required
-                            type="hidden"
-                        >
-
                         <v-flex xs12 >
                         <v-text-field
                             :rules="rules.nb_banco"
@@ -60,7 +49,7 @@
 
                         <v-flex xs12>  
                             <v-select
-                            :items="[{'id_status': 1, 'nb_status' :'Activo'}, {'id_status': 2, 'nb_status' :'Inactivo'}]"
+                            :items="listas.status"
                             item-text="nb_status"
                             item-value="id_status"
                             v-model="form.id_status"
@@ -85,25 +74,39 @@
                     <v-card-actions>
 
                         <div v-if="btnAccion=='upd'">
-                            <v-btn @click="update" :disabled="!valido" dark class="amber">
-                                <v-icon>edit</v-icon>
-                                Editar
-                            </v-btn>
+
+                            <v-tooltip bottom>
+                                <v-btn slot="activator" fab small @click="update" :disabled="!valido"  class="warning">
+                                    <v-icon>edit</v-icon>
+                                </v-btn>
+                            <span>Editar</span>
+                            </v-tooltip>
+   
                         </div>
+
                         <div v-else>
-                            <v-btn @click="store" :disabled="!valido" dark color="green">
-                                <v-icon>save_alt</v-icon>
-                                Guardar
-                            </v-btn>
-                            <v-btn @click="clear" dark class="info">
-                                <v-icon>refresh</v-icon>
-                                Limpiar
-                            </v-btn>
+                            <v-tooltip bottom>
+                                <v-btn slot="activator" fab small @click="store" :disabled="!valido"  class="success">
+                                    <v-icon>save_alt</v-icon>
+                                </v-btn>
+                            <span>Guardar</span>
+                            </v-tooltip>
+
+
+                            <v-tooltip bottom>
+                                <v-btn  slot="activator" fab small @click="clear"  class="info">
+                                    <v-icon>refresh</v-icon>
+                                </v-btn>
+                            <span>Limpiar</span>
+                            </v-tooltip>
                         </div>
-                        <v-btn @click="cancel" dark class="red">
-                            <v-icon>close</v-icon>
-                            Cerrar
-                        </v-btn>
+
+                        <v-tooltip bottom>
+                            <v-btn slot="activator" fab small @click="cancel"  class="error">
+                                <v-icon>close</v-icon>
+                            </v-btn>
+                        <span>Cancelar</span>
+                        </v-tooltip>
 
                     </v-card-actions>
                                        
@@ -112,21 +115,21 @@
             </v-flex>
         </v-layout>
     </v-container>
+    
 </template>
 
 <script>
+
 import withSnackbar from '../components/mixins/withSnackbar';
+import formHelper from '../components/mixins/formHelper';
 
 export default {
-    mixins: [ withSnackbar ],
-     created() {
-       this.listTipos(); 
-       this.listGrupos();
-    },
+
+    mixins: [ formHelper, withSnackbar ],
+
     data () {
         return {
-            valido: false,
-            btnAccion: '',
+            tabla: 'banco',
             form:{
                 id_banco: '',
                 nb_banco: '',
@@ -137,11 +140,12 @@ export default {
                 id_usuario:''
             },
             listas:{
-                tipoBanco: [],
-                grupoBanco: []
+                tipoBanco:  [],
+                grupoBanco: [],
+                status:     ['/grupo/1']
             },
             rules:{
-               nb_banco: [
+                nb_banco: [
                     v => !!v || 'Campo Requerido',
                     v => !!v  && v.length >= 3 || 'Nombre del Banco debe tener almenos 3 caracteres',
                     ],
@@ -152,63 +156,14 @@ export default {
             
         }
     },
-    props: ['accion','banco'],
-    watch: {
-        accion: function (val) {
-            this.btnAccion = val;
-            if(val=='upd')
-            {
-                this.mapForm()
-            }else{
-                this.clear();
-            }
-            
-        },
-        banco: function (val) {
-            this.mapForm()
-        }
-    },
+
     methods:{
-        cancel(){
-
-            this.clear();
-            this.$emit('cerrarModal');
-
-        },
-        mapForm(){
-
-            if(this.banco)
-            {
-                for(var key in this.banco) {
-
-                    if(this.form.hasOwnProperty(key)) {
-                        this.form[key] = this.banco[key];
-                    }
-                }
-            }else{
-                
-                this.rstForm
-            }
-            
-        },
-        rstForm(){
-
-            for(var key in this.form) {
-
-                    this.form[key] = '';
-            }
-        },
-        clear () {
-
-            this.$refs.form.reset()
-
-        },
+        
         update(){
-            
-            this.form.id_usuario = this.$store.getters.user.id
-           
-            axios.put('/api/v1/banco/'+ this.banco.id_banco, this.form)
+                       
+            axios.put(this.basePath + this.form.id_banco, this.form)
             .then(respuesta => {
+
                     this.showMessage(respuesta.data.msj)
             })
             .catch(error => {
@@ -217,33 +172,14 @@ export default {
         },
         store(){
             
-            this.form.id_usuario = this.$store.getters.user.id
-            
-            axios.post('/api/v1/banco', this.form)
+            axios.post(this.basePath, this.form)
             .then(respuesta => {
-                    this.showMessage(respuesta)
+
+                    this.showMessage(respuesta.data.msj)
             })
             .catch(error => {
                 
                     this.showError(error);
-            })
-        },
-        listTipos(){
-             axios.get('/api/v1/tipoBanco')
-            .then(respuesta => {
-                this.listas.tipoBanco = respuesta.data;
-            })
-            .catch(error => {
-                this.showError(error)    
-            })
-        },
-        listGrupos(){
-             axios.get('/api/v1/grupoBanco')
-            .then(respuesta => {
-                this.listas.grupoBanco = respuesta.data;
-            })
-            .catch(error => {
-                this.showError(error)    
             })
         }
     }

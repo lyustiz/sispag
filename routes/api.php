@@ -36,6 +36,7 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
 
     Route::Resource('/categoria', 'CategoriaController');
 
+    Route::Resource('/ingreso', 'IngresoController');
     Route::Resource('/tipoIngreso', 'TipoIngresoController');
     
     Route::Resource('/pago', 'PagoController');
@@ -48,13 +49,14 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
 
     Route::Resource('/cuenta', 'CuentaController');
 
-    Route::Resource('/ingreso', 'IngresoController');
-
     Route::Resource('/solicitud', 'SolicitudController');
     Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
 
     Route::Resource('/instruccion', 'InstruccionController');
 
     Route::Resource('/esquema', 'EsquemaController');
+
+    Route::Resource('/status', 'StatusController');
+    Route::Get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
 
 });

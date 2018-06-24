@@ -8,7 +8,7 @@
                         <h3>Bancos</h3>
                         <v-spacer></v-spacer>
                         
-                        <v-btn fab @click="insBanco" dark small color="green">
+                        <v-btn fab @click="insItem" dark small class="success">
                             <v-icon dark>add</v-icon>
                         </v-btn>
                     </v-card-title>
@@ -29,24 +29,27 @@
 
                         <v-data-table
                         :headers="headers"
-                        :items  ="bancos"
+                        :items  ="items"
                         :search ="buscar"
+                        v-model ="selected"
+                        item-key="id_banco"
                         rows-per-page-text="Res. x Pag"
                         >
 
-                        <template slot="items" slot-scope="banco">
+                        <template slot="items" slot-scope="item">
                             
-                            <td class="text-xs-left">{{ banco.item.nb_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.tipo_banco.nb_tipo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.grupo_banco.nb_grupo_banco }}</td>
-                            <td class="text-xs-left">{{ banco.item.status.nb_status }}</td>
+                            <td class="text-xs-left">{{ item.item.nb_banco }}</td>
+                            <td class="text-xs-left">{{ item.item.tipo_banco.nb_tipo_banco }}</td>
+                            <td class="text-xs-left">{{ item.item.grupo_banco.nb_grupo_banco }}</td>
+                            <td class="text-xs-center"> 
+                                <v-switch 
+                                v-model="item.item.id_status">
+                                </v-switch> 
+                            </td>
                             <!--acciones-->
-                            <td class="justify-center layout px-0">
-                                <v-btn icon @click="updBanco(banco.item )" >
-                                    <v-icon color="orange">edit</v-icon>
-                                </v-btn>
-                                <v-btn icon @click="true" >
-                                    <v-icon color="red">delete</v-icon>
+                            <td class="text-xs-left">
+                                <v-btn fab small class="warning" @click="updItem(item.item )">
+                                <v-icon >edit</v-icon>
                                 </v-btn>
                             </td>
 
@@ -63,7 +66,6 @@
                         </v-data-table>
                         </v-flex>
                     </v-card-text>
-               
                 </v-card>
             </v-flex>
         </v-layout>
@@ -86,7 +88,7 @@
 
           <v-card-text> 
 
-              <banco-form :accion="accion" :banco="banco" @cerrarModal="cerrarModal"></banco-form>
+              <banco-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></banco-form>
             
           </v-card-text>
           
@@ -101,67 +103,36 @@
 
 <script>
 
-
+import withSnackbar from '../components/mixins/withSnackbar';
+import listHelper from '../components/mixins/listHelper';
 
 export default {
-    created() {
-        
-        this.bancos  = this.list();
-    },
+    mixins:[ listHelper, withSnackbar ],
     data () {
     return {
-        modal: false,
-        bancos: '',
-        buscar: '',
-        nro:     1,
-        accion: '',
-        banco:  '',
-        nb_accion: '',
+       
         headers: [
         { text: 'Nombre',   value: 'nb_banco' },
         { text: 'Tipo',     value: 'tipo_banco.nb_tipo_banco' },
         { text: 'Grupo',    value: 'grupo_banco.nb_grupo_banco' },
-        { text: 'Status',   value: 'id_status' },
+        { text: 'Status',   value: 'id_status'  },
         { text: 'Acciones', value: 'id_status'  },
         ]
     }
     },
     methods:
     {
-        cerrarModal(){
-            this.modal = false;
-            this.banco = '';
-            this.list();
-        },
         list () {
 
             axios.get('/api/v1/banco')
             .then(respuesta => {
-                    this.bancos = respuesta.data;
+                
+                this.items = respuesta.data;
             })
             .catch(error => {
-                    
+                this.showError(error)
             })
         },
-        updBanco (banco) {
-
-            this.nb_accion  = 'Editar Banco: ' + banco.nb_banco;
-            this.accion     = 'upd';
-            this.modal      = true;
-            this.banco      = banco;
-        },
-        insBanco () {
-
-            this.nb_accion  = 'Agregar Banco:';
-            this.accion     = 'ins';
-            this.modal      = true;
-            
-        },
-        delBanco (banco) {
-
-            console.log('eliminar Banco')
-            
-        }
     }
 }
 

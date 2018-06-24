@@ -14,7 +14,16 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $status = Status::get();
+        
+        return $status;
+    }
+
+    public function statusGrupo($grupo)
+    {
+        $status = Status::grupo($grupo)->get();
+        
+        return $status;
     }
 
     /**
