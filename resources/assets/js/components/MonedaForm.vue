@@ -1,125 +1,102 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
+    <v-layout row justify-center>
+    <v-flex xs12>
+        <v-form ref="form" v-model="valido" lazy-validation>
+        <v-card>
+            
+            <v-card-title class="red accent-1 white--text">
+                <h2>Moneda</h2>
+            </v-card-title>
+            
+            <v-card-text>
+            <v-layout wrap>
 
-        <v-layout row justify-center>
-            <v-flex xs11>
-                <v-form ref="form" v-model="valido" lazy-validation>
-                <v-card>
+                <v-flex xs12 >
+                <v-text-field
+                    :rules="rules.nb_moneda"
+                    v-model="form.nb_moneda"
+                    label="Nombre de la Moneda"
+                    placeholder="Indique Nombre"
+                    required
+                ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm6>
+                    <v-text-field
+                    v-model="form.co_moneda"
+                    :rules="rules.co_moneda"
+                    label="Codigo Moneda"
+                    placeholder="Indique Codigo"
+                    required
+                ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm6>
+                    <v-text-field
+                    v-model="form.tx_signo"
+                    :rules="rules.tx_signo"
+                    label="Signo Moneda"
+                    placeholder="Indique Signo de la Moneda"
+                    required
+                ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12>  
+                    <v-select
+                    :items="listas.status"
+                    item-text="nb_status"
+                    item-value="id_status"
+                    v-model="form.id_status"
+                    :rules="rules.select"
+                    label="Status del Banco"
+                    autocomplete
+                    required
+                    ></v-select>
+                </v-flex>
+
+                <v-flex xs12 >
+                    <v-text-field
+                        :rules="rules.tx_observaciones"
+                        v-model="form.tx_observaciones"
+                        label="Observaciones"
+                        placeholder="Indique Observaciones"
+                    ></v-text-field>
+                </v-flex>
                     
-                    <v-card-title class="red accent-1 white--text">
-                        <h2>Moneda</h2>
-                    </v-card-title>
-                    
-                    <v-card-text>
-                    <v-layout wrap>
-                    
-                        <input
-                            v-model="form.id_moneda"
-                            required
-                            type="hidden"
-                        >
-                        <input
-                            v-model="form.id_usuario"
-                            required
-                            type="hidden"
-                        >
+            </v-layout>
+            </v-card-text>
+            
+            <v-card-actions>
 
-                        <v-flex xs12 >
-                        <v-text-field
-                            :rules="rules.nb_moneda"
-                            v-model="form.nb_moneda"
-                            label="Nombre del Moneda"
-                            placeholder="Indique Nombre"
-                            required
-                        ></v-text-field>
-                        </v-flex>
+                <form-buttons
+                    @update="update"
+                    @store="store"
+                    @clear="clear"
+                    @cancel="cancel"
+                    :btnAccion="btnAccion"
+                    :valido="valido"
+                ></form-buttons>
 
-                        <v-flex xs12 sm6>
-                            <v-text-field
-                            :rules="rules.co_moneda"
-                            v-model="form.co_moneda"
-                            label="Codigo Moneda"
-                            placeholder="Indique Codigo"
-                            required
-                        ></v-text-field>
-                        </v-flex>
-
-                        <v-flex xs12 sm6>
-                           <v-text-field
-                            :rules="rules.tx_signo"
-                            v-model="form.tx_signo"
-                            label="Signo Moneda"
-                            placeholder="Indique Signo"
-                            required
-                        ></v-text-field>
-                        </v-flex>
-
-
-                        <v-flex xs12>  
-                            <v-select
-                            :items="[{'id_status': 1, 'nb_status' :'Activo'}, {'id_status': 2, 'nb_status' :'Inactivo'}]"
-                            item-text="nb_status"
-                            item-value="id_status"
-                            v-model="form.id_status"
-                            label="Status del Moneda"
-                            autocomplete
-                            required
-                            ></v-select>
-                        </v-flex>
-
-                        <v-flex xs12 >
-                            <v-text-field
-                                :rules="rules.tx_observaciones"
-                                v-model="form.tx_observaciones"
-                                label="Observaciones"
-                                placeholder="Indique Observaciones"
-                            ></v-text-field>
-                        </v-flex>
-                            
-                    </v-layout>
-                    </v-card-text>
-                    
-                    <v-card-actions>
-
-                        <div v-if="btnAccion=='upd'">
-                            <v-btn @click="update" :disabled="!valido" dark class="amber">
-                                <v-icon>edit</v-icon>
-                                Editar
-                            </v-btn>
-                        </div>
-                        <div v-else>
-                            <v-btn @click="store" :disabled="!valido" dark color="green">
-                                <v-icon>save_alt</v-icon>
-                                Guardar
-                            </v-btn>
-                            <v-btn @click="clear" dark class="info">
-                                <v-icon>refresh</v-icon>
-                                Limpiar
-                            </v-btn>
-                        </div>
-                        <v-btn @click="cancel" dark class="red">
-                            <v-icon>close</v-icon>
-                            Cerrar
-                        </v-btn>
-
-                    </v-card-actions>
-                                       
-                </v-card>
-                </v-form>
-            </v-flex>
-        </v-layout>
+            </v-card-actions>
+                                
+        </v-card>
+        </v-form>
+    </v-flex>
+    </v-layout>
     </v-container>
+
 </template>
 
 <script>
 import withSnackbar from '../components/mixins/withSnackbar';
+import formHelper from '../components/mixins/formHelper';
 
 export default {
-    mixins: [ withSnackbar ],
+    mixins: [ formHelper, withSnackbar ],
     data () {
         return {
-            valido: false,
-            btnAccion: '',
+            tabla: 'moneda',
             form:{
                 id_moneda: '',
                 nb_moneda: '',
@@ -130,95 +107,44 @@ export default {
                 id_usuario:''
             },
             listas:{
-                tipoMoneda: [],
-                grupoMoneda: []
+                status:  ['/grupo/1']
             },
             rules:{
-               nb_moneda: [
+                nb_moneda: [
                     v => !!v || 'Campo Requerido',
                     v => !!v  && v.length >= 3 || 'Nombre del Moneda debe tener almenos 3 caracteres',
                     ],
-                tx_observaciones: [
-                    () => true
+                co_moneda: [
+                    v => !!v || 'Campo Requerido',
+                    ], 
+                tx_signo: [
+                    v => !!v || 'Campo Requerido',
+                    ], 
+                select: [
+                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
                     ], 
             }
-            
-        }
-    },
-    props: ['accion','moneda'],
-    watch: {
-        accion: function (val) {
-            this.btnAccion = val;
-            if(val=='upd')
-            {
-                this.mapForm()
-            }else{
-                this.clear();
-            }
-            
-        },
-        moneda: function (val) {
-            this.mapForm()
         }
     },
     methods:{
-        cancel(){
-
-            this.clear();
-            this.$emit('cerrarModal');
-
-        },
-        mapForm(){
-
-            if(this.moneda)
-            {
-                for(var key in this.moneda) {
-
-                    if(this.form.hasOwnProperty(key)) {
-                        this.form[key] = this.moneda[key];
-                    }
-                }
-            }else{
-                
-                this.rstForm
-            }
-            
-        },
-        rstForm(){
-
-            for(var key in this.form) {
-
-                    this.form[key] = '';
-            }
-        },
-        clear () {
-
-            this.$refs.form.reset()
-
-        },
         update(){
-            
-            this.form.id_usuario = this.$store.getters.user.id
-           
-            axios.put('/api/v1/moneda/'+ this.moneda.id_moneda, this.form)
+                       
+            axios.put(this.basePath + this.form.id_moneda, this.form)
             .then(respuesta => {
-                    this.showMessage(respuesta.data.msj)
+                this.showMessage(respuesta.data.msj)
             })
             .catch(error => {
-                    this.showError(error);
+                this.showError(error);
             })
         },
         store(){
-            
-            this.form.id_usuario = this.$store.getters.user.id
-            
-            axios.post('/api/v1/moneda', this.form)
+                        
+            axios.post(this.basePath, this.form)
             .then(respuesta => {
-                    this.showMessage(respuesta)
+                this.showMessage(respuesta.data.msj)
             })
             .catch(error => {
-                
-                    this.showError(error);
+                this.showError(error);
             })
         },
     }

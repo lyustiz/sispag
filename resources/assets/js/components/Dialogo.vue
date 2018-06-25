@@ -17,9 +17,9 @@
 
             <v-tooltip bottom>
                 <v-btn  slot="activator" fab small @click="delCancel"  class="warning">
-                    <v-icon>close</v-icon>
+                    <v-icon>reply</v-icon>
                 </v-btn>
-            <span>Cancelar</span>
+            <span>Regresar</span>
             </v-tooltip>
 
         </v-card-actions>

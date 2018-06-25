@@ -1,8 +1,9 @@
 <template>
-<div>
+<v-layout row wrap>
+    <v-spacer></v-spacer>
     <div v-if="btnAccion=='upd'">
 
-        <v-tooltip bottom>
+        <v-tooltip top>
             <v-btn slot="activator" fab small @click="update" :disabled="!valido"  class="warning">
                 <v-icon>edit</v-icon>
             </v-btn>
@@ -12,7 +13,7 @@
     </div>
 
     <div v-else>
-        <v-tooltip bottom>
+        <v-tooltip top>
             <v-btn slot="activator" fab small @click="store" :disabled="!valido"  class="success">
                 <v-icon>save_alt</v-icon>
             </v-btn>
@@ -20,31 +21,26 @@
         </v-tooltip>
 
 
-        <v-tooltip bottom>
+        <v-tooltip top>
             <v-btn  slot="activator" fab small @click="clear"  class="info">
                 <v-icon>refresh</v-icon>
             </v-btn>
-        <span>Limpiar</span>
+        <span>Refrescar</span>
         </v-tooltip>
     </div>
 
-    <v-tooltip bottom>
+    <v-tooltip top>
         <v-btn slot="activator" fab small @click="cancel"  class="error">
-            <v-icon>close</v-icon>
+            <v-icon>reply</v-icon>
         </v-btn>
-    <span>Cancelar</span>
+    <span>Regresar</span>
     </v-tooltip>
-</div>
+
+</v-layout>
 </template>
 
 <script>
 export default {
- data () {
-        return {
-            tabla: 'banco',
-        }
-    },
-
     props: ['btnAccion', 'valido'],
 
     methods:{

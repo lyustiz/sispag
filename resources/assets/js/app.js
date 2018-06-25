@@ -16,7 +16,9 @@ window.Vue = require('vue');
  */
 
 Vue.component('form-buttons', require('./components/FormButtons.vue'));
+Vue.component('list-buttons', require('./components/ListButtons.vue'));
 Vue.component('dialogo', require('./components/Dialogo.vue'));
+Vue.component('form-container', require('./components/FormContainer.vue'));
 Vue.component('login-button', require('./components/LoginButtonComponent.vue'));
 Vue.component('register-button', require('./components/RegisterButtonComponent.vue'));
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
@@ -45,6 +47,8 @@ Vue.component('esquema-lista', require('./components/EsquemaLista.vue'));
 Vue.component('esquema-form', require('./components/EsquemaForm.vue'));
 Vue.component('ejecucion-lista', require('./components/EjecucionLista.vue'));
 Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
+Vue.component('tipo-ingreso-lista', require('./components/TipoIngresoLista.vue'));
+Vue.component('tipo-ingreso-form', require('./components/TipoIngresoForm.vue'));
 
 window.Vuetify = require('vuetify'); 
 Vue.use(Vuetify)
@@ -86,6 +90,7 @@ const app = new Vue({
       { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' },
       { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
       { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' },
+      { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' },
       
       //{ heading: 'Administració', role: 'Manager' }
     ]

@@ -2,7 +2,7 @@
     <v-container fluid grid-list-md text-xs-center>
 
         <v-layout row justify-center>
-            <v-flex xs11>
+            <v-flex xs12>
                 <v-form ref="form" v-model="valido" lazy-validation>
                 <v-card>
                     

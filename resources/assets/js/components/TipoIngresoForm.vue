@@ -14,40 +14,14 @@
         
             <v-flex xs12 >
             <v-text-field
-                v-model="form.nb_banco"
-                :rules="rules.nb_banco"
-                label="Nombre del Banco"
+                v-model="form.nb_tipo_ingreso"
+                :rules="rules.nb_tipo_ingreso"
+                label="Nombre del Tipo de Ingreso"
                 placeholder="Indique Nombre"
                 required
             ></v-text-field>
             </v-flex>
-
-            <v-flex xs12 sm6>
-                <v-select
-                :items="listas.tipoBanco"
-                item-text="nb_tipo_banco"
-                item-value="id_tipo_banco"
-                v-model="form.id_tipo_banco"
-                :rules="rules.select"
-                label="Tipo Banco"
-                autocomplete
-                required
-                ></v-select>
-            </v-flex>
-
-            <v-flex xs12 sm6>
-                <v-select
-                :items="listas.grupoBanco"
-                item-text="nb_grupo_banco"
-                item-value="id_grupo_banco"
-                v-model="form.id_grupo_banco"
-                :rules="rules.select"
-                label="Grupo Banco"
-                autocomplete
-                required
-                ></v-select>
-            </v-flex>
-
+t>
             <v-flex xs12>  
                 <v-select
                 :items="listas.status"
@@ -102,38 +76,33 @@ export default {
     mixins: [ formHelper, withSnackbar ],
     data () {
         return {
-            tabla: 'banco',
+            tabla: 'tipoIngreso',
             form:{
-                id_banco: '',
-                nb_banco: '',
-                id_tipo_banco: '',
-                id_grupo_banco: '',
+                id_tipo_ingreso: '',
+                nb_tipo_ingreso: '',
                 id_status: '',
                 tx_observaciones: '',
                 id_usuario:''
             },
             listas:{
-                tipoBanco:  [],
-                grupoBanco: [],
                 status:     ['/grupo/1']
             },
             rules:{
-                nb_banco: [
+                nb_tipo_ingreso: [
                     v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Banco debe tener almenos 3 caracteres',
+                    v => !!v  && v.length >= 3 || 'Nombre del Tipo Ingreso debe tener almenos 3 caracteres',
                     ],
                 select: [
                     v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
                     ],  
             }
-            
         }
     },
     methods:{
         
         update(){
                        
-            axios.put(this.basePath + this.form.id_banco, this.form)
+            axios.put(this.basePath + this.form.id_tipo_ingreso, this.form)
             .then(respuesta => {
                 this.showMessage(respuesta.data.msj)
             })

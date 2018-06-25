@@ -3,15 +3,15 @@
         <v-layout row justify-center>
         <v-flex xs12>
         <v-card>
-
+            
             <v-toolbar class="blue accent-1 white--text">
-            <h3>Entes</h3>
+            <h3>Tipo de Ingreso</h3>
                 <v-spacer></v-spacer>
                 <v-btn fab @click="insItem" dark small absolute right bottom class="success">
                         <v-icon dark>add</v-icon>
                 </v-btn>
             </v-toolbar>
-            
+
             <v-card-text>
                 
             <v-flex xs6>
@@ -25,24 +25,26 @@
             </v-flex>
             
             <v-data-table
-                :headers="headers"
-                :items  ="items"
-                :search ="buscar"
-                rows-per-page-text="Res. x Pag"
+            :headers="headers"
+            :items  ="items"
+            :search ="buscar"
+            v-model ="selected"
+            item-key="id_tipo_ingreso"
+            rows-per-page-text="Res. x Pag"
             >
 
             <template slot="items" slot-scope="item">
                 
-                <td class="text-xs-left">{{ item.item.nb_ente }}</td>
-                <td class="text-xs-left">{{ item.item.tipo_ente.nb_tipo_ente }}</td>
-                <td class="text-xs-left">{{ item.item.grupo_ente.nb_grupo_ente }}</td>
-                <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
+                <td class="text-xs-left">{{ item.item.nb_tipo_ingreso }}</td>
+                <td class="text-xs-center"> 
+                    <v-switch 
+                    v-model="item.item.id_status">
+                    </v-switch> 
+                </td>
                 <!--acciones-->
                 <td class="text-xs-left">
-
                     <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                     </list-buttons>
-                        
                 </td>
 
             </template>
@@ -57,23 +59,23 @@
 
             </v-data-table>
             </v-card-text>
-        
+
         </v-card>
         </v-flex>
         </v-layout>
+    
+        <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
+            <banco-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></banco-form>
+        </form-container>
 
-    <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-        <ente-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></ente-form>
-    </form-container>
-
-    <dialogo 
-        :dialogo="dialogo" 
-        :mensaje="'Desea Eliminar el Ente: ' + item.nb_ente "
-        @delItem="delItem"
-        @delCancel="delCancel"
-    >
-    </dialogo>
-
+        <dialogo 
+            :dialogo="dialogo" 
+            :mensaje="'Desea Eliminar el Tipo de Ingreso: ' + item.nb_ente "
+            @delItem="delItem"
+            @delCancel="delCancel"
+        >
+        </dialogo>
+        
     </v-container>
 
 </template>
@@ -87,12 +89,9 @@ export default {
     mixins:[ listHelper, withSnackbar ],
     data () {
     return {
-        fab: false,
         headers: [
-        { text: 'Nombre',   value: 'nb_ente' },
-        { text: 'Tipo',     value: 'tipo_ente.nb_tipo_ente' },
-        { text: 'Grupo',    value: 'grupo_ente.nb_grupo_ente' },
-        { text: 'Status',   value: 'id_status' },
+        { text: 'Nombre',   value: 'nb_tipo_ingreso' },
+        { text: 'Status',   value: 'id_status'  },
         { text: 'Acciones', value: 'id_status'  },
         ]
     }
@@ -101,16 +100,16 @@ export default {
     {
         list () {
 
-            axios.get('/api/v1/ente')
+            axios.get('/api/v1/tipoIngreso')
             .then(respuesta => {
                 this.items = respuesta.data;
             })
             .catch(error => {
-                this.showError(error)    
+                this.showError(error)
             })
         },
         delItem(){
-            axios.delete('/api/v1/ente/'+this.item.id_ente)
+            axios.delete('/api/v1/tipoIngreso/'+this.item.id_tipo_ingreso)
             .then(respuesta => {
 
                 this.showMessage(respuesta.data.msj)
