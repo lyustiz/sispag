@@ -51,7 +51,23 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+
+            'nu_solicitud'   => 'required',
+            'tx_concepto'    => 'required',
+            'mo_solicitud'   => 'required',
+            'fe_solicitud'   => 'required',
+            'id_ente'        => 'required',
+            'id_moneda'      => 'required',
+            'id_categoria'   => 'required',
+            'id_usuario'     => 'required',
+            'id_status'      => 'required'
+
+        ]);
+
+        $solicitud = Solicitud::create($request->all());
+
+        return (['msj'=>'Registro Agregado Correctamente ', 'solicitud' =>$solicitud]);
     }
 
     /**
@@ -85,7 +101,23 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, Solicitud $solicitud)
     {
-        //
+        $validate = request()->validate([
+
+            'nu_solicitud'   => 'required',
+            'tx_concepto'    => 'required',
+            'mo_solicitud'   => 'required',
+            'fe_solicitud'    => 'required',
+            'id_ente'        => 'required',
+            'id_moneda'      => 'required',
+            'id_categoria'   => 'required',
+            'id_usuario'     => 'required',
+            'id_status'      => 'required'
+
+        ]);
+                
+        $solicitud = Solicitud::find($solicitud->id_solicitud)->update($request->all());
+
+        return (['msj'=>'Registro Actualizado Correctamente ', 'solicitud' =>$solicitud]);
     }
 
     /**
@@ -96,6 +128,8 @@ class SolicitudController extends Controller
      */
     public function destroy(Solicitud $solicitud)
     {
-        //
+        $solicitud = $solicitud->delete();
+
+        return ['msj' => 'Solicitud Eliminada'];
     }
 }

@@ -18,7 +18,7 @@ class Solicitud extends Model
                             'nu_solicitud',
                             'tx_concepto',
                             'mo_solicitud',
-                            'fe_solicitd',
+                            'fe_solicitud',
                             'id_ente',
                             'id_moneda',
                             'id_categoria',

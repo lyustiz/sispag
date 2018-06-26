@@ -1,120 +1,101 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
         
-        <v-layout row justify-center>
-            <v-flex xs11>
-                <v-card>
-                  
-                    <v-card-title  class="blue accent-1 white--text">
-                        <h3>Ingresos</h3>
-                        <v-spacer></v-spacer>
-                        
-
-                        <v-btn fab @click="insIngreso" dark small color="green">
-                            <v-icon dark>add</v-icon>
-                        </v-btn>
-                    </v-card-title>
-
-                    <v-card-text>
-                        
-                        <v-layout wrap>
-                        <v-flex xs12 sm6>
-                        <v-text-field
-                            v-model="buscar"
-                            append-icon="search"
-                            label="Buscar"
-                            single-line
-                            hide-details
-                        ></v-text-field>
-                        </v-flex>
-                        
-                        <v-flex xs12 sm6>
-                        <v-select
-                            label="Tipo Ingreso"
-                            :items="['PDVSA', 'VENTA DE ORO', 'PRESTAMO DE PAÍS','PRESTAMOS DE ORGANISMOS MULTILATERAL']"
-                            v-model="buscar"
-                        ></v-select>
-                        </v-flex>
-                        </v-layout>
-                        
-                        <v-flex xs12>
-
-                        <v-data-table
-                        :headers="headers"
-                        :items  ="ingresos"
-                        :search ="buscar"
-                        item-key="id_ingreso"
-                        >
-                        <template slot="items" slot-scope="ingreso">
-                            
-                            <td class="text-xs-left" @click="ingreso.expanded = !ingreso.expanded" >{{ ingreso.item.tipo_ingreso.nb_tipo_ingreso }}</td>
-                            <td class="text-xs-left">{{ ingreso.item.ente.nb_ente }}</td>
-                            <td class="text-xs-left">{{ ingreso.item.banco.nb_banco }}</td>
-                            <td class="text-xs-left">{{ ingreso.item.moneda.nb_moneda }}</td>
-                            <td class="text-xs-right">{{ ingreso.item.mo_ingreso }}</td>
-                            <td class="text-xs-right">{{ ingreso.item.mo_tasa }}</td>
-                            <td class="text-xs-left">{{ ingreso.item.fe_ingreso| formDate }}</td>
-                            <!--acciones-->
-                            <td class="justify-center layout px-0">
-                                <v-btn icon @click="updIngreso(ingreso.item )" >
-                                    <v-icon color="orange">edit</v-icon>
-                                </v-btn>
-                                <v-btn icon >
-                                    <v-icon color="info">search</v-icon>
-                                </v-btn>
-                                <v-btn icon >
-                                    <v-icon color="red">delete</v-icon>
-                                </v-btn>
-                            </td>
-                            
-                        </template>
-
-                        <template slot="expand" slot-scope="ingreso">
-                            <v-card flat>
-                                <v-card-text>Detalle Ingreso  {{ingreso.item}}</v-card-text>
-                            </v-card>
-                        </template>
-
-                        <template slot="pageText" slot-scope="ingreso">
-                         Pagina {{ ingreso.pageStart }} - {{ ingreso.pageStop }} de {{ ingreso.itemsLength }}
-                        </template>
-
-                        <v-alert slot="no-results" :value="true" color="info" icon="info">
-                           La busqueda "{{ buscar }}" Sin resultados
-                        </v-alert>
-
-                        </v-data-table>
-                        </v-flex>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-        </v-layout>
-
-      <v-dialog v-model="modal" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-layout row justify-center>
+    <v-flex xs12>
+    <v-card>
         
-        <v-card>
-         
-          <v-toolbar dark color="blue accent-1 white--text">
-
-            <v-btn icon dark @click.native="cerrarModal">
-              <v-icon>close</v-icon>
+        <v-toolbar class="blue accent-1 white--text">
+            <h3>Ingresos</h3>
+            <v-spacer></v-spacer>
+            <v-btn fab @click="insItem" dark small absolute right bottom class="success">
+                <v-icon dark>add</v-icon>
             </v-btn>
+        </v-toolbar>
 
-            <v-toolbar-title>{{ nb_accion }}</v-toolbar-title>
-      
-          </v-toolbar>
-
-          <v-card-text> 
-
-              <ingreso-form :accion="accion" :ingreso="ingreso" @cerrarModal="cerrarModal"></ingreso-form>
+        <v-card-text>
+        <v-layout row wrap>
+        <v-flex xs12 sm6>
+        <v-text-field
+            v-model="buscar"
+            append-icon="search"
+            label="Buscar"
+            single-line
+            hide-details
+        ></v-text-field>
+        </v-flex>
+        
+        <v-flex xs12 sm6>
+        <v-select
+            :items="listas.tipoIngreso"
+            item-text="nb_tipo_ingreso"
+            item-value="nb_tipo_ingreso"
+            label="Tipo de Ingreso"
+            v-model="buscar"
+            single-line
+            hide-details
+        ></v-select>
+        </v-flex>
+        </v-layout> 
+        
+        <v-data-table
+        :headers="headers"
+        :items  ="items"
+        :search ="buscar"
+        v-model ="selected"
+        item-key="id_ingreso"
+        rows-per-page-text="Res. x Pag"
+        >
+        <template slot="items" slot-scope="item">
             
-          </v-card-text>
-          
-        </v-card>
+            <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.tipo_ingreso.nb_tipo_ingreso }}</td>
+            <td class="text-xs-left"> {{ item.item.ente.nb_ente }}</td>
+            <td class="text-xs-left"> {{ item.item.banco.nb_banco }}</td>
+            <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
+            <td class="text-xs-right">{{ item.item.mo_ingreso }}</td>
+            <td class="text-xs-right">{{ item.item.mo_tasa }}</td>
+            <td class="text-xs-left"> {{ item.item.fe_ingreso| formDate }}</td>
+            <!--acciones-->
+            <td class="text-xs-left">
+                <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+                </list-buttons>
+            </td>
+            
+        </template>
 
-      </v-dialog>
+        <template slot="expand" slot-scope="ingreso">
+            <v-card flat>
+                <v-card-text>Detalle Ingreso  {{ingreso.item}}</v-card-text>
+            </v-card>
+        </template>
 
+        <v-alert slot="no-results" :value="true" color="info" icon="info">
+                La busqueda "{{ buscar }}" Sin resultados
+        </v-alert>
 
+        <template slot="pageText" slot-scope="item">
+            {{item.pageStart}} - {{item.pageStop}} de {{item.itemsLength}}
+        </template>
+
+        </v-data-table>
+        </v-card-text>
+
+    </v-card>
+    </v-flex>
+    </v-layout>
+
+    <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
+        <ingreso-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></ingreso-form>
+    </form-container>
+
+    <dialogo 
+        :dialogo="dialogo" 
+        :mensaje="'Desea Eliminar el Ingreso'"
+        @delItem="delItem"
+        @delCancel="delCancel"
+    >
+    </dialogo>
+        
     </v-container>
 
 </template>
@@ -122,31 +103,12 @@
 <script>
 
 import withSnackbar from '../components/mixins/withSnackbar';
+import listHelper from '../components/mixins/listHelper';
+
 export default {
-    mixins: [ withSnackbar ],
-    created() {
-
-        this.list();
-    },
-    filters: {
-
-        formDate: function (value) {
-
-            if (!value) return ''
-            value = value.toString();
-            return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4);
-        }
-
-    },
+    mixins:[ listHelper, withSnackbar ],
     data () {
     return {
-        modal:     false,
-        ingresos:  [],
-        buscar:    '',
-        busTipIng: '',
-        accion:    '',
-        ingreso:   false,
-        nb_accion: false,
         headers: [
         { text: 'Tipo Ingreso',  value: 'tipo_ingreso.nb_tipo_ingreso' },
         { text: 'Ente Receptor', value: 'ente.nb_ente' },
@@ -156,7 +118,10 @@ export default {
         { text: 'Tasa',          value: 'mo_tasa' },
         { text: 'Fecha',         value: 'fe_ingreso' },
         { text: 'Acciones',      value: 'id_status'  },
-        ]
+        ],
+        listas:{
+            tipoIngreso: []
+        }
     }
     },
     props:['notitle'],
@@ -165,42 +130,42 @@ export default {
         customFilter(items, search, filter) {
             return items.filter(row => filter(row["tipo_ingreso.nb_tipo_ingreso"], search));
         },
-        cerrarModal(){
-
-            this.modal = false;
-            this.ingreso = '';
-            this.list();
-
-        },
         list () {
 
             axios.get('/api/v1/ingreso')
             .then(respuesta => {
-                    this.ingresos = respuesta.data;
+                this.items = respuesta.data;
             })
             .catch(error => {
-                    this.showError(error) 
+                this.showError(error)
             })
-        },
-        updIngreso (ingreso) {
-            
-            this.nb_accion  = 'Editar Ingreso: ' + ingreso.tipo_ingreso.nb_tipo_ingreso;
-            this.accion     = 'upd';
-            this.modal      = true;
-            this.ingreso    = ingreso;
-        },
-        insIngreso () {
 
-            this.nb_accion  = 'Agregar Ingreso:';
-            this.accion     = 'ins';
-            this.modal      = true;
-            
-        },
-        delIngreso (ingreso) {
+            axios.get('/api/v1/tipoIngreso')
+            .then(respuesta => {
+                this.listas.tipoIngreso = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)
+            })
 
-            console.log('eliminar Ingreso')
-            
+
+        },
+        delItem(){
+            axios.delete('/api/v1/ingreso/'+this.item.id_ingreso)
+            .then(respuesta => {
+
+                this.showMessage(respuesta.data.msj)
+                this.list();
+                this.item = '';
+                this.dialogo = false;
+                
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+
         }
+        
     }
 }
 

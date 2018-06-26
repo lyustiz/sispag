@@ -113,6 +113,8 @@ class IngresoController extends Controller
      */
     public function destroy(Ingreso $ingreso)
     {
-        //
+        $ingreso = $ingreso->delete();
+
+        return ['msj' => 'Ingreso Eliminado'];
     }
 }

@@ -8,13 +8,13 @@
             <h3>Bancos</h3>
                 <v-spacer></v-spacer>
                 <v-btn fab @click="insItem" dark small absolute right bottom class="success">
-                        <v-icon dark>add</v-icon>
+                    <v-icon dark>add</v-icon>
                 </v-btn>
             </v-toolbar>
 
             <v-card-text>
                 
-            <v-flex xs6>
+            <v-flex xs12 xs6>
             <v-text-field
                 v-model="buscar"
                 append-icon="search"

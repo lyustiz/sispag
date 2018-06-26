@@ -18,7 +18,16 @@ export default {
 
         }
     },
+    filters: {
 
+        formDate: function (value) {
+
+            if (!value) return ''
+            value = value.toString();
+            return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4);
+        }
+
+    },
     methods: {
 
         cerrarModal(){

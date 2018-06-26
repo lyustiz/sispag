@@ -17,6 +17,12 @@ export default {
         }
     },
 
+    computed: {
+        computedDateFormatted () {
+          return this.formatDate(this.date)
+        }
+    },
+    
     props: ['accion','item'],
 
     watch: {
@@ -112,6 +118,20 @@ export default {
             this.$emit('cerrarModal');
             this.clear();
             
+
+        },
+        formatDate (date) {
+
+            if (!date) return null
+            const [year, month, day] = date.split('-')
+            return `${month}/${day}/${year}`
+
+        },
+        parseDate (date) {
+
+            if (!date) return null
+            const [month, day, year] = date.split('/')
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
 
         },
    
