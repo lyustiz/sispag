@@ -1,6 +1,5 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
-        
     <v-layout row justify-center>
     <v-flex xs12>
     <v-card>

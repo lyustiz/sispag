@@ -37,7 +37,21 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([                
+            'fe_liq_bcv'    => 'required',
+            'id_banco'      => 'required',
+            'fe_pago'       => 'required',
+            'id_moneda'     => 'required',
+            'mo_tasa'       => 'required',
+            'mo_final_pago' => 'required',
+            'id_tipo_pago'  => 'required',
+            'id_usuario'    => 'required',
+            'id_status'     => 'required',
+        ]);
+
+        $pago = Pago::create($request->all());
+
+        return (['msj'=>'Registro Agregado Correctamente ', 'pago' => $pago]);
     }
 
     /**
@@ -83,7 +97,21 @@ class PagoController extends Controller
      */
     public function update(Request $request, Pago $pago)
     {
-        //
+        $validate = request()->validate([                
+            'fe_liq_bcv'    => 'required',
+            'id_banco'      => 'required',
+            'fe_pago'       => 'required',
+            'id_moneda'     => 'required',
+            'mo_tasa'       => 'required',
+            'mo_final_pago' => 'required',
+            'id_tipo_pago'  => 'required',
+            'id_usuario'    => 'required',
+            'id_status'     => 'required',
+        ]);
+
+        $pago = Pago::find($pago->id_pago)->update($request->all());
+
+        return (['msj'=>'Registro Actualizado Correctamente ', 'pago' =>$pago]);
     }
 
     /**
@@ -94,6 +122,8 @@ class PagoController extends Controller
      */
     public function destroy(Pago $pago)
     {
-        //
+        $pago = $pago->delete();
+
+        return ['msj' => 'Pago Eliminado'];
     }
 }

@@ -14,9 +14,9 @@ class EjecucionPagoController extends Controller
      */
     public function index()
     {
-        $Ejecuciones = EjecucionPago::with(['pago', 'banco', 'etapaEnvio','status'])->get();
+        $Ejecucion = EjecucionPago::with(['pago', 'banco', 'etapaEnvio','status'])->get();
         
-        return $Ejecuciones;
+        return $Ejecucion;
     }
 
     /**
@@ -37,7 +37,17 @@ class EjecucionPagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([  
+                'id_banco',
+                'fe_envio_inst',
+                'id_etapa_envio',
+                'id_usuario',
+                'id_status',
+                ]);
+        
+        $ejecucion = EjecucionPago::create($request->all());
+
+        return (['msj'=>'Registro Agregado Correctamente ', 'ejecucion' => $ejecucion]);
     }
 
     /**
@@ -80,7 +90,17 @@ class EjecucionPagoController extends Controller
      */
     public function update(Request $request, EjecucionPago $ejecucionPago)
     {
-        //
+        $validate = request()->validate([  
+            'id_banco',
+            'fe_envio_inst',
+            'id_etapa_envio',
+            'id_usuario',
+            'id_status',
+            ]);
+    
+        $ejecucion = EjecucionPago::find($ejecucionPago->id_ejecucion_pago)->update($request->all());
+
+        return (['msj'=>'Registro Actualizado Correctamente ', 'ejecucion' =>$ejecucion]);
     }
 
     /**
@@ -91,6 +111,8 @@ class EjecucionPagoController extends Controller
      */
     public function destroy(EjecucionPago $ejecucionPago)
     {
-        //
+        $ejecucionPago = $ejecucionPago->delete();
+
+        return ['msj' => 'Ejecucion de Pago Eliminada'];
     }
 }

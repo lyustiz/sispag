@@ -14,7 +14,9 @@ class TipoPagoController extends Controller
      */
     public function index()
     {
-        //
+        $tipoPago = TipoPago::with(['status'])->get();
+        
+        return $tipoPago;
     }
 
     /**

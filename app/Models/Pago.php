@@ -20,7 +20,7 @@ class Pago extends Model
                             'id_banco',
                             'fe_pago',
                             'id_moneda',
-                            'id_tasa',
+                            'mo_tasa',
                             'mo_final_pago',
                             'id_tipo_pago',
                             'tx_observacion',

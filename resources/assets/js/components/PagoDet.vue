@@ -4,8 +4,8 @@
     <v-flex xs12>
     <v-card>
         
-        <v-toolbar class="red accent-1 white--text">
-            <h3>Ejecucion del Pago</h3>
+        <v-toolbar class="green accent-1 white--text">
+            <h3>Pago</h3>
 
             <v-spacer></v-spacer>
             <v-btn fab @click="insItem" dark small absolute right bottom class="success">
@@ -14,28 +14,41 @@
         </v-toolbar>
 
         <v-card-text>
-            
+
         <v-flex xs12>
         <v-data-table
         :headers="headers"
         :items  ="items"
         hide-actions
-        item-key="id_ejecucion"
+        item-key="id_pago"
         >
 
         <template slot="items" slot-scope="item">
-            
-
-            <td class="text-xs-left">{{ item.item.etapa_envio.nb_etapa_envio }}</td>
-            <td class="text-xs-left">{{ item.item.banco.nb_banco }}</td>
-            <td class="text-xs-left">{{ item.item.fe_envio_inst | formDate }}</td>
-            <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
+                
+            <td class="text-xs-left"  @click="item.expanded = !item.expanded">
+                <v-btn flat icon color="primary">
+                    <v-icon>touch_app</v-icon>
+                </v-btn>
+               {{ item.item.tipo_pago.nb_tipo_pago }}
+            </td>
+            <td class="text-xs-right">{{ item.item.mo_final_pago }}</td>
+            <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
+            <td class="text-xs-left"> {{ item.item.fe_pago | formDate  }}</td>
+            <td class="text-xs-left"> {{ item.item.status.nb_status }}</td>
             <!--acciones-->
             <td class="text-xs-left">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
             </td>
 
+        </template>
+
+        <template slot="expand" slot-scope="item">
+            <v-card flat>
+                <v-card-text>
+                    <ejecucion-lista :pago="item.item"></ejecucion-lista>
+                </v-card-text>
+            </v-card>
         </template>
 
         </v-data-table>
@@ -45,18 +58,19 @@
     </v-card>
     </v-flex>
     </v-layout>
-
+    
     <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-        <ejecucion-form :accion="accion" :pago="pago" :item="item" @cerrarModal="cerrarModal"></ejecucion-form>
+        <pago-form :accion="accion" :instruccion="instruccion" :item="item" @cerrarModal="cerrarModal"></pago-form>
     </form-container>
 
     <dialogo 
         :dialogo="dialogo" 
-        :mensaje="'Desea Eliminar la Ejejcucion de Pago? ' "
+        :mensaje="'Desea Eliminar el Pago? ' "
         @delItem="delItem"
         @delCancel="delCancel"
     >
     </dialogo>
+
 
     </v-container>
 
@@ -72,29 +86,30 @@ export default {
     data () {
     return {
         headers: [
-        { text: 'Etapa',    value: 'etapa_envio.nb_etapa_envio' },
-        { text: 'Banco',    value: 'banco.nb_banco' },
-        { text: 'Fecha',    value: 'fe_envio_inst' },
+        { text: 'Tipo Pago',value: 'tipo_pago.nb_tipo_pago' },
+        { text: 'Monto',    value: 'mo_final_pago' },
+        { text: 'Moneda',   value: 'moneda.nb_moneda' },
+        { text: 'Fecha',    value: 'fe_pago' },
         { text: 'Status',   value: 'id_status'  },
         { text: 'Acciones', value: 'id_status'  },
-        ]
+        ],
     }
     },
-    props:['pago'],
+    props:['instruccion'],
     methods:
     {
         list () {
 
-            axios.get('/api/v1/ejecucionPago/pago/'+this.pago.id_pago)
+            axios.get('/api/v1/pago/instruccion/'+this.instruccion.id_instruccion)
             .then(respuesta => {
                 this.items = respuesta.data;
             })
             .catch(error => {
-                this.showError(error);        
+                this.showError(error);   
             })
         },
-         delItem(){
-            axios.delete('/api/v1/ejecucionPAgo/'+this.item.id_ejecucion_pago)
+        delItem(){
+            axios.delete('/api/v1/instruccion/'+this.item.id_intruccion)
             .then(respuesta => {
 
                 this.showMessage(respuesta.data.msj)
@@ -108,7 +123,6 @@ export default {
             })
 
         }
-       
     }
 }
 

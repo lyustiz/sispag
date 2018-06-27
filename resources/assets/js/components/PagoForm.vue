@@ -5,35 +5,37 @@
         <v-form ref="form" v-model="valido" lazy-validation>
         <v-card>
             
-        <v-card-title class="red accent-1 white--text">
-            <h2>Solicitud</h2>
-        </v-card-title>
-        
-        <v-card-text>
-        <v-layout wrap>
-
-            <v-flex xs12>  
+            <v-card-title class="red accent-1 white--text">
+                <h2>Instrucciones</h2>
+            </v-card-title>
+            
+            <v-card-text>
+            <v-layout wrap>
+            
+            <v-flex xs12 sm6>  
                 <v-select
-                :items="listas.ente"
-                item-text="nb_ente"
-                item-value="id_ente"
-                v-model="form.id_ente"
-                label="Ente Solicitante"
+                :items="listas.tipoPago"
+                item-text="nb_tipo_pago"
+                item-value="id_tipo_pago"
+                v-model="form.id_tipo_pago"
                 :rules="rules.select"
+                label="Tipo de Pago"
                 autocomplete
                 required
                 ></v-select>
             </v-flex>
 
-            <v-flex xs12 sm6>
-                <v-text-field
-                v-model="form.nu_solicitud"
-                :rules="rules.nu_solicitud"
-                label="Numero Solicitud"
-                placeholder="Ingrese Numero de la Solicitud"
-                hint="Ej MPPEF-01-2018"
+            <v-flex xs12 sm6>  
+                <v-select
+                :items="listas.banco"
+                item-text="nb_banco"
+                item-value="id_banco"
+                v-model="form.id_banco"
+                :rules="rules.select"
+                label="Banco Receptor"
+                autocomplete
                 required
-                ></v-text-field>
+                ></v-select>
             </v-flex>
 
             <v-flex xs12 sm6>
@@ -52,33 +54,52 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_solicitud"
-                :rules="rules.fe_solicitud"
-                label="Fecha de la Solicitud"
+                v-model="form.fe_liq_bcv"
+                :rules="rules.fe_liq_bcv"
+                label="Fecha liquidacion BCV"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_solicitud" @input="$refs.menu1.save(date)"></v-date-picker>
+                <v-date-picker v-model="form.fe_liq_bcv" @input="$refs.menu1.save(date)"></v-date-picker>
+
             </v-menu>
             </v-flex>
-            
-            <v-flex xs12>
+
+            <v-flex xs12 sm6>
+            <v-menu
+                ref="menu1"
+                :close-on-content-click="false"
+                v-model="menu1"
+                :nudge-right="40"
+                :return-value.sync="date"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                locale="es"
+                min-width="290px"
+            >
                 <v-text-field
-                v-model="form.tx_concepto"
-                :rules="rules.tx_concepto"
-                label="Concepto de la Solicitud"
-                placeholder="Ingrese Descripcion"
+                slot="activator"
+                v-model="form.fe_pago"
+                :rules="rules.fe_pago"
+                label="Fecha de Pago"
+                prepend-icon="event"
+                readonly
                 required
                 ></v-text-field>
+                <v-date-picker v-model="form.fe_pago" @input="$refs.menu1.save(date)"></v-date-picker>
+
+            </v-menu>
             </v-flex>
-            
-            <v-flex xs12 sm6>
+
+            <v-flex xs12 sm4>
                 <v-text-field
-                v-model="form.mo_solicitud"
-                :rules="rules.mo_solicitud"
-                label="Monto Solicitud"
-                placeholder="Ingrese monto"
+                v-model="form.mo_final_pago"
+                :rules="rules.monto"
+                label="Monto del Pago"
+                placeholder="Monto del Pago"
                 hint="Ej 845.456,12"
                 required
                 ></v-text-field>
@@ -96,19 +117,16 @@
                 required
                 ></v-select>
             </v-flex>
-            
-            <v-flex xs12 sm6>  
-                <v-select
-                :items="listas.categoria"
-                item-text="nb_categoria"
-                item-value="id_categoria"
-                v-model="form.id_categoria"
-                :rules="rules.select"
-                label="Categoria de la Solicitud"
-                autocomplete
-                required
-                ></v-select>
-            </v-flex>
+
+            <v-flex xs12 sm4>
+                <v-text-field
+                v-model="form.mo_tasa"
+                :rules="rules.monto"
+                label="Tasa de Cambio"
+                placeholder="Ingrese Tasa"
+                hint="Ej 107,02"
+                ></v-text-field>
+            </v-flex>    
 
             <v-flex xs12 sm6>  
                 <v-select
@@ -117,7 +135,7 @@
                 item-value="id_status"
                 v-model="form.id_status"
                 :rules="rules.select"
-                label="Status de la Solicitud"
+                label="Status del Ingreso"
                 autocomplete
                 required
                 ></v-select>
@@ -131,7 +149,7 @@
                     placeholder="Indique Observaciones"
                 ></v-text-field>
             </v-flex>
-                    
+
             </v-layout>
             </v-card-text>
             
@@ -163,52 +181,50 @@ export default {
     mixins: [ formHelper, withSnackbar ],
     data () {
         return {
-            tabla: 'solicitud',
+            tabla: 'pago',
             date: '',
             dateFormatted: '',
             menu1: false,
+            esquema: 'Solicitud',
             form:{
-                id_solicitud:   '',
-                nu_solicitud:   '',
-                tx_concepto:    '',
-                mo_solicitud:   '',
-                fe_solicitud:   '',
-                id_ente:        '',
+                id_instruccion: this.instruccion.id_instruccion,
+                fe_liq_bcv:     '',
+                id_banco:       '',
+                fe_pago:        '',
                 id_moneda:      '',
-                id_categoria:   '',
+                mo_tasa:        '',
+                mo_final_pago:  '',
+                id_tipo_pago:   '',
                 tx_observacion: '',
                 id_usuario:     '',
-                id_status:      ''
-            },
-            listas:{
-                ente:        ['/grupo/4'],
-                moneda:      [],
-                categoria:   [],
-                status:      ['/grupo/1'],
+                id_status:      '',
             },
             rules:{
-                mo_solicitud: [
+               mo_instruccion: [
                     v => !!v || 'Campo Requerido',
                     ],
-                nu_solicitud: [
+                mo_tasa: [
                     v => !!v || 'Campo Requerido',
                     () => true
                     ], 
-                fe_solicitud: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                tx_concepto: [
+                fe_instruccion: [
                     v => !!v || 'Campo Requerido',
                     () => true
                     ], 
                 select: [
                     v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
                     ], 
-            }
+            },
+            listas:{
+                banco:    ['/grupo/1'],
+                moneda:   [],
+                tipoPago: [],
+                status:   ['/grupo/1'],
+            },
             
         }
     },
+    props:['instruccion'],
     watch: {
         date (val) {
             this.dateFormatted = this.formatDate(this.date)
@@ -217,7 +233,7 @@ export default {
     methods:{
         update(){
                        
-            axios.put(this.basePath + this.item.id_solicitud, this.form)
+            axios.put(this.basePath + this.item.id_pago, this.form)
             .then(respuesta => {
                 this.showMessage(respuesta.data.msj)
             })

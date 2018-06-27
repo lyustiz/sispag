@@ -24,9 +24,9 @@ Vue.component('register-button', require('./components/RegisterButtonComponent.v
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
 Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
 Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
-Vue.component('pagos-list', require('./components/PagosList.vue'));
-Vue.component('pagos-lista', require('./components/PagosLista.vue'));
-Vue.component('pagos-form', require('./components/PagosForm.vue'));
+Vue.component('pago-det', require('./components/PagoDet.vue'));
+Vue.component('pago-lista', require('./components/PagoLista.vue'));
+Vue.component('pago-form', require('./components/PagoForm.vue'));
 Vue.component('banco-lista', require('./components/BancoLista.vue'));
 Vue.component('banco-form', require('./components/BancoForm.vue'));
 Vue.component('ingreso-lista', require('./components/IngresoLista.vue'));

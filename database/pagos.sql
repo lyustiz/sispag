@@ -12,7 +12,7 @@
  Target Server Version : 100001
  File Encoding         : 65001
 
- Date: 24/06/2018 23:23:57
+ Date: 26/06/2018 22:56:25
 */
 
 
@@ -676,6 +676,7 @@ INSERT INTO "pagos"."ingreso" VALUES (5, 5, 2, 1, 4560.80, 1.00, '2018-01-01 00:
 INSERT INTO "pagos"."ingreso" VALUES (6, 6, 2, 1, 6500.00, 1.00, '2018-01-01 00:00:00', 'N/A', 1, 1, '2018-06-20 00:00:00', NULL, 14);
 INSERT INTO "pagos"."ingreso" VALUES (7, 7, 2, 1, 3450.00, 1.00, '2018-01-01 00:00:00', 'N/A', 1, 1, '2018-06-20 00:00:00', NULL, 10);
 INSERT INTO "pagos"."ingreso" VALUES (8, 8, 2, 1, 7450.30, 1.00, '2018-01-01 00:00:00', 'N/A', 1, 1, '2018-06-20 00:00:00', NULL, 8);
+INSERT INTO "pagos"."ingreso" VALUES (9, 1, 2, 1, 242342, 23.00, '2018-06-06 00:00:00', 'dsfsdf', 1, 1, '2018-06-26 01:44:12', '2018-06-26 01:47:41', 8);
 
 -- ----------------------------
 -- Table structure for instruccion
@@ -754,7 +755,7 @@ CREATE TABLE "pagos"."pago" (
   "id_banco" int4 NOT NULL,
   "fe_pago" timestamp(6),
   "id_moneda" int4 NOT NULL,
-  "id_tasa" int4 NOT NULL,
+  "mo_tasa" int4 NOT NULL,
   "mo_final_pago" float8,
   "id_tipo_pago" int4 NOT NULL,
   "tx_observacion" varchar(100) COLLATE "pg_catalog"."default",
@@ -768,11 +769,12 @@ CREATE TABLE "pagos"."pago" (
 -- ----------------------------
 -- Records of pago
 -- ----------------------------
-INSERT INTO "pagos"."pago" VALUES (1, 3, '2018-07-12 00:00:00', 2, '2018-06-12 00:00:00', 3, 1, 5682535.89, 2, NULL, 1, 1, '2018-06-12 00:00:00', NULL);
 INSERT INTO "pagos"."pago" VALUES (2, 9, '2018-07-30 00:00:00', 7, '2018-08-01 00:00:00', 1, 1, 232535.23, 1, NULL, 1, 13, '2018-06-20 00:00:00', NULL);
 INSERT INTO "pagos"."pago" VALUES (7, 5, '2018-06-30 00:00:00', 7, '2018-08-01 00:00:00', 1, 1, 2000, 2, NULL, 1, 10, '2018-06-20 00:00:00', NULL);
 INSERT INTO "pagos"."pago" VALUES (8, 5, '2018-06-30 00:00:00', 7, '2018-09-15 00:00:00', 1, 1, 2000, 2, NULL, 1, 13, '2018-06-20 00:00:00', NULL);
 INSERT INTO "pagos"."pago" VALUES (9, 7, '2018-06-30 00:00:00', 7, '2018-09-15 00:00:00', 1, 1, 15000, 1, NULL, 1, 12, '2018-06-20 00:00:00', NULL);
+INSERT INTO "pagos"."pago" VALUES (10, 1, '2018-06-12 00:00:00', 13, '2018-06-18 00:00:00', 5, 43, 2342, 1, NULL, 1, 1, '2018-06-27 02:24:19', '2018-06-27 02:24:19');
+INSERT INTO "pagos"."pago" VALUES (1, 3, '2018-07-12 00:00:00', 2, '2018-06-12 00:00:00', 3, 12, 5682535.89, 2, NULL, 1, 1, '2018-06-12 00:00:00', '2018-06-27 02:26:43');
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -804,7 +806,7 @@ CREATE TABLE "pagos"."solicitud" (
   "id_ente" int4 NOT NULL,
   "id_moneda" int4 NOT NULL,
   "id_categoria" int4 NOT NULL,
-  "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default" DEFAULT 'N/A'::character varying,
+  "tx_observacion" varchar(100) COLLATE "pg_catalog"."default" DEFAULT 'N/A'::character varying,
   "id_usuario" int4 NOT NULL,
   "id_status" int4 NOT NULL,
   "fe_creado" timestamp(6),
@@ -1224,11 +1226,11 @@ SELECT setval('"pagos"."grupo_banco_id_grupo_banco_seq"', 5, true);
 SELECT setval('"pagos"."grupo_ente_id_grupo_ente_seq"', 6, true);
 SELECT setval('"pagos"."grupo_financiero_id_grupo_financiero_seq"', 5, true);
 SELECT setval('"pagos"."grupo_status_id_grupo_status_seq"', 3, true);
-SELECT setval('"pagos"."ingreso_id_ingreso_seq"', 9, true);
+SELECT setval('"pagos"."ingreso_id_ingreso_seq"', 10, true);
 SELECT setval('"pagos"."instruccion_id_instruccion_seq"', 10, true);
 SELECT setval('"pagos"."moneda_id_moneda_seq"', 6, true);
-SELECT setval('"pagos"."pagos_id_pago_seq"', 10, true);
-SELECT setval('"pagos"."solicitud_id_solicitud_seq"', 7, true);
+SELECT setval('"pagos"."pagos_id_pago_seq"', 11, true);
+SELECT setval('"pagos"."solicitud_id_solicitud_seq"', 8, true);
 SELECT setval('"pagos"."status_id_status_seq"', 22, true);
 SELECT setval('"pagos"."tasa_id_tasa_seq"', 2, true);
 SELECT setval('"pagos"."tipo_banco_id_tipo_banco_seq"', 3, true);

@@ -1,0 +1,151 @@
+<template>
+    <v-container fluid grid-list-md text-xs-center>
+        
+        <v-layout row justify-center>
+            <v-flex xs12>
+                <v-card>
+                  
+                    <v-toolbar class="blue accent-1 white--text">
+                        <h3>Intrucciones / Pagos</h3>
+                        <v-spacer></v-spacer>
+                    </v-toolbar>
+
+                    <v-card-text>
+                    <v-layout wrap>
+                    <v-flex xs12 sm6>
+                    <v-text-field
+                        v-model="buscar"
+                        append-icon="search"
+                        label="Buscar"
+                        single-line
+                        hide-details
+                    ></v-text-field>
+                    </v-flex>
+                    
+                    <v-flex xs12 sm6>
+                    <v-select
+                        :items="listas.categoria"
+                        item-text="nb_categoria"
+                        item-value="nb_categoria"
+                        label="Categoria"
+                        v-model="buscar"
+                        single-line
+                        hide-details
+                    ></v-select>
+                    </v-flex>
+                    </v-layout>
+                    
+                    <v-flex xs12>
+
+                    <v-data-table
+                    :headers="headers"
+                    :items  ="items"
+                    :search ="buscar"
+                    v-model ="selected"
+                    item-key="id_instruccion"
+                    rows-per-page-text="Res. x Pag"
+                    >
+                    <template slot="items" slot-scope="item">
+                        
+                        <td class="text-xs-left" @click="item.expanded = !item.expanded" >
+                            <v-btn flat icon color="primary">
+                                <v-icon>touch_app</v-icon>
+                            </v-btn>
+                            {{ item.item.solicitud.categoria.nb_categoria }}
+                        </td>
+                        <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
+                        <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
+                        <td class="text-xs-right">{{ item.item.mo_instruccion }}</td>
+                        <td class="text-xs-left">{{ item.item.fe_instruccion | formDate }}</td>
+                        <td class="text-xs-left">
+                            <v-btn flat icon color="warning">
+                                <v-icon>warning</v-icon>
+                            </v-btn>
+                            {{ item.item.esquema.nb_esquema }}
+                            
+                        </td>
+                        
+                    </template>
+
+                    <template slot="expand" slot-scope="item">
+                        
+                        <v-card flat>
+                            <v-card-text>
+                                <pago-det :instruccion="item.item"></pago-det>
+                            </v-card-text>
+                        </v-card>
+                    </template>
+
+                    <template slot="pageText" slot-scope="instruccion">
+                        Pagina {{ item.pageStart }} - {{ item.pageStop }} de {{ instruccion.itemsLength }}
+                    </template>
+
+                    <v-alert slot="no-results" :value="true" color="info" icon="info">
+                        La busqueda "{{ buscar }}" Sin resultados
+                    </v-alert>
+
+                    </v-data-table>
+                    </v-flex>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+
+    </v-container>
+
+</template>
+
+<script>
+
+import withSnackbar from '../components/mixins/withSnackbar';
+import listHelper from '../components/mixins/listHelper';
+
+export default {
+    mixins:[ listHelper, withSnackbar ],
+    data () {
+    return {
+        headers: [
+        { text: 'Categoria',    value: 'solicitud.categoria.nb_categoria' },
+        { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
+        { text: 'Concepto',     value: 'instruccion.tx_concepto' },
+        { text: 'Monto',        value: 'mo_instruccion' },
+        { text: 'Fecha',        value: 'fe_instruccion' },
+        { text: 'Esquema Pago', value: 'esquema.nb_esquema' },
+        ],
+        listas:{
+            categoria: []
+        }
+    }
+    },
+    methods:
+    {
+        customFilter(items, search, filter) {
+
+            return items.filter(row => filter(row["solicitud.categoria.nb_categoria"], search));
+        },
+        list () {
+
+            axios.get('/api/v1/instruccion')
+            .then(respuesta => {
+                    this.items = respuesta.data;
+            })
+            .catch(error => {
+                    
+            })
+
+            axios.get('/api/v1/categoria')
+            .then(respuesta => {
+                this.listas.categoria = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)
+            })
+        },
+    }
+}
+
+</script>
+
+<style>
+
+</style>
