@@ -1,216 +1,326 @@
 <template>
-    <v-container fluid grid-list-md text-xs-center>
 
-        <v-layout row justify-center>
-            <v-flex xs11>
-                <v-form ref="form" v-model="valido" lazy-validation>
-                <v-card>
-                    
-                    <v-card-title class="red accent-1 white--text">
-                        <h2>Instrucciones</h2>
-                    </v-card-title>
-                    
-                    <v-card-text>
-                    <v-layout wrap>
-                    
-                        <input v-model="form.id_instruccion" required type="hidden">
-                        <input v-model="form.id_usuario" required type="hidden">
+    <v-container fluid grid-list-md text-xs-center >
+    <v-layout row justify-center>
+    <v-flex xs12>   
+        
+                
+           
+        <v-card>
+       
+        <v-card-title class="red accent-1 white--text">
+            <h2>Instruccion</h2>
+        </v-card-title>
 
-                        <v-flex xs12 sm6>
-                            <v-select
-                            :items="['VOI', 'CENCOEX']"
-                            v-model="form.id_tipo_instruccion"
-                            label="Esquema de Pago"
-                            autocomplete
-                            required
-                            ></v-select>
-                        </v-flex>
+        <v-card-text>     
+        <v-layout row wrap>
+            
+        <v-flex xs12 sm6>
+        <v-select
+            :items="listas.categoria"
+            v-model="categoria"
+            item-value="id_categoria"
+            item-text="nb_categoria"
+            label="Categoria"
+        ></v-select>
+        </v-flex>
 
-                        <v-flex xs12 sm6>
-                            <v-text-field
-                            v-model="form.mo_tasa"
-                            :rules="rules.mo_tasa"
-                            label="Nro "
-                            placeholder="Ingrese Nro esquema de Pago "
-                            ></v-text-field>
-                        </v-flex>
+        <v-flex xs12 sm6  v-if="categoria">
+            
+            <v-tooltip bottom>
+            <v-btn slot="activator" fab small color="primary" @click.native="dialogo2 = true" >
+                <v-icon >record_voice_over</v-icon>
+            </v-btn>
+            <span>Solicitud</span>
+            </v-tooltip>
 
-                        <v-flex xs12 sm6>
-                            <v-text-field
-                            v-model="form.mo_tasa"
-                            :rules="rules.mo_tasa"
-                            label="Oficio de Cuenta Mandante "
-                            placeholder="Ingrese Nro esquema "
-                            ></v-text-field>
-                        </v-flex>
-                        
-                        <v-flex xs12 sm6>  
-                            <v-select
-                            :items="['Venezuela', 'BVC']"
-                            v-model="form.id_banco"
-                            label="Banco Receptor"
-                            autocomplete
-                            required
-                            ></v-select>
-                        </v-flex>
+            <v-tooltip bottom>
+            <v-btn slot="activator" fab small color="primary" @click.native="dialogo = true" >
+                <v-icon>monetization_on</v-icon>
+            </v-btn>
+            <span>Ingresos</span>
+            </v-tooltip>
 
-                        <v-flex xs12 sm6>
-                        <v-menu
-                            ref="menu1"
-                            :close-on-content-click="false"
-                            v-model="menu1"
-                            :nudge-right="40"
-                            :return-value.sync="date"
-                            lazy
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            locale="es"
-                            min-width="290px"
-                        >
-                            <v-text-field
-                            slot="activator"
-                            v-model="date"
-                            :rules="rules.fe_instruccion"
-                            label="Fecha Instruccion"
-                            prepend-icon="event"
-                            readonly
-                            required
-                            ></v-text-field>
-                            <v-date-picker v-model="date" @input="$refs.menu1.save(date)"></v-date-picker>
-
-                        </v-menu>
-                        </v-flex>
-
-                        <v-flex xs12 sm6>
-                        <v-menu
-                            ref="menu1"
-                            :close-on-content-click="false"
-                            v-model="menu1"
-                            :nudge-right="40"
-                            :return-value.sync="date"
-                            lazy
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            locale="es"
-                            min-width="290px"
-                        >
-                            <v-text-field
-                            slot="activator"
-                            v-model="date"
-                            :rules="rules.fe_instruccion"
-                            label="Fecha Liquidacion"
-                            prepend-icon="event"
-                            readonly
-                            required
-                            ></v-text-field>
-                            <v-date-picker v-model="date" @input="$refs.menu1.save(date)"></v-date-picker>
-
-                        </v-menu>
-                        </v-flex>
-
-                        <v-flex xs12 sm6>  
-                            <v-select
-                            :items="[{'id_status': 1, 'nb_status' :'Confirmado'}, {'id_status': 2, 'nb_status' :'Pendiente'}]"
-                            item-text="nb_status"
-                            item-value="id_status"
-                            v-model="form.id_status"
-                            label="Status del Instruccion"
-                            autocomplete
-                            required
-                            ></v-select>
-                        </v-flex>
-
-                        <v-flex xs12 >
-                            <v-text-field
-                                :rules="rules.tx_observaciones"
-                                v-model="form.tx_observaciones"
-                                label="Observaciones"
-                                placeholder="Indique Observaciones"
-                            ></v-text-field>
-                        </v-flex>
-                            
-                    </v-layout>
-                    </v-card-text>
-                    
-                    <v-card-actions>
-
-                        <div v-if="btnAccion=='upd'">
-                            <v-btn @click="update" :disabled="!valido" dark class="amber">
-                                <v-icon>edit</v-icon>
-                                Editar
-                            </v-btn>
-                        </div>
-                        <div v-else>
-                            <v-btn @click="store" :disabled="!valido" color="green">
-                                <v-icon>save_alt</v-icon>
-                                Guardar
-                            </v-btn>
-                            <v-btn @click="clear" dark class="info">
-                                <v-icon>refresh</v-icon>
-                                Limpiar
-                            </v-btn>
-                        </div>
-                        <v-btn @click="cancel" dark class="red">
-                            <v-icon>close</v-icon>
-                            Cerrar
-                        </v-btn>
-
-                    </v-card-actions>
-                                       
-                </v-card>
-                </v-form>
-            </v-flex>
+            <v-tooltip bottom>
+            <v-btn slot="activator" fab small color="primary" @click.native="detInstr = true" >
+                <v-icon >how_to_reg</v-icon>
+            </v-btn>
+            <span>Instruccion</span>
+            </v-tooltip>
+            
+        </v-flex>
+            
         </v-layout>
-    </v-container>
+
+        <v-spacer></v-spacer>
+
+        <v-form ref="form" v-model="valido" lazy-validation>
+         </v-form>  
+
+
+         <v-layout row wrap>
+             
+             <v-flex xs12 sm4>
+                 <v-card v-if="solicitud">
+                     <v-toolbar dark color="blue accent-1 white--text">
+                        <v-card-title primary-title primary>
+                        Solicitud
+                        </v-card-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="solicitud=false">
+                            <v-icon>clear</v-icon>
+                        </v-btn>  
+                        </v-toolbar>
+                     
+                        <v-card-text>
+                            <v-list two-line subheader>
+                                <v-list-tile >
+                                    <v-list-tile-content>
+                                    <v-list-tile-title>Ente Solicitante</v-list-tile-title>
+                                    <v-list-tile-sub-title>{{ solicitud.ente.nb_ente }}</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile >
+                                    <v-list-tile-content>
+                                    <v-list-tile-title>Concepto</v-list-tile-title>
+                                    <v-list-tile-sub-title>{{ solicitud.tx_concepto }}</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile >
+                                    <v-list-tile-content>
+                                    <v-list-tile-title>Moneda Solicitud</v-list-tile-title>
+                                    <v-list-tile-sub-title>{{ solicitud.moneda.nb_moneda }}</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile >
+                                    <v-list-tile-content>
+                                    <v-list-tile-title>Monto Solicitado</v-list-tile-title>
+                                    <v-list-tile-sub-title>{{ solicitud.mo_solicitud }} {{ solicitud.moneda.tx_signo }}</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile>
+                                    <v-list-tile-content>
+                                    <v-list-tile-title>Fecha Solicitud</v-list-tile-title>
+                                    <v-list-tile-sub-title>{{ solicitud.fe_solicitud }}</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </v-list>
+                        </v-card-text>
+                 </v-card>
+             </v-flex>
+             <v-flex xs12 sm4>
+                 <v-card v-if="ingreso">
+                        <v-toolbar dark color="blue accent-1 white--text">
+                        <v-card-title primary-title primary>
+                        Ingreso
+                        </v-card-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="ingreso=false">
+                            <v-icon>clear</v-icon>
+                        </v-btn>  
+                        </v-toolbar>
+                        
+                        <v-card-text>
+                        <v-list two-line subheader>
+                            <v-list-tile >
+                                <v-list-tile-content>
+                                <v-list-tile-title>Moneda</v-list-tile-title>
+                                <v-list-tile-sub-title>{{cuenta.moneda}}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                            <v-list-tile >
+                                <v-list-tile-content>
+                                <v-list-tile-title>Monto Total</v-list-tile-title>
+                                <v-list-tile-sub-title>{{ cuenta.total }} {{cuenta.monSig}}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                            <v-list-tile >
+                                <v-list-tile-content>
+                                <v-list-tile-title>Monto Instruido</v-list-tile-title>
+                                <v-list-tile-sub-title>{{ cuenta.instruido }} {{cuenta.monSig}}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                            <v-list-tile>
+                                <v-list-tile-content>
+                                <v-list-tile-title>Monto Disponible</v-list-tile-title>
+                                <v-list-tile-sub-title>{{ cuenta.disponible }} {{cuenta.monSig}}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                            <v-text-field
+                                v-model="instruccion"
+                                name="name"
+                                label="Monto Instuccion"
+                            ></v-text-field>
+                        </v-card-text>
+                 </v-card>
+             </v-flex>
+             <v-flex xs12 sm4>
+                 <v-card v-if="detInstr">
+
+                     <v-toolbar dark color="blue accent-1 white--text">
+                        <v-card-title primary-title primary>
+                        Detalle Instruccion
+                        </v-card-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="detInstr=false">
+                            <v-icon>clear</v-icon>
+                        </v-btn>  
+                        </v-toolbar>
+                    <v-card-text>
+                         
+                    
+                    <v-select
+                        :items="listas.esquema"
+                        item-value="id_esquema"
+                        item-text="nb_esquema"
+                        label="Esquema de Pago"
+                        v-model="form.id_esquema"
+                        :rules="rules.select"
+                        autocomplete
+                        required
+                    ></v-select>
+                    <v-text-field
+                        v-model="form.nu_esquemq_pag"
+                        name="name"
+                        label="Nro Esquema de Pago"
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="form.tx_ofi_cta_mdte"
+                        name="name"
+                        label="Oficio Cuenta Mandante"
+                    ></v-text-field>
+
+
+                        <v-flex>
+                        <v-menu
+                            ref="menu1"
+                            :close-on-content-click="false"
+                            v-model="menu1"
+                            :nudge-right="40"
+                            :return-value.sync="date"
+                            lazy
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            locale="es"
+                            min-width="290px"
+                        >
+                            <v-text-field
+                            slot="activator"
+                            v-model="form.fe_instruccion"
+                            label="Seleccione Fecha"
+                            prepend-icon="event"
+                            readonly
+                            required
+                            ></v-text-field>
+                            <v-date-picker v-model="form.fe_instruccion" @input="$refs.menu1.save(date)"></v-date-picker>
+                        </v-menu>
+                            
+                        </v-flex>
+                
+                    
+                    <v-text-field
+                        v-model="form.tx_observaciones"
+                        name="name"
+                        label="observaciones"
+                    ></v-text-field>
+                </v-card-text>
+                </v-card>
+             </v-flex>
+         </v-layout>
+
+
+       </v-card-text>
+       
+   </v-card >
+    <div v-if="categoria">
+     <v-dialog v-model="dialogo"> 
+        
+            <list-select   
+                tabla="cuenta" 
+                :encabezados="[
+                                { text: 'moneda',   value: 'moneda.nb_moneda' },
+                                { text: 'Monto',    value: 'mo_disponible' },
+                                { text: 'Status',   value: 'status.nb_status' },
+                                ]"
+                @seleccion="getIngreso"
+            >
+            </list-select>
+     </v-dialog>
+     <v-dialog v-model="dialogo2" > 
+             <list-select   
+                :tabla="tablaCategoria" 
+                :encabezados="[
+                                { text: 'Ente',     value: 'ente.nb_ente' },
+                                { text: 'Concepto',     value: 'tx_concepto' },
+                                { text: 'Monto',    value: 'mo_solicitud' },
+                                { text: 'Status',   value: 'status.nb_status' },
+                                ]"
+                @seleccion="getSolicitud"
+            >
+            </list-select>
+
+      </v-dialog>
+
+      </div>
+    </v-flex>
+    </v-layout>
+      <!-- <instruccion-lista :titulo="false"></instruccion-lista>-->
+      </v-container>
+
+      
+
 </template>
 
 <script>
+
 import withSnackbar from '../components/mixins/withSnackbar';
+import formHelper from '../components/mixins/formHelper';
 
 export default {
+    mixins: [ formHelper, withSnackbar ],
     data () {
         return {
-            valido: false,
-            btnAccion: '',
-            date: '',
-            dateFormatted: '',
+            dialogo:    false,
+            dialogo2:   false,
+            dialogo3:   false,
+            ingreso:    false,
+            solicitud:  false,
+            detInstr: false,
             menu1: false,
-            esquema: 'Solicitud',
+            date: '',
             form:{
-                id_instruccion: '',
-                id_tipo_instruccion: '',
-                id_ente: '',
-                id_moneda: '',
-                mo_instruccion: '',
-                mo_tasa: '',
+                id_esquema_pago: '',
+                nu_esquemq_pago: '',
+                tx_ofi_cta_mdte: '',
                 fe_instruccion: '',
-                id_banco: '',
                 tx_observaciones: '',
-                id_usuario: '',
-                id_status: ''
+                mo_instruccion: ''
             },
-            rules:{
-               mo_instruccion: [
-                    v => !!v || 'Campo Requerido',
-                    ],
-                mo_tasa: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                fe_instruccion: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
+            instruccion: '',
+            categoria:  false,
+            esquema:    false,
+            listas: {
+                categoria: [],
+                esquema: [],
+            },
+            cuenta:{
+                moneda: '',
+                monSig: '',
+                total: 0,
+                instruido: 0,
+                disponible: 0
             }
-            
         }
+
+
     },
-    props: ['accion','instruccion'],
-    mixins: [ withSnackbar ],
-    computed: {
-      computedDateFormatted () {
+    computed:{
+        tablaCategoria(){
+            return 'solicitud/categoria/'+this.categoria;
+        },
+         computedDateFormatted () {
         return this.formatDate(this.date)
       }
     },
@@ -218,96 +328,62 @@ export default {
         date (val) {
             this.dateFormatted = this.formatDate(this.date)
         },
-        accion: function (val) {
-            this.btnAccion = val;
-            if(val=='upd')
-            {
-                this.mapForm()
-            }else{
-                this.clear();
-            }
-            
-        },
-        banco: function (val) {
-            this.mapForm()
-        }
     },
-    methods:{
-        formatDate (date) {
-
-            if (!date) return null
-            const [year, month, day] = date.split('-')
-            return `${month}/${day}/${year}`
-
+    methods:
+    {
+        getIngreso(item){
+            this.dialogo = false;
+            this.ingreso = item;
+            this.setMontos()
         },
-        parseDate (date) {
-
-            if (!date) return null
-            const [month, day, year] = date.split('/')
-            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-
+        getSolicitud(item){
+            this.dialogo2 = false;
+            this.solicitud = item;
         },
-        cancel(){
-
-            this.clear();
-            this.$emit('cerrarModal');
-
+        getInstruccion(item){
+            this.dialogo3 = false;
+            this.instruccion = item;
         },
-        mapForm(){
+        setMontos(){
 
-            if(this.instruccion)
+            if(this.ingreso)
             {
-                for(var key in this.instruccion) {
+                let instrucciones   = this.ingreso.moneda.instruccion;
 
-                    if(this.form.hasOwnProperty(key)) {
-                        this.form[key] = this.instruccion[key];
-                    }
-                }
+                this.cuenta.moneda  = this.ingreso.moneda.nb_moneda;
+                this.cuenta.monSig  = this.ingreso.moneda.tx_signo;
+                this.cuenta.total   = this.ingreso.mo_disponible;
+
+                let instruido = 0
+                instrucciones.forEach(function(item) {
+                   
+                     instruido=+ item.mo_instruccion;
+                });
+                this.cuenta.instruido   = instruido;
+                this.cuenta. disponible = this.cuenta.total  - instruido;
+
             }else{
-                
-                this.rstForm
-            }
-            
-        },
-        rstForm(){
 
-            for(var key in this.form) {
-
-                this.form[key] = '';
+                this.cuenta.moneda      = false;
+                this.cuenta.total       = 0;
+                this.cuenta.instruido   = 0;
+                this.cuenta.disponible = 0;
             }
         },
-        clear () {
-
-            this.$refs.form.reset()
-
-        },
-        update(){
-            
-            this.form.id_usuario = this.$store.getters.user.id
-           
-            axios.put('/api/v1/instruccion/'+ this.instruccion.id_instruccion, this.form)
+         listSolicitud(){
+             axios.get('/api/v1/solicitud/categoria/1')
             .then(respuesta => {
-                    this.showMessage(respuesta)
+
+                console.log(respuesta.data);
             })
             .catch(error => {
-                    this.showError(error);
+                this.showError(error)    
             })
         },
-        store(){
-            
-            this.form.id_usuario = this.$store.getters.user.id
-            
-            axios.post('/api/v1/instruccion', this.form)
-            .then(respuesta => {
-                    this.showMessage(respuesta)
-            })
-            .catch(error => {
-                console.log(error);
-                    this.showError(error);
-            })
-        }
     }
-    
 }
-
 </script>
+
+<style>
+
+</style>

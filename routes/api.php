@@ -56,7 +56,10 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
 
     Route::Resource('/esquema', 'EsquemaController');
 
+    Route::Resource('/etapaEnvio', 'EtapaEnvioController');
+
     Route::Resource('/status', 'StatusController');
+    
     Route::Get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
 
 });

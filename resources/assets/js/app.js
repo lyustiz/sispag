@@ -35,7 +35,6 @@ Vue.component('solicitud-lista', require('./components/SolicitudLista.vue'));
 Vue.component('solicitud-form', require('./components/SolicitudForm.vue'));
 Vue.component('instruccion-lista', require('./components/InstruccionLista.vue'));
 Vue.component('instruccion-form', require('./components/InstruccionForm.vue'));
-Vue.component('test', require('./components/Test.vue'));
 Vue.component('list-select', require('./components/ListSelect.vue'));
 Vue.component('ente-lista', require('./components/EnteLista.vue'));
 Vue.component('ente-form', require('./components/EnteForm.vue'));
@@ -82,7 +81,6 @@ const app = new Vue({
       { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
       { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' },
       { icon: 'how_to_reg', text: 'Intrucciones', href: '/instruccion' },
-      { icon: 'how_to_reg', text: 'Intrucciones2', href: '/test' },
       { icon: 'play_for_work', text: 'pagos', href: '/pago' },
       { heading: 'Datos Maestros' },
       { icon: 'account_balance', text: 'Banco', href: '/banco' },

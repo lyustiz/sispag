@@ -1,118 +1,99 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
-        
-        <v-layout row justify-center>
-            <v-flex xs11>
-                <v-card>
+    <v-layout row justify-center>
+    <v-flex xs11>
+    <v-card>
                   
-                    <v-card-title v-if="titulo" class="blue accent-1 white--text">
-                        <h3>Instruccion {{notitle}}</h3>
-                        <v-spacer></v-spacer>
-                        <v-btn @click="insIngreso" color="green" dark>
-                        <v-icon>add</v-icon>
-                            agregar        
-                        </v-btn> 
-                    </v-card-title>
-
-                    <v-card-text>
-                        
-                        <v-layout wrap>
-                        <v-flex xs12 sm6>
-                        <v-text-field
-                            v-model="buscar"
-                            append-icon="search"
-                            label="Buscar"
-                            single-line
-                            hide-details
-                        ></v-text-field>
-                        </v-flex>
-                        
-                        <v-flex xs12 sm6>
-                        <v-select
-                            label="Categoria"
-                            :items="['ALIMENTOS', 'VOI']"
-                            v-model="buscar"
-                        ></v-select>
-                        </v-flex>
-                        </v-layout>
-                        
-                        <v-flex xs12>
-
-                        <v-data-table
-                        :headers="headers"
-                        :items  ="instrucciones"
-                        :search ="buscar"
-                        item-key="id_instruccion"
-                        >
-                        <template slot="items" slot-scope="instruccion">
-                            
-                            <td class="text-xs-left" @click="instruccion.expanded = !instruccion.expanded" >{{ instruccion.item.solicitud.categoria.nb_categoria }}</td>
-                            <td class="text-xs-right">{{ instruccion.item.solicitud.ente.nb_ente }}</td>
-                            <td class="text-xs-right">{{ instruccion.item.solicitud.tx_concepto  }}</td>
-                            <td class="text-xs-left">{{ instruccion.item.mo_instruccion }}</td>
-                            <td class="text-xs-left">{{ instruccion.item.fe_instruccion | formDate }}</td>
-                            <td class="text-xs-left">{{ instruccion.item.esquema.nb_esquema }}</td>
-                            
-                            <!--acciones-->
-                            <td class="justify-center layout px-0">
-                                <v-btn icon @click="updIngreso(instruccion.item )" >
-                                    <v-icon color="orange">edit</v-icon>
-                                </v-btn>
-                                <v-btn icon >
-                                    <v-icon color="info">search</v-icon>
-                                </v-btn>
-                                <v-btn icon >
-                                    <v-icon color="red">delete</v-icon>
-                                </v-btn>
-                            </td>
-                            
-                        </template>
-
-                        <template slot="expand" slot-scope="instruccion">
-                            <v-card flat>
-                                <v-card-text>Detalle Ingreso  {{instruccion.item}}</v-card-text>
-                            </v-card>
-                        </template>
-
-                        <template slot="pageText" slot-scope="instruccion">
-                         Pagina {{ instruccion.pageStart }} - {{ instruccion.pageStop }} de {{ instruccion.itemsLength }}
-                        </template>
-
-                        <v-alert slot="no-results" :value="true" color="info" icon="info">
-                           La busqueda "{{ buscar }}" Sin resultados
-                        </v-alert>
-
-                        </v-data-table>
-                        </v-flex>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-        </v-layout>
-
-      <v-dialog v-model="modal" fullscreen hide-overlay transition="dialog-bottom-transition">
-        
-        <v-card>
-         
-          <v-toolbar dark color="blue accent-1 white--text">
-
-            <v-btn icon dark @click.native="cerrarModal">
-              <v-icon>close</v-icon>
+        <v-toolbar class="blue accent-1 white--text">
+            <h3>Instrucciones</h3>
+            <v-spacer></v-spacer>
+            <v-btn fab @click="insItem" dark small absolute right bottom class="success">
+                <v-icon dark>add</v-icon>
             </v-btn>
+        </v-toolbar>
 
-            <v-toolbar-title>{{ nb_accion }}</v-toolbar-title>
-      
-          </v-toolbar>
-
-          <v-card-text> 
-
-              <instruccion-form :accion="accion" :instruccion="instruccion" @cerrarModal="cerrarModal"></instruccion-form>
+        <v-card-text>
             
-          </v-card-text>
-          
-        </v-card>
+            <v-layout wrap>
+            <v-flex xs12 sm6>
+            <v-text-field
+                v-model="buscar"
+                append-icon="search"
+                label="Buscar"
+                single-line
+                hide-details
+            ></v-text-field>
+            </v-flex>
+            
+            <v-flex xs12 sm6>
+            <v-select
+                :items="listas.categoria"
+                item-text="nb_categoria"
+                item-value="nb_categoria"
+                label="Categoria Instruccion"
+                v-model="buscar"
+                single-line
+                hide-details
+            ></v-select>
+            </v-flex>
+            </v-layout>
+            
+            <v-data-table
+                :headers="headers"
+                :items  ="items"
+                :search ="buscar"
+                v-model ="selected"
+                item-key="id_solicitud"
+                rows-per-page-text="Res. x Pag"
+            >
+            <template slot="items" slot-scope="item">
+                
+                <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.solicitud.categoria.nb_categoria }}</td>
+                <td class="text-xs-right">{{ item.item.solicitud.ente.nb_ente }}</td>
+                <td class="text-xs-right">{{ item.item.solicitud.tx_concepto  }}</td>
+                <td class="text-xs-left">{{ item.item.mo_instruccion }}</td>
+                <td class="text-xs-left">{{ item.item.fe_instruccion | formDate }}</td>
+                <td class="text-xs-left">{{ item.item.esquema.nb_esquema }}</td>
+                <!--acciones-->
+                <td class="text-xs-left">
+                    <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+                    </list-buttons>
+                </td>
+                
+            </template>
 
-      </v-dialog>
+            <template slot="expand" slot-scope="item">
+                <v-card flat>
+                    <v-card-text>Detalle Instruccion  {{item.item}}</v-card-text>
+                </v-card>
+            </template>
 
+            <v-alert slot="no-results" :value="true" color="info" icon="info">
+                La busqueda "{{ buscar }}" Sin resultados
+            </v-alert>
+
+            <template slot="pageText" slot-scope="item">
+                {{item.pageStart}} - {{item.pageStop}} de {{item.itemsLength}}
+            </template>
+
+            </v-data-table>
+            </v-card-text>
+
+    </v-card>
+    </v-flex>
+    </v-layout>
+
+        <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
+            <instruccion-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></instruccion-form>
+        </form-container>
+
+    <dialogo 
+        :dialogo="dialogo" 
+        :mensaje="'Desea Eliminar la Instruccion? ' "
+        @delItem="delItem"
+        @delCancel="delCancel"
+    >
+    </dialogo>
 
     </v-container>
 
@@ -120,89 +101,67 @@
 
 <script>
 
-Vue.use(require('vue-moment'));
+import withSnackbar from '../components/mixins/withSnackbar';
+import listHelper from '../components/mixins/listHelper';
 
 export default {
-    created() {
-
-        this.instrucciones  = this.list();
-    },
-    filters: {
-
-        formDate: function (value) {
-
-            if (!value) return ''
-            value = value.toString();
-            return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4);
-        }
-
-    },
+    mixins:[ listHelper, withSnackbar ],
     data () {
     return {
-        modal:     false,
-        instrucciones:  false, 
-        buscar:    '',
-        busTipIng: '',
-        accion:    '',
-        instruccion:   false,
-        nb_accion: false,
         headers: [
-        { text: 'Categoria',     value: 'solicitud.categoria.nb_categoria' },
-        { text: 'Ente',    value: 'instruccion.ente.nb_ente' },
-        { text: 'Concepto', value: 'instruccion.tx_concepto' },
-        { text: 'Monto',  value: 'mo_instruccion' },
-        { text: 'Fecha',  value: 'fe_instruccion' },
+        { text: 'Categoria',    value: 'solicitud.categoria.nb_categoria' },
+        { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
+        { text: 'Concepto',     value: 'instruccion.tx_concepto' },
+        { text: 'Monto',        value: 'mo_instruccion' },
+        { text: 'Fecha',        value: 'fe_instruccion' },
         { text: 'Esquema Pago', value: 'esquema.nb_esquema' },
         { text: 'Acciones',     value: 'id_status'  },
-        ]
+        ],
+        listas:{
+            categoria: []
+        }
     }
     },
-    props:['titulo'],
     methods:
     {
         customFilter(items, search, filter) {
 
             return items.filter(row => filter(row["solicitud.categoria.nb_categoria"], search));
         },
-        cerrarModal(){
-
-            this.modal = false;
-            this.instruccion = '';
-            this.list();
-
-        },
         list () {
 
             axios.get('/api/v1/instruccion')
             .then(respuesta => {
-                console.log(respuesta.data);
-                    this.instrucciones = respuesta.data;
+                this.items = respuesta.data;
             })
             .catch(error => {
-                    
+                this.showError(error)    
             })
 
-            
+            axios.get('/api/v1/categoria')
+            .then(respuesta => {
+                this.listas.categoria = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)
+            }) 
         },
-        updIngreso (instruccion) {
-            
-            this.nb_accion  = 'Editar Instruccion: ' + instruccion.esquema.nb_esquema;
-            this.accion     = 'upd';
-            this.modal      = true;
-            this.instruccion    = instruccion;
-        },
-        insIngreso () {
+        delItem(){
+            axios.delete('/api/v1/instruccion/'+this.item.id_instruccion)
+            .then(respuesta => {
 
-            this.nb_accion  = 'Agregar Instruccion:';
-            this.accion     = 'ins';
-            this.modal      = true;
-            
-        },
-        delIngreso (instruccion) {
+                this.showMessage(respuesta.data.msj)
+                this.list();
+                this.item = '';
+                this.dialogo = false;
+                
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
 
-            console.log('eliminar Ingreso')
-            
         }
+        
     }
 }
 

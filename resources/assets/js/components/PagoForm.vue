@@ -6,7 +6,7 @@
         <v-card>
             
             <v-card-title class="red accent-1 white--text">
-                <h2>Instrucciones</h2>
+                <h2>Pago</h2>
             </v-card-title>
             
             <v-card-text>

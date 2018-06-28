@@ -61,9 +61,9 @@
             
         </template>
 
-        <template slot="expand" slot-scope="solicitud">
+        <template slot="expand" slot-scope="item">
             <v-card flat>
-                <v-card-text>Detalle Solicitud  {{solicitud.item}}</v-card-text>
+                <v-card-text>Detalle Solicitud  {{item.item}}</v-card-text>
             </v-card>
         </template>
 
@@ -102,8 +102,6 @@
 
 import withSnackbar from '../components/mixins/withSnackbar';
 import listHelper from '../components/mixins/listHelper';
-
-Vue.use(require('vue-moment'));
 
 export default {
     mixins:[ listHelper, withSnackbar ],

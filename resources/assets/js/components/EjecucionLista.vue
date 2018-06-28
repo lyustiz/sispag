@@ -4,7 +4,7 @@
     <v-flex xs12>
     <v-card>
         
-        <v-toolbar class="red accent-1 white--text">
+        <v-toolbar class="blue-grey white--text">
             <h3>Ejecucion del Pago</h3>
 
             <v-spacer></v-spacer>

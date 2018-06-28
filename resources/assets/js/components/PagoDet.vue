@@ -4,7 +4,7 @@
     <v-flex xs12>
     <v-card>
         
-        <v-toolbar class="green accent-1 white--text">
+        <v-toolbar class="blue accent-1 white--text">
             <h3>Pago</h3>
 
             <v-spacer></v-spacer>
