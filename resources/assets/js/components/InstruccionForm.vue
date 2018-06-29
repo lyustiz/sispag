@@ -4,172 +4,94 @@
     <v-layout row justify-center>
     <v-flex xs12>   
         
-                
-           
         <v-card>
        
-        <v-card-title class="red accent-1 white--text">
-            <h2>Instruccion</h2>
-        </v-card-title>
+            <v-card-title class="red accent-1 white--text">
+                <h2>Instruccion</h2>
+            </v-card-title>
 
         <v-card-text>     
         <v-layout row wrap>
             
-        <v-flex xs12 sm6>
-        <v-select
-            :items="listas.categoria"
-            v-model="categoria"
-            item-value="id_categoria"
-            item-text="nb_categoria"
-            label="Categoria"
-        ></v-select>
-        </v-flex>
+            <v-flex xs12 sm6>
+                <v-select
+                    :items="listas.categoria"
+                    item-value="id_categoria"
+                    item-text="nb_categoria"
+                    v-model="categoria"
+                    label="Categoria"
+                ></v-select>
+            </v-flex>
 
-        <v-flex xs12 sm6  v-if="categoria">
+        <v-flex xs12 sm6 v-if="categoria">
             
             <v-tooltip bottom>
-            <v-btn slot="activator" fab small color="primary" @click.native="dialogo2 = true" >
+            <v-btn slot="activator" fab small color="success" @click.native="dingreso = true" >
                 <v-icon >record_voice_over</v-icon>
             </v-btn>
             <span>Solicitud</span>
             </v-tooltip>
 
             <v-tooltip bottom>
-            <v-btn slot="activator" fab small color="primary" @click.native="dialogo = true" >
+            <v-btn slot="activator" fab small color="warning" @click.native="dsolicitud = true" >
                 <v-icon>monetization_on</v-icon>
             </v-btn>
             <span>Ingresos</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-            <v-btn slot="activator" fab small color="primary" @click.native="detInstr = true" >
-                <v-icon >how_to_reg</v-icon>
-            </v-btn>
-            <span>Instruccion</span>
             </v-tooltip>
             
         </v-flex>
             
         </v-layout>
 
-        <v-spacer></v-spacer>
-
-        <v-form ref="form" v-model="valido" lazy-validation>
-         </v-form>  
-
 
          <v-layout row wrap>
              
-             <v-flex xs12 sm4>
-                 <v-card v-if="solicitud">
-                     <v-toolbar dark color="blue accent-1 white--text">
-                        <v-card-title primary-title primary>
-                        Solicitud
-                        </v-card-title>
-                        <v-spacer></v-spacer>
-                        <v-btn icon @click="solicitud=false">
-                            <v-icon>clear</v-icon>
-                        </v-btn>  
-                        </v-toolbar>
-                     
-                        <v-card-text>
-                            <v-list two-line subheader>
-                                <v-list-tile >
-                                    <v-list-tile-content>
-                                    <v-list-tile-title>Ente Solicitante</v-list-tile-title>
-                                    <v-list-tile-sub-title>{{ solicitud.ente.nb_ente }}</v-list-tile-sub-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                                <v-list-tile >
-                                    <v-list-tile-content>
-                                    <v-list-tile-title>Concepto</v-list-tile-title>
-                                    <v-list-tile-sub-title>{{ solicitud.tx_concepto }}</v-list-tile-sub-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                                <v-list-tile >
-                                    <v-list-tile-content>
-                                    <v-list-tile-title>Moneda Solicitud</v-list-tile-title>
-                                    <v-list-tile-sub-title>{{ solicitud.moneda.nb_moneda }}</v-list-tile-sub-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                                <v-list-tile >
-                                    <v-list-tile-content>
-                                    <v-list-tile-title>Monto Solicitado</v-list-tile-title>
-                                    <v-list-tile-sub-title>{{ solicitud.mo_solicitud }} {{ solicitud.moneda.tx_signo }}</v-list-tile-sub-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                                <v-list-tile>
-                                    <v-list-tile-content>
-                                    <v-list-tile-title>Fecha Solicitud</v-list-tile-title>
-                                    <v-list-tile-sub-title>{{ solicitud.fe_solicitud }}</v-list-tile-sub-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                            </v-list>
-                        </v-card-text>
-                 </v-card>
-             </v-flex>
-             <v-flex xs12 sm4>
-                 <v-card v-if="ingreso">
-                        <v-toolbar dark color="blue accent-1 white--text">
-                        <v-card-title primary-title primary>
-                        Ingreso
-                        </v-card-title>
-                        <v-spacer></v-spacer>
-                        <v-btn icon @click="ingreso=false">
-                            <v-icon>clear</v-icon>
-                        </v-btn>  
-                        </v-toolbar>
-                        
-                        <v-card-text>
-                        <v-list two-line subheader>
-                            <v-list-tile >
-                                <v-list-tile-content>
-                                <v-list-tile-title>Moneda</v-list-tile-title>
-                                <v-list-tile-sub-title>{{cuenta.moneda}}</v-list-tile-sub-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                            <v-list-tile >
-                                <v-list-tile-content>
-                                <v-list-tile-title>Monto Total</v-list-tile-title>
-                                <v-list-tile-sub-title>{{ cuenta.total }} {{cuenta.monSig}}</v-list-tile-sub-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                            <v-list-tile >
-                                <v-list-tile-content>
-                                <v-list-tile-title>Monto Instruido</v-list-tile-title>
-                                <v-list-tile-sub-title>{{ cuenta.instruido }} {{cuenta.monSig}}</v-list-tile-sub-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                            <v-list-tile>
-                                <v-list-tile-content>
-                                <v-list-tile-title>Monto Disponible</v-list-tile-title>
-                                <v-list-tile-sub-title>{{ cuenta.disponible }} {{cuenta.monSig}}</v-list-tile-sub-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                        </v-list>
-                            <v-text-field
-                                v-model="instruccion"
-                                name="name"
-                                label="Monto Instuccion"
-                            ></v-text-field>
-                        </v-card-text>
-                 </v-card>
-             </v-flex>
-             <v-flex xs12 sm4>
-                 <v-card v-if="detInstr">
+            <v-flex xs12 sm4>
+                <list-data 
+                titulo="Solicitud" 
+                :items="{ 
+                          'Ente Solicitante': 'dolar',
+                          'Concepto'        : '123444',
+                          'Moneda Solicitud': '11233',
+                          'Monto Solicitado': '23444',
+                          'Fecha Solicitud' : '23444',
+                        }" 
+                :visible="ingreso" >
+                </list-data >
+            </v-flex>
 
-                     <v-toolbar dark color="blue accent-1 white--text">
-                        <v-card-title primary-title primary>
-                        Detalle Instruccion
-                        </v-card-title>
-                        <v-spacer></v-spacer>
-                        <v-btn icon @click="detInstr=false">
-                            <v-icon>clear</v-icon>
-                        </v-btn>  
-                        </v-toolbar>
-                    <v-card-text>
-                         
-                    
+            <v-flex xs12 sm4>
+
+                <list-data 
+                titulo="Ingreso" 
+                :items="{ 
+                          'Moneda'          : 'dolar',
+                          'Monto Total'     : '123444',
+                          'Monto Instruido' : '11233',
+                          'Monto Disponible': '23444',
+                        }" 
+                :visible="solicitud">
+                
+                    <v-list-tile>
+                        <v-text-field
+                        v-model="ingreso"
+                        name="name"
+                        label="Monto de la Instuccion"
+                        ></v-text-field>
+                    </v-list-tile>
+
+                </list-data >
+
+            </v-flex>
+
+
+            <v-flex xs12 sm4>
+
+                <list-data 
+                titulo="Detalle Instruccion" 
+                :items="{}" 
+                :visible="solicitud">
+       
                     <v-select
                         :items="listas.esquema"
                         item-value="id_esquema"
@@ -180,44 +102,45 @@
                         autocomplete
                         required
                     ></v-select>
+
                     <v-text-field
                         v-model="form.nu_esquemq_pag"
                         name="name"
                         label="Nro Esquema de Pago"
                     ></v-text-field>
+
                     <v-text-field
                         v-model="form.tx_ofi_cta_mdte"
                         name="name"
                         label="Oficio Cuenta Mandante"
                     ></v-text-field>
 
-
-                        <v-flex>
-                        <v-menu
-                            ref="menu1"
-                            :close-on-content-click="false"
-                            v-model="menu1"
-                            :nudge-right="40"
-                            :return-value.sync="date"
-                            lazy
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            locale="es"
-                            min-width="290px"
-                        >
-                            <v-text-field
-                            slot="activator"
-                            v-model="form.fe_instruccion"
-                            label="Seleccione Fecha"
-                            prepend-icon="event"
-                            readonly
-                            required
-                            ></v-text-field>
-                            <v-date-picker v-model="form.fe_instruccion" @input="$refs.menu1.save(date)"></v-date-picker>
-                        </v-menu>
-                            
-                        </v-flex>
+                    <v-flex>
+                    <v-menu
+                        ref="menu1"
+                        :close-on-content-click="false"
+                        v-model="menu1"
+                        :nudge-right="40"
+                        :return-value.sync="date"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        locale="es_ES"
+                        min-width="290px"
+                    >
+                        <v-text-field
+                        slot="activator"
+                        v-model="form.fe_instruccion"
+                        label="Seleccione Fecha"
+                        prepend-icon="event"
+                        readonly
+                        required
+                        ></v-text-field>
+                        <v-date-picker v-model="form.fe_instruccion" @input="$refs.menu1.save(date)"></v-date-picker>
+                    </v-menu>
+                        
+                    </v-flex>
                 
                     
                     <v-text-field
@@ -225,8 +148,9 @@
                         name="name"
                         label="observaciones"
                     ></v-text-field>
-                </v-card-text>
-                </v-card>
+
+                </list-data >
+ 
              </v-flex>
          </v-layout>
 
@@ -234,9 +158,11 @@
        </v-card-text>
        
    </v-card >
+
     <div v-if="categoria">
-     <v-dialog v-model="dialogo"> 
-        
+
+        <v-dialog v-model="dingreso"> 
+
             <list-select   
                 tabla="cuenta" 
                 :encabezados="[
@@ -247,13 +173,16 @@
                 @seleccion="getIngreso"
             >
             </list-select>
-     </v-dialog>
-     <v-dialog v-model="dialogo2" > 
-             <list-select   
+
+        </v-dialog>
+
+        <v-dialog v-model="dsolicitud" > 
+
+            <list-select   
                 :tabla="tablaCategoria" 
                 :encabezados="[
                                 { text: 'Ente',     value: 'ente.nb_ente' },
-                                { text: 'Concepto',     value: 'tx_concepto' },
+                                { text: 'Concepto', value: 'tx_concepto' },
                                 { text: 'Monto',    value: 'mo_solicitud' },
                                 { text: 'Status',   value: 'status.nb_status' },
                                 ]"
@@ -261,13 +190,13 @@
             >
             </list-select>
 
-      </v-dialog>
+        </v-dialog>
 
-      </div>
+        </div>
+
     </v-flex>
     </v-layout>
-      <!-- <instruccion-lista :titulo="false"></instruccion-lista>-->
-      </v-container>
+    </v-container>
 
       
 
@@ -282,24 +211,31 @@ export default {
     mixins: [ formHelper, withSnackbar ],
     data () {
         return {
-            dialogo:    false,
-            dialogo2:   false,
-            dialogo3:   false,
+            categoria:  false,
+            dingreso:   false,
+            dsolicitud: false,
             ingreso:    false,
             solicitud:  false,
-            detInstr: false,
-            menu1: false,
+            menu1:      false,
             date: '',
             form:{
-                id_esquema_pago: '',
-                nu_esquemq_pago: '',
-                tx_ofi_cta_mdte: '',
+                id_solicitud:   '',
+                tx_concepto:    '',
+                id_esquema:     '',
+                nu_esquema:     '',
+                tx_ofi_cta_mte: '',
+                bo_ofi_cta_mte: '',
                 fe_instruccion: '',
-                tx_observaciones: '',
-                mo_instruccion: ''
+                mo_instruccion: '',
+                id_moneda:      '',
+                tx_observacion: '',
+                id_usuario:     '',
+                id_status:      '',  
+            },
+            rules:{
+
             },
             instruccion: '',
-            categoria:  false,
             esquema:    false,
             listas: {
                 categoria: [],
@@ -319,14 +255,6 @@ export default {
     computed:{
         tablaCategoria(){
             return 'solicitud/categoria/'+this.categoria;
-        },
-         computedDateFormatted () {
-        return this.formatDate(this.date)
-      }
-    },
-    watch: {
-        date (val) {
-            this.dateFormatted = this.formatDate(this.date)
         },
     },
     methods:
@@ -371,7 +299,7 @@ export default {
             }
         },
          listSolicitud(){
-             axios.get('/api/v1/solicitud/categoria/1')
+             axios.get('/api/v1/solicitud/categoria/'+ this.categoria)
             .then(respuesta => {
 
                 console.log(respuesta.data);
@@ -387,3 +315,4 @@ export default {
 <style>
 
 </style>
+

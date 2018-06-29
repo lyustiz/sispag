@@ -85,7 +85,7 @@
                 ></v-text-field>
             </v-flex>
 
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm6>
                 <v-select
                 :items="listas.moneda"
                 item-text="nb_moneda"
@@ -169,17 +169,17 @@ export default {
             dateFormatted: '',
             menu1: false,
             form:{
-                id_solicitud:   '',
-                nu_solicitud:   '',
-                tx_concepto:    '',
-                mo_solicitud:   '',
-                fe_solicitud:   '',
-                id_ente:        '',
-                id_moneda:      '',
-                id_categoria:   '',
-                tx_observacion: '',
-                id_usuario:     '',
-                id_status:      ''
+                id_solicitud:     '',
+                nu_solicitud:     '',
+                tx_concepto:      '',
+                mo_solicitud:     '',
+                fe_solicitud:     '',
+                id_ente:          '',
+                id_moneda:        '',
+                id_categoria:     '',
+                tx_observaciones: '',
+                id_usuario:       '',
+                id_status:        ''
             },
             listas:{
                 ente:        ['/grupo/4'],

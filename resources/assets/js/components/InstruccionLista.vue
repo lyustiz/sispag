@@ -49,8 +49,8 @@
             <template slot="items" slot-scope="item">
                 
                 <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.solicitud.categoria.nb_categoria }}</td>
-                <td class="text-xs-right">{{ item.item.solicitud.ente.nb_ente }}</td>
-                <td class="text-xs-right">{{ item.item.solicitud.tx_concepto  }}</td>
+                <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
+                <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
                 <td class="text-xs-left">{{ item.item.mo_instruccion }}</td>
                 <td class="text-xs-left">{{ item.item.fe_instruccion | formDate }}</td>
                 <td class="text-xs-left">{{ item.item.esquema.nb_esquema }}</td>
@@ -84,7 +84,7 @@
     </v-layout>
 
         <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-            <instruccion-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></instruccion-form>
+           <instruccion-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></instruccion-form>
         </form-container>
 
     <dialogo 

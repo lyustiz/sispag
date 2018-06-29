@@ -22,7 +22,7 @@ class Solicitud extends Model
                             'id_ente',
                             'id_moneda',
                             'id_categoria',
-                            'tx_observacion',
+                            'tx_observaciones',
                             'id_usuario',
                             'id_status',
                             'fe_creado',
