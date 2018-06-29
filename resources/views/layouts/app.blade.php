@@ -8,10 +8,12 @@
     <meta name="user" content="{{ Auth::user() }}">
     <link rel="manifest" href="/manifest.json">
     <title>{{ config('app.name', 'Pagos Pais') }}</title>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-    <link href="https://unpkg.com/vuetify@1.0.0-beta.6/dist/vuetify.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.min.css" rel="stylesheet">
+    <link href='https://ffonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="https://fcdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+
 </head>
 <body>
 <v-app id="app" v-cloak>
@@ -165,6 +167,7 @@
 </v-app>
 @stack('beforeScripts')
 <script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ url('/assets/vuetify/css/vuetify.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
 @stack('afterScripts')
 </body>
