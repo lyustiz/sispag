@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href='/assets/googlefonts/css/css.css' rel="stylesheet">
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
     <style>
         [v-cloak] > * { display:none; }
@@ -49,14 +49,6 @@
                         <img src="/img/vuetify.png" alt="Vuetify.js" height="200">
                         <h1 class="white--text mb-2 display-1 text-xs-center">Sistema Gestion de Pagos en Divisas</h1>
                         <div class="subheading mb-3 text-xs-center">Ordenados por el Ejecutivo Nacional </div>
-                        <v-btn
-                                class="blue lighten-2 mt-5"
-                                dark
-                                large
-                                href="/home"
-                        >
-                            Ingresar
-                        </v-btn>
                     </v-layout>
                 </v-parallax>
             </section>

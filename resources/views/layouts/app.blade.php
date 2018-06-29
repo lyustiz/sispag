@@ -8,8 +8,8 @@
     <meta name="user" content="{{ Auth::user() }}">
     <link rel="manifest" href="/manifest.json">
     <title>{{ config('app.name', 'Pagos Pais') }}</title>
-    <link href='https://ffonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-    <link href="https://fcdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.min.css" rel="stylesheet">
+    <link href='/assets/googlefonts/css/css.css' rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
