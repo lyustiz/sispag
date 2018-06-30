@@ -13,6 +13,8 @@ export default {
             basePath: '/api/v1/',
             valido: false,
             btnAccion: '',
+            date: '',
+            menu: false
 
         }
     },

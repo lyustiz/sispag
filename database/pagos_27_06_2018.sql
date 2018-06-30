@@ -1,4 +1,4 @@
-/*
+﻿/*
 Navicat PGSQL Data Transfer
 
 Source Server         : portable
@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90601
 File Encoding         : 65001
 
-Date: 2018-06-27 17:22:31
+Date: 2018-06-29 15:39:04
 */
 
 
@@ -59,9 +59,9 @@ CREATE SEQUENCE "pagos"."cuenta_id_cuenta_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1149
+ START 1151
  CACHE 1;
-SELECT setval('"pagos"."cuenta_id_cuenta_seq"', 1149, true);
+SELECT setval('"pagos"."cuenta_id_cuenta_seq"', 1151, true);
 
 -- ----------------------------
 -- Sequence structure for det_cuenta_id_det_cuenta_seq
@@ -75,16 +75,16 @@ CREATE SEQUENCE "pagos"."det_cuenta_id_det_cuenta_seq"
  CACHE 1;
 
 -- ----------------------------
--- Sequence structure for ejecucion_pago_id_ejecucion_seq
+-- Sequence structure for ejecucion_pago_id_ejecucion_pago_seq
 -- ----------------------------
-DROP SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_seq";
-CREATE SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_seq"
+DROP SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_pago_seq";
+CREATE SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_pago_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 18
+ START 2
  CACHE 1;
-SELECT setval('"pagos"."ejecucion_pago_id_ejecucion_seq"', 18, true);
+SELECT setval('"pagos"."ejecucion_pago_id_ejecucion_pago_seq"', 2, true);
 
 -- ----------------------------
 -- Sequence structure for ente_id_ente_seq
@@ -178,9 +178,9 @@ CREATE SEQUENCE "pagos"."ingreso_id_ingreso_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 26
+ START 28
  CACHE 1;
-SELECT setval('"pagos"."ingreso_id_ingreso_seq"', 26, true);
+SELECT setval('"pagos"."ingreso_id_ingreso_seq"', 28, true);
 
 -- ----------------------------
 -- Sequence structure for instruccion_id_instruccion_seq
@@ -190,9 +190,9 @@ CREATE SEQUENCE "pagos"."instruccion_id_instruccion_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 17
+ START 18
  CACHE 1;
-SELECT setval('"pagos"."instruccion_id_instruccion_seq"', 17, true);
+SELECT setval('"pagos"."instruccion_id_instruccion_seq"', 18, true);
 
 -- ----------------------------
 -- Sequence structure for menu_id_menu_seq
@@ -238,9 +238,9 @@ CREATE SEQUENCE "pagos"."movimiento_id_movimiento_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 19
+ START 22
  CACHE 1;
-SELECT setval('"pagos"."movimiento_id_movimiento_seq"', 19, true);
+SELECT setval('"pagos"."movimiento_id_movimiento_seq"', 22, true);
 
 -- ----------------------------
 -- Sequence structure for pagos_id_pago_seq
@@ -250,9 +250,9 @@ CREATE SEQUENCE "pagos"."pagos_id_pago_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 13
+ START 14
  CACHE 1;
-SELECT setval('"pagos"."pagos_id_pago_seq"', 13, true);
+SELECT setval('"pagos"."pagos_id_pago_seq"', 14, true);
 
 -- ----------------------------
 -- Sequence structure for permiso_id_permiso_seq
@@ -382,9 +382,9 @@ CREATE SEQUENCE "pagos"."tr_bitacora_id_bitacora_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 206
+ START 221
  CACHE 1;
-SELECT setval('"pagos"."tr_bitacora_id_bitacora_seq"', 206, true);
+SELECT setval('"pagos"."tr_bitacora_id_bitacora_seq"', 221, true);
 
 -- ----------------------------
 -- Sequence structure for users_id_seq
@@ -433,8 +433,8 @@ CREATE TABLE "pagos"."banco" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6),
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0),
 "id_grupo_banco" int4
 )
 WITH (OIDS=FALSE)
@@ -469,8 +469,8 @@ CREATE TABLE "pagos"."categoria" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -498,8 +498,8 @@ CREATE TABLE "pagos"."clase_ente" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -525,8 +525,8 @@ CREATE TABLE "pagos"."cuenta" (
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -564,16 +564,16 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 DROP TABLE IF EXISTS "pagos"."ejecucion_pago";
 CREATE TABLE "pagos"."ejecucion_pago" (
-"id_ejecucion" int4 DEFAULT nextval('"pagos".ejecucion_pago_id_ejecucion_seq'::regclass) NOT NULL,
+"id_ejecucion_pago" int4 DEFAULT nextval('"pagos".ejecucion_pago_id_ejecucion_pago_seq'::regclass) NOT NULL,
 "id_pago" int4 NOT NULL,
 "id_banco" int4 NOT NULL,
-"fe_envio_inst" timestamp(6),
+"fe_envio_inst" timestamp(0),
 "id_etapa_envio" int4 NOT NULL,
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -595,8 +595,8 @@ CREATE TABLE "pagos"."ente" (
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -627,8 +627,8 @@ CREATE TABLE "pagos"."esquema" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -656,8 +656,8 @@ CREATE TABLE "pagos"."etapa_envio" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -680,8 +680,8 @@ CREATE TABLE "pagos"."grupo_banco" (
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -705,8 +705,8 @@ CREATE TABLE "pagos"."grupo_ente" (
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -728,8 +728,8 @@ CREATE TABLE "pagos"."grupo_financiero" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -753,8 +753,8 @@ CREATE TABLE "pagos"."grupo_status" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -788,12 +788,12 @@ CREATE TABLE "pagos"."ingreso" (
 "id_moneda" int4,
 "mo_ingreso" numeric(15,2),
 "mo_tasa" numeric(5,2),
-"fe_ingreso" timestamp(6),
+"fe_ingreso" timestamp(0),
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6),
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0),
 "id_banco" int4
 )
 WITH (OIDS=FALSE)
@@ -816,14 +816,14 @@ CREATE TABLE "pagos"."instruccion" (
 "nu_esquema" varchar(20) COLLATE "default",
 "tx_ofi_cta_mte" varchar(20) COLLATE "default",
 "bo_ofi_cta_mte" bool,
-"fe_instruccion" timestamp(6),
+"fe_instruccion" timestamp(0),
 "mo_instruccion" numeric(15,2),
 "id_moneda" int4 NOT NULL,
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -844,8 +844,8 @@ CREATE TABLE "pagos"."menu" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -869,8 +869,8 @@ CREATE TABLE "pagos"."modulo" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -893,8 +893,8 @@ CREATE TABLE "pagos"."moneda" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -927,12 +927,12 @@ CREATE TABLE "pagos"."movimiento" (
 "nb_modulo" varchar(50) COLLATE "default" NOT NULL,
 "tx_tipomov" varchar(50) COLLATE "default",
 "mo_movimiento" numeric(15,2),
-"fe_movimiento" timestamp(6),
+"fe_movimiento" timestamp(0),
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -949,9 +949,9 @@ DROP TABLE IF EXISTS "pagos"."pago";
 CREATE TABLE "pagos"."pago" (
 "id_pago" int4 DEFAULT nextval('"pagos".pagos_id_pago_seq'::regclass) NOT NULL,
 "id_instruccion" int4 NOT NULL,
-"fe_liq_bcv" timestamp(6),
+"fe_liq_bcv" timestamp(0),
 "id_banco" int4 NOT NULL,
-"fe_pago" timestamp(6),
+"fe_pago" timestamp(0),
 "id_moneda" int4 NOT NULL,
 "mo_tasa" numeric(5,2) NOT NULL,
 "mo_final_pago" numeric(15,2),
@@ -959,8 +959,8 @@ CREATE TABLE "pagos"."pago" (
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -977,7 +977,7 @@ DROP TABLE IF EXISTS "pagos"."password_resets";
 CREATE TABLE "pagos"."password_resets" (
 "email" varchar(255) COLLATE "default" NOT NULL,
 "token" varchar(255) COLLATE "default" NOT NULL,
-"created_at" timestamp(6)
+"created_at" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1004,8 +1004,8 @@ CREATE TABLE "pagos"."permiso" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1033,8 +1033,8 @@ CREATE TABLE "pagos"."rol" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1056,15 +1056,15 @@ CREATE TABLE "pagos"."solicitud" (
 "nu_solicitud" varchar(25) COLLATE "default",
 "tx_concepto" varchar(200) COLLATE "default",
 "mo_solicitud" numeric(15,2),
-"fe_solicitud" timestamp(6),
+"fe_solicitud" timestamp(0),
 "id_ente" int4 NOT NULL,
 "id_moneda" int4 NOT NULL,
 "id_categoria" int4 NOT NULL,
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1088,8 +1088,8 @@ CREATE TABLE "pagos"."status" (
 "id_padre" int4,
 "tx_observaciones" varchar(150) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6),
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0),
 "bo_credito" bool,
 "bo_debito" bool
 )
@@ -1141,12 +1141,12 @@ CREATE TABLE "pagos"."tasa" (
 "id_tasa" int4 DEFAULT nextval('"pagos".tasa_id_tasa_seq'::regclass) NOT NULL,
 "id_moneda" int4,
 "mo_tasa" numeric(5,2),
-"fe_tasa" timestamp(6),
+"fe_tasa" timestamp(0),
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1177,8 +1177,8 @@ CREATE TABLE "pagos"."tipo_banco" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1209,8 +1209,8 @@ CREATE TABLE "pagos"."tipo_ente" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1233,8 +1233,8 @@ CREATE TABLE "pagos"."tipo_ingreso" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1270,8 +1270,8 @@ CREATE TABLE "pagos"."tipo_ingresoo" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1292,8 +1292,8 @@ CREATE TABLE "pagos"."tipo_pago" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4,
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1316,7 +1316,7 @@ CREATE TABLE "pagos"."tr_bitacora" (
 "in_id_tabla" int4 NOT NULL,
 "tx_old_valor" varchar(2000) COLLATE "default",
 "tx_new_valor" varchar(2000) COLLATE "default",
-"fe_accion" timestamp(6),
+"fe_accion" timestamp(0),
 "id_usuario" int4 NOT NULL
 )
 WITH (OIDS=FALSE)
@@ -1350,6 +1350,21 @@ INSERT INTO "pagos"."tr_bitacora" VALUES ('203', 'UPD', 'instruccion', '17', '(1
 INSERT INTO "pagos"."tr_bitacora" VALUES ('204', 'INS', 'pago', '12', null, '(12,17,"2018-06-27 00:00:00",7,"2018-06-30 00:00:00",1,2.00,3000.00,1,,1,1,"2018-06-27 00:00:00",)', '2018-06-27 16:51:44.989257', '1');
 INSERT INTO "pagos"."tr_bitacora" VALUES ('205', 'INS', 'pago', '13', null, '(13,17,"2018-06-27 00:00:00",7,"3018-06-30 00:00:00",1,2.00,3000.00,1,,1,13,"2018-06-27 00:00:00",)', '2018-06-27 16:54:12.234375', '1');
 INSERT INTO "pagos"."tr_bitacora" VALUES ('206', 'UPD', 'cuenta', '1149', '(1149,1,1000.00,3000.00,0.00,4000.00,INSTRUCCION1,1,1,"2018-06-27 12:13:09.048828","2018-06-27 16:22:01.55371")', '(1149,1,1000.00,0.00,0.00,1000.00,,1,13,"2018-06-27 12:13:09.048828","2018-06-27 16:54:12.234375")', '2018-06-27 16:54:12.234375', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('207', 'INS', 'cuenta', '1150', null, '(1150,1,5000.00,0.00,0.00,5000.00,,1,1,"2018-06-29 13:31:26.731445",)', '2018-06-29 13:31:26.731445', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('208', 'INS', 'ingreso', '27', null, '(27,1,1,1,5000.00,2.00,"2018-06-29 00:00:00",N/A,1,1,"2018-06-29 00:00:00",,10)', '2018-06-29 13:31:26.731445', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('209', 'INS', 'cuenta', '1151', null, '(1151,2,4000.00,0.00,0.00,4000.00,,1,1,"2018-06-29 13:32:36.374023",)', '2018-06-29 13:32:36.374023', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('210', 'INS', 'ingreso', '28', null, '(28,2,1,2,4000.00,2.00,"2018-06-29 00:00:00",N/A,1,1,"2018-06-29 00:00:00",,)', '2018-06-29 13:32:36.374023', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('211', 'UPD', 'cuenta', '1150', '(1150,1,5000.00,0.00,0.00,5000.00,,1,1,"2018-06-29 13:31:26.731445",)', '(1150,1,1000.00,4000.00,0.00,5000.00,,1,1,"2018-06-29 13:31:26.731445","2018-06-29 13:34:55.729492")', '2018-06-29 13:34:55.729492', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('212', 'INS', 'instruccion', '18', null, '(18,1,pba,1,voi1,,t,"2018-06-29 00:00:00",4000.00,1,,1,1,"2018-06-29 00:00:00",)', '2018-06-29 13:34:55.729492', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('213', 'INS', 'pago', '14', null, '(14,18,"2018-06-27 00:00:00",7,"2018-06-27 00:00:00",2,2.00,1000.00,2,,1,1,"2018-06-27 00:00:00",)', '2018-06-29 15:23:53.436523', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('214', 'UPD', 'cuenta', '1150', '(1150,1,1000.00,4000.00,0.00,5000.00,,1,1,"2018-06-29 13:31:26.731445","2018-06-29 13:34:55.729492")', '(1150,1,5000.00,0.00,0.00,5000.00,,1,1,"2018-06-29 13:31:26.731445","2018-06-29 15:23:53.436523")', '2018-06-29 15:23:53.436523', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('215', 'UPD', 'cuenta', '1151', '(1151,2,4000.00,0.00,0.00,4000.00,,1,1,"2018-06-29 13:32:36.374023",)', '(1151,2,3000.00,1000.00,0.00,4000.00,,1,1,"2018-06-29 13:32:36.374023","2018-06-29 15:23:53.436523")', '2018-06-29 15:23:53.436523', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('216', 'INS', 'ejecucion_pago', '14', null, '(1,14,1,"2018-06-27 00:00:00",3,,1,13,"2018-06-27 00:00:00",)', '2018-06-29 15:27:00.629882', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('217', 'UPD', 'pago', '14', '(14,18,"2018-06-27 00:00:00",7,"2018-06-27 00:00:00",2,2.00,1000.00,2,,1,1,"2018-06-27 00:00:00",)', '(14,18,"2018-06-27 00:00:00",7,"2018-06-27 00:00:00",2,2.00,1000.00,2,,1,13,"2018-06-27 00:00:00","2018-06-29 15:27:00.629882")', '2018-06-29 15:27:00.629882', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('218', 'UPD', 'ejecucion_pago', '14', '(1,14,1,"2018-06-27 00:00:00",3,,1,13,"2018-06-27 00:00:00",)', '(1,14,1,"2018-06-27 00:00:00",3,,1,2,"2018-06-27 00:00:00",)', '2018-06-29 15:32:49.570312', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('219', 'UPD', 'pago', '14', '(14,18,"2018-06-27 00:00:00",7,"2018-06-27 00:00:00",2,2.00,1000.00,2,,1,13,"2018-06-27 00:00:00","2018-06-29 15:27:00.629882")', '(14,18,"2018-06-27 00:00:00",7,"2018-06-27 00:00:00",2,2.00,1000.00,2,,1,2,"2018-06-27 00:00:00","2018-06-29 15:32:49.570312")', '2018-06-29 15:32:49.570312', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('220', 'UPD', 'ejecucion_pago', '14', '(1,14,1,"2018-06-27 00:00:00",3,,1,2,"2018-06-27 00:00:00",)', '(1,14,1,"2018-06-27 00:00:00",3,,1,13,"2018-06-27 00:00:00",)', '2018-06-29 15:33:14.799804', '1');
+INSERT INTO "pagos"."tr_bitacora" VALUES ('221', 'UPD', 'pago', '14', '(14,18,"2018-06-27 00:00:00",7,"2018-06-27 00:00:00",2,2.00,1000.00,2,,1,2,"2018-06-27 00:00:00","2018-06-29 15:32:49.570312")', '(14,18,"2018-06-27 00:00:00",7,"2018-06-27 00:00:00",2,2.00,1000.00,2,,1,13,"2018-06-27 00:00:00","2018-06-29 15:33:14.799804")', '2018-06-29 15:33:14.799804', '1');
 
 -- ----------------------------
 -- Table structure for users
@@ -1361,8 +1376,8 @@ CREATE TABLE "pagos"."users" (
 "email" varchar(255) COLLATE "default" NOT NULL,
 "password" varchar(255) COLLATE "default" NOT NULL,
 "remember_token" varchar(100) COLLATE "default",
-"created_at" timestamp(6),
-"updated_at" timestamp(6)
+"created_at" timestamp(0),
+"updated_at" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1387,8 +1402,8 @@ CREATE TABLE "pagos"."usuario" (
 "nb_apellido" varchar(50) COLLATE "default",
 "tx_observaciones" varchar(100) COLLATE "default",
 "id_status" int4,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1421,8 +1436,8 @@ CREATE TABLE "pagos"."usurol" (
 "tx_observaciones" varchar(100) COLLATE "default" DEFAULT 'N/A'::character varying,
 "id_usuario" int4 NOT NULL,
 "id_status" int4 NOT NULL,
-"fe_creado" timestamp(6),
-"fe_actualizado" timestamp(6)
+"fe_creado" timestamp(0),
+"fe_actualizado" timestamp(0)
 )
 WITH (OIDS=FALSE)
 
@@ -1437,6 +1452,7 @@ INSERT INTO "pagos"."usurol" VALUES ('2', '2', '1', 'N/A', '1', '1', '2018-06-27
 -- ----------------------------
 -- Alter Sequences Owned By 
 -- ----------------------------
+ALTER SEQUENCE "pagos"."ejecucion_pago_id_ejecucion_pago_seq" OWNED BY "ejecucion_pago"."id_ejecucion_pago";
 ALTER SEQUENCE "pagos"."menu_id_menu_seq" OWNED BY "menu"."id_menu";
 ALTER SEQUENCE "pagos"."modulo_id_modulo_seq" OWNED BY "modulo"."id_modulo";
 ALTER SEQUENCE "pagos"."movimiento_id_movimiento_seq" OWNED BY "movimiento"."id_movimiento";
@@ -1534,7 +1550,7 @@ EXECUTE PROCEDURE "pagos"."sp_insupd_ejpago_status"();
 -- ----------------------------
 -- Primary Key structure for table ejecucion_pago
 -- ----------------------------
-ALTER TABLE "pagos"."ejecucion_pago" ADD PRIMARY KEY ("id_ejecucion");
+ALTER TABLE "pagos"."ejecucion_pago" ADD PRIMARY KEY ("id_ejecucion_pago");
 
 -- ----------------------------
 -- Triggers structure for table ente

@@ -1,7 +1,7 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
     <v-layout row justify-center>
-    <v-flex xs11>
+    <v-flex xs12>
     <v-card>
                   
         <v-toolbar class="blue accent-1 white--text">

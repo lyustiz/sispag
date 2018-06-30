@@ -37,7 +37,23 @@ class InstruccionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+
+            'id_solicitud'      => 'required',
+            'id_esquema'        => 'required',
+            'nu_esquema'        => 'required',
+            'bo_ofi_cta_mte'    => 'required',
+            'fe_instruccion'    => 'required',
+            'mo_instruccion'    => 'required',
+            'id_moneda'         => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+        ]);
+        
+        $instruccion = Instruccion::create($request->all());
+
+        return (['msj'=>'Registro Agregado Correctamente ', 'instruccion' =>$instruccion]);
+        
     }
 
     /**
@@ -71,7 +87,22 @@ class InstruccionController extends Controller
      */
     public function update(Request $request, Instruccion $instruccion)
     {
-        //
+        $validate = request()->validate([
+
+            'id_solicitud'      => 'required',
+            'id_esquema'        => 'required',
+            'nu_esquema'        => 'required',
+            'bo_ofi_cta_mte'    => 'required',
+            'fe_instruccion'    => 'required',
+            'mo_instruccion'    => 'required',
+            'id_moneda'         => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+        ]);
+
+        $Instruccion = Instruccion::find($Instruccion->id_Instruccion)->update($request->all());
+
+        return (['msj'=>'Registro Actualizado Correctamente ', 'Instruccion' =>$Instruccion]);
     }
 
     /**

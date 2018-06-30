@@ -6,7 +6,7 @@
            <h3> {{ titulo }} </h3>
         </v-card-title>
         <v-spacer></v-spacer>
-        <v-btn icon @click="this.$emit('cerrar')">
+        <v-btn icon @click="$emit('cerrar')">
             <v-icon>clear</v-icon>
         </v-btn>  
     </v-toolbar>

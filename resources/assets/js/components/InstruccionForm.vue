@@ -3,7 +3,7 @@
     <v-container fluid grid-list-md text-xs-center >
     <v-layout row justify-center>
     <v-flex xs12>   
-        
+        <v-form ref="form" v-model="valido" lazy-validation>
         <v-card>
        
             <v-card-title class="red accent-1 white--text">
@@ -26,15 +26,15 @@
         <v-flex xs12 sm6 v-if="categoria">
             
             <v-tooltip bottom>
-            <v-btn slot="activator" fab small color="success" @click.native="dingreso = true" >
+            <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
                 <v-icon >record_voice_over</v-icon>
             </v-btn>
             <span>Solicitud</span>
             </v-tooltip>
 
             <v-tooltip bottom>
-            <v-btn slot="activator" fab small color="warning" @click.native="dsolicitud = true" >
-                <v-icon>monetization_on</v-icon>
+            <v-btn slot="activator" fab small color="warning" @click.native="dingreso  = true" >
+                <v-icon>attach_money</v-icon>
             </v-btn>
             <span>Ingresos</span>
             </v-tooltip>
@@ -46,35 +46,39 @@
 
          <v-layout row wrap>
              
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm4 v-if="solicitud">
                 <list-data 
                 titulo="Solicitud" 
                 :items="{ 
-                          'Ente Solicitante': 'dolar',
-                          'Concepto'        : '123444',
-                          'Moneda Solicitud': '11233',
-                          'Monto Solicitado': '23444',
-                          'Fecha Solicitud' : '23444',
+                          'Ente Solicitante': solicitud.ente.nb_ente,
+                          'Concepto'        : solicitud.tx_concepto,
+                          'Moneda Solicitud': solicitud.moneda.nb_moneda,
+                          'Monto Solicitado': solicitud.mo_solicitud,
+                          'Fecha Solicitud' : solicitud.fe_solicitud,
                         }" 
-                :visible="ingreso" >
+                :visible="true"
+                @cerrar="remSolicitud"
+                 >
                 </list-data >
             </v-flex>
 
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm4 v-if="ingreso">
 
                 <list-data 
                 titulo="Ingreso" 
                 :items="{ 
-                          'Moneda'          : 'dolar',
-                          'Monto Total'     : '123444',
-                          'Monto Instruido' : '11233',
-                          'Monto Disponible': '23444',
-                        }" 
-                :visible="solicitud">
+                          'Moneda'          : ingreso.moneda.nb_moneda,
+                          'Monto Total'     : ingreso.mo_total,
+                          'Monto Instruido' : ingreso.mo_instruido,
+                          'Monto Disponible': ingreso.mo_disponible,
+                        }"
+                :visible="true" 
+                @cerrar="remIngreso"
+                >
                 
                     <v-list-tile>
                         <v-text-field
-                        v-model="ingreso"
+                        v-model="form.mo_instruccion"
                         name="name"
                         label="Monto de la Instuccion"
                         ></v-text-field>
@@ -85,12 +89,13 @@
             </v-flex>
 
 
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm4 v-if="ingreso">
 
                 <list-data 
                 titulo="Detalle Instruccion" 
                 :items="{}" 
-                :visible="solicitud">
+                :visible="true"
+                @cerrar="remIngreso">
        
                     <v-select
                         :items="listas.esquema"
@@ -104,7 +109,7 @@
                     ></v-select>
 
                     <v-text-field
-                        v-model="form.nu_esquemq_pag"
+                        v-model="form.nu_esquema"
                         name="name"
                         label="Nro Esquema de Pago"
                     ></v-text-field>
@@ -117,9 +122,9 @@
 
                     <v-flex>
                     <v-menu
-                        ref="menu1"
+                        ref="menu"
                         :close-on-content-click="false"
-                        v-model="menu1"
+                        v-model="menu"
                         :nudge-right="40"
                         :return-value.sync="date"
                         lazy
@@ -137,11 +142,10 @@
                         readonly
                         required
                         ></v-text-field>
-                        <v-date-picker v-model="form.fe_instruccion" @input="$refs.menu1.save(date)"></v-date-picker>
+                        <v-date-picker v-model="form.fe_instruccion" @input="$refs.menu.save(date)"></v-date-picker>
                     </v-menu>
                         
                     </v-flex>
-                
                     
                     <v-text-field
                         v-model="form.tx_observaciones"
@@ -156,25 +160,26 @@
 
 
        </v-card-text>
+
+       <v-card-actions>
+
+                <form-buttons 
+                    v-if="ingreso"
+                    @update="update"
+                    @store="store"
+                    @clear="clear"
+                    @cancel="cancel"
+                    :btnAccion="btnAccion"
+                    :valido="valido"
+                ></form-buttons>  
+
+            </v-card-actions>
        
    </v-card >
+   </v-form>
+   <pre>{{$data}}</pre>
 
     <div v-if="categoria">
-
-        <v-dialog v-model="dingreso"> 
-
-            <list-select   
-                tabla="cuenta" 
-                :encabezados="[
-                                { text: 'moneda',   value: 'moneda.nb_moneda' },
-                                { text: 'Monto',    value: 'mo_disponible' },
-                                { text: 'Status',   value: 'status.nb_status' },
-                                ]"
-                @seleccion="getIngreso"
-            >
-            </list-select>
-
-        </v-dialog>
 
         <v-dialog v-model="dsolicitud" > 
 
@@ -186,7 +191,22 @@
                                 { text: 'Monto',    value: 'mo_solicitud' },
                                 { text: 'Status',   value: 'status.nb_status' },
                                 ]"
-                @seleccion="getSolicitud"
+                @seleccion="setSolicitud"
+            >
+            </list-select>
+
+        </v-dialog>
+
+        <v-dialog v-model="dingreso"> 
+
+            <list-select   
+                tabla="cuenta" 
+                :encabezados="[
+                                { text: 'moneda',   value: 'moneda.nb_moneda' },
+                                { text: 'Monto',    value: 'mo_disponible' },
+                                { text: 'Status',   value: 'status.nb_status' },
+                                ]"
+                @seleccion="setIngreso"
             >
             </list-select>
 
@@ -211,66 +231,70 @@ export default {
     mixins: [ formHelper, withSnackbar ],
     data () {
         return {
-            categoria:  false,
-            dingreso:   false,
-            dsolicitud: false,
-            ingreso:    false,
-            solicitud:  false,
-            menu1:      false,
-            date: '',
+            tabla:       'instruccion',
+            categoria:   false,
+            dsolicitud:  false,
+            dingreso:    false,
+            solicitud:   false,
+            ingreso:     false,
+            instruccion: false,
             form:{
                 id_solicitud:   '',
                 tx_concepto:    '',
                 id_esquema:     '',
                 nu_esquema:     '',
                 tx_ofi_cta_mte: '',
-                bo_ofi_cta_mte: '',
+                bo_ofi_cta_mte: 0,
                 fe_instruccion: '',
                 mo_instruccion: '',
                 id_moneda:      '',
-                tx_observacion: '',
+                tx_observaciones: '',
                 id_usuario:     '',
-                id_status:      '',  
+                id_status:      1,  
             },
             rules:{
 
             },
-            instruccion: '',
-            esquema:    false,
             listas: {
                 categoria: [],
                 esquema: [],
-            },
-            cuenta:{
-                moneda: '',
-                monSig: '',
-                total: 0,
-                instruido: 0,
-                disponible: 0
             }
         }
-
-
     },
     computed:{
         tablaCategoria(){
             return 'solicitud/categoria/'+this.categoria;
         },
     },
+    watch:{
+        tx_ofi_cta_mte: function (val) {
+            
+            this.form.bo_ofi_cta_mte =  (val = '') ? 0 :1;
+            
+        },
+    },
     methods:
     {
-        getIngreso(item){
-            this.dialogo = false;
-            this.ingreso = item;
-            this.setMontos()
+        setSolicitud(item){
+
+            this.dsolicitud = false;
+            this.solicitud  = item;
+            this.form.id_solicitud = item.id_solicitud
         },
-        getSolicitud(item){
-            this.dialogo2 = false;
-            this.solicitud = item;
+        remSolicitud()
+        {
+            this.solicitud  = false;
+            this.form.id_solicitud = false;
         },
-        getInstruccion(item){
-            this.dialogo3 = false;
-            this.instruccion = item;
+        setIngreso(item)
+        {
+            this.dingreso = false;
+            this.ingreso  = item;
+            this.form.id_moneda = item.id_moneda
+        },
+        remIngreso(){
+            this.ingreso  = false;
+            this.form.id_moneda = false;
         },
         setMontos(){
 
@@ -295,7 +319,7 @@ export default {
                 this.cuenta.moneda      = false;
                 this.cuenta.total       = 0;
                 this.cuenta.instruido   = 0;
-                this.cuenta.disponible = 0;
+                this.cuenta.disponible  = 0;
             }
         },
          listSolicitud(){
@@ -308,6 +332,27 @@ export default {
                 this.showError(error)    
             })
         },
+        update(){
+                       
+            axios.put(this.basePath + this.item.id_pago, this.form)
+            .then(respuesta => {
+                this.showMessage(respuesta.data.msj)
+            })
+            .catch(error => {
+                this.showError(error);
+            })
+        },
+        store(){
+                        
+            axios.post(this.basePath, this.form)
+            .then(respuesta => {
+                this.showMessage(respuesta.data.msj)
+                this.$emit('cerrarModal');
+            })
+            .catch(error => {
+                this.showError(error);
+            })
+        }
     }
 }
 </script>
