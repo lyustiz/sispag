@@ -13,7 +13,7 @@
         <v-card-text>     
         <v-layout row wrap>
             
-            <v-flex xs12 sm6>
+            <v-flex xs12 sm6 v-show="btnAccion != 'upd'" >
                 <v-select
                     :items="listas.categoria"
                     item-value="id_categoria"
@@ -23,7 +23,7 @@
                 ></v-select>
             </v-flex>
 
-        <v-flex xs12 sm6 v-if="categoria">
+        <v-flex xs12 sm6 v-if="categoria" v-show="btnAccion != 'upd'">
             
             <v-tooltip bottom>
             <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
@@ -115,7 +115,7 @@
                     ></v-text-field>
 
                     <v-text-field
-                        v-model="form.tx_ofi_cta_mdte"
+                        v-model="form.tx_ofi_cta_mte"
                         name="name"
                         label="Oficio Cuenta Mandante"
                     ></v-text-field>
@@ -239,18 +239,18 @@ export default {
             ingreso:     false,
             instruccion: false,
             form:{
-                id_solicitud:   '',
-                tx_concepto:    '',
-                id_esquema:     '',
-                nu_esquema:     '',
-                tx_ofi_cta_mte: '',
-                bo_ofi_cta_mte: 0,
-                fe_instruccion: '',
-                mo_instruccion: '',
-                id_moneda:      '',
-                tx_observaciones: '',
-                id_usuario:     '',
-                id_status:      1,  
+                id_solicitud:    '',
+                tx_concepto:     '',
+                id_esquema:      '',
+                nu_esquema:      '',
+                tx_ofi_cta_mte:  '',
+                bo_ofi_cta_mte:   0,
+                fe_instruccion:  '',
+                mo_instruccion:  '',
+                id_moneda:       '',
+                tx_observaciones:'',
+                id_usuario:      '',
+                id_status:        1,  
             },
             rules:{
 
@@ -267,24 +267,38 @@ export default {
         },
     },
     watch:{
-        tx_ofi_cta_mte: function (val) {
+        tx_ofi_cta_mte: function (val) 
+        {
             
             this.form.bo_ofi_cta_mte =  (val = '') ? 0 :1;
             
         },
+        btnAccion: function (val)
+        {
+            
+            if( val == 'upd')
+            {
+                this.categoria = 1;
+                this.getSolicitud();
+                this.getIngreso();
+            }
+        }
     },
     methods:
     {
-        setSolicitud(item){
-
+        setSolicitud(item)
+        {
             this.dsolicitud = false;
             this.solicitud  = item;
             this.form.id_solicitud = item.id_solicitud
         },
         remSolicitud()
         {
-            this.solicitud  = false;
-            this.form.id_solicitud = false;
+           if(this.btnAccion != 'upd')
+           {
+                this.solicitud          = false;
+                this.form.id_solicitud  = false;
+           }
         },
         setIngreso(item)
         {
@@ -292,49 +306,50 @@ export default {
             this.ingreso  = item;
             this.form.id_moneda = item.id_moneda
         },
-        remIngreso(){
-            this.ingreso  = false;
-            this.form.id_moneda = false;
-        },
-        setMontos(){
-
-            if(this.ingreso)
+        remIngreso()
+        {
+            if(this.btnAccion != 'upd')
             {
-                let instrucciones   = this.ingreso.moneda.instruccion;
-
-                this.cuenta.moneda  = this.ingreso.moneda.nb_moneda;
-                this.cuenta.monSig  = this.ingreso.moneda.tx_signo;
-                this.cuenta.total   = this.ingreso.mo_disponible;
-
-                let instruido = 0
-                instrucciones.forEach(function(item) {
-                   
-                     instruido=+ item.mo_instruccion;
-                });
-                this.cuenta.instruido   = instruido;
-                this.cuenta. disponible = this.cuenta.total  - instruido;
-
-            }else{
-
-                this.cuenta.moneda      = false;
-                this.cuenta.total       = 0;
-                this.cuenta.instruido   = 0;
-                this.cuenta.disponible  = 0;
+                this.ingreso        = false;
+                this.form.id_moneda = false;
+                
             }
         },
-         listSolicitud(){
-             axios.get('/api/v1/solicitud/categoria/'+ this.categoria)
+        clear () {
+
+            this.$refs.form.reset()
+            this.ingreso  = false;
+            this.solicitud      = false;
+            this.categoria      = false;
+
+        },
+        getSolicitud()
+        {
+             axios.get('/api/v1/solicitud/'+this.item.id_solicitud)
             .then(respuesta => {
 
-                console.log(respuesta.data);
+                this.solicitud = respuesta.data;
             })
             .catch(error => {
                 this.showError(error)    
             })
+
+        },
+        getIngreso()
+        {
+             axios.get('/api/v1/cuenta/moneda/'+this.item.id_moneda)
+            .then(respuesta => {
+                
+                this.ingreso = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+
         },
         update(){
                        
-            axios.put(this.basePath + this.item.id_pago, this.form)
+            axios.put(this.basePath + this.item.id_instruccion, this.form)
             .then(respuesta => {
                 this.showMessage(respuesta.data.msj)
             })

@@ -27,6 +27,11 @@ class Cuenta extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function scopeMoneda($query, $moneda)
+    {
+        return $query->where('id_moneda', $moneda);
+    }
+    
     public function moneda(){
     
         return $this->BelongsTo('App\Models\Moneda', 'id_moneda');

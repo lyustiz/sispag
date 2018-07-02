@@ -15,8 +15,20 @@ class CuentaController extends Controller
     public function index()
     {
         $cuentas  = Cuenta::with(['moneda.instruccion','status'])->get();
+        
         return $cuentas;
     }
+
+    public function cuentaMoneda($moneda)
+    {
+        $cuenta  = Cuenta::with(['moneda.instruccion','status'])
+                        ->where('id_moneda', '=', $moneda)
+                        ->first();
+                        
+
+        return $cuenta;
+    }
+
 
     public function prueba()
     {

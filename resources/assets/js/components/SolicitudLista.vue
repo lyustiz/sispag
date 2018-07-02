@@ -134,7 +134,7 @@ export default {
                 this.items = respuesta.data;
             })
             .catch(error => {
-                    
+                this.showError(error)    
             })
 
             axios.get('/api/v1/categoria')

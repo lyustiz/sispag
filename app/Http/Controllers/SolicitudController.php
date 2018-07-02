@@ -78,7 +78,9 @@ class SolicitudController extends Controller
      */
     public function show(Solicitud $solicitud)
     {
-        //
+        $solicitud->load('ente', 'moneda', 'categoria', 'status');
+        
+        return $solicitud;
     }
 
     /**

@@ -82,6 +82,13 @@ created() {
         }
 
     },
+    watch:{
+        tabla: (val) => {
+
+            list();
+
+        }
+    },
     methods:
     {
         list () {

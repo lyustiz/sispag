@@ -100,9 +100,9 @@ class InstruccionController extends Controller
             'id_status'         => 'required',
         ]);
 
-        $Instruccion = Instruccion::find($Instruccion->id_Instruccion)->update($request->all());
+        $instruccion = Instruccion::find($instruccion->id_instruccion)->update($request->all());
 
-        return (['msj'=>'Registro Actualizado Correctamente ', 'Instruccion' =>$Instruccion]);
+        return (['msj'=>'Registro Actualizado Correctamente ', 'Instruccion' =>$instruccion]);
     }
 
     /**

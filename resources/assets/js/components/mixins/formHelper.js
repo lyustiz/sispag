@@ -96,7 +96,7 @@ export default {
                 }
             }else{
                 
-                this.rstForm
+                this.rstForm()
             }
             
         },

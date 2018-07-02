@@ -48,6 +48,7 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::Resource('/moneda', 'MonedaController');
 
     Route::Resource('/cuenta', 'CuentaController');
+    Route::get('/cuenta/moneda/{id_moneda}', 'CuentaController@cuentaMoneda');
 
     Route::Resource('/solicitud', 'SolicitudController');
     Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
@@ -62,4 +63,6 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     
     Route::Get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
 
+    Route::Get('/reports/{nb_tabla}', 'Reportes\ReporteController@showReporte');
+    Route::Post('/reports', 'Reportes\ReporteController@getReporte');
 });

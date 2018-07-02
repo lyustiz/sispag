@@ -21,11 +21,16 @@ Vue.component('dialogo', require('./components/Dialogo.vue'));
 Vue.component('form-container', require('./components/FormContainer.vue'));
 Vue.component('list-select', require('./components/ListSelect.vue'));
 Vue.component('list-data', require('./components/ListData.vue'));
+Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
+
+Vue.component('report', require('./components/reports/Report.vue'));
+
 Vue.component('login-button', require('./components/LoginButtonComponent.vue'));
 Vue.component('register-button', require('./components/RegisterButtonComponent.vue'));
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
 Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
-Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
+
+
 Vue.component('pago-det', require('./components/PagoDet.vue'));
 Vue.component('pago-lista', require('./components/PagoLista.vue'));
 Vue.component('pago-form', require('./components/PagoForm.vue'));
@@ -90,6 +95,11 @@ const app = new Vue({
       { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
       { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' },
       { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' },
+      { heading: 'Reportes' },
+      { icon: 'assignment', text: 'Bancos', href: '/reports.reports' },
+      { heading: 'Administracion' },
+      { icon: 'person', text: 'Usuarios', href: '/reports.reports' },
+      { icon: 'people', text: 'Roles', href: '/reports.reports' },
       
       //{ heading: 'Administració', role: 'Manager' }
     ]

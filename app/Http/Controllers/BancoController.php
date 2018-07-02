@@ -44,13 +44,11 @@ class BancoController extends Controller
      */
     public function store(Request $request)
     {
-        
        
         $validate = request()->validate([
 
             'nb_banco'          => 'required',
             'id_tipo_banco'     => 'required',
-            'tx_observaciones'  => 'required',
             'id_usuario'        => 'required',
             'id_status'         => 'required',
 
@@ -58,7 +56,7 @@ class BancoController extends Controller
 
         $banco = Banco::create($request->all());
 
-        return (['msj'=>'Registro Agregado Correctamente ', 'banco' =>$banco]);
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('banco') ];
     }
 
     /**
@@ -101,12 +99,9 @@ class BancoController extends Controller
 
         ]);
         
-        $banco = Banco::find($banco->id_banco)->update($request->all());
+        $banco = $banco->update($request->all());
 
-        /*$banco->nb_banco  = $request->nb_banco;
-        $banco->save();*/
-
-        return ['msj'=>'Banco Editado'];
+        return [ 'msj' => 'Banco Editado' , compact('banco')];
     }
 
     /**
@@ -117,6 +112,8 @@ class BancoController extends Controller
      */
     public function destroy(Banco $banco)
     {
-        //
+        $banco = $banco->delete();
+ 
+        return [ 'msj' => 'Banco Editado' , compact('banco')];
     }
 }
