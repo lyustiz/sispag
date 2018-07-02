@@ -19,6 +19,14 @@ class EsquemaController extends Controller
         return $esquema;
     }
 
+    public function esquemaPadre()
+    {
+        $esquema = Esquema::with(['status'])
+                            ->where('id_esquema_padre', '<>', '0')
+                            ->get();
+        return $esquema;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

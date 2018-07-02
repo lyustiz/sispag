@@ -11,22 +11,6 @@ class ReporteModel extends Model
     
     public function camposTabla($tabla)
     {
-        /*$users = DB::table('information_schema.columns')
-                     ->select(DB::raw('count(*) as user_count, status'))
-                     ->where('status', '<>', 1)
-                     ->groupBy('status')
-                     ->get();
-
-
-                     DB::table('users')
-                     ->whereIn('id', function($query)
-                     {
-                         $query->select(DB::raw(1))
-                               ->from('pg_catalog.pg_class')
-                               ->where('relname', '=' 'users.id');
-                     })
-                     ->get();*/
-
         $results = \DB::select( \DB::raw(
             "SELECT cols.column_name AS nb_columna, 
                     udt_name 		 AS co_tipo,
@@ -43,29 +27,8 @@ class ReporteModel extends Model
             AND table_schema        = '$this->schema'
             ORDER BY ordinal_position"
         ) 
-        );
-//                            
-
+        );                            
         return $results;
-       
-                            /*
-                SELECT  cols.column_name AS nb_columna, 
-                        udt_name 		 AS co_tipo,
-                        COALESCE(
-                            (
-                                SELECT distinct pg_catalog.col_description(oid,cols.ordinal_position::int) 
-                                FROM pg_catalog.pg_class c 
-                            WHERE c.relname = cols.table_name
-                            ),
-                            cols.column_name
-                        ) AS tx_comentario
-                FROM information_schema.columns cols
-               WHERE cols.table_name = '$nb_tabla'
-                 AND table_schema    = '$this->schema'
-            ORDER BY ordinal_position";
-
-        */
-
 
     }
 

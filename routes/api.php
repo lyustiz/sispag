@@ -54,8 +54,9 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
 
     Route::Resource('/instruccion', 'InstruccionController');
-
+Route::Get('/esquema/padre', 'EsquemaController@esquemaPadre');
     Route::Resource('/esquema', 'EsquemaController');
+    
 
     Route::Resource('/etapaEnvio', 'EtapaEnvioController');
 
