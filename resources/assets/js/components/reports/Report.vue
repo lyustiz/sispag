@@ -9,28 +9,21 @@
                 <v-spacer></v-spacer>
                
                 <v-tooltip top>
-                <v-btn slot="activator" fab small :disabled="valido"  class="primary">
-                    <v-icon>filter_list</v-icon>
-                </v-btn>
-                <span>Mostrar/Ocultar Filtros</span>
-                </v-tooltip>
-
-                <v-tooltip top>
-                <v-btn slot="activator" fab small :disabled="valido"  class="warning">
+                <v-btn slot="activator" fab small @click="clear" class="warning">
                     <v-icon>refresh</v-icon>
                 </v-btn>
                 <span>Limpiar</span>
                 </v-tooltip>
 
                 <v-tooltip top>
-                <v-btn slot="activator" fab small @click="getReporte"  class="info">
+                <v-btn slot="activator" fab small @click="getReporte" class="info">
                     <v-icon>web</v-icon>
                 </v-btn>
                 <span>Reporte Web</span>
                 </v-tooltip>
                 
                 <v-tooltip top>
-                    <v-btn slot="activator" fab small :disabled="valido"  class="success">
+                    <v-btn slot="activator" fab small  class="success">
                         <v-icon>grid_on</v-icon>
                     </v-btn>
                 <span>Excel</span>
@@ -63,7 +56,11 @@
 
             <!--  filtros  -->
             <v-layout row wrap v-if="filtros">
-                <v-flex xs12 >
+            <v-expansion-panel expand>
+            <v-expansion-panel-content ripple>
+                <div slot="header" >Filtros</div>
+                <v-card>
+                <v-card-text>
                 <v-select
                     v-for="(filtro, index) in filtros"
                     :key="index"
@@ -74,9 +71,14 @@
                     :rules="rules.select"
                     :label="filtro.etiqueta"
                     autocomplete
+                    clearable
                 ></v-select>
-                </v-flex>
+                </v-card-text>
+                </v-card>
+            </v-expansion-panel-content>   
+            </v-expansion-panel> 
             </v-layout>
+            
 
             <!--  date selector  aun no implementado (oculto por defecto)-->
             <v-layout row wrap v-if="false">
@@ -106,7 +108,9 @@
         </v-card>
         </v-flex> 
         </v-layout>
-        <pre>{{$data}}</pre>
+        <div v-if="items">
+        <report-data :items="items" :headers="headers"></report-data> 
+        </div>
     </v-container>  
             
 
@@ -124,20 +128,18 @@ export default {
     } ,
     data () {
         return {
-            tabla:      'vw_banco',
-            valido:     false,
-            items:      false,
-            campos:     false,
-            filtros:    false,
-            dateSets:   false,
-            dates:      '',
-            date: '',
-            menu: [],
+            valido:   false,
+            campos:   false,
+            filtros:  false,
+            dateSets: false,
+            items:    false,
+            headers:  false,
+            menu:     [],
             form:{
                 campos:   [],
                 filtros:  [],
                 dateSets: [],
-                tabla: ''
+                tabla: 'vw_banco'
             },
             rules:{
                 select: [],
@@ -152,11 +154,9 @@ export default {
             axios.get('/api/v1/reports/vw_banco')
             .then(respuesta => 
             {
-                let items       = respuesta.data;
+                let items      = respuesta.data;
 
                 this.campos     = items.campos;
-
-                this.form.tabla = items.tabla;
 
                 this.mapFiltros(items.filtros);
 
@@ -172,7 +172,6 @@ export default {
         },
         mapFiltros(filtros){
 
-            
             for(var keys in filtros)
             {
                 let setFilters = {};
@@ -187,7 +186,6 @@ export default {
         },
         mapDateSets(datefields){
            
-            
             for(var keys in datefields)
             {
                 let setDateField = {};
@@ -205,17 +203,23 @@ export default {
         },
         getReporte(){
             
+            this.items = false; 
             axios.post('/api/v1/reports', this.form)
             .then(respuesta => 
             {
-                    console.log(error);
+                this.items   = respuesta.data.data;
+                this.headers = respuesta.data.headers;
             })
-            .catch(error => 
+            .catch(error =>  
             {
-               console.log(error);
                this.showError(error);
             })
 
+        },
+        clear()
+        {
+            this.$refs.form.reset();
+            this.items = false;
         }
 
     }

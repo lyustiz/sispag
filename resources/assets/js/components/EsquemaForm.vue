@@ -34,13 +34,12 @@
             <v-flex xs12 sm6>
                 <v-select
                 :items="listas.esquema"
-                item-text="id_esquema"
-                item-value="nb_esquema"
+                item-text="nb_esquema"
+                item-value="id_esquema"
                 v-model="form.id_esquema_padre"
                 :rules="rules.select"
                 label="Esquema Padre"
                 autocomplete
-                required
                 ></v-select>
             </v-flex>
 
@@ -108,7 +107,7 @@ export default {
                 id_usuario:''
             },
             listas:{
-                esquema: ['/padres/'],
+                esquema: ['/padre'],
                 status:  ['/grupo/1']
             },
             rules:{

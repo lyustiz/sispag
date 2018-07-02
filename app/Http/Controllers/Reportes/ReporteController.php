@@ -86,13 +86,13 @@ class ReporteController extends Controller
 					
 					if($prefijo != 'fe')
 					{ 
-						$campos []  = ['nombre' => $etiqueta, 'valor' => $columna];
+						$campos []  = ['nombre' => $etiqueta, 'valor' => "$columna|$etiqueta"];
 					} 
 					else
 					{
-                        $campos []  = ['nombre' => $etiqueta, 'valor' => $columna];
+                        $campos []  = ['nombre' => $etiqueta, 'valor' => "$columna|$etiqueta"];
                         
-						$dateSet[]  = ['nombre' => $etiqueta, 'valor' => $columna];
+						$dateSet[]  = ['nombre' => $etiqueta, 'valor' => "$columna|$etiqueta"];
 					}
 					  
 					break;
@@ -146,7 +146,6 @@ class ReporteController extends Controller
 					{
 						$items[] = ['nombre' => $row[$campo], 'valor' => $row[$campoId] ];
 
-							
 					}
 				}
 				
@@ -193,153 +192,37 @@ class ReporteController extends Controller
 	
 	public function getDataReporte($request)
 	{
-		
-		//$this->tabla  = $request->tabla;
-
-		dd($request['tabla']);
-		$campos       = array();
-		$encabezados  = array();
-		$filtros   	  = array();
-	 	$between   	  = array(); 
-		$order_by 	  = array(); 
-		$group_by 	  = array();
-		
-		foreach($post as $campo => $valor)
+		$tabla  	  = $request['tabla'];
+		$headers	  = [];
+		$campos       = [];
+		$filtros   	  = []; 
+	 	$between   	  = []; 
+		$order_by 	  = []; 
+		$group_by 	  = [];
+		 
+		//check Filtros
+		foreach( $request['filtros'] as $filtro )
 		{
-			$prefijo = substr($campo, 0 , 2);
-			
-			switch(true){
-			
-			case ($prefijo == 'nb') or ($prefijo == 'fb'): //nombre campo
-				
-				$valor_tmp  = array();
-				
-				foreach($valor as $row)
-				{
-					$prefijo = substr($row, 0 , 2);
-					
-					if( ($prefijo == 'ad') ){
-						
-						$col_tmp  = explode('|',substr($row, 3));
-						
-						$this->col_ad[$col_tmp[0]]  = $col_tmp[1];
-						
-						if( count( $this->ad_data ) < 1 )
-						{
-							$this->ad_data = $this->get_ad_data();
-						}
-						
-						$valor_tmp[] = substr($row, 3);
-						
-						continue;
-					}
-					
-					$valor_tmp[] = $row;
-				}
-				
-				//print_r($valor_tmp);
-				
-				$inf_campo = $valor_tmp;
-				
-				break;
-
-			case ($prefijo == 'id'): //filtros
-				
-				$filtros[$campo] = $valor;
-				
-				break;
-	
-			case ($prefijo == 'fe'): //frango fechas
-
-				$between[$campo] = $valor;
-				
-				break;
-			
-			}; 
-		
-		}
-		
-		foreach($inf_campo as $campo){
-			
-			$campo 	     = explode('|', $campo);
-			
-			$campos[]    =  $campo[0];
-			
-			$nb_campos[] =  $campo[1];
-			
-		}
-		
-		$data = $this->CI->M_reporteador->get_reporte($tabla, $campos, $filtros, $between, $order_by, $group_by);
-		
-		return array('data' 	 => $data, 
-					 'nb_campos' => $nb_campos
-					);
-		
-	}
-	
-	//obtener todas las cedulas y Nombres desde el Active Directory 
-	public function get_ad_data()
-	{
-		$this->CI->load->model('intranet/m_autenticar');
-		
-		$data    = $this->CI->m_autenticar->get_nombresCedulas();
-		
-		$cedName = array();
-		
-		foreach($data as $row)
-		{
-			if(is_array($row))
+			if( $filtro[ key( $filtro ) ]  != null  )
 			{
-				
-				$name    = $row['name'][0];
-				
-				$cedula  = (isset($row['employeenumber'][0])) ? $row['employeenumber'][0] :'0';
-				
-				$cedName[$cedula] = $name;
-				
-			}	
-		}
-		
-		return $cedName;
-
-	}
-
-	public function get_table_Html($campos, $data)
-	{
-		$this->CI->load->library('table');
-				
-		$tmpl = array (	  'table_open'          => '<table class="table table-hover" id="tbl_reporte">',
-						  'thead_open'          => '<thead class="thead-inverse">'
-						);
-						
-		$this->CI->table->set_template( $tmpl );
-		
-		$this->CI->table->set_heading( $campos );
-		
-				
-		foreach($data as $key => $row)
-		{
-			if(count( $this->ad_data ) > 0) //traducir campos al Active Directory
-			{
-				$cmps_ad = (array_intersect_key($this->col_ad, $row));
-
-				foreach($cmps_ad as $key2 => $val)
-				{
-					
-					$row[$key2] = (isset($this->ad_data[$row[$key2]])) ? $this->ad_data[$row[$key2]] : $row[$key2];
-  				   //$data[$key][$key2] = (isset($this->ad_data[$data[$key][$key2]])) ? $this->ad_data[$data[$key][$key2]] : $data[$key][$key2];
-					
-				}
-				
+				$filtros[ key( $filtro) ] = $filtro[ key( $filtro ) ];
 			}
-			
-			$this->CI->table->add_row($row);
-			
+
 		}
+		//check Campos
+		foreach( $request['campos'] as $data )
+		{
+			$data = explode( '|', $data);
+
+			$campos []  = $data[0];
+			$headers[]  = ['text'=> $data[1], 'value' =>  $data[0] ];
+
+
+		}
+
+		$data = $this->dataReport->getReporte($tabla, $campos, $filtros, $between, $order_by, $group_by);
 		
-        $table = $this->CI->table->generate();
-                            
-        return $table;
+		return  ['data' => $data, 'headers' => $headers];
 		
 	}
 	

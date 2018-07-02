@@ -24,6 +24,7 @@ Vue.component('list-data', require('./components/ListData.vue'));
 Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
 
 Vue.component('report', require('./components/reports/Report.vue'));
+Vue.component('report-data', require('./components/reports/ReportData.vue'));
 
 Vue.component('login-button', require('./components/LoginButtonComponent.vue'));
 Vue.component('register-button', require('./components/RegisterButtonComponent.vue'));
