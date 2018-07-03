@@ -13,18 +13,24 @@ export default {
             basePath: '/api/v1/',
             valido: false,
             btnAccion: '',
-            date: '',
-            menu: false
+            picker: false,
+            rules: {
+                select: [
+                    v => !!v || 'Seleccione una Opcion (Campo Requerido)',
+                    ],
+                requerido: [
+                    v => !!v || 'Campo Requerido',
+                    ],
+                monto: [
+                    v => !!v || 'Monto Requerido',
+                    ],
+                fecha: [
+                    v => !!v || 'Fecha Requerida',
+                    ],
+            }
 
         }
     },
-
-    computed: {
-        computedDateFormatted () {
-          return this.formatDate(this.date)
-        }
-    },
-    
     props: ['accion','item'],
 
     watch: {
@@ -128,14 +134,7 @@ export default {
             const [year, month, day] = date.split('-')
             return `${month}/${day}/${year}`
 
-        },
-        parseDate (date) {
-
-            if (!date) return null
-            const [month, day, year] = date.split('/')
-            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-
-        },
+        }
    
     }
 

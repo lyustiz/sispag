@@ -78,20 +78,20 @@ created() {
     {
         idTabla(){
 
-           return 'id_'+this.tabla;
+           return 'id_' + this.tabla;
         }
 
     },
     watch:{
-        tabla: (val) => {
+        tabla: function(val)  {
 
-            list();
+            this.list();
 
         }
     },
     methods:
     {
-        list () {
+        list() {
 
             axios.get('/api/v1/'+this.tabla)
             .then(respuesta => {

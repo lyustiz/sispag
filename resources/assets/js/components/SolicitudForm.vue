@@ -29,7 +29,7 @@
             <v-flex xs12 sm6>
                 <v-text-field
                 v-model="form.nu_solicitud"
-                :rules="rules.nu_solicitud"
+                :rules="rules.requerido"
                 label="Numero Solicitud"
                 placeholder="Ingrese Numero de la Solicitud"
                 hint="Ej MPPEF-01-2018"
@@ -39,35 +39,28 @@
 
             <v-flex xs12 sm6>
             <v-menu
-                ref="menu1"
-                :close-on-content-click="false"
-                v-model="menu1"
-                :nudge-right="40"
-                :return-value.sync="date"
-                lazy
-                transition="scale-transition"
-                offset-y
+                ref="picker"
+                v-model="picker"
                 full-width
-                locale="es"
                 min-width="290px"
             >
                 <v-text-field
                 slot="activator"
                 v-model="form.fe_solicitud"
-                :rules="rules.fe_solicitud"
+                :rules="rules.fecha"
                 label="Fecha de la Solicitud"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_solicitud" @input="$refs.menu1.save(date)"></v-date-picker>
+                <v-date-picker v-model="form.fe_solicitud" locale="es"></v-date-picker>
             </v-menu>
             </v-flex>
             
             <v-flex xs12>
                 <v-text-field
                 v-model="form.tx_concepto"
-                :rules="rules.tx_concepto"
+                :rules="rules.requerido"
                 label="Concepto de la Solicitud"
                 placeholder="Ingrese Descripcion"
                 required
@@ -77,7 +70,7 @@
             <v-flex xs12 sm6>
                 <v-text-field
                 v-model="form.mo_solicitud"
-                :rules="rules.mo_solicitud"
+                :rules="rules.monto"
                 label="Monto Solicitud"
                 placeholder="Ingrese monto"
                 hint="Ej 845.456,12"
@@ -165,9 +158,6 @@ export default {
     data () {
         return {
             tabla: 'solicitud',
-            date: '',
-            dateFormatted: '',
-            menu1: false,
             form:{
                 id_solicitud:     '',
                 nu_solicitud:     '',
@@ -186,56 +176,37 @@ export default {
                 moneda:      [],
                 categoria:   [],
                 status:      ['/grupo/1'],
-            },
-            rules:{
-                mo_solicitud: [
-                    v => !!v || 'Campo Requerido',
-                    ],
-                nu_solicitud: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                fe_solicitud: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                tx_concepto: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ], 
-            }
-            
+            },            
         }
-    },
-    watch: {
-        date (val) {
-            this.dateFormatted = this.formatDate(this.date)
-        },
     },
     methods:{
         update(){
-                       
-            axios.put(this.basePath + this.item.id_solicitud, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+
+            if (this.$refs.form.validate())
+            { 
+                axios.put(this.basePath + this.item.id_solicitud, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            } 
         },
         store(){
                         
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('cerrarModal');
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+            if (this.$refs.form.validate()) 
+            { 
+                axios.post(this.basePath, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
+            
         }
     }
     

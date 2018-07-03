@@ -97,10 +97,10 @@ class EjecucionPagoController extends Controller
             'id_usuario',
             'id_status',
             ]);
-    
-        $ejecucion = EjecucionPago::find($ejecucionPago->id_ejecucion_pago)->update($request->all());
+            
+        $ejecucion = $ejecucionPago->update($request->all());
 
-        return (['msj'=>'Registro Actualizado Correctamente ', 'ejecucion' =>$ejecucion]);
+        return ['msj'=>'Registro Actualizado Correctamente ', compact('ejecucion') ];
     }
 
     /**

@@ -22,6 +22,7 @@
                 label="Buscar"
                 single-line
                 hide-details
+                clearable
             ></v-text-field>
             </v-flex>
             
@@ -34,6 +35,7 @@
                 v-model="buscar"
                 single-line
                 hide-details
+                clearable
             ></v-select>
             </v-flex>
             </v-layout>
@@ -43,7 +45,7 @@
                 :items  ="items"
                 :search ="buscar"
                 v-model ="selected"
-                item-key="id_solicitud"
+                item-key="id_instruccion"
                 rows-per-page-text="Res. x Pag"
             >
             <template slot="items" slot-scope="item">
@@ -63,9 +65,41 @@
             </template>
 
             <template slot="expand" slot-scope="item">
-                <v-card flat>
-                    <v-card-text>Detalle Instruccion  {{item.item}}</v-card-text>
-                </v-card>
+                <v-layout wrap>
+                <v-flex xs5 sm4>
+                <list-data 
+                    titulo="Detalle Solicitud" 
+                    :items="{ 
+                            'Categoria'       : item.item.solicitud.categoria.nb_categoria,
+                            'Ente'            : item.item.solicitud.ente.nb_ente,
+                            'Concepto'        : item.item.solicitud.tx_concepto,
+                            'Monto Solicitado': item.item.solicitud.mo_solicitud,
+                            'Nro Solicitud'   : item.item.solicitud.nu_solicitud,
+                            'F. Solicitud'    : item.item.solicitud.fe_solicitud,
+                            'Obs. Instruccion': item.item.tx_observaciones,
+                            }" 
+                    :visible="true"
+                    @cerrar="item.expanded = !item.expanded">
+                </list-data >
+                </v-flex>
+
+                <v-flex xs12 sm4>
+                <list-data 
+                    titulo="Detalle Instruccion" 
+                    :items="{ 
+                            'Monto Instruido' : item.item.mo_instruccion,
+                            'F. Instruccion'  : item.item.fe_instruccion,
+                            'Esquema de Pago' : item.item.esquema.nb_esquema,
+                            'Nro. Esq. Pago'  : item.item.nu_esquema,
+                            'Oficio Cta. Mdte': item.item.tx_ofi_cta_mte,
+                            'Estatus'         : item.item.status.nb_status,
+                            'Obs. Instruccion': item.item.tx_observaciones,
+                            }" 
+                    :visible="true"
+                    @cerrar="item.expanded = !item.expanded">
+                </list-data >
+                </v-flex>
+                </v-layout>
             </template>
 
             <v-alert slot="no-results" :value="true" color="info" icon="info">

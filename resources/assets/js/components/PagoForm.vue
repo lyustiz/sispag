@@ -40,56 +40,41 @@
 
             <v-flex xs12 sm6>
             <v-menu
-                ref="menu1"
-                :close-on-content-click="false"
-                v-model="menu1"
-                :nudge-right="40"
-                :return-value.sync="date"
-                lazy
-                transition="scale-transition"
-                offset-y
+                v-model="pickers.fe_liq_bcv"
+                :ref="pickers.fe_liq_bcv"
                 full-width
-                locale="es"
                 min-width="290px"
             >
                 <v-text-field
                 slot="activator"
                 v-model="form.fe_liq_bcv"
-                :rules="rules.fe_liq_bcv"
+                :rules="rules.fecha"
                 label="Fecha liquidacion BCV"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_liq_bcv" @input="$refs.menu1.save(date)"></v-date-picker>
-
+                <v-date-picker v-model="form.fe_liq_bcv" locale="es"></v-date-picker>
             </v-menu>
             </v-flex>
 
             <v-flex xs12 sm6>
             <v-menu
-                ref="menu1"
-                :close-on-content-click="false"
-                v-model="menu1"
-                :nudge-right="40"
-                :return-value.sync="date"
-                lazy
-                transition="scale-transition"
-                offset-y
+                v-model="pickers.fe_pago"
+                :ref="pickers.fe_pago"
                 full-width
-                locale="es"
                 min-width="290px"
             >
                 <v-text-field
                 slot="activator"
                 v-model="form.fe_pago"
-                :rules="rules.fe_pago"
+                :rules="rules.fecha"
                 label="Fecha de Pago"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_pago" @input="$refs.menu1.save(date)"></v-date-picker>
+                <v-date-picker v-model="form.fe_pago" locale="es"></v-date-picker>
 
             </v-menu>
             </v-flex>
@@ -121,7 +106,7 @@
             <v-flex xs12 sm4>
                 <v-text-field
                 v-model="form.mo_tasa"
-                :rules="rules.monto"
+                :rules="rules.montoNR"
                 label="Tasa de Cambio"
                 placeholder="Ingrese Tasa"
                 hint="Ej 107,02"
@@ -182,38 +167,23 @@ export default {
     data () {
         return {
             tabla: 'pago',
-            date: '',
-            dateFormatted: '',
-            menu1: false,
+            pickers: {
+                fe_liq_bcv: false,
+                fe_pago:    false
+            },
             esquema: 'Solicitud',
             form:{
                 id_instruccion: this.instruccion.id_instruccion,
-                fe_liq_bcv:     '',
-                id_banco:       '',
-                fe_pago:        '',
-                id_moneda:      '',
-                mo_tasa:        '',
-                mo_final_pago:  '',
-                id_tipo_pago:   '',
-                tx_observacion: '',
-                id_usuario:     '',
-                id_status:      '',
-            },
-            rules:{
-               mo_instruccion: [
-                    v => !!v || 'Campo Requerido',
-                    ],
-                mo_tasa: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                fe_instruccion: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ], 
+                fe_liq_bcv:      '',
+                id_banco:        '',
+                fe_pago:         '',
+                id_moneda:       '',
+                mo_tasa:         '',
+                mo_final_pago:   '',
+                id_tipo_pago:    '',
+                tx_observaciones:'',
+                id_usuario:      '',
+                id_status:       '',
             },
             listas:{
                 banco:    ['/grupo/1'],
@@ -225,32 +195,33 @@ export default {
         }
     },
     props:['instruccion'],
-    watch: {
-        date (val) {
-            this.dateFormatted = this.formatDate(this.date)
-        },
-    },
     methods:{
-        update(){
-                       
-            axios.put(this.basePath + this.item.id_pago, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {               
+                axios.put(this.basePath + this.item.id_pago, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
-        store(){
-                        
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('cerrarModal');
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        store()
+        {
+            if (this.$refs.form.validate()) 
+            {                
+                axios.post(this.basePath, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         }
     }
     

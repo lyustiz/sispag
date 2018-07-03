@@ -17,7 +17,7 @@
                 :items="listas.etapaEnvio"
                 item-text="nb_etapa_envio"
                 item-value="id_etapa_envio"
-                v-model="form.id_etapa_envioo"
+                v-model="form.id_etapa_envio"
                 :rules="rules.select"
                 label="Etapa de Ejecucion de Pago"
                 autocomplete
@@ -40,28 +40,21 @@
 
             <v-flex xs12 sm6>
             <v-menu
-                ref="menu1"
-                :close-on-content-click="false"
-                v-model="menu1"
-                :nudge-right="40"
-                :return-value.sync="date"
-                lazy
-                transition="scale-transition"
-                offset-y
+                ref="picker"
+                v-model="picker"
                 full-width
-                locale="es"
                 min-width="290px"
             >
                 <v-text-field
                 slot="activator"
                 v-model="form.fe_liq_bcv"
-                :rules="rules.fe_liq_bcv"
+                :rules="rules.fecha"
                 label="Fecha Envio del Pago"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_liq_bcv" @input="$refs.menu1.save(date)"></v-date-picker>
+                <v-date-picker v-model="form.fe_liq_bcv" locale="es"></v-date-picker>
 
             </v-menu>
             </v-flex>
@@ -120,33 +113,14 @@ export default {
     data () {
         return {
             tabla: 'ejecucionPago',
-            date: '',
-            dateFormatted: '',
-            menu1: false,
             form:{
                 id_pago :        this.pago.id_pago,
-                id_banco:        '',
-                fe_envio_inst:   '',
-                id_etapa_envio:  '',
-                tx_observacion:  '',
-                id_usuario:      '',
-                id_status:       '',
-            },
-            rules:{
-                mo_instruccion: [
-                    v => !!v || 'Campo Requerido',
-                    ],
-                mo_tasa: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                fe_instruccion: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ], 
+                id_banco:         '',
+                fe_envio_inst:    '',
+                id_etapa_envio:   '',
+                tx_observaciones: '',
+                id_usuario:       '',
+                id_status:        '',
             },
             listas:{
                 banco:      ['/grupo/1'],
@@ -157,32 +131,38 @@ export default {
         }
     },
     props:['pago'],
-    watch: {
-        date (val) {
-            this.dateFormatted = this.formatDate(this.date)
+    methods:
+    {
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {           
+                axios.put(this.basePath + this.item.id_pago, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
         },
-    },
-    methods:{
-        update(){
-                       
-            axios.put(this.basePath + this.item.id_pago, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
-        },
-        store(){
-                        
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('cerrarModal');
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        store()
+        {
+            if (this.$refs.form.validate()) 
+            {            
+                axios.post(this.basePath, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
         }
     }
     

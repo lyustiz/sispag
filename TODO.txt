@@ -1,0 +1,26 @@
+- Actualizacion ejecucion de pago fix update
+- validacion y formateo de montos y fechas
+- menu  con paneles de expasion
+- autenticacion con usuario y contraseña (quitar correo y eliminar tabla user)
+- metodo completo de autenticacion (metodo emergenci apta trasera)
+- Alertas en las instrucciones y pagos Iconos
+- Validar tope de los montos
+- Validar Cambios de datos en instrucciones y pagos que se puede actualizar y cuando
+- validar triggers en update de instrucciones ingresos pagos.
+- modulo de pagos responsive
+- tablas maestras faltantes (crud)
+- activacion y desactivacion datos maestros (status); 
+- roles de usuarios :
+   analista (edicion de los modulos)
+   coordinador (visulizar modulos)
+   administrador (dar privilegios )
+    
+
+- documentacion:
+    manual de usuario
+    diagrama E-R
+    casos de uso base
+
+- reportes:
+  generar las vistas de los reportes a visualizar
+  reporte excell

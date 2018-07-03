@@ -54,7 +54,7 @@
             <v-flex xs12 sm4>
                 <v-text-field
                 v-model="form.mo_ingreso"
-                :rules="rules.moneda"
+                :rules="rules.monto"
                 label="Monto Ingreso"
                 placeholder="Ingrese monto"
                 hint="Ej 845.456,12"
@@ -78,7 +78,7 @@
             <v-flex xs12 sm4>
                 <v-text-field
                 v-model="form.mo_tasa"
-                :rules="rules.moneda"
+                :rules="rules.montoNR"
                 label="Tasa de Cambio"
                 placeholder="Ingrese Tasa"
                 hint="Ej 107,02"
@@ -87,29 +87,21 @@
 
             <v-flex xs12 sm6>
             <v-menu
-                ref="menu1"
-                :close-on-content-click="false"
-                v-model="menu1"
-                :nudge-right="40"
-                :return-value.sync="date"
-                lazy
-                transition="scale-transition"
-                offset-y
+                ref="picker"
+                v-model="picker"
                 full-width
-                locale="es"
                 min-width="290px"
             >
                 <v-text-field
                 slot="activator"
                 v-model="form.fe_ingreso"
-                :rules="rules.fe_ingreso"
+                :rules="rules.fecha"
                 label="Seleccione Fecha"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_ingreso" @input="$refs.menu1.save(date)"></v-date-picker>
-
+                <v-date-picker v-model="form.fe_ingreso" locale="es"></v-date-picker>
             </v-menu>
             </v-flex>
 
@@ -167,9 +159,6 @@ export default {
     data () {
         return {
             tabla: 'ingreso',
-            date: '',
-            dateFormatted: '',
-            menu1: false,
             form:{
                 id_ingreso: '',
                 id_tipo_ingreso: '',
@@ -189,51 +178,41 @@ export default {
                 banco:       ['/grupo/1'],
                 moneda:      [],
                 status:      ['/grupo/1'],
-            },
-            rules:{
-               mo_ingreso: [
-                    v => !!v || 'Campo Requerido',
-                    ],
-                mo_tasa: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-                fe_ingreso: [
-                    v => !!v || 'Campo Requerido',
-                    () => true
-                    ], 
-            }
-            
+            }, 
         }
-    },
-    watch: {
-        date (val) {
-            this.dateFormatted = this.formatDate(this.date)
-        },
     },
     methods:{
         
-        update(){
-                       
-            axios.put(this.basePath+ this.item.id_ingreso, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {           
+                axios.put(this.basePath+ this.item.id_ingreso, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
         },
-        store(){
-                        
-            axios.post('/api/v1/ingreso', this.form)
-            .then(respuesta => {
+        store()
+        {               
+            if (this.$refs.form.validate()) 
+            { 
+                axios.post('/api/v1/ingreso', this.form)
+                .then(respuesta => 
+                {
                     this.showMessage(respuesta.data.msj)
                     this.$emit('cerrarModal');
-            })
-            .catch(error => {
-                console.log(error);
+                })
+                .catch(error => 
+                {
                     this.showError(error);
-            })
+                })
+            }
         },
     }
     

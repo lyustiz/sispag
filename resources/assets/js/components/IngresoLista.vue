@@ -22,6 +22,7 @@
             label="Buscar"
             single-line
             hide-details
+            clearable
         ></v-text-field>
         </v-flex>
         
@@ -34,6 +35,7 @@
             v-model="buscar"
             single-line
             hide-details
+            clearable
         ></v-select>
         </v-flex>
         </v-layout> 

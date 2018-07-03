@@ -79,8 +79,12 @@
                     <v-list-tile>
                         <v-text-field
                         v-model="form.mo_instruccion"
+                        :rules="rules.monto"
                         name="name"
                         label="Monto de la Instuccion"
+                        placeholder="Ingrese Monto"
+                        hint="Ej 3.107.000,02"
+                        required
                         ></v-text-field>
                     </v-list-tile>
 
@@ -122,27 +126,21 @@
 
                     <v-flex>
                     <v-menu
-                        ref="menu"
-                        :close-on-content-click="false"
-                        v-model="menu"
-                        :nudge-right="40"
-                        :return-value.sync="date"
-                        lazy
-                        transition="scale-transition"
-                        offset-y
+                        ref="picker"
+                        v-model="picker"
                         full-width
-                        locale="es_ES"
                         min-width="290px"
                     >
                         <v-text-field
                         slot="activator"
                         v-model="form.fe_instruccion"
+                        :rules="rules.fecha"
                         label="Seleccione Fecha"
                         prepend-icon="event"
                         readonly
                         required
                         ></v-text-field>
-                        <v-date-picker v-model="form.fe_instruccion" @input="$refs.menu.save(date)"></v-date-picker>
+                        <v-date-picker v-model="form.fe_instruccion" locale="es"></v-date-picker>
                     </v-menu>
                         
                     </v-flex>
@@ -177,20 +175,19 @@
        
    </v-card >
    </v-form>
-   <pre>{{$data}}</pre>
 
     <div v-if="categoria">
 
         <v-dialog v-model="dsolicitud" > 
 
-            <list-select   
+            <list-select
                 :tabla="tablaCategoria" 
                 :encabezados="[
                                 { text: 'Ente',     value: 'ente.nb_ente' },
                                 { text: 'Concepto', value: 'tx_concepto' },
                                 { text: 'Monto',    value: 'mo_solicitud' },
                                 { text: 'Status',   value: 'status.nb_status' },
-                                ]"
+                              ]"
                 @seleccion="setSolicitud"
             >
             </list-select>
@@ -199,7 +196,7 @@
 
         <v-dialog v-model="dingreso"> 
 
-            <list-select   
+            <list-select 
                 tabla="cuenta" 
                 :encabezados="[
                                 { text: 'moneda',   value: 'moneda.nb_moneda' },
@@ -238,6 +235,7 @@ export default {
             solicitud:   false,
             ingreso:     false,
             instruccion: false,
+            listSol:     false,
             form:{
                 id_solicitud:    '',
                 tx_concepto:     '',
@@ -282,6 +280,11 @@ export default {
                 this.getSolicitud();
                 this.getIngreso();
             }
+        },
+        categoria: function(val)
+        {
+          this.solicitud = false;
+          this.ingreso   = false;
         }
     },
     methods:
@@ -347,26 +350,32 @@ export default {
             })
 
         },
-        update(){
-                       
-            axios.put(this.basePath + this.item.id_instruccion, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {
+                axios.put(this.basePath + this.item.id_instruccion, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
-        store(){
-                        
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('cerrarModal');
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        store()
+        {
+            if (this.$refs.form.validate()) 
+            {            
+                axios.post(this.basePath, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         }
     }
 }

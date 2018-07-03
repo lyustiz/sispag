@@ -21,6 +21,7 @@
             label="Buscar"
             single-line
             hide-details
+            clearable
         ></v-text-field>
         </v-flex>
         
@@ -33,6 +34,7 @@
             v-model="buscar"
             single-line
             hide-details
+            clearable
         ></v-select>
         </v-flex>
         </v-layout>
@@ -48,11 +50,11 @@
         <template slot="items" slot-scope="item">
             
             <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.ente.nb_ente }}</td>
-            <td class="text-xs-left">{{ item.item.mo_solicitud }}</td>
+            <td class="text-xs-right">{{ item.item.mo_solicitud }}</td>
             <td class="text-xs-left">{{ item.item.tx_concepto }}</td>
             <td class="text-xs-left">{{ item.item.categoria.nb_categoria }}</td>
-            <td class="text-xs-right">{{ item.item.fe_solicitud | formDate}}</td>
-            <td class="text-xs-right">{{ item.item.status.nb_status }}</td>
+            <td class="text-xs-center">{{ item.item.fe_solicitud | formDate}}</td>
+            <td class="text-xs-center">{{ item.item.status.nb_status }}</td>
             <!--acciones-->
             <td class="text-xs-left">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
