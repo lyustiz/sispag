@@ -101,7 +101,7 @@ class BancoController extends Controller
         
         $banco = $banco->update($request->all());
 
-        return [ 'msj' => 'Banco Editado' , compact('banco')];
+        return [ 'msj' => 'Registro Editado' , compact('banco')];
     }
 
     /**
@@ -114,6 +114,6 @@ class BancoController extends Controller
     {
         $banco = $banco->delete();
  
-        return [ 'msj' => 'Banco Editado' , compact('banco')];
+        return [ 'msj' => 'Registro Eliminado' , compact('banco')];
     }
 }

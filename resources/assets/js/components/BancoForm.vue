@@ -115,41 +115,41 @@ export default {
             listas:{
                 tipoBanco:  [],
                 grupoBanco: [],
-                status:     ['/grupo/1']
+                status:     ['/grupo/5']
             },
-            rules:{
-                nb_banco: [
-                    v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Banco debe tener almenos 3 caracteres',
-                    ],
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ],  
-            }
             
         }
     },
     methods:{
         
-        update(){
-                       
-            axios.put(this.basePath + this.form.id_banco, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {           
+                axios.put(this.basePath + this.form.id_banco, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                    
+                })
+            }
         },
-        store(){
-            
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        store()
+        {
+            if (this.$refs.form.validate()) 
+            {
+                axios.post(this.basePath, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         }
     }
     

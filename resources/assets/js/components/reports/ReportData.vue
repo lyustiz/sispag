@@ -9,6 +9,7 @@
                             append-icon="search"
                             label="Buscar"
                             hide-details
+                            clearable
                         ></v-text-field>
                         </v-flex>
                         

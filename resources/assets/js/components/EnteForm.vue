@@ -15,7 +15,7 @@
                     
                         <v-flex xs12 >
                         <v-text-field
-                            :rules="rules.nb_ente"
+                            :rules="rules.requerido"
                             v-model="form.nb_ente"
                             label="Nombre del Ente"
                             placeholder="Indique Nombre"
@@ -118,42 +118,39 @@ export default {
             listas:{
                 grupoEnte:  [],
                 tipoEnte:   [],
-                status:     ['/grupo/1']
-            },
-            rules:{
-                nb_ente: [
-                    v => !!v || 'Nombre Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Ente debe tener almenos 3 caracteres',
-                    ],
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ], 
-            }
-            
+                status:     ['/grupo/5']
+            },            
         }
     },
     methods:{
-        update(){
-                       
-            axios.put('/api/v1/ente/'+ this.form.id_ente, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {           
+                axios.put('/api/v1/ente/'+ this.form.id_ente, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
-        store(){
-                        
-            axios.post('/api/v1/ente', this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-                this.clear();
-            })
-            .catch(error => {
-                
-                this.showError(error);
-            })
+        store()
+        {
+            if (this.$refs.form.validate()) 
+            {            
+                axios.post('/api/v1/ente', this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    
+                    this.showError(error);
+                })
+            }
         },
 
     }

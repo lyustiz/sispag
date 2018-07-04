@@ -17,6 +17,7 @@ class Moneda extends Model
     protected $fillable   = [
                             'nb_moneda',
                             'co_moneda',
+                            'tx_signo',
                             'tx_observaciones',
                             'id_usuario',
                             'id_status',

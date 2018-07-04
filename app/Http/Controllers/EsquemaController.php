@@ -45,7 +45,21 @@ class EsquemaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_esquema'       => 'required',
+            'tx_requerimiento' => 'required',
+            'id_esquema_padre' => 'required',
+            'tx_observaciones' => 'required',
+            'id_usuario'       => 'required',
+            'id_status'        => 'required',
+
+        ]);
+        
+        $esquema = Esquema::create($request->all());
+
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('esquema') ];
+        
     }
 
     /**
@@ -79,7 +93,20 @@ class EsquemaController extends Controller
      */
     public function update(Request $request, Esquema $esquema)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_esquema'       => 'required',
+            'tx_requerimiento' => 'required',
+            'id_esquema_padre' => 'required',
+            'tx_observaciones' => 'required',
+            'id_usuario'       => 'required',
+            'id_status'        => 'required',
+
+        ]);
+
+        $esquema = $esquema->update($request->all());
+
+        return [ 'msj' => 'Registro Editado' , compact('esquema')];
     }
 
     /**
@@ -90,6 +117,8 @@ class EsquemaController extends Controller
      */
     public function destroy(Esquema $esquema)
     {
-        //
+        $esquema = $esquema->delete();
+ 
+        return [ 'msj' => 'Registro Eliminado' , compact('esquema')];
     }
 }

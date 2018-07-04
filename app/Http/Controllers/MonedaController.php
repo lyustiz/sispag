@@ -38,8 +38,18 @@ class MonedaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+            'nb_moneda'         => 'required',
+            'co_moneda'         => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+        ]);
+        
+        $moneda = Moneda::create($request->all());
+
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('moneda') ];
     }
+        
 
     /**
      * Display the specified resource.
@@ -72,7 +82,16 @@ class MonedaController extends Controller
      */
     public function update(Request $request, Moneda $moneda)
     {
-        //
+        $validate = request()->validate([
+            'nb_moneda'         => 'required',
+            'co_moneda'         => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+        ]);
+
+        $moneda = $moneda->update($request->all());
+
+        return [ 'msj' => 'Registro Editado' , compact('moneda')];
     }
 
     /**
@@ -83,6 +102,8 @@ class MonedaController extends Controller
      */
     public function destroy(Moneda $moneda)
     {
-        //
+        $moneda = $moneda->delete();
+ 
+        return [ 'msj' => 'Registro Editado' , compact('moneda')];
     }
 }

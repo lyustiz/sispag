@@ -21,6 +21,7 @@
                 label="Buscar"
                 single-line
                 hide-details
+                clearable
             ></v-text-field>
             </v-flex>
             
@@ -91,7 +92,7 @@ export default {
         headers: [
         { text: 'Nombre',   value: 'nb_esquema' },
         { text: 'Requiere', value: 'tx_requerimiento' },
-        { text: 'Grupo',    value: 'id_esquema_padre' },
+        { text: 'Esq.Padre',    value: 'id_esquema_padre' },
         { text: 'Status',   value: 'id_status' },
         { text: 'Acciones', value: 'id_status'  },
         ]

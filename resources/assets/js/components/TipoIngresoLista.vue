@@ -21,6 +21,7 @@
                 label="Buscar"
                 single-line
                 hide-details
+                clearable
             ></v-text-field>
             </v-flex>
             
@@ -65,12 +66,12 @@
         </v-layout>
     
         <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-            <banco-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></banco-form>
+            <tipo-ingreso-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></tipo-ingreso-form>
         </form-container>
 
         <dialogo 
             :dialogo="dialogo" 
-            :mensaje="'Desea Eliminar el Tipo de Ingreso: ' + item.nb_ente "
+            :mensaje="'Desea Eliminar el Tipo de Ingreso: ' + item.nb_tipo_ingreso "
             @delItem="delItem"
             @delCancel="delCancel"
         >
@@ -93,7 +94,7 @@ export default {
         { text: 'Nombre',   value: 'nb_tipo_ingreso' },
         { text: 'Status',   value: 'id_status'  },
         { text: 'Acciones', value: 'id_status'  },
-        ]
+        ],
     }
     },
     methods:

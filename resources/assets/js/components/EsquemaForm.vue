@@ -15,7 +15,7 @@
             <v-flex xs12 >
             <v-text-field
                 v-model="form.nb_esquema"
-                :rules="rules.nb_esquema"
+                :rules="rules.requerido"
                 label="Nombre del Esquema"
                 placeholder="Indique Nombre"
                 required
@@ -24,8 +24,8 @@
 
             <v-flex xs12 sm6>
             <v-text-field
-                v-model="form.nb_esquema"
-                :rules="rules.nb_esquema"
+                v-model="form.tx_requerimiento"
+                :rules="rules.requerido"
                 label="Tipo de requerimiento"
                 placeholder="Indique tipo de requerimiento Ej: Nro. VOI, Nro Oficio"
             ></v-text-field>
@@ -50,7 +50,7 @@
                 item-value="id_status"
                 v-model="form.id_status"
                 :rules="rules.select"
-                label="Status del Banco"
+                label="Status del Esquema de pago"
                 autocomplete
                 required
                 ></v-select>
@@ -108,40 +108,38 @@ export default {
             },
             listas:{
                 esquema: ['/padre'],
-                status:  ['/grupo/1']
-            },
-            rules:{
-               nb_esquema: [
-                    v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Esquema debe tener almenos 3 caracteres',
-                    ],
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ], 
-            }
-            
+                status:  ['/grupo/5']
+            },            
         }
     },
     methods:{
-        update(){
-                       
-            axios.put(this.basePath + this.form.id_esquema, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {            
+                axios.put(this.basePath + this.form.id_esquema, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
         store(){
             
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+            if (this.$refs.form.validate()) 
+            { 
+                axios.post(this.basePath, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         }
     }
     

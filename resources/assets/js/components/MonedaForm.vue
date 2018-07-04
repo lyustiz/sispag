@@ -14,7 +14,7 @@
 
                 <v-flex xs12 >
                 <v-text-field
-                    :rules="rules.nb_moneda"
+                    :rules="rules.requerido"
                     v-model="form.nb_moneda"
                     label="Nombre de la Moneda"
                     placeholder="Indique Nombre"
@@ -25,7 +25,7 @@
                 <v-flex xs12 sm6>
                     <v-text-field
                     v-model="form.co_moneda"
-                    :rules="rules.co_moneda"
+                    :rules="rules.requerido"
                     label="Codigo Moneda"
                     placeholder="Indique Codigo"
                     required
@@ -35,7 +35,7 @@
                 <v-flex xs12 sm6>
                     <v-text-field
                     v-model="form.tx_signo"
-                    :rules="rules.tx_signo"
+                    :rules="rules.requerido"
                     label="Signo Moneda"
                     placeholder="Indique Signo de la Moneda"
                     required
@@ -49,7 +49,7 @@
                     item-value="id_status"
                     v-model="form.id_status"
                     :rules="rules.select"
-                    label="Status del Banco"
+                    label="Status de la Moneda"
                     autocomplete
                     required
                     ></v-select>
@@ -107,45 +107,38 @@ export default {
                 id_usuario:''
             },
             listas:{
-                status:  ['/grupo/1']
+                status:  ['/grupo/5']
             },
-            rules:{
-                nb_moneda: [
-                    v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Moneda debe tener almenos 3 caracteres',
-                    ],
-                co_moneda: [
-                    v => !!v || 'Campo Requerido',
-                    ], 
-                tx_signo: [
-                    v => !!v || 'Campo Requerido',
-                    ], 
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ], 
-            }
         }
     },
     methods:{
-        update(){
-                       
-            axios.put(this.basePath + this.form.id_moneda, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {           
+                axios.put(this.basePath + this.form.id_moneda, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
-        store(){
-                        
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        store()
+        {
+            if (this.$refs.form.validate()) 
+            {            
+                axios.post(this.basePath, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
     }
     

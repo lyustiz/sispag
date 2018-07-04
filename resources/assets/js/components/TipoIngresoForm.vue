@@ -6,7 +6,7 @@
         <v-card>
             
         <v-card-title class="red accent-1 white--text">
-            <h2>Banco</h2>
+            <h2>Tipo Ingreso</h2>
         </v-card-title>
         
         <v-card-text>
@@ -21,7 +21,7 @@
                 required
             ></v-text-field>
             </v-flex>
-t>
+
             <v-flex xs12>  
                 <v-select
                 :items="listas.status"
@@ -29,7 +29,7 @@ t>
                 item-value="id_status"
                 v-model="form.id_status"
                 :rules="rules.select"
-                label="Status del Banco"
+                label="Status del Tipo de Ingreso"
                 autocomplete
                 required
                 ></v-select>
@@ -85,40 +85,39 @@ export default {
                 id_usuario:''
             },
             listas:{
-                status:     ['/grupo/1']
+                status:  ['/grupo/5']
             },
-            rules:{
-                nb_tipo_ingreso: [
-                    v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Tipo Ingreso debe tener almenos 3 caracteres',
-                    ],
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ],  
-            }
         }
     },
     methods:{
         
-        update(){
-                       
-            axios.put(this.basePath + this.form.id_tipo_ingreso, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        update()
+        {
+            if (this.$refs.form.validate()) 
+            {               
+                axios.put(this.basePath + this.form.id_tipo_ingreso, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
         store(){
             
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+            if (this.$refs.form.validate()) 
+            {
+                axios.post(this.basePath, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         }
     }
     

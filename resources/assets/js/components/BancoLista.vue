@@ -21,6 +21,7 @@
                 label="Buscar"
                 single-line
                 hide-details
+                clearable
             ></v-text-field>
             </v-flex>
             
@@ -72,7 +73,7 @@
 
         <dialogo 
             :dialogo="dialogo" 
-            :mensaje="'Desea Eliminar el Banco: ' + item.nb_ente "
+            :mensaje="'Desea Eliminar el Banco: ' + item.nb_banco "
             @delItem="delItem"
             @delCancel="delCancel"
         >

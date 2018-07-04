@@ -4,7 +4,6 @@ export default {
         this.listasLoader()
         this.basePath += this.tabla + '/'
         this.form.id_usuario = this.$store.getters.user.id
-  
     },
     data() {
 
@@ -113,6 +112,7 @@ export default {
 
                     this.form[key] = '';
             }
+            this.form.id_usuario = this.$store.getters.user.id
         },
 
         clear () {

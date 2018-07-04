@@ -4,7 +4,7 @@
 
     <v-container fluid grid-list-md text-xs-center>
 
-    en construccion
+    <tipo-ingreso-lista></tipo-ingreso-lista>         
 
     </v-container>
 

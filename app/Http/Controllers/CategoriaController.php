@@ -21,16 +21,6 @@ class CategoriaController extends Controller
 
     }
     
-
-    public function combo()
-    {
-
-        $categorias = Categoria::selct(['id_categoria', 'nb_categoria'])->get();
-        
-        return $categorias;
-
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -49,7 +39,16 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_categoria'      =>  'required',
+            'id_usuario'        =>  'required',
+            'id_status'         =>  'required',
+        ]);
+        
+        $categoria = Categoria::create($request->all());
+
+        return [ 'msj' => 'Registro Creado' , compact('categoria')];
     }
 
     /**
@@ -83,7 +82,16 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_categoria'      =>  'required',
+            'id_usuario'        =>  'required',
+            'id_status'         =>  'required',
+        ]);
+
+        $categoria = $categoria->update($request->all());
+
+        return [ 'msj' => 'Registro Editado' , compact('categoria')];
     }
 
     /**

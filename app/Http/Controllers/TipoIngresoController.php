@@ -37,7 +37,19 @@ class TipoIngresoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_tipo_ingreso'   => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+
+        ]);
+
+        $tingreso = TipoIngreso::create($request->all());
+
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('tingreso') ];
+        
+        
     }
 
     /**
@@ -71,7 +83,17 @@ class TipoIngresoController extends Controller
      */
     public function update(Request $request, TipoIngreso $tipoIngreso)
     {
-        //
+        $validate = request()->validate([
+
+            'nb_tipo_ingreso'   => 'required',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required',
+
+        ]);
+        
+        $tingreso = $tipoIngreso->update($request->all());
+
+        return [ 'msj' => 'Registro Editado' , compact('tingreso')];
     }
 
     /**
@@ -82,6 +104,8 @@ class TipoIngresoController extends Controller
      */
     public function destroy(TipoIngreso $tipoIngreso)
     {
-        //
+        $tingreso = $tipoIngreso->delete();
+ 
+        return [ 'msj' => 'Registro Eliminado' , compact('tingreso')];
     }
 }

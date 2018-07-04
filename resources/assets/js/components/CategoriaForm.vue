@@ -15,7 +15,7 @@
                 <v-flex xs12 >
                 <v-text-field
                     v-model="form.nb_categoria"
-                    :rules="rules.nb_categoria"
+                    :rules="rules.requerido"
                     label="Nombre del Categoria"
                     placeholder="Indique Nombre"
                     required
@@ -86,18 +86,8 @@ export default {
                 id_usuario:''
             },
             listas:{
-                status: ['/grupo/1']
+                status: ['/grupo/5']
             },
-            rules:{
-                nb_categoria: [
-                    v => !!v || 'Campo Requerido',
-                    v => !!v  && v.length >= 3 || 'Nombre del Categoria debe tener almenos 3 caracteres',
-                    ],
-                select: [
-                    v => !!v || 'Seleccione una Opcion (Opcion Requerida)',
-                    ], 
-            }
-            
         }
     },
 
@@ -105,23 +95,31 @@ export default {
 
         update(){
             
-            axios.put(this.basePath + this.form.id_categoria, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+            if (this.$refs.form.validate()) 
+            {
+                axios.put(this.basePath + this.form.id_categoria, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
-        store(){
-                        
-            axios.post(this.basePath, this.form)
-            .then(respuesta => {
-                this.showMessage(respuesta.data.msj)
-            })
-            .catch(error => {
-                this.showError(error);
-            })
+        store()
+        {
+            if (this.$refs.form.validate()) 
+            {            
+                axios.post(this.basePath, this.form)
+                .then(respuesta => {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => {
+                    this.showError(error);
+                })
+            }
         },
     }
     
