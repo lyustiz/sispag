@@ -1,4 +1,4 @@
--- Function: pagos.sp_ins_bitacora()
+﻿-- Function: pagos.sp_ins_bitacora()
 
 -- DROP FUNCTION pagos.sp_ins_bitacora();
 
@@ -12,7 +12,7 @@ DECLARE
 
 BEGIN  
  
-    v_col_tabla := 'id_'||substr(TG_TABLE_NAME, position('_' in TG_TABLE_NAME)+1,50);
+    v_col_tabla := 'id_'||TG_TABLE_NAME;
     EXECUTE 'SELECT $1.'||v_col_tabla INTO v_id_tabla using NEW;
 
 IF (TG_OP = 'UPDATE') THEN
