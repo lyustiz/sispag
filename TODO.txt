@@ -1,5 +1,6 @@
-- Actualizacion ejecucion de pago fix update
-- validacion y formateo de montos y fechas
+- (listo) Actualizacion ejecucion de pago fix update
+- (listo) tabla categoria no actualiza
+- validacion (listo validacion de formularios) y formateo de montos y fechas
 - menu  con paneles de expasion
 - autenticacion con usuario y contraseña (quitar correo y eliminar tabla user)
 - metodo completo de autenticacion (metodo emergenci apta trasera)

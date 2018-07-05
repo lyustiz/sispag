@@ -26,7 +26,6 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::Resource('/tipoBanco', 'TipoBancoController');
     Route::Resource('/grupoBanco', 'GrupoBancoController');
     
-
     Route::Resource('/ente', 'EnteController');
     Route::Get('/ente/tipo/{id_tipo_ente}', 'EnteController@enteTipo');
     Route::Get('/ente/grupo/{id_grupo_ente}', 'EnteController@enteGrupo');
@@ -34,7 +33,7 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::Resource('/grupoEnte', 'GrupoEnteController');
     Route::Resource('/tipoEnte', 'TipoEnteController');
 
-    Route::Resource('/categoria', 'CategoriaController');
+    Route::Resource('/categoria', 'CategoriaController', ['parameters' => ['categoria' => 'categoria']]);
 
     Route::Resource('/ingreso', 'IngresoController');
     Route::Resource('/tipoIngreso', 'TipoIngresoController');
@@ -47,16 +46,15 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
 
     Route::Resource('/moneda', 'MonedaController');
 
-    Route::Resource('/cuenta', 'CuentaController');
+    Route::Resource('/cuenta', 'CuentaController',['parameters' => ['cuenta' => 'cuenta']]);
     Route::get('/cuenta/moneda/{id_moneda}', 'CuentaController@cuentaMoneda');
 
     Route::Resource('/solicitud', 'SolicitudController');
     Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
 
     Route::Resource('/instruccion', 'InstruccionController');
-Route::Get('/esquema/padre', 'EsquemaController@esquemaPadre');
+    Route::Get('/esquema/padre', 'EsquemaController@esquemaPadre');
     Route::Resource('/esquema', 'EsquemaController');
-    
 
     Route::Resource('/etapaEnvio', 'EtapaEnvioController');
 

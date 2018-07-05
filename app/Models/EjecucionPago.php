@@ -19,7 +19,7 @@ class EjecucionPago extends Model
                             'id_banco',
                             'fe_envio_inst',
                             'id_etapa_envio',
-                            'tx_observacion',
+                            'tx_observaciones',
                             'id_usuario',
                             'id_status',
                             'fe_creado',

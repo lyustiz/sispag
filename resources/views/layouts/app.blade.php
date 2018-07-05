@@ -25,21 +25,27 @@
             app
             v-model="drawer"
     >
-        <v-list dense>
+
+
+    <v-list dense>
             <template v-for="(item, i) in items">
-                <template v-if="checkRoles(item)">
+               <template v-if="checkRoles(item)">
+
                     <v-layout
                             row
                             v-if="item.heading"
                             align-center
                             :key="i"
-                    >
+                    >                        
                         <v-flex xs6>
                             <v-subheader v-if="item.heading">
                                 @{{ item.heading }}
                             </v-subheader>
                         </v-flex>
+
+ 
                     </v-layout>
+
                     <v-list-group v-else-if="item.children" v-model="item.model" no-action>
                         <v-list-tile slot="item" @click="menuItemSelected(item)">
                             <v-list-tile-action>
@@ -79,6 +85,10 @@
                 </template>
             </template>
         </v-list>
+
+
+     
+
     </v-navigation-drawer>
     <v-toolbar
             color="red"

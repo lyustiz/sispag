@@ -13731,7 +13731,9 @@ var app = new Vue({
       logoutLoading: false,
       changingPassword: false,
       updatingUser: false,
-      items: [{ heading: 'Modulos' }, { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' }, { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' }, { icon: 'how_to_reg', text: 'Intrucciones', href: '/instruccion' }, { icon: 'play_for_work', text: 'pagos', href: '/pago' }, { heading: 'Datos Maestros' }, { icon: 'account_balance', text: 'Banco', href: '/banco' }, { icon: 'store_mall_directory', text: 'Entes', href: '/ente' }, { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }, { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' }, { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' }, { heading: 'Reportes' }, { icon: 'assignment', text: 'Bancos', href: '/reports.reports' }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/reports.reports' }, { icon: 'people', text: 'Roles', href: '/reports.reports' }]
+      items: [{ heading: 'Modulos' }, { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' }, { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' }, { icon: 'how_to_reg', text: 'Intrucciones', href: '/instruccion' }, { icon: 'play_for_work', text: 'pagos', href: '/pago' }, { heading: 'Datos Maestros' }, { icon: 'account_balance', text: 'Banco', href: '/banco' }, { icon: 'store_mall_directory', text: 'Entes', href: '/ente' }, { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }, { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' }, { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' }, { heading: 'Reportes' }, { icon: 'assignment', text: 'Bancos', href: '/reports.reports' }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/reports.reports' }, { children: [{ icon: 'people', text: 'Roles', href: '/reports.reports' }, { icon: 'people', text: 'Roles', href: '/reports.reports' }]
+
+      }]
     };
   },
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
@@ -16471,7 +16473,7 @@ var render = function() {
             [
               _c(
                 "v-list",
-                { attrs: { "two-line": "", subheader: "" } },
+                { attrs: { dense: "", "two-line": "", subheader: "" } },
                 [
                   _vm._l(_vm.items, function(texto, titulo) {
                     return _c(
@@ -20292,7 +20294,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 banco: ['/grupo/1'],
                 moneda: [],
                 tipoPago: [],
-                status: ['/grupo/1']
+                status: ['/grupo/3']
             }
 
         };
@@ -22450,7 +22452,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 tipoIngreso: [],
                 banco: ['/grupo/1'],
                 moneda: [],
-                status: ['/grupo/1']
+                status: ['/grupo/4']
             }
         };
     },
@@ -23649,7 +23651,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 ente: ['/grupo/4'],
                 moneda: [],
                 categoria: [],
-                status: ['/grupo/1']
+                status: ['/grupo/2']
             }
         };
     },
@@ -29568,7 +29570,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             listas: {
                 banco: ['/grupo/1'],
                 etapaEnvio: [],
-                status: ['/grupo/1']
+                status: ['/grupo/3']
             }
 
         };
@@ -29580,7 +29582,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$refs.form.validate()) {
-                axios.put(this.basePath + this.item.id_pago, this.form).then(function (respuesta) {
+                axios.put(this.basePath + this.item.id_ejecucion_pago, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                 }).catch(function (error) {
                     _this.showError(error);
@@ -29741,30 +29743,30 @@ var render = function() {
                                         },
                                         slot: "activator",
                                         model: {
-                                          value: _vm.form.fe_liq_bcv,
+                                          value: _vm.form.fe_envio_inst,
                                           callback: function($$v) {
                                             _vm.$set(
                                               _vm.form,
-                                              "fe_liq_bcv",
+                                              "fe_envio_inst",
                                               $$v
                                             )
                                           },
-                                          expression: "form.fe_liq_bcv"
+                                          expression: "form.fe_envio_inst"
                                         }
                                       }),
                                       _vm._v(" "),
                                       _c("v-date-picker", {
                                         attrs: { locale: "es" },
                                         model: {
-                                          value: _vm.form.fe_liq_bcv,
+                                          value: _vm.form.fe_envio_inst,
                                           callback: function($$v) {
                                             _vm.$set(
                                               _vm.form,
-                                              "fe_liq_bcv",
+                                              "fe_envio_inst",
                                               $$v
                                             )
                                           },
-                                          expression: "form.fe_liq_bcv"
+                                          expression: "form.fe_envio_inst"
                                         }
                                       })
                                     ],

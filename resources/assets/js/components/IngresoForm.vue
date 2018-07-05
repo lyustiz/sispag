@@ -177,7 +177,7 @@ export default {
                 tipoIngreso: [],
                 banco:       ['/grupo/1'],
                 moneda:      [],
-                status:      ['/grupo/1'],
+                status:      ['/grupo/4'],
             }, 
         }
     },

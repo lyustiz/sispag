@@ -175,7 +175,7 @@ export default {
                 ente:        ['/grupo/4'],
                 moneda:      [],
                 categoria:   [],
-                status:      ['/grupo/1'],
+                status:      ['/grupo/2'],
             },            
         }
     },

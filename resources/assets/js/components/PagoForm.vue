@@ -189,7 +189,7 @@ export default {
                 banco:    ['/grupo/1'],
                 moneda:   [],
                 tipoPago: [],
-                status:   ['/grupo/1'],
+                status:   ['/grupo/3'],
             },
             
         }

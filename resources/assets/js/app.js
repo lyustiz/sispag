@@ -100,7 +100,16 @@ const app = new Vue({
       { icon: 'assignment', text: 'Bancos', href: '/reports.reports' },
       { heading: 'Administracion' },
       { icon: 'person', text: 'Usuarios', href: '/reports.reports' },
-      { icon: 'people', text: 'Roles', href: '/reports.reports' },
+      { children: 
+        [
+          { icon: 'people', text: 'Roles', href: '/reports.reports' },
+           { icon: 'people', text: 'Roles', href: '/reports.reports' } 
+        ]
+       
+      },
+      
+      
+      
       
       //{ heading: 'Administració', role: 'Manager' }
     ]

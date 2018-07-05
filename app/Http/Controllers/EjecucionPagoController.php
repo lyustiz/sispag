@@ -90,6 +90,7 @@ class EjecucionPagoController extends Controller
      */
     public function update(Request $request, EjecucionPago $ejecucionPago)
     {
+        
         $validate = request()->validate([  
             'id_banco',
             'fe_envio_inst',

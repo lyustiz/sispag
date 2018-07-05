@@ -15,7 +15,20 @@ class CategoriaController extends Controller
     public function index()
     {
 
-        $categorias = Categoria::with(['solicitud','status'])->get();
+        $categorias = Categoria::with(['status'])
+        ->orderBy('nb_categoria', 'asc')
+        ->get();
+        
+        return $categorias;
+
+    }
+
+    public function lista()
+    {
+
+        $categorias = Categoria::with(['status'])
+        ->orderBy('nb_categoria', 'asc')
+        ->get();
         
         return $categorias;
 
@@ -88,7 +101,6 @@ class CategoriaController extends Controller
             'id_usuario'        =>  'required',
             'id_status'         =>  'required',
         ]);
-
         $categoria = $categoria->update($request->all());
 
         return [ 'msj' => 'Registro Editado' , compact('categoria')];
@@ -102,6 +114,8 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $categoria = $categoria->delete();
+ 
+        return [ 'msj' => 'Registro Eliminado' , compact('categoria')];
     }
 }

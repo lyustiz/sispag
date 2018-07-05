@@ -12,14 +12,14 @@
     </v-toolbar>
     
     <v-card-text>
-    <v-list two-line subheader>
+    <v-list dense two-line subheader>
 
         <v-list-tile v-for="(texto, titulo) in items" :key="titulo" >
             <v-list-tile-content>
             <v-list-tile-title>{{titulo}}</v-list-tile-title>
             <v-list-tile-sub-title>{{texto}}</v-list-tile-sub-title>
             </v-list-tile-content>
-        </v-list-tile>
+        </v-list-tile> 
 
            <slot></slot>
 

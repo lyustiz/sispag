@@ -47,14 +47,14 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_liq_bcv"
+                v-model="form.fe_envio_inst"
                 :rules="rules.fecha"
                 label="Fecha Envio del Pago"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_liq_bcv" locale="es"></v-date-picker>
+                <v-date-picker v-model="form.fe_envio_inst" locale="es"></v-date-picker>
 
             </v-menu>
             </v-flex>
@@ -125,7 +125,7 @@ export default {
             listas:{
                 banco:      ['/grupo/1'],
                 etapaEnvio: [],
-                status:     ['/grupo/1'],
+                status:     ['/grupo/3'],
             },
             
         }
@@ -137,7 +137,7 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {           
-                axios.put(this.basePath + this.item.id_pago, this.form)
+                axios.put(this.basePath + this.item.id_ejecucion_pago, this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
