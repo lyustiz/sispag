@@ -41268,6 +41268,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -41279,8 +41281,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       alertOpts: {
         message: "",
         show: false,
-        type: ""
+        type: "info"
       },
+      showPass: false,
       errors: [],
       internalAction: this.action,
       usuario: '',
@@ -41333,8 +41336,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
 
         this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["b" /* LOGIN */], credentials).then(function (response) {
-          console.log("PASO");
-          console.log(response);
+
           _this.loginLoading = false;
           _this.showLogin = false;
           window.location = '/home';
@@ -41419,13 +41421,17 @@ var render = function() {
               _vm._v(" "),
               _c("v-text-field", {
                 attrs: {
+                  "append-icon": _vm.showPass ? "visibility_off" : "visibility",
+                  "append-icon-cb": function() {
+                    return (_vm.showPass = !_vm.showPass)
+                  },
                   rules: _vm.passwordRules,
+                  type: _vm.showPass ? "text" : "password",
                   color: "blue",
                   dark: "",
                   label: "Password",
                   name: "password",
-                  required: "",
-                  type: "password"
+                  required: ""
                 },
                 model: {
                   value: _vm.password,
@@ -41699,6 +41705,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -41708,6 +41730,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins_withSnackbar__["a" /* default */]],
   data: function data() {
     return {
+      alertOpts: {
+        message: "",
+        show: false,
+        type: "info"
+      },
+      showPass: false,
       internalAction: this.action,
       internalEmail: this.email,
       loading: false,
@@ -41721,9 +41749,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       password: '',
       passwordConfirmation: '',
       passwordRules: [function (v) {
-        return !!v || 'La paraula de pas és obligatòria';
+        return !!v || 'La contraseña es obligatoria';
       }, function (v) {
-        return v.length >= 6 || 'La paraula de pas ha de tenir com a mínim 6 caràcters';
+        return v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres';
       }],
       valid: false
     };
@@ -41776,13 +41804,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.location = '/home';
           });
         }).catch(function (error) {
-          if (error.response && error.response.status === 422) {
-            _this.showError({
-              message: 'Invalid data'
-            });
-          } else {
-            _this.showError(error);
-          }
+
+          _this.loading = false;
+
+          _this.alertOpts = {
+            message: "Ocurrio un error, por favor intente nuevamente!",
+            show: true,
+            type: "error"
+          };
+
           _this.errors = error.response.data.errors;
         }).then(function () {
           _this.loading = false;
@@ -41843,14 +41873,18 @@ var render = function() {
               _vm._v(" "),
               _c("v-text-field", {
                 attrs: {
+                  "append-icon": _vm.showPass ? "visibility_off" : "visibility",
+                  "append-icon-cb": function() {
+                    return (_vm.showPass = !_vm.showPass)
+                  },
                   rules: _vm.passwordRules,
+                  type: _vm.showPass ? "text" : "password",
                   dark: "",
                   hint: "Al menos 6 caracteres",
                   label: "Contraseña",
                   min: "6",
                   name: "password",
-                  required: "",
-                  type: "password"
+                  required: ""
                 },
                 model: {
                   value: _vm.password,
@@ -41863,14 +41897,18 @@ var render = function() {
               _vm._v(" "),
               _c("v-text-field", {
                 attrs: {
+                  "append-icon": _vm.showPass ? "visibility_off" : "visibility",
+                  "append-icon-cb": function() {
+                    return (_vm.showPass = !_vm.showPass)
+                  },
                   rules: _vm.passwordRules,
+                  type: _vm.showPass ? "text" : "password",
                   dark: "",
                   hint: "Al menos 6 caracteres",
                   label: "Confirma la Contraseña",
                   name: "passwordConfirmation",
                   min: "6",
-                  required: "",
-                  type: "password"
+                  required: ""
                 },
                 model: {
                   value: _vm.passwordConfirmation,
@@ -41880,6 +41918,48 @@ var render = function() {
                   expression: "passwordConfirmation"
                 }
               })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-container",
+            { attrs: { "grid-list-md": "", "text-xs-left": "" } },
+            [
+              _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                [
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "" } },
+                    [
+                      _c(
+                        "v-alert",
+                        {
+                          attrs: { type: _vm.alertOpts.type, dismissible: "" },
+                          model: {
+                            value: _vm.alertOpts.show,
+                            callback: function($$v) {
+                              _vm.$set(_vm.alertOpts, "show", $$v)
+                            },
+                            expression: "alertOpts.show"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.alertOpts.message) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )

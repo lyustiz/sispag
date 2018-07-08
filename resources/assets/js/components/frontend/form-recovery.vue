@@ -12,26 +12,42 @@
           required
           v-model="internalEmail"></v-text-field>
         <v-text-field
+          :append-icon="showPass ? 'visibility_off' : 'visibility'"
+          :append-icon-cb="() => (showPass = !showPass)"
           :rules="passwordRules"
+          :type="showPass ? 'text' : 'password'"
           dark
           hint="Al menos 6 caracteres"
           label="Contraseña"
           min="6"
           name="password"
           required
-          type="password"
           v-model="password"></v-text-field>
         <v-text-field
+          :append-icon="showPass ? 'visibility_off' : 'visibility'"
+          :append-icon-cb="() => (showPass = !showPass)"
           :rules="passwordRules"
+          :type="showPass ? 'text' : 'password'"
           dark
           hint="Al menos 6 caracteres"
           label="Confirma la Contraseña"
           name="passwordConfirmation"
           min="6"
           v-model="passwordConfirmation"
-          required
-          type="password"></v-text-field>
+          required></v-text-field>
       </v-form>
+      <v-container grid-list-md text-xs-left>
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-alert
+              :type="alertOpts.type"
+              v-model="alertOpts.show"
+              dismissible>
+              {{ alertOpts.message }}
+            </v-alert>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-card-text>
     <v-card-actions>
       <v-btn
@@ -61,6 +77,12 @@
     mixins: [withSnackbar],
     data () {
       return {
+        alertOpts: {
+          message: "",
+          show: false,
+          type: "info"
+        },
+        showPass: false,
         internalAction: this.action,
         internalEmail: this.email,
         loading: false,
@@ -72,8 +94,8 @@
         password: '',
         passwordConfirmation: '',
         passwordRules: [
-          (v) => !!v || 'La paraula de pas és obligatòria',
-          (v) => v.length >= 6 || 'La paraula de pas ha de tenir com a mínim 6 caràcters'
+          (v) => !!v || 'La contraseña es obligatoria',
+          (v) => v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres'
         ],
         valid: false
       }
@@ -108,6 +130,7 @@
         $(this.$parent.$el).slick('slickPrev');
       },
       reset () {
+
         if (this.$refs.resetPasswordForm.validate()) {
           const user = {
             'email': this.internalEmail,
@@ -124,14 +147,17 @@
               window.location = '/home'
             })
           }).catch(error => {
-            if (error.response && error.response.status === 422) {
-              this.showError({
-                message: 'Invalid data'
-              })
-            } else {
-              this.showError(error)
+
+            this.loading = false
+
+            this.alertOpts = {
+              message: "Ocurrio un error, por favor intente nuevamente!",
+              show: true,
+              type: "error"
             }
+
             this.errors = error.response.data.errors
+
           }).then(() => {
             this.loading = false
           })

@@ -16,13 +16,15 @@
           required
           v-model="usuario"></v-text-field>
         <v-text-field
+          :append-icon="showPass ? 'visibility_off' : 'visibility'"
+          :append-icon-cb="() => (showPass = !showPass)"
           :rules="passwordRules"
+          :type="showPass ? 'text' : 'password'"
           color="blue"
           dark
           label="Password"
           name="password"
           required
-          type="password"
           v-model="password"></v-text-field>
       </v-form>
       <v-container grid-list-md text-xs-left>
@@ -65,8 +67,9 @@
         alertOpts: {
           message: "",
           show: false,
-          type: ""
+          type: "info"
         },
+        showPass: false,
         errors: [],
         internalAction: this.action,
         usuario: '',
@@ -118,11 +121,11 @@
           }
 
           this.$store.dispatch(actions.LOGIN, credentials).then(response => {
-            console.log("PASO")
-            console.log(response)
+
             this.loginLoading = false
             this.showLogin = false
             window.location = '/home'
+
           }).catch(error => {
 
             this.loginLoading = false
