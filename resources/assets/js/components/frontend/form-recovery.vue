@@ -35,7 +35,6 @@
     </v-card-text>
     <v-card-actions>
       <v-btn
-        :loading="loginLoading"
         class="white--text"
         color="blue darken-2"
         v-on:click="verFormLogin">Ya estoy registrado</v-btn>

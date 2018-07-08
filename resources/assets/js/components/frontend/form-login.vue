@@ -33,6 +33,16 @@
             </a>
           </v-flex>
         </v-layout>
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-alert
+              :type="alertOpts.type"
+              v-model="alertOpts.show"
+              dismissible>
+              {{ alertOpts.message }}
+            </v-alert>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-card-text>
     <v-card-actions>
@@ -52,17 +62,20 @@
     mixins: [withSnackbar],
     data () {
       return {
+        alertOpts: {
+          message: "",
+          show: false,
+          type: ""
+        },
         errors: [],
         internalAction: this.action,
         usuario: '',
         usuarioRules: [
-          (v) => !!v || 'El usuario es obligatorio',
-          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email have to be a valid email'
+          (v) => !!v || 'El usuario es obligatorio'
         ],
         password: '',
         passwordRules: [
-          (v) => !!v || 'La contraseña es obligatoria',
-          (v) => v.length >= 6 || 'Password have to be at least 6 characters long'
+          (v) => !!v || 'La contraseña es obligatoria'
         ],
         valid: false,
         loginLoading: false
@@ -95,27 +108,43 @@
         $(this.$parent.$el).slick('slickNext');
       },
       login () {
+
         if (this.$refs.loginForm.validate()) {
+
           this.loginLoading = true
           const credentials = {
             'email': this.email,
             'password': this.password
           }
+
           this.$store.dispatch(actions.LOGIN, credentials).then(response => {
+            console.log("PASO")
+            console.log(response)
             this.loginLoading = false
             this.showLogin = false
             window.location = '/home'
           }).catch(error => {
-            console.log('HEY:')
-            console.log(error.response.data)
+
+            this.loginLoading = false
+
             if (error.response && error.response.status === 422) {
-              this.showError({
-                message: 'Invalid data',
-              })
+
+              this.alertOpts = {
+                message: "Datos incorrectos!",
+                show: true,
+                type: "error"
+              }
+
             } else {
-              this.showError(error)
+
+              this.alertOpts = {
+                message: "Ocurrio un error, por favor intente nuevamente!",
+                show: true,
+                type: "error"
+              }
+
             }
-            this.errors = error.response.data.errors
+
           }).then(() => {
             this.loginLoading = false
           })
@@ -150,6 +179,10 @@
           color: rgba(33,150,243,1);
         }
 
+      }
+
+      .alert{
+        padding:6px;
       }
 
     }
