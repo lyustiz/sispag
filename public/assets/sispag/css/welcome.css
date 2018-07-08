@@ -11,6 +11,11 @@ body section#inicio .wrapper-forms {
     width: 400px;
   }
 }
+@media (max-width: 500px) {
+  body section#inicio .wrapper-forms {
+    width: 100%;
+  }
+}
 body section#inicio .wrapper-forms .container {
   padding: 0px;
 }
