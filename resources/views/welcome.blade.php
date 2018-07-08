@@ -34,13 +34,12 @@
             <div class="wrapper-forms">
               <v-container grid-list-md text-xs-center>
                 <v-layout row wrap>
-                  <v-flex xs6 class="logo" align-center justify-center>
+                  <v-flex xs12 md6 class="logo" align-center justify-center>
                     <v-layout column align-center justify-center>
                       SISGESPAG
                     </v-layout>
                   </v-flex>
-                  <v-flex xs6 class="forms">
-
+                  <v-flex xs12 md6 class="forms">
                     <slick
                       ref="slick"
                       :options="slickOptions">
@@ -51,7 +50,6 @@
                         <form-recovery></form-recovery>
                       </div>
                     </slick>
-
                   </v-flex>
                 </v-layout>
               </v-container>
