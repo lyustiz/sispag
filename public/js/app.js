@@ -41729,6 +41729,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins_withSnackbar__["a" /* default */]],
   data: function data() {
+    var _this = this;
+
     return {
       alertOpts: {
         message: "",
@@ -41741,7 +41743,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       loading: false,
       done: false,
       emailRules: [function (v) {
-        return !!v || 'El email és obligatori';
+        return !!v || 'El email és obligatorio!';
       }, function (v) {
         return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'S\'ha d\'indicar un email vàlid'
         );
@@ -41752,6 +41754,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return !!v || 'La contraseña es obligatoria';
       }, function (v) {
         return v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres';
+      }],
+      confirPassRules: [function (v) {
+        return !!v || 'La contraseña es obligatoria';
+      }, function (v) {
+        return v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres';
+      }, function (v) {
+        return _this.password === _this.passwordConfirmation || 'Las contraseñas no coinciden';
       }],
       valid: false
     };
@@ -41786,7 +41795,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       __WEBPACK_IMPORTED_MODULE_3_jquery___default()(this.$parent.$el).slick('slickPrev');
     },
     reset: function reset() {
-      var _this = this;
+      var _this2 = this;
 
       if (this.$refs.resetPasswordForm.validate()) {
         var user = {
@@ -41797,25 +41806,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         this.loading = true;
         this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["f" /* RESET_PASSWORD */], user).then(function (response) {
-          _this.loading = false;
-          _this.done = true;
+          _this2.loading = false;
+          _this2.done = true;
           Object(__WEBPACK_IMPORTED_MODULE_1__utils_sleep__["a" /* default */])(4000).then(function () {
-            _this.showResetPassword = false;
+            _this2.showResetPassword = false;
             window.location = '/home';
           });
         }).catch(function (error) {
 
-          _this.loading = false;
+          _this2.loading = false;
 
-          _this.alertOpts = {
+          _this2.alertOpts = {
             message: "Ocurrio un error, por favor intente nuevamente!",
             show: true,
             type: "error"
           };
 
-          _this.errors = error.response.data.errors;
+          _this2.errors = error.response.data.errors;
         }).then(function () {
-          _this.loading = false;
+          _this2.loading = false;
         });
       }
     }
@@ -41901,7 +41910,7 @@ var render = function() {
                   "append-icon-cb": function() {
                     return (_vm.showPass = !_vm.showPass)
                   },
-                  rules: _vm.passwordRules,
+                  rules: _vm.confirPassRules,
                   type: _vm.showPass ? "text" : "password",
                   dark: "",
                   hint: "Al menos 6 caracteres",

@@ -26,7 +26,7 @@
         <v-text-field
           :append-icon="showPass ? 'visibility_off' : 'visibility'"
           :append-icon-cb="() => (showPass = !showPass)"
-          :rules="passwordRules"
+          :rules="confirPassRules"
           :type="showPass ? 'text' : 'password'"
           dark
           hint="Al menos 6 caracteres"
@@ -88,7 +88,7 @@
         loading: false,
         done: false,
         emailRules: [
-          (v) => !!v || 'El email és obligatori',
+          (v) => !!v || 'El email és obligatorio!',
           (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'S\'ha d\'indicar un email vàlid'
         ],
         password: '',
@@ -96,6 +96,11 @@
         passwordRules: [
           (v) => !!v || 'La contraseña es obligatoria',
           (v) => v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres'
+        ],
+        confirPassRules: [
+          (v) => !!v || 'La contraseña es obligatoria',
+          (v) => v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres',
+          (v) => this.password === this.passwordConfirmation || 'Las contraseñas no coinciden'
         ],
         valid: false
       }
