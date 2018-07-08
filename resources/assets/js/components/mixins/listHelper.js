@@ -25,6 +25,11 @@ export default {
             if (!value) return ''
             value = value.toString();
             return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4);
+        },
+        formatNumber: function (value) 
+        {
+            let val = (value/1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         }
 
     },

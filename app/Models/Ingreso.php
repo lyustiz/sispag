@@ -31,9 +31,13 @@ class Ingreso extends Model
                             'fe_actualizado'
                             ]; 
     
-    protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+    protected $hidden     = ['id_usuario','fe_creado', 'fe_actualizado'];
 
-    
+    public function getFeIngresoAttribute($value) {
+  
+        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
+
     public function tipoIngreso(){
     
         return $this->BelongsTo('App\Models\TipoIngreso', 'id_tipo_ingreso');

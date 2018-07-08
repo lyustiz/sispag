@@ -27,16 +27,6 @@ class BancoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -70,16 +60,6 @@ class BancoController extends Controller
         return compact('banco');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Banco  $banco
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Banco $banco)
-    {
-        
-    }
 
     /**
      * Update the specified resource in storage.

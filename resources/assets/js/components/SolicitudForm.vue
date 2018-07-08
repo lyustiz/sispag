@@ -46,14 +46,18 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_solicitud"
+                v-model="dates.fe_solicitud"
                 :rules="rules.fecha"
                 label="Fecha de la Solicitud"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_solicitud" locale="es"></v-date-picker>
+                <v-date-picker 
+                v-model="form.fe_solicitud" 
+                locale="es" 
+                @input="dates.fe_solicitud = formatDate( form.fe_solicitud )">
+                </v-date-picker>
             </v-menu>
             </v-flex>
             
@@ -125,7 +129,7 @@
                     placeholder="Indique Observaciones"
                 ></v-text-field>
             </v-flex>
-                    
+
             </v-layout>
             </v-card-text>
             
@@ -180,6 +184,7 @@ export default {
         }
     },
     methods:{
+
         update(){
 
             if (this.$refs.form.validate())
@@ -200,7 +205,7 @@ export default {
                 axios.post(this.basePath, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
-                    this.$emit('cerrarModal');
+                    this.cancel();
                 })
                 .catch(error => {
                     this.showError(error);

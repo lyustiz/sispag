@@ -53,8 +53,8 @@
                 <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.solicitud.categoria.nb_categoria }}</td>
                 <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
                 <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
-                <td class="text-xs-left">{{ item.item.mo_instruccion }}</td>
-                <td class="text-xs-left">{{ item.item.fe_instruccion | formDate }}</td>
+                <td class="text-xs-rigth">{{ item.item.mo_instruccion | formatNumber }}</td>
+                <td class="text-xs-left">{{ item.item.fe_instruccion }}</td>
                 <td class="text-xs-left">{{ item.item.esquema.nb_esquema }}</td>
                 <!--acciones-->
                 <td class="text-xs-left">
@@ -76,7 +76,7 @@
                             'Monto Solicitado': item.item.solicitud.mo_solicitud,
                             'Nro Solicitud'   : item.item.solicitud.nu_solicitud,
                             'F. Solicitud'    : item.item.solicitud.fe_solicitud,
-                            'Obs. Instruccion': item.item.tx_observaciones,
+                            'Obs. Solicitud'  : item.item.tx_observaciones,
                             }" 
                     :visible="true"
                     @cerrar="item.expanded = !item.expanded">
@@ -158,10 +158,6 @@ export default {
     },
     methods:
     {
-        customFilter(items, search, filter) {
-
-            return items.filter(row => filter(row["solicitud.categoria.nb_categoria"], search));
-        },
         list () {
 
             axios.get('/api/v1/instruccion')

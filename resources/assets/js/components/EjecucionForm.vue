@@ -18,7 +18,7 @@
                 item-text="nb_etapa_envio"
                 item-value="id_etapa_envio"
                 v-model="form.id_etapa_envio"
-                :rules="rules.select"
+                :rules="rules.etapa"
                 label="Etapa de Ejecucion de Pago"
                 autocomplete
                 required
@@ -114,7 +114,7 @@ export default {
         return {
             tabla: 'ejecucionPago',
             form:{
-                id_pago :        this.pago.id_pago,
+                id_pago :         '',
                 id_banco:         '',
                 fe_envio_inst:    '',
                 id_etapa_envio:   '',
@@ -127,16 +127,39 @@ export default {
                 etapaEnvio: [],
                 status:     ['/grupo/3'],
             },
+            rules:{
+                etapa: [
+                    v => !!v || 'Seleccione una Opcion (Campo Requerido)',
+                    v => ( this.accion == 'ins' && Number(v) <= this.etapa) 
+                         ? 'Debe seleccionar la siguiente Etapa'
+                         : true,
+                    v => ( this.accion == 'upd' && Number(v) < this.etapa) 
+                         ? 'Debe seleccionar la siguiente Etapa'
+                         : true,
+                   ],
+
+            }
             
         }
     },
-    props:['pago'],
+    props:['pago', 'etapa'],
     methods:
     {
         update()
         {
+            
             if (this.$refs.form.validate()) 
             {           
+                if( this.form.id_etapa_envio == 3 &&  this.form.id_status == 13 )
+                {
+                    if(!confirm('Esta operacion completara el proceso de pago \n Desea continuar?'))
+                    {
+                        return false;
+                    }
+                }
+                
+                this.form.id_pago = this.pago.id_pago
+
                 axios.put(this.basePath + this.item.id_ejecucion_pago, this.form)
                 .then(respuesta => 
                 {
@@ -152,6 +175,8 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {            
+                this.form.id_pago = this.pago.id_pago
+
                 axios.post(this.basePath, this.form)
                 .then(respuesta => 
                 {

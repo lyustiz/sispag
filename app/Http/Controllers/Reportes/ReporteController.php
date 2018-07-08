@@ -169,8 +169,11 @@ class ReporteController extends Controller
 	{
 		$validate = request()->validate([
 
-            'campos'          => 'required',
-        ]);
+            'campos'        	=> 'required',
+		],
+		[
+			'campos.required'   => 'Seleccione almenos un campo de la tabla'
+		]);
 
 		$data = $this->getDataReporte($request->all());
 		
@@ -246,7 +249,7 @@ class ReporteController extends Controller
 		$objWriter 	 = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 		
 		$objPHPExcel->getProperties()
-					->setCreator	("Tecnologia Corpovex")
+					->setCreator	("Tecnologia Bandes")
 					->setTitle		("Reporte Excell Autogenerado")
 					->setSubject	("Reporte Excell Autogenerado Coprovex")
 					->setDescription("Reporte Excell Autogenerado con la Libreria PHPExcel")

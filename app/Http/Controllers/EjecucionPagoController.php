@@ -14,7 +14,9 @@ class EjecucionPagoController extends Controller
      */
     public function index()
     {
-        $Ejecucion = EjecucionPago::with(['pago', 'banco', 'etapaEnvio','status'])->get();
+        $Ejecucion = EjecucionPago::with(['pago', 'banco', 'etapaEnvio','status'])
+                                    ->get()
+                                    ->orderBy('id_etapa_envio', 'asc');
         
         return $Ejecucion;
     }
@@ -66,6 +68,7 @@ class EjecucionPagoController extends Controller
 
         $ejecucion = EjecucionPago::with(['pago', 'banco', 'etapaEnvio', 'status'])
                     ->where('id_pago','=', $id_pago)
+                    ->orderBy('id_etapa_envio', 'asc')
                     ->get();
         return $ejecucion;
     }

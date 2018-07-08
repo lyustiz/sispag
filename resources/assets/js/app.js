@@ -23,6 +23,9 @@ Vue.component('list-select', require('./components/ListSelect.vue'));
 Vue.component('list-data', require('./components/ListData.vue'));
 Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
 
+Vue.component('v-autonumeric', require('./components/VAutonumeric.vue'));
+Vue.component('currency-field', require('./components/CurrencyField.vue'));
+
 Vue.component('report', require('./components/reports/Report.vue'));
 Vue.component('report-data', require('./components/reports/ReportData.vue'));
 
@@ -87,26 +90,35 @@ const app = new Vue({
       { heading: 'Modulos' },
       { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
       { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' },
-      { icon: 'how_to_reg', text: 'Intrucciones', href: '/instruccion' },
+      { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' },
       { icon: 'play_for_work', text: 'pagos', href: '/pago' },
       { heading: 'Datos Maestros' },
-      { icon: 'account_balance', text: 'Banco', href: '/banco' },
-      { icon: 'store_mall_directory', text: 'Entes', href: '/ente' },
-      { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' },
-      { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
-      { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' },
-      { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' },
+      { icon: 'assignment', text: 'Datos Maestros', 
+        children: 
+        [
+          { icon: 'account_balance', text: 'Banco', href: '/banco' },
+          { icon: 'store_mall_directory', text: 'Entes', href: '/ente' },
+          { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' },
+          { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
+          { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' },
+          { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' },
+        ], 
+      },
       { heading: 'Reportes' },
-      { icon: 'assignment', text: 'Bancos', href: '/reports.reports' },
+      { icon: 'description', text: 'Reportes', 
+        children: 
+        [
+          { icon: 'description', text: 'Bancos', href: '/reports.reports' },
+          { icon: 'description', text: 'Ingresos', href: '/construccion' },
+          { icon: 'description', text: 'Solicitudes', href: '/construccion' },
+          { icon: 'description', text: 'Intrucciones', href: '/construccion' },
+          { icon: 'description', text: 'Cuenta', href: '/construccion' },
+          { icon: 'description', text: 'Movimientos', href: '/construccion' },
+          { icon: 'description', text: 'General', href: '/construccion' },
+        ], 
+      },
       { heading: 'Administracion' },
       { icon: 'person', text: 'Usuarios', href: '/reports.reports' },
-      { children: 
-        [
-          { icon: 'people', text: 'Roles', href: '/reports.reports' },
-           { icon: 'people', text: 'Roles', href: '/reports.reports' } 
-        ]
-       
-      },
       
       
       

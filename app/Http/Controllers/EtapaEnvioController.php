@@ -14,7 +14,7 @@ class EtapaEnvioController extends Controller
      */
     public function index()
     {
-        $EtapaEnvio = EtapaEnvio::with(['status'])->get();
+        $EtapaEnvio = EtapaEnvio::get();
         
         return $EtapaEnvio;
     }

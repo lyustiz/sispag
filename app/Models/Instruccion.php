@@ -34,6 +34,17 @@ class Instruccion extends Model
 
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function getFeInstruccionAttribute($value) {
+  
+        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function pago(){
+    
+        return $this->HasMany('App\Models\Pago', 'id_instruccion');
+    
+    }
+
     public function esquema(){
     
         return $this->BelongsTo('App\Models\Esquema', 'id_esquema');

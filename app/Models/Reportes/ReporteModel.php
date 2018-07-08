@@ -95,7 +95,6 @@ class ReporteModel extends Model
 		try {
             
             $resultado = $this->query->get()->toArray();
-            // dd($this->query->toSql());
 
 		} catch (Exception $e) {
 			

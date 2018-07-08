@@ -57,8 +57,8 @@
                         </td>
                         <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
                         <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
-                        <td class="text-xs-right">{{ item.item.mo_instruccion }}</td>
-                        <td class="text-xs-left">{{ item.item.fe_instruccion | formDate }}</td>
+                        <td class="text-xs-right">{{ item.item.mo_instruccion | formatNumber }}</td>
+                        <td class="text-xs-left">{{ item.item.fe_instruccion  }}</td>
                         <td class="text-xs-left">
                             <v-btn flat icon color="warning">
                                 <v-icon>warning</v-icon>
@@ -121,10 +121,6 @@ export default {
     },
     methods:
     {
-        customFilter(items, search, filter) {
-
-            return items.filter(row => filter(row["solicitud.categoria.nb_categoria"], search));
-        },
         list () {
 
             axios.get('/api/v1/instruccion')

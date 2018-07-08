@@ -125,10 +125,6 @@ export default {
     },
     methods:
     {
-        customFilter(items, search, filter) {
-
-            return items.filter(row => filter(row["categoria.nb_categoria"], search));
-        },
         list () {
             
             axios.get('/api/v1/solicitud')

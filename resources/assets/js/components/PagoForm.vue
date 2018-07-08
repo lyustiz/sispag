@@ -18,10 +18,11 @@
                 item-text="nb_tipo_pago"
                 item-value="id_tipo_pago"
                 v-model="form.id_tipo_pago"
-                :rules="rules.select"
+                :rules="rules.pagoTotal"
                 label="Tipo de Pago"
                 autocomplete
                 required
+                @input="tipoPago"
                 ></v-select>
             </v-flex>
 
@@ -82,11 +83,12 @@
             <v-flex xs12 sm4>
                 <v-text-field
                 v-model="form.mo_final_pago"
-                :rules="rules.monto"
+                :rules="rules.montoPago"
                 label="Monto del Pago"
-                placeholder="Monto del Pago"
-                hint="Ej 845.456,12"
+                placeholder="Monto del Pago Pendiente"
+                :hint="`Pendiente de pago: ${moPendiente}`"
                 required
+                :readonly="pagoTotal"
                 ></v-text-field>
             </v-flex>
 
@@ -150,7 +152,6 @@
                 ></form-buttons>  
 
             </v-card-actions>
-                                
         </v-card>
         </v-form>
     </v-flex>
@@ -167,13 +168,14 @@ export default {
     data () {
         return {
             tabla: 'pago',
+            pagoTotal: false,
             pickers: {
                 fe_liq_bcv: false,
                 fe_pago:    false
             },
             esquema: 'Solicitud',
             form:{
-                id_instruccion: this.instruccion.id_instruccion,
+                id_instruccion:  '',
                 fe_liq_bcv:      '',
                 id_banco:        '',
                 fe_pago:         '',
@@ -191,16 +193,57 @@ export default {
                 tipoPago: [],
                 status:   ['/grupo/3'],
             },
+            rules:{
+                montoPago: [
+                    v => !!v || 'Indique Monto',
+                    v => (Number(v) > this.moPendiente) 
+                         ? `Monto mayor al disponible ${this.moPendiente}` 
+                         : true
+                   ],
+                pagoTotal: [
+                    v => !!v || 'Seleccione una Opcion (Campo Requerido)',
+                    v => (Number(v) == 1 && this.montos.pagado > 0 && this.montos.pagado) 
+                         ? 'Ya existe pagos parciales'
+                         : true
+                   ],
+            },
             
         }
     },
-    props:['instruccion'],
+    computed:
+    {
+        moPendiente: function()
+        {
+           return (this.accion == 'ins') 
+                  ? this.montos.pendiente 
+                  : this.montos.pendiente + Number(this.item.mo_final_pago)
+        },
+    },
+    props:['instruccion', 'montos'],
     methods:{
+        tipoPago()
+        {
+            if(this.form.id_tipo_pago == 1){ //pago total
+
+                this.pagoTotal = true;
+                this.form.mo_final_pago = this.moPendiente;
+            }
+            else{                           //pagoparcial
+                
+                if(this.accion == 'ins')
+                {
+                    this.form.mo_final_pago = null;
+                }
+                this.pagoTotal = false;
+            }
+        },
         update()
         {
             if (this.$refs.form.validate()) 
             {               
-                axios.put(this.basePath + this.item.id_pago, this.form)
+               this.form.id_instruccion = this.instruccion.id_instruccion
+
+               axios.put(this.basePath + this.item.id_pago, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                 })
@@ -213,6 +256,8 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {                
+                this.form.id_instruccion = this.instruccion.id_instruccion
+
                 axios.post(this.basePath, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)

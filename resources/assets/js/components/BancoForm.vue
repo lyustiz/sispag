@@ -129,7 +129,7 @@ export default {
                 axios.put(this.basePath + this.form.id_banco, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
-                    this.$emit('cerrarModal');
+                    this.cancel();
                 })
                 .catch(error => {
                     this.showError(error);

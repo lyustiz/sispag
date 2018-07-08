@@ -31,6 +31,12 @@ class Solicitud extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
     
+    public function getFeSolicitudAttribute($value) {
+  
+        return \Carbon\Carbon::parse($value)->format('Y-m-d');
+    }
+
+
     public function ente(){
     
         return $this->BelongsTo('App\Models\Ente', 'id_ente');

@@ -28,6 +28,11 @@ class EjecucionPago extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function getFeEnvioInstAttribute($value) {
+  
+        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
+
 
     public function pago(){
     
@@ -37,7 +42,7 @@ class EjecucionPago extends Model
 
     public function banco(){
     
-        return $this->BelongsTo('App\Models\Banco', 'id_pago');
+        return $this->BelongsTo('App\Models\Banco', 'id_banco');
     
     }
 

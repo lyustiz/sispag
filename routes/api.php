@@ -21,44 +21,46 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     
     Route::put('/user', 'LoggedUserController@update');
     
-    Route::Resource('/banco', 'BancoController');
+    Route::apiResource('/banco', 'BancoController');
     Route::Get('/banco/grupo/{id_grupo_banco}', 'BancoController@bancoGrupo');
-    Route::Resource('/tipoBanco', 'TipoBancoController');
-    Route::Resource('/grupoBanco', 'GrupoBancoController');
+    Route::apiResource('/tipoBanco', 'TipoBancoController');
+    Route::apiResource('/grupoBanco', 'GrupoBancoController');
     
-    Route::Resource('/ente', 'EnteController');
+    Route::apiResource('/ente', 'EnteController');
     Route::Get('/ente/tipo/{id_tipo_ente}', 'EnteController@enteTipo');
     Route::Get('/ente/grupo/{id_grupo_ente}', 'EnteController@enteGrupo');
     Route::Get('/ente/tipo/{id_tipo_ente}/grupo/{id_grupo_ente}', 'EnteController@enteTipoGrupo');
-    Route::Resource('/grupoEnte', 'GrupoEnteController');
-    Route::Resource('/tipoEnte', 'TipoEnteController');
+    Route::apiResource('/grupoEnte', 'GrupoEnteController');
+    Route::apiResource('/tipoEnte', 'TipoEnteController');
 
-    Route::Resource('/categoria', 'CategoriaController', ['parameters' => ['categoria' => 'categoria']]);
+    Route::apiResource('/categoria', 'CategoriaController', ['parameters' => ['categoria' => 'categoria']]);
 
-    Route::Resource('/ingreso', 'IngresoController');
-    Route::Resource('/tipoIngreso', 'TipoIngresoController');
+    Route::apiResource('/ingreso', 'IngresoController');
+    Route::apiResource('/tipoIngreso', 'TipoIngresoController');
     
-    Route::Resource('/pago', 'PagoController');
+    Route::apiResource('/pago', 'PagoController');
     Route::get('/pago/instruccion/{id_instruccion}', 'PagoController@pagoInstruccion');
-    Route::Resource('/tipoPago', 'TipoPagoController');
-    Route::Resource('/ejecucionPago', 'EjecucionPagoController');
+    Route::apiResource('/tipoPago', 'TipoPagoController');
+    Route::apiResource('/ejecucionPago', 'EjecucionPagoController');
     Route::get('/ejecucionPago/pago/{id_pago}', 'EjecucionPagoController@ejecucionPagoPago');
 
-    Route::Resource('/moneda', 'MonedaController');
+    Route::apiResource('/moneda', 'MonedaController');
 
-    Route::Resource('/cuenta', 'CuentaController',['parameters' => ['cuenta' => 'cuenta']]);
+    Route::apiResource('/cuenta', 'CuentaController',['parameters' => ['cuenta' => 'cuenta']]);
     Route::get('/cuenta/moneda/{id_moneda}', 'CuentaController@cuentaMoneda');
 
-    Route::Resource('/solicitud', 'SolicitudController');
+    Route::apiResource('/solicitud', 'SolicitudController');
     Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
 
-    Route::Resource('/instruccion', 'InstruccionController');
+    Route::apiResource('/instruccion', 'InstruccionController');
+    Route::Get('/instruccion/pagos', 'InstruccionController@instruccionPagos');
+    
     Route::Get('/esquema/padre', 'EsquemaController@esquemaPadre');
-    Route::Resource('/esquema', 'EsquemaController');
+    Route::apiResource('/esquema', 'EsquemaController');
 
-    Route::Resource('/etapaEnvio', 'EtapaEnvioController');
+    Route::apiResource('/etapaEnvio', 'EtapaEnvioController');
 
-    Route::Resource('/status', 'StatusController');
+    Route::apiResource('/status', 'StatusController');
     
     Route::Get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
 

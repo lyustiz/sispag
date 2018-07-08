@@ -19,6 +19,14 @@ class InstruccionController extends Controller
         return $instrucciones;
     }
 
+
+    public function instruccionPagos()
+    {
+        $instrucciones = Instruccion::with(['esquema','solicitud.ente', 'solicitud.categoria', 'pago.ejecucionPago','status' ])->get();
+        
+        return $instrucciones;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

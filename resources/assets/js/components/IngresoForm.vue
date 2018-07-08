@@ -51,15 +51,24 @@
                 ></v-select>
             </v-flex>
 
+            
             <v-flex xs12 sm4>
-                <v-text-field
+            <v-autonumeric
                 v-model="form.mo_ingreso"
-                :rules="rules.monto"
+                ref="monto"
                 label="Monto Ingreso"
                 placeholder="Ingrese monto"
                 hint="Ej 845.456,12"
                 required
-                ></v-text-field>
+                :options="{
+                    digitGroupSeparator: '.',
+                    decimalCharacter: ',',
+                    decimalCharacterAlternative: '.',
+                    currencySymbolPlacement: 's',
+                    roundingMethod: 'U',
+                    minimumValue: '0'
+                }"
+            ></v-autonumeric>
             </v-flex>
 
             <v-flex xs12 sm4>
@@ -76,13 +85,22 @@
             </v-flex>
 
             <v-flex xs12 sm4>
-                <v-text-field
+                <v-autonumeric
                 v-model="form.mo_tasa"
+                ref="monto"
                 :rules="rules.montoNR"
                 label="Tasa de Cambio"
                 placeholder="Ingrese Tasa"
-                hint="Ej 107,02"
-                ></v-text-field>
+                hint="Ej 456,12"
+                :options="{
+                    digitGroupSeparator: '.',
+                    decimalCharacter: ',',
+                    decimalCharacterAlternative: '.',
+                    currencySymbolPlacement: 's',
+                    roundingMethod: 'U',
+                    minimumValue: '0'
+                }"
+            ></v-autonumeric>
             </v-flex>
 
             <v-flex xs12 sm6>
@@ -101,7 +119,7 @@
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_ingreso" locale="es"></v-date-picker>
+                <v-date-picker v-model="form.fe_ingreso" locale="es" @input="form.fe_ingreso = formatDate(form.fe_ingreso)"></v-date-picker>
             </v-menu>
             </v-flex>
 
@@ -151,6 +169,7 @@
 </template>
 
 <script>
+import VueAutonumeric from 'vue-autonumeric';
 import withSnackbar from '../components/mixins/withSnackbar';
 import formHelper from '../components/mixins/formHelper';
 
@@ -164,7 +183,7 @@ export default {
                 id_tipo_ingreso: '',
                 id_ente: '',
                 id_moneda: '',
-                mo_ingreso: '',
+                mo_ingreso: 0,
                 mo_tasa: '',
                 fe_ingreso: '',
                 id_banco: '',
@@ -182,12 +201,11 @@ export default {
         }
     },
     methods:{
-        
         update()
         {
             if (this.$refs.form.validate()) 
             {           
-                axios.put(this.basePath+ this.item.id_ingreso, this.form)
+                axios.put(this.basePath + this.item.id_ingreso, this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
@@ -206,7 +224,7 @@ export default {
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
-                    this.$emit('cerrarModal');
+                    this.cancel();
                 })
                 .catch(error => 
                 {

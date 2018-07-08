@@ -79,7 +79,7 @@
                     <v-list-tile>
                         <v-text-field
                         v-model="form.mo_instruccion"
-                        :rules="rules.monto"
+                        :rules="rules.montoInstruccion"
                         name="name"
                         label="Monto de la Instuccion"
                         placeholder="Ingrese Monto"
@@ -251,7 +251,10 @@ export default {
                 id_status:        1,  
             },
             rules:{
-
+                montoInstruccion: [
+                    v => !!v || 'Indique Monto',
+                    v => (Number(v) > Number(this.ingreso.mo_disponible)) ? 'Monto mayor al disponible' : true
+                   ],
             },
             listas: {
                 categoria: [],
@@ -260,7 +263,8 @@ export default {
         }
     },
     computed:{
-        tablaCategoria(){
+        tablaCategoria()
+        {
             return 'solicitud/categoria/'+this.categoria;
         },
     },
@@ -273,7 +277,6 @@ export default {
         },
         btnAccion: function (val)
         {
-            
             if( val == 'upd')
             {
                 this.categoria = 1;
@@ -286,6 +289,15 @@ export default {
           this.solicitud = false;
           this.ingreso   = false;
         }
+    },
+    filters: {
+
+        formatNumber: function (value) 
+        {
+            let val = (value/1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }
+
     },
     methods:
     {
@@ -318,13 +330,12 @@ export default {
                 
             }
         },
-        clear () {
-
+        clear () 
+        {
             this.$refs.form.reset()
             this.ingreso  = false;
             this.solicitud      = false;
             this.categoria      = false;
-
         },
         getSolicitud()
         {

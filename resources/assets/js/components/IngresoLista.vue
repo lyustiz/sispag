@@ -54,10 +54,10 @@
             <td class="text-xs-left"> {{ item.item.ente.nb_ente }}</td>
             <td class="text-xs-left"> {{ item.item.banco.nb_banco }}</td>
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
-            <td class="text-xs-right">{{ item.item.mo_ingreso }}</td>
-            <td class="text-xs-right">{{ item.item.mo_tasa }}</td>
-            <td class="text-xs-left"> {{ item.item.fe_ingreso| formDate }}</td>
-            <!--acciones-->
+            <td class="text-xs-right">{{ item.item.mo_ingreso | formatNumber }}</td>
+            <td class="text-xs-right">{{ item.item.mo_tasa | formatNumber }}</td>
+            <td class="text-xs-left"> {{ item.item.fe_ingreso }}</td>
+            <!--acciones | formDate-->
             <td class="text-xs-left">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
@@ -129,9 +129,6 @@ export default {
     props:['notitle'],
     methods:
     {
-        customFilter(items, search, filter) {
-            return items.filter(row => filter(row["tipo_ingreso.nb_tipo_ingreso"], search));
-        },
         list () {
 
             axios.get('/api/v1/ingreso')

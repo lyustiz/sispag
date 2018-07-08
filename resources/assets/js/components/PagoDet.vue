@@ -5,10 +5,19 @@
     <v-card>
         
         <v-toolbar class="blue accent-1 white--text">
-            <h3>Pago</h3>
-
+            <h3>Pagos</h3> 
+            <v-chip color="info  white--text"  >
+                Instrudo: {{montos.instruido | formatNumber}}
+            </v-chip>
+            <v-chip color="error  white--text"  >
+               Pendiente: {{montos.pendiente | formatNumber}}
+            </v-chip>
+            <v-chip color="green  white--text"  >
+                Pagado: {{montos.pagado | formatNumber}}
+            </v-chip>
+            
             <v-spacer></v-spacer>
-            <v-btn fab @click="insItem" dark small absolute right bottom class="success">
+            <v-btn v-if="montos.pendiente > 0" fab @click="insItem" dark small absolute right bottom class="success">
                 <v-icon dark>add</v-icon>
             </v-btn>
         </v-toolbar>
@@ -31,9 +40,9 @@
                 </v-btn>
                {{ item.item.tipo_pago.nb_tipo_pago }}
             </td>
-            <td class="text-xs-right">{{ item.item.mo_final_pago }}</td>
+            <td class="text-xs-right">{{ item.item.mo_final_pago | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
-            <td class="text-xs-left"> {{ item.item.fe_pago | formDate  }}</td>
+            <td class="text-xs-left"> {{ item.item.fe_pago  }}</td>
             <td class="text-xs-left"> {{ item.item.status.nb_status }}</td>
             <!--acciones-->
             <td class="text-xs-left">
@@ -60,7 +69,7 @@
     </v-layout>
     
     <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-        <pago-form :accion="accion" :instruccion="instruccion" :item="item" @cerrarModal="cerrarModal"></pago-form>
+        <pago-form :accion="accion" :montos="montos" :instruccion="instruccion" :item="item" @cerrarModal="cerrarModal"></pago-form>
     </form-container>
 
     <dialogo 
@@ -70,7 +79,6 @@
         @delCancel="delCancel"
     >
     </dialogo>
-
 
     </v-container>
 
@@ -85,6 +93,11 @@ export default {
     mixins:[ listHelper, withSnackbar ],
     data () {
     return {
+        montos:{
+            instruido:  Number(this.instruccion.mo_instruccion),
+            pendiente:  0,
+            pagado:     0,
+        },
         headers: [
         { text: 'Tipo Pago',value: 'tipo_pago.nb_tipo_pago' },
         { text: 'Monto',    value: 'mo_final_pago' },
@@ -96,6 +109,23 @@ export default {
     }
     },
     props:['instruccion'],
+    watch:{
+        items: function(val){
+            let moPagado = 0
+            if (!val) 
+            {
+                this.montos.pagado = 0
+
+            }else
+            {
+                val.forEach(function(item) {
+                    moPagado += Number(item.mo_final_pago)
+                });
+            }
+            this.montos.pagado    = moPagado;
+            this.montos.pendiente = this.montos.instruido - moPagado;
+        }
+    },
     methods:
     {
         list () {

@@ -8,7 +8,7 @@
             <h3>Ejecucion del Pago</h3>
 
             <v-spacer></v-spacer>
-            <v-btn fab @click="insItem" dark small absolute right bottom class="success">
+            <v-btn v-if="etapa != 3" fab @click="insItem" dark small absolute right bottom class="success">
                 <v-icon dark>add</v-icon>
             </v-btn>
         </v-toolbar>
@@ -21,6 +21,8 @@
         :items  ="items"
         hide-actions
         item-key="id_ejecucion"
+        disable-initial-sort
+
         >
 
         <template slot="items" slot-scope="item">
@@ -28,7 +30,7 @@
 
             <td class="text-xs-left">{{ item.item.etapa_envio.nb_etapa_envio }}</td>
             <td class="text-xs-left">{{ item.item.banco.nb_banco }}</td>
-            <td class="text-xs-left">{{ item.item.fe_envio_inst | formDate }}</td>
+            <td class="text-xs-left">{{ item.item.fe_envio_inst  }}</td>
             <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
             <!--acciones-->
             <td class="text-xs-left">
@@ -47,7 +49,7 @@
     </v-layout>
 
     <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-        <ejecucion-form :accion="accion" :pago="pago" :item="item" @cerrarModal="cerrarModal"></ejecucion-form>
+        <ejecucion-form :accion="accion" :etapa="etapa" :pago="pago" :item="item" @cerrarModal="cerrarModal"></ejecucion-form>
     </form-container>
 
     <dialogo 
@@ -71,6 +73,7 @@ export default {
     mixins:[ listHelper, withSnackbar ],
     data () {
     return {
+        etapa: 0,
         headers: [
         { text: 'Etapa',    value: 'etapa_envio.nb_etapa_envio' },
         { text: 'Banco',    value: 'banco.nb_banco' },
@@ -81,6 +84,24 @@ export default {
     }
     },
     props:['pago'],
+    watch:{
+        items: function(items){
+            let  etapa = 0
+            if (!items) 
+            {
+                this.etapa = 0
+
+            }else
+            {
+                items.forEach(function(item) {
+                    etapa = ( Number(item.id_etapa_envio) > etapa) 
+                            ? Number(item.id_etapa_envio)
+                            : etapa
+                });
+                this.etapa = etapa;
+            }
+        }
+    },
     methods:
     {
         list () {

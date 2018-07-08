@@ -32,9 +32,20 @@ class Pago extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
     
+    public function getFePagoAttribute($value) {
+  
+        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
+
     public function ejecucionPago(){
     
         return $this->HasMany('App\Models\Pago', 'id_pago');
+    
+    }
+
+    public function instruccion(){
+    
+        return $this->BelongsTo('App\Models\Instruccion', 'id_instruccion');
     
     }
     
