@@ -116,7 +116,7 @@
 
           this.loginLoading = true
           const credentials = {
-            'email': this.email,
+            'usuario': this.usuario,
             'password': this.password
           }
 

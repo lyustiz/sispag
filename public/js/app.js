@@ -41331,7 +41331,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.loginLoading = true;
         var credentials = {
-          'email': this.email,
+          'usuario': this.usuario,
           'password': this.password
         };
 
