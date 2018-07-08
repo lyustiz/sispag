@@ -56,7 +56,11 @@ Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
 Vue.component('tipo-ingreso-lista', require('./components/TipoIngresoLista.vue'));
 Vue.component('tipo-ingreso-form', require('./components/TipoIngresoForm.vue'));
 
-window.Vuetify = require('vuetify'); 
+//Componentes Frontend
+Vue.component('form-login', require('./components/frontend/form-login.vue'));
+Vue.component('form-recovery', require('./components/frontend/form-recovery.vue'));
+
+window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 
 import store from './store'
@@ -66,16 +70,42 @@ import * as mutations from './store/mutation-types'
 import { mapGetters } from 'vuex'
 import withSnackbar from './components/mixins/withSnackbar'
 
+import Slick from 'vue-slick';
+import colors from 'vuetify/es5/util/colors';
+
 if (window.user) {
   store.commit(mutations.USER,  user)
   store.commit(mutations.LOGGED, true)
 }
 
+Vue.use(Vuetify, {
+  theme: {
+    primary: colors.red.darken1, // #E53935
+    secondary: colors.red.lighten4, // #FFCDD2
+    accent: colors.indigo.base // #3F51B5
+  }
+})
+
 const app = new Vue({
   el: '#app',
   store,
   mixins: [ withSnackbar ],
+  components: { Slick },
   data: () => ({
+    parallax: {
+      height: 0,
+      images: "/img/salto-angel.jpeg"
+    },
+    formLogin: {
+      name: "",
+      nameRules: "",
+      valid: false
+    },
+    slickOptions: {
+      nextArrow: "",
+      prevArrow: "",
+      slidesToShow: 1
+    },
     drawer: null,
     drawerRight: false,
     editingUser: false,
@@ -100,32 +130,41 @@ const app = new Vue({
       { icon: 'assignment', text: 'Bancos', href: '/reports.reports' },
       { heading: 'Administracion' },
       { icon: 'person', text: 'Usuarios', href: '/reports.reports' },
-      { children: 
+      { children:
         [
           { icon: 'people', text: 'Roles', href: '/reports.reports' },
-           { icon: 'people', text: 'Roles', href: '/reports.reports' } 
+           { icon: 'people', text: 'Roles', href: '/reports.reports' }
         ]
-       
-      },
-      
-      
-      
-      
-      //{ heading: 'Administració', role: 'Manager' }
+
+      }
     ]
   }),
+  created: function () {
+
+    this.windowResize()
+
+  },
   computed: {
     ...mapGetters({
       user: 'user'
     })
   },
   methods: {
+    windowResize () {
+
+      this.parallax.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        this.parallax.height = window.innerHeight
+      });
+
+    },
     editUser () {
       this.editingUser = true
       this.$nextTick(this.$refs.email.focus)
     },
     updateUser () {
-      
+
       this.updatingUser = true
       this.$store.dispatch(actions.UPDATE_USER, this.user).then(response => {
         this.showMessage('Usuario Modificado Correctamente')
