@@ -102,6 +102,7 @@ const app = new Vue({
       valid: false
     },
     slickOptions: {
+      draggable: false,
       nextArrow: "",
       prevArrow: "",
       slidesToShow: 1

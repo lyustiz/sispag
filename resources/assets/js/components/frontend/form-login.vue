@@ -47,6 +47,7 @@
 <script>
   import * as actions from '../../store/action-types'
   import withSnackbar from '../mixins/withSnackbar'
+  import $ from "jquery";
   export default {
     mixins: [withSnackbar],
     data () {
@@ -75,10 +76,6 @@
       show: {
         type: Boolean,
         default: true
-      },
-      parentRefs: {
-        type: Object,
-        default: function () {}
       }
     },
     computed: {
@@ -95,8 +92,7 @@
     },
     methods: {
       verFormRecovery () {
-
-        console.log(this.$props.parentRefs)
+        $(this.$parent.$el).slick('slickNext');
       },
       login () {
         if (this.$refs.loginForm.validate()) {

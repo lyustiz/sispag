@@ -45,7 +45,7 @@
                       ref="slick"
                       :options="slickOptions">
                       <div id="wrapper-form-login">
-                        <form-login action="{{ $action or null }}" :parentRefs="$refs"></form-login>
+                        <form-login action="{{ $action or null }}"></form-login>
                       </div>
                       <div id="wrapper-form-recovery">
                         <form-recovery></form-recovery>

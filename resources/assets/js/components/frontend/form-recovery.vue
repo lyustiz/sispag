@@ -34,28 +34,30 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
       <v-btn
+        :loading="loginLoading"
+        class="white--text"
+        color="blue darken-2"
+        v-on:click="verFormLogin">Ya estoy registrado</v-btn>
+      <v-btn
+        @click.native="reset"
         :color="done ? 'green' : 'blue darken-2'"
         :loading="loading"
-        class="white--text"
-        flat
-        @click.native="reset">
-          <v-icon v-if="done">done</v-icon>
-          &nbsp;
-          <template v-if="!done">Restablecer</template>
-          <template v-else>Done</template>
+        class="white--text">
+             <v-icon v-if="done">done</v-icon>
+             &nbsp;
+             <template v-if="!done">Restablecer</template>
+             <template v-else>Listo</template>
       </v-btn>
-      <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
 </template>
-
 
 <script>
   import * as actions from '../../store/action-types'
   import sleep from '../../utils/sleep'
   import withSnackbar from '../mixins/withSnackbar'
+  import $ from "jquery";
   export default {
     mixins: [withSnackbar],
     data () {
@@ -103,6 +105,9 @@
       }
     },
     methods: {
+      verFormLogin () {
+        $(this.$parent.$el).slick('slickPrev');
+      },
       reset () {
         if (this.$refs.resetPasswordForm.validate()) {
           const user = {
