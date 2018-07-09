@@ -14,7 +14,19 @@ class MovimientoController extends Controller
      */
     public function index()
     {
-        //
+        $movimientos  = Movimiento::with(['moneda','status'])
+                        ->orderBy('fe_movimiento' , 'desc')
+                        ->get();
+        
+        return $movimientos;
+    }
+
+    public function movimientoMoneda($moneda)
+    {
+        $movimientos  = Movimiento::with(['moneda','status'])
+                        ->moneda($moneda)
+                        ->get();
+        return $movimientos;
     }
 
     /**

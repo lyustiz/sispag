@@ -4,46 +4,29 @@
         <v-flex xs12>
         <v-card>
             
-            <v-toolbar class="blue accent-1 white--text">
-            <h3>Cuenta</h3>
+            <v-toolbar class="blue-grey white--text">
+            <h3>Movimiento</h3>
                 <v-spacer></v-spacer>
             </v-toolbar>
 
             <v-card-text>
                 
-            <v-flex xs12 xs6>
-            <v-text-field
-                v-model="buscar"
-                append-icon="search"
-                label="Buscar"
-                single-line
-                hide-details
-                clearable
-            ></v-text-field>
-            </v-flex>
             
             <v-data-table
             :headers="headers"
             :items  ="items"
-            :search ="buscar"
             v-model ="selected"
-            item-key="id_cuenta"
+            item-key="id_movimiento"
             rows-per-page-text="Res. x Pag"
             disable-initial-sort
             >
 
             <template slot="items" slot-scope="item">
-                <td class="text-xs-left" @click="item.expanded = !item.expanded" >
-                            <v-btn flat icon color="primary">
-                                <v-icon>import_export</v-icon>
-                            </v-btn>
-                            {{ item.item.moneda.nb_moneda }}
-                </td>
-                <td class="text-xs-right">{{ item.item.mo_total | formatNumber}}</td>
-                <td class="text-xs-right">{{ item.item.mo_disponible | formatNumber }}</td>
-                <td class="text-xs-right">{{ item.item.mo_instruido | formatNumber}}</td>
-                <td class="text-xs-right">{{ item.item.mo_aprobado  | formatNumber}}</td>
-                <td class="text-xs-left">{{ (item.item.fe_actualizado) ? item.item.fe_actualizado : item.item.fe_creado }}</td>
+                <td class="text-xs-center">{{ item.item.nu_movimiento }}</td>
+                <td class="text-xs-left">{{ item.item.nb_modulo  }}</td>
+                <td class="text-xs-left">{{ item.item.tx_tipomov }}</td>
+                <td class="text-xs-right">{{ item.item.mo_movimiento  | formatNumber}}</td>
+                <td class="text-xs-left">{{ item.item.fe_movimiento}}</td>
 
             </template>
 
@@ -84,20 +67,20 @@ export default {
     data () {
     return {
         headers: [
-        { text: 'Moneda',           value: 'moneda.nb_moneda' },
-        { text: 'Total',            value: 'mo_total' },
-        { text: 'Disponible',       value: 'mo_disponible' },
-        { text: 'Instruido',        value: 'mo_instruido' },
-        { text: 'Aprobado',         value: 'mo_aprobado'  },
-        { text: 'Ult Movimiento',   value: 'fe_actualizado'  },
+        { text: 'Numero',      value: 'nu_movimiento' },
+        { text: 'Modulo',      value: 'nb_modulo' },
+        { text: 'Tipo Mov',    value: 'tx_tipomov' },
+        { text: 'Monto',       value: 'mo_movimiento' },
+        { text: 'Fecha',       value: 'fe_movimiento' },
         ]
     }
     },
+    props: ['moneda'],
     methods:
     {
         list () {
 
-            axios.get('/api/v1/cuenta')
+            axios.get('/api/v1/movimiento/moneda/'+this.moneda)
             .then(respuesta => {
                 this.items = respuesta.data;
             })

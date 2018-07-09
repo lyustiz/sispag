@@ -50,7 +50,7 @@
             <template slot="expand" slot-scope="item">
                 <v-card flat>
                     <v-card-text>
-                       {{item.item}}
+                        <movimiento-lista :moneda="item.item.id_moneda"></movimiento-lista>
                     </v-card-text>
                 </v-card>
             </template>

@@ -30,11 +30,19 @@ class Cuenta extends Model
     
     protected $hidden     = ['id_usuario'];
 
+                           
+   
     public function scopeMoneda($query, $moneda)
     {
         return $query->where('id_moneda', $moneda);
     }
     
+    public function movimiento(){
+    
+        return $this->HasMany('App\Models\Movimiento', 'id_moneda');
+    
+    }  
+
     public function moneda(){
     
         return $this->BelongsTo('App\Models\Moneda', 'id_moneda');

@@ -41,6 +41,18 @@ class Moneda extends Model
     
     }
 
+    public function cuenta(){
+    
+        return $this->HasMany('App\Models\Cuenta', 'id_moneda');
+    
+    }
+
+    public function movimiento(){
+    
+        return $this->HasMany('App\Models\Movimiento', 'id_moneda');
+    
+    }
+
     public function solicitud(){
     
         return $this->HasMany('App\Models\Solicitud', 'id_moneda');

@@ -20,6 +20,7 @@ class Movimiento extends Model
                             'nb_modulo',
                             'tx_tipomov',
                             'mo_movimiento',
+                            'id_moneda',
                             'fe_movimiento',
                             'tx_observaciones',
                             'id_usuario',
@@ -30,10 +31,32 @@ class Movimiento extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    public function scopeMoneda($query, $moneda)
+    {
+        return $query->where('id_moneda', $moneda);
+    }
+
+    public function moneda(){
+    
+        return $this->BelongsTo('App\Models\Moneda', 'id_moneda');
+    
+    }
 
     public function cuenta(){
     
-        return $this->BelongsTo('App\Models\TipoBanco', 'id_tipo_banco');
+        return $this->BelongsTo('App\Models\Cuenta', 'id_moneda');
+    
+    }
+
+    public function status(){
+    
+        return $this->BelongsTo('App\Models\Status', 'id_status');
+    
+    }
+
+    public function usuario(){
+    
+        return $this->BelongsTo('App\Models\Usuario', 'id_usuario');
     
     }
     

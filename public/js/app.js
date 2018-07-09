@@ -25909,10 +25909,10 @@ var app = new Vue({
       logoutLoading: false,
       changingPassword: false,
       updatingUser: false,
-      items: [{ heading: 'Modulos' }, { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' }, { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' }, { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' }, { icon: 'assignment_returned', text: 'pagos', href: '/pago' }, { icon: 'assessment', text: 'cuentas', href: '/cuenta' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
+      items: [{ heading: 'Modulos' }, { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' }, { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' }, { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' }, { icon: 'assignment_returned', text: 'Pagos', href: '/pago' }, { icon: 'assessment', text: 'Cuentas', href: '/cuenta' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
         children: [{ icon: 'account_balance', text: 'Banco', href: '/banco' }, { icon: 'store_mall_directory', text: 'Entes', href: '/ente' }, { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }, { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' }, { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' }]
       }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
-        children: [{ icon: 'description', text: 'Bancos', href: '/reports.reports' }, { icon: 'description', text: 'Ingresos', href: '/construccion' }, { icon: 'description', text: 'Solicitudes', href: '/construccion' }, { icon: 'description', text: 'Intrucciones', href: '/construccion' }, { icon: 'description', text: 'Cuenta', href: '/construccion' }, { icon: 'description', text: 'Movimientos', href: '/construccion' }, { icon: 'description', text: 'General', href: '/construccion' }]
+        children: [{ icon: 'description', text: 'Bancos', href: '/reports.reports' }, { icon: 'description', text: 'Ingresos', href: '/construccion' }, { icon: 'description', text: 'Solicitudes', href: '/construccion' }, { icon: 'description', text: 'Intrucciones', href: '/construccion' }, { icon: 'description', text: 'General', href: '/construccion' }]
       }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/reports.reports' }]
     };
   },
@@ -33623,13 +33623,17 @@ var render = function() {
                                     "v-card",
                                     { attrs: { flat: "" } },
                                     [
-                                      _c("v-card-text", [
-                                        _vm._v(
-                                          "\n                   " +
-                                            _vm._s(item.item) +
-                                            "\n                "
-                                        )
-                                      ])
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c("movimiento-lista", {
+                                            attrs: {
+                                              moneda: item.item.id_moneda
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   )
@@ -33796,7 +33800,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -33868,23 +33872,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -33894,15 +33881,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
-            headers: [{ text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Total', value: 'mo_total' }, { text: 'Disponible', value: 'mo_disponible' }, { text: 'Instruido', value: 'mo_instruido' }, { text: 'Aprobado', value: 'mo_aprobado' }, { text: 'Ult Movimiento', value: 'fe_actualizado' }]
+            headers: [{ text: 'Numero', value: 'nu_movimiento' }, { text: 'Modulo', value: 'nb_modulo' }, { text: 'Tipo Mov', value: 'tx_tipomov' }, { text: 'Monto', value: 'mo_movimiento' }, { text: 'Fecha', value: 'fe_movimiento' }]
         };
     },
 
+    props: ['moneda'],
     methods: {
         list: function list() {
             var _this = this;
 
-            axios.get('/api/v1/cuenta').then(function (respuesta) {
+            axios.get('/api/v1/movimiento/moneda/' + this.moneda).then(function (respuesta) {
                 _this.items = respuesta.data;
             }).catch(function (error) {
                 _this.showError(error);
@@ -33936,8 +33924,12 @@ var render = function() {
                 [
                   _c(
                     "v-toolbar",
-                    { staticClass: "blue accent-1 white--text" },
-                    [_c("h3", [_vm._v("Cuenta")]), _vm._v(" "), _c("v-spacer")],
+                    { staticClass: "blue-grey white--text" },
+                    [
+                      _c("h3", [_vm._v("Movimiento")]),
+                      _vm._v(" "),
+                      _c("v-spacer")
+                    ],
                     1
                   ),
                   _vm._v(" "),
@@ -33945,37 +33937,12 @@ var render = function() {
                     "v-card-text",
                     [
                       _c(
-                        "v-flex",
-                        { attrs: { xs12: "", xs6: "" } },
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              "append-icon": "search",
-                              label: "Buscar",
-                              "single-line": "",
-                              "hide-details": "",
-                              clearable: ""
-                            },
-                            model: {
-                              value: _vm.buscar,
-                              callback: function($$v) {
-                                _vm.buscar = $$v
-                              },
-                              expression: "buscar"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
                         "v-data-table",
                         {
                           attrs: {
                             headers: _vm.headers,
                             items: _vm.items,
-                            search: _vm.buscar,
-                            "item-key": "id_cuenta",
+                            "item-key": "id_movimiento",
                             "rows-per-page-text": "Res. x Pag",
                             "disable-initial-sort": ""
                           },
@@ -33984,90 +33951,30 @@ var render = function() {
                               key: "items",
                               fn: function(item) {
                                 return [
-                                  _c(
-                                    "td",
-                                    {
-                                      staticClass: "text-xs-left",
-                                      on: {
-                                        click: function($event) {
-                                          item.expanded = !item.expanded
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          attrs: {
-                                            flat: "",
-                                            icon: "",
-                                            color: "primary"
-                                          }
-                                        },
-                                        [
-                                          _c("v-icon", [
-                                            _vm._v("import_export")
-                                          ])
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(
-                                        "\n                        " +
-                                          _vm._s(item.item.moneda.nb_moneda) +
-                                          "\n            "
-                                      )
-                                    ],
-                                    1
-                                  ),
+                                  _c("td", { staticClass: "text-xs-center" }, [
+                                    _vm._v(_vm._s(item.item.nu_movimiento))
+                                  ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "text-xs-right" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatNumber")(
-                                          item.item.mo_total
-                                        )
-                                      )
-                                    )
+                                  _c("td", { staticClass: "text-xs-left" }, [
+                                    _vm._v(_vm._s(item.item.nb_modulo))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-xs-left" }, [
+                                    _vm._v(_vm._s(item.item.tx_tipomov))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-right" }, [
                                     _vm._v(
                                       _vm._s(
                                         _vm._f("formatNumber")(
-                                          item.item.mo_disponible
-                                        )
-                                      )
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-xs-right" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatNumber")(
-                                          item.item.mo_instruido
-                                        )
-                                      )
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-xs-right" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatNumber")(
-                                          item.item.mo_aprobado
+                                          item.item.mo_movimiento
                                         )
                                       )
                                     )
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        item.item.fe_actualizado
-                                          ? item.item.fe_actualizado
-                                          : item.item.fe_creado
-                                      )
-                                    )
+                                    _vm._v(_vm._s(item.item.fe_movimiento))
                                   ])
                                 ]
                               }
