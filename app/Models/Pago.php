@@ -34,7 +34,12 @@ class Pago extends Model
     
     public function getFePagoAttribute($value) {
   
-        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+        return \Carbon\Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function getFeLiqBcvAttribute($value) {
+  
+        return \Carbon\Carbon::parse($value)->format('Y-m-d');
     }
 
     public function ejecucionPago(){

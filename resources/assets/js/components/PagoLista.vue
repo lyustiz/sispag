@@ -58,12 +58,24 @@
                         <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
                         <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
                         <td class="text-xs-right">{{ item.item.mo_instruccion | formatNumber }}</td>
-                        <td class="text-xs-left">{{ item.item.fe_instruccion  }}</td>
+                        <td class="text-xs-left">{{ item.item.fe_instruccion | formDate  }}</td>
+                        <td class="text-xs-center">{{ item.item.esquema.nb_esquema }}</td>
+                        <!--status-->
                         <td class="text-xs-left">
-                            <v-btn flat icon color="warning">
-                                <v-icon>warning</v-icon>
+                            
+                            <v-tooltip bottom v-if="getMontos(item.item).pendiente == 0">
+                            <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
+                                <v-icon >thumb_up</v-icon>
                             </v-btn>
-                            {{ item.item.esquema.nb_esquema }}
+                            <span>Pagado</span>
+                            </v-tooltip>
+
+                            <v-tooltip bottom v-else>
+                                <v-btn slot="activator" fab small color="warning" @click.native="dsolicitud = true" >
+                                    <v-icon >notification_important</v-icon>
+                                </v-btn>
+                                <span>Pendiente {{getMontos(item.item).pendiente | formatNumber}}</span>
+                            </v-tooltip>
                             
                         </td>
                         
@@ -112,7 +124,8 @@ export default {
         { text: 'Concepto',     value: 'instruccion.tx_concepto' },
         { text: 'Monto',        value: 'mo_instruccion' },
         { text: 'Fecha',        value: 'fe_instruccion' },
-        { text: 'Esquema Pago', value: 'esquema.nb_esquema' },
+        { text: 'Esq. Pago',    value: 'esquema.nb_esquema' },
+        { text: 'Sta. Pago',    value: 'id_status' },
         ],
         listas:{
             categoria: []
@@ -139,6 +152,30 @@ export default {
                 this.showError(error)
             })
         },
+        getMontos(item){
+            
+            let monto = {
+                            instruido : Number(item.mo_instruccion),
+                            pendiente : Number(item.mo_instruccion),
+                            pagado    : 0
+                        }
+
+            if(item.pago.length > 0)
+            {
+               
+               item.pago.forEach(function(item) 
+               {
+                    if(item.id_status == 13)
+                    {
+                        monto.pagado += Number(item.mo_final_pago);
+                    }
+                    
+                });
+            }
+            monto.pendiente = monto.instruido - monto.pagado;
+
+            return monto;
+        }
     }
 }
 

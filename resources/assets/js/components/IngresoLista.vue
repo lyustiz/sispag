@@ -47,6 +47,7 @@
         v-model ="selected"
         item-key="id_ingreso"
         rows-per-page-text="Res. x Pag"
+        disable-initial-sort
         >
         <template slot="items" slot-scope="item">
             
@@ -56,11 +57,19 @@
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
             <td class="text-xs-right">{{ item.item.mo_ingreso | formatNumber }}</td>
             <td class="text-xs-right">{{ item.item.mo_tasa | formatNumber }}</td>
-            <td class="text-xs-left"> {{ item.item.fe_ingreso }}</td>
+            <td class="text-xs-left"> {{ item.item.fe_ingreso | formDate }}</td>
             <!--acciones | formDate-->
-            <td class="text-xs-left">
+            <td class="text-xs-center" v-if="item.item.id_status != 1">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
+            </td>
+            <td class="text-xs-center" v-else>
+                <v-tooltip bottom>
+                    <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
+                        <v-icon >thumb_up</v-icon>
+                    </v-btn>
+                    <span>Confirmado</span>
+                </v-tooltip>
             </td>
             
         </template>

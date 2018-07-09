@@ -47,14 +47,19 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_envio_inst"
+                v-model="dates.fe_envio_inst"
                 :rules="rules.fecha"
                 label="Fecha Envio del Pago"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_envio_inst" locale="es"></v-date-picker>
+
+                <v-date-picker 
+                    v-model="form.fe_envio_inst" 
+                    locale="es"
+                    @input="dates.fe_envio_inst = formatDate( form.fe_envio_inst )"
+                ></v-date-picker>
 
             </v-menu>
             </v-flex>

@@ -139,7 +139,7 @@ export default {
                 campos:   [],
                 filtros:  [],
                 dateSets: [],
-                tabla: 'vw_banco'
+                tabla: this.tabla
             },
             rules:{
                 select: [],
@@ -147,11 +147,12 @@ export default {
 
         }
     },
+    props:['tabla'],
     methods:
     {
         list()
         {
-            axios.get('/api/v1/reports/vw_banco')
+            axios.get('/api/v1/reports/'+this.tabla)
             .then(respuesta => 
             {
                 let items      = respuesta.data;

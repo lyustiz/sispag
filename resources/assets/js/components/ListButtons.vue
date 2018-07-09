@@ -1,6 +1,7 @@
-<template>
-    <v-speed-dial right direction="left">
+<template><v-layout row justify-center>
 
+    <v-speed-dial direction="left">
+        
         <v-btn slot="activator" color="info" dark small fab>
             <v-icon>settings</v-icon>
             <v-icon>close</v-icon>
@@ -19,8 +20,8 @@
         </v-btn>
         <span>Editar</span>
         </v-tooltip>
-
-    </v-speed-dial>
+            
+    </v-speed-dial></v-layout>
 </template>
 
 <script>

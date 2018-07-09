@@ -50,15 +50,23 @@
         <template slot="items" slot-scope="item">
             
             <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.ente.nb_ente }}</td>
-            <td class="text-xs-right">{{ item.item.mo_solicitud }}</td>
+            <td class="text-xs-right">{{ item.item.mo_solicitud | formatNumber }}</td>
             <td class="text-xs-left">{{ item.item.tx_concepto }}</td>
             <td class="text-xs-left">{{ item.item.categoria.nb_categoria }}</td>
             <td class="text-xs-center">{{ item.item.fe_solicitud | formDate}}</td>
             <td class="text-xs-center">{{ item.item.status.nb_status }}</td>
             <!--acciones-->
-            <td class="text-xs-left">
-                <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+            <td class="text-xs-left" v-if="!item.item.instruccion">
+                <list-buttons  class="text-center" @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
+            </td>
+            <td class="text-xs-center" v-else>
+                <v-tooltip bottom>
+                    <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
+                        <v-icon >playlist_add_check</v-icon>
+                    </v-btn>
+                    <span>Instruccion Asignada</span>
+                </v-tooltip>
             </td>
             
         </template>

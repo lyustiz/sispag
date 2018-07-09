@@ -34,6 +34,8 @@ Vue.component('register-button', require('./components/RegisterButtonComponent.v
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
 Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
 
+Vue.component('cuenta-lista', require('./components/CuentaLista.vue'));
+Vue.component('movimiento-lista', require('./components/MovimientoLista.vue'));
 
 Vue.component('pago-det', require('./components/PagoDet.vue'));
 Vue.component('pago-lista', require('./components/PagoLista.vue'));
@@ -91,7 +93,8 @@ const app = new Vue({
       { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
       { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' },
       { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' },
-      { icon: 'play_for_work', text: 'pagos', href: '/pago' },
+      { icon: 'assignment_returned', text: 'pagos', href: '/pago' },
+      { icon: 'assessment', text: 'cuentas', href: '/cuenta' },
       { heading: 'Datos Maestros' },
       { icon: 'assignment', text: 'Datos Maestros', 
         children: 

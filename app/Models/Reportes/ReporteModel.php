@@ -18,7 +18,7 @@ class ReporteModel extends Model
                         (
                             SELECT distinct pg_catalog.col_description(oid,cols.ordinal_position::int) 
                             FROM pg_catalog.pg_class c 
-                            WHERE c.relname = cols.table_name
+                            WHERE c.relname = cols.table_name limit 1
                         ),
                         cols.column_name
                     ) AS tx_comentario

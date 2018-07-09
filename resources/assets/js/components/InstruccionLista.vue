@@ -54,13 +54,21 @@
                 <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
                 <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
                 <td class="text-xs-rigth">{{ item.item.mo_instruccion | formatNumber }}</td>
-                <td class="text-xs-left">{{ item.item.fe_instruccion }}</td>
+                <td class="text-xs-left">{{ item.item.fe_instruccion | formDate }}</td>
                 <td class="text-xs-left">{{ item.item.esquema.nb_esquema }}</td>
                 <!--acciones-->
-                <td class="text-xs-left">
-                    <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+                <td class="text-xs-left" v-if="item.item.pago.length < 1 ">
+                    <list-buttons  @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                     </list-buttons>
                 </td>
+                <td class="text-xs-center" v-else>
+                <v-tooltip bottom>
+                    <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
+                        <v-icon >assignment_returned</v-icon>
+                    </v-btn>
+                    <span>Proceso de Pago</span>
+                </v-tooltip>
+            </td>
                 
             </template>
 

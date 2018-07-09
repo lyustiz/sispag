@@ -8,7 +8,7 @@
             <h3>Ejecucion del Pago</h3>
 
             <v-spacer></v-spacer>
-            <v-btn v-if="etapa != 3" fab @click="insItem" dark small absolute right bottom class="success">
+            <v-btn v-if="etapa!= 3 || !acreditado" fab @click="insItem" dark small absolute right bottom class="success">
                 <v-icon dark>add</v-icon>
             </v-btn>
         </v-toolbar>
@@ -22,7 +22,6 @@
         hide-actions
         item-key="id_ejecucion"
         disable-initial-sort
-
         >
 
         <template slot="items" slot-scope="item">
@@ -30,13 +29,22 @@
 
             <td class="text-xs-left">{{ item.item.etapa_envio.nb_etapa_envio }}</td>
             <td class="text-xs-left">{{ item.item.banco.nb_banco }}</td>
-            <td class="text-xs-left">{{ item.item.fe_envio_inst  }}</td>
+            <td class="text-xs-left">{{ item.item.fe_envio_inst | formDate }}</td>
             <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
             <!--acciones-->
-            <td class="text-xs-left">
+            <td class="text-xs-left" v-if="!acreditado">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
             </td>
+            <td class="text-xs-center" v-else>
+                <v-tooltip bottom>
+                    <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
+                        <v-icon >thumb_up</v-icon>
+                    </v-btn>
+                    <span>Acreditado</span>
+                </v-tooltip>
+            </td>
+           
 
         </template>
 
@@ -74,6 +82,7 @@ export default {
     data () {
     return {
         etapa: 0,
+        acreditado: false,
         headers: [
         { text: 'Etapa',    value: 'etapa_envio.nb_etapa_envio' },
         { text: 'Banco',    value: 'banco.nb_banco' },
@@ -86,20 +95,34 @@ export default {
     props:['pago'],
     watch:{
         items: function(items){
-            let  etapa = 0
+            let  etapa      = 0
+            let  acreditado = false;
+
             if (!items) 
             {
                 this.etapa = 0
 
             }else
             {
-                items.forEach(function(item) {
+                items.forEach(function(item) 
+                {
                     etapa = ( Number(item.id_etapa_envio) > etapa) 
                             ? Number(item.id_etapa_envio)
                             : etapa
+                    
+                    if(item.id_etapa_envio ==3 && item.id_status ==13) //proceso completado
+                    {
+                        acreditado = true;
+                    }
+
                 });
-                this.etapa = etapa;
+                this.etapa      = etapa;
+                this.acreditado = acreditado;
             }
+        },
+        acreditado: function(val)
+        {
+            this.$emit('acreditado')
         }
     },
     methods:

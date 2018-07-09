@@ -5,7 +5,7 @@
     <v-card>
         
         <v-toolbar class="blue accent-1 white--text">
-            <h3>Pagos</h3> 
+            <h3>Pagos: </h3> 
             <v-chip color="info  white--text"  >
                 Instrudo: {{montos.instruido | formatNumber}}
             </v-chip>
@@ -42,13 +42,22 @@
             </td>
             <td class="text-xs-right">{{ item.item.mo_final_pago | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
-            <td class="text-xs-left"> {{ item.item.fe_pago  }}</td>
+            <td class="text-xs-left"> {{ item.item.fe_pago | formDate  }}</td>
             <td class="text-xs-left"> {{ item.item.status.nb_status }}</td>
             <!--acciones-->
-            <td class="text-xs-left">
+            <td class="text-xs-left" v-if="item.item.id_status !=13">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
             </td>
+            <td class="text-xs-center" v-else>
+                <v-tooltip bottom>
+                    <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
+                        <v-icon >thumb_up</v-icon>
+                    </v-btn>
+                    <span>Acreditado</span>
+                </v-tooltip>
+            </td>
+
 
         </template>
 

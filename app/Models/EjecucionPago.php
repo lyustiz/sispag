@@ -30,9 +30,8 @@ class EjecucionPago extends Model
 
     public function getFeEnvioInstAttribute($value) {
   
-        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+        return \Carbon\Carbon::parse($value)->format('Y-m-d');
     }
-
 
     public function pago(){
     

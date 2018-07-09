@@ -35,7 +35,7 @@ class Ingreso extends Model
 
     public function getFeIngresoAttribute($value) {
   
-        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+        return \Carbon\Carbon::parse($value)->format('Y-m-d');
     }
 
     public function tipoIngreso(){

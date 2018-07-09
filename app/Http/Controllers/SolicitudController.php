@@ -14,7 +14,7 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        $solicitudes = Solicitud::with(['ente', 'moneda', 'categoria', 'status'])->get();
+        $solicitudes = Solicitud::with(['ente', 'moneda', 'categoria', 'instruccion', 'status'])->get();
         
         return $solicitudes;
     }
@@ -27,6 +27,7 @@ class SolicitudController extends Controller
     public function solicitudCategoria($idCategoria)
     {
         $solicitudes = Solicitud::with(['ente', 'moneda', 'categoria', 'status'])
+                                ->doesntHave('instruccion')
                                 ->where('id_categoria', '=', $idCategoria)
                                 ->get();
         

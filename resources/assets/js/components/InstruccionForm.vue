@@ -20,6 +20,7 @@
                     item-text="nb_categoria"
                     v-model="categoria"
                     label="Categoria"
+                    clearable
                 ></v-select>
             </v-flex>
 
@@ -133,14 +134,18 @@
                     >
                         <v-text-field
                         slot="activator"
-                        v-model="form.fe_instruccion"
+                        v-model="dates.fe_instruccion"
                         :rules="rules.fecha"
                         label="Seleccione Fecha"
                         prepend-icon="event"
                         readonly
                         required
                         ></v-text-field>
-                        <v-date-picker v-model="form.fe_instruccion" locale="es"></v-date-picker>
+                        <v-date-picker 
+                            v-model="form.fe_instruccion" 
+                            locale="es" 
+                            @input="dates.fe_instruccion = formatDate( form.fe_instruccion )"
+                        ></v-date-picker>
                     </v-menu>
                         
                     </v-flex>

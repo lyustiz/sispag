@@ -112,14 +112,14 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_ingreso"
+                v-model="dates.fe_ingreso"
                 :rules="rules.fecha"
                 label="Seleccione Fecha"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_ingreso" locale="es" @input="form.fe_ingreso = formatDate(form.fe_ingreso)"></v-date-picker>
+                <v-date-picker v-model="form.fe_ingreso" locale="es" @input="dates.fe_ingreso = formatDate(form.fe_ingreso)"></v-date-picker>
             </v-menu>
             </v-flex>
 
@@ -205,10 +205,19 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {           
+                if( this.form.id_status == 1 )
+                {
+                    if(!confirm('Esta operacion comfirma el ingreso de Divisa \n No puede reversarse. desea continuar?'))
+                    {
+                        return false;
+                    }
+                }  
+                
                 axios.put(this.basePath + this.item.id_ingreso, this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
+                    this.cancel();
                 })
                 .catch(error => 
                 {
@@ -218,8 +227,17 @@ export default {
         },
         store()
         {               
+            
             if (this.$refs.form.validate()) 
             { 
+                if( this.form.id_status == 1 )
+                {
+                    if(!confirm('Esta operacion comfirma el ingreso de Divisa \n No puede reversarse. desea continuar?'))
+                    {
+                        return false;
+                    }
+                }  
+                
                 axios.post('/api/v1/ingreso', this.form)
                 .then(respuesta => 
                 {

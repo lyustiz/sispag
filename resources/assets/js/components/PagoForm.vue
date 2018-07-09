@@ -48,14 +48,18 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_liq_bcv"
+                v-model="dates.fe_liq_bcv"
                 :rules="rules.fecha"
                 label="Fecha liquidacion BCV"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_liq_bcv" locale="es"></v-date-picker>
+                <v-date-picker 
+                    v-model="form.fe_liq_bcv" 
+                    locale="es" 
+                    @input="dates.fe_liq_bcv = formatDate( form.fe_liq_bcv )"
+                ></v-date-picker>
             </v-menu>
             </v-flex>
 
@@ -68,14 +72,18 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_pago"
+                v-model="dates.fe_pago"
                 :rules="rules.fecha"
                 label="Fecha de Pago"
                 prepend-icon="event"
                 readonly
                 required
                 ></v-text-field>
-                <v-date-picker v-model="form.fe_pago" locale="es"></v-date-picker>
+                <v-date-picker 
+                    v-model="form.fe_pago" 
+                    locale="es"
+                    @input="dates.fe_pago = formatDate( form.fe_pago )"
+                ></v-date-picker>
 
             </v-menu>
             </v-flex>
@@ -202,7 +210,7 @@ export default {
                    ],
                 pagoTotal: [
                     v => !!v || 'Seleccione una Opcion (Campo Requerido)',
-                    v => (Number(v) == 1 && this.montos.pagado > 0 && this.montos.pagado) 
+                    v => (Number(v) == 1 && this.montos.pagado > 0 && this.montos.pagado && this.item.id_tipo_pago != 1) 
                          ? 'Ya existe pagos parciales'
                          : true
                    ],

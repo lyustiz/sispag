@@ -49,8 +49,6 @@ class Solicitud extends Model
     
     }
 
-
-
     public function categoria(){
     
         return $this->BelongsTo('App\Models\Categoria', 'id_categoria');

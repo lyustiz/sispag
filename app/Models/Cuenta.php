@@ -15,17 +15,20 @@ class Cuenta extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'id_cuenta',
                             'id_moneda',
-                            'mo_cuenta',
+                            'mo_disponible',
+                            'mo_instruido',
+                            'mo_aprobado',
+                            'mo_total',
                             'tx_observaciones',
                             'id_usuario',
                             'id_status',
                             'fe_creado',
                             'fe_actualizado'
                             ]; 
+
     
-    protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+    protected $hidden     = ['id_usuario'];
 
     public function scopeMoneda($query, $moneda)
     {
