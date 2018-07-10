@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="user" content="{{ Auth::user() }}">
     <link rel="manifest" href="/manifest.json">
-    <title>{{ config('app.name', 'Pagos Pais') }}</title>
+    <title>{{ config('app.name', 'SIGESPAD') }}</title>
     <link href='/assets/googlefonts/css/css.css' rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
@@ -94,7 +94,7 @@
     >
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <span class="hidden-xs-only">{{ config('app.shortname', 'SIPDIVEN') }}</span>
+            <span class="hidden-xs-only">{{ config('app.shortname', 'SIGESPAD') }}</span>
         </v-toolbar-title>
         <div class="d-flex align-center" style="margin-left: auto">
             <v-btn icon>

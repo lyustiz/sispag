@@ -36,7 +36,7 @@
                 <v-layout row wrap>
                   <v-flex xs12 md6 class="logo" align-center justify-center>
                     <v-layout column align-center justify-center>
-                      SISGESPAG
+                      SISGESPAD
                     </v-layout>
                   </v-flex>
                   <v-flex xs12 md6 class="forms">
