@@ -139,7 +139,6 @@ const app = new Vue({
         ], 
       },
       { heading: 'Reportes' },
-<<<<<<< HEAD
       { icon: 'description', text: 'Reportes', 
         children: 
         [
@@ -157,18 +156,6 @@ const app = new Vue({
       
       
       //{ heading: 'Administració', role: 'Manager' }
-=======
-      { icon: 'assignment', text: 'Bancos', href: '/reports.reports' },
-      { heading: 'Administracion' },
-      { icon: 'person', text: 'Usuarios', href: '/reports.reports' },
-      { children:
-        [
-          { icon: 'people', text: 'Roles', href: '/reports.reports' },
-           { icon: 'people', text: 'Roles', href: '/reports.reports' }
-        ]
-
-      }
->>>>>>> David
     ]
   }),
   created: function () {

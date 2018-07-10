@@ -21,11 +21,8 @@
         "vuex": "^3.0"
     },
     "dependencies": {
-<<<<<<< HEAD
         "vue-autonumeric": "^1.2.5",
-=======
         "jquery": "^3.3.1",
->>>>>>> David
         "vue-moment": "^4.0.0-0",
         "vue-slick": "^1.1.13",
         "vue2-filters": "^0.3.0"
