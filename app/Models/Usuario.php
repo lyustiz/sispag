@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
+    use HasApiTokens,Notifiable;
+
+    protected $guard      = 'users';
+
     protected $table 	  = 'usuario';
 
 	protected $primaryKey = 'id_usuario';
@@ -15,18 +21,19 @@ class Usuario extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'tx_usuario',
+                            'nb_usuario',
                             'tx_password',
                             'nu_cedula',
                             'nb_nombre',
                             'nb_apellido',
+                            'remember_token',
                             'tx_observaciones',
                             'id_status',
                             'fe_creado',
                             'fe_actualizado'
                             ]; 
     
-    protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+    protected $hidden     = ['remember_token','id_usuario','fe_creado','fe_actualizado'];
     
     public function status(){
     

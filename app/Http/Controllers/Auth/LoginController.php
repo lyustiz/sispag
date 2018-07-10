@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use \Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 /**
  * Class LoginController.
@@ -43,19 +44,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showLoginForm()
+
+    public function username()
     {
-        return view('welcome', [
-            'action' => 'login'
-        ]);
+        return 'username';
     }
 
 
- 
 
 }

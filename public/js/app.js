@@ -31932,19 +31932,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       errors: [],
       internalAction: this.action,
-      email: '',
-      emailRules: [function (v) {
-        return !!v || 'Email is mandatory';
-      }, function (v) {
-        return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email have to be a valid email'
-        );
-      }],
+      username: '',
       password: '',
-      passwordRules: [function (v) {
-        return !!v || 'Password is mandatory';
-      }, function (v) {
-        return v.length >= 6 || 'Password have to be at least 6 characters long';
-      }],
+      rules: {
+        username: [function (v) {
+          return !!v || 'Email is mandatory';
+        }],
+        password: [function (v) {
+          return !!v || 'Password is mandatory';
+        }, function (v) {
+          return v.length >= 6 || 'Password have to be at least 6 characters long';
+        }]
+      },
       valid: false,
       loginLoading: false
     };
@@ -31978,7 +31977,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.$refs.loginForm.validate()) {
         this.loginLoading = true;
         var credentials = {
-          'email': this.email,
+          'username': this.username,
           'password': this.password
         };
         this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["b" /* LOGIN */], credentials).then(function (response) {
@@ -31986,15 +31985,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.showLogin = false;
           window.location = '/home';
         }).catch(function (error) {
-          console.log('HEY:');
-          console.log(error.response.data);
+
+          _this.loginLoading = false;
+          console.log(error.response);
+
           if (error.response && error.response.status === 422) {
-            _this.showError({
-              message: 'Invalid data'
-            });
+            _this.showError(error);
           } else {
             _this.showError(error);
           }
+
           _this.errors = error.response.data.errors;
         }).then(function () {
           _this.loginLoading = false;
@@ -32066,19 +32066,19 @@ var render = function() {
                 [
                   _c("v-text-field", {
                     attrs: {
-                      name: "email",
+                      name: "username",
                       label: "Usuario",
-                      rules: _vm.emailRules,
-                      error: _vm.errors["email"],
-                      "error-messages": _vm.errors["email"],
+                      rules: _vm.rules.username,
+                      error: _vm.errors["username"],
+                      "error-messages": _vm.errors["username"],
                       required: ""
                     },
                     model: {
-                      value: _vm.email,
+                      value: _vm.username,
                       callback: function($$v) {
-                        _vm.email = $$v
+                        _vm.username = $$v
                       },
-                      expression: "email"
+                      expression: "username"
                     }
                   }),
                   _vm._v(" "),
@@ -32086,7 +32086,7 @@ var render = function() {
                     attrs: {
                       name: "password",
                       label: "Password",
-                      rules: _vm.passwordRules,
+                      rules: _vm.rules.password,
                       hint: "At least 6 characters",
                       min: "6",
                       type: "password",

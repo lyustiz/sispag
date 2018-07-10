@@ -13,19 +13,19 @@
             <v-card-text>
                 <v-form ref="loginForm" v-model="valid">
                     <v-text-field
-                            name="email"
+                            name="username"
                             label="Usuario"
-                            v-model="email"
-                            :rules="emailRules"
-                            :error="errors['email']"
-                            :error-messages="errors['email']"
+                            v-model="username"
+                            :rules="rules.username"
+                            :error="errors['username']"
+                            :error-messages="errors['username']"
                             required
                     ></v-text-field>
                     <v-text-field
                             name="password"
                             label="Password"
                             v-model="password"
-                            :rules="passwordRules"
+                            :rules="rules.password"
                             hint="At least 6 characters"
                             min="6"
                             type="password"
@@ -61,16 +61,17 @@
       return {
         errors: [],
         internalAction: this.action,
-        email: '',
-        emailRules: [
-          (v) => !!v || 'Email is mandatory',
-          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email have to be a valid email'
-        ],
+        username: '',
         password: '',
-        passwordRules: [
+        rules: {
+          username: [
+                    (v) => !!v || 'Email is mandatory',
+                  ],
+          password: [
           (v) => !!v || 'Password is mandatory',
           (v) => v.length >= 6 || 'Password have to be at least 6 characters long'
-        ],
+          ],
+        },
         valid: false,
         loginLoading: false
       }
@@ -102,7 +103,7 @@
         if (this.$refs.loginForm.validate()) {
           this.loginLoading = true
           const credentials = {
-            'email': this.email,
+            'username': this.username,
             'password': this.password
           }
           this.$store.dispatch(actions.LOGIN, credentials).then(response => {
@@ -110,16 +111,18 @@
             this.showLogin = false
             window.location = '/home'
           }).catch(error => {
-            console.log('HEY:')
-            console.log(error.response.data)
+            
+            this.loginLoading = false
+            console.log(error.response);
+            
             if (error.response && error.response.status === 422) {
-              this.showError({
-                message: 'Invalid data',
-              })
+              this.showError(error)
             } else {
               this.showError(error)
             }
+
             this.errors = error.response.data.errors
+
           }).then(() => {
             this.loginLoading = false
           })
