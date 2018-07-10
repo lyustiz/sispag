@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href='/assets/googlefonts/css/css.css' rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('/assets/googlefonts/css/css.css') }}">
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/assets/slick/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ url('/assets/sispag/css/welcome.css') }}">
     <style>
         [v-cloak] > * { display:none; }
         [v-cloak]::before {
@@ -22,191 +24,44 @@
     </style>
 </head>
 <body>
+
 <div id="app">
-    <v-app light v-cloak>
-        <snackbar></snackbar>
-        <v-toolbar dark class="blue">
-            <v-toolbar-title>{{ config('app.name') }}</v-toolbar-title>
-            @if (Route::has('login') && ! Auth::check() )
-                <v-spacer></v-spacer>
-                <login-button action="{{ $action or null }}" ></login-button>
-                <remember-password action="{{ $action or null }}"></remember-password>
-                <reset-password
-                        action="{{ $action or null }}"
-                        token="{{ $token or null }}"
-                        email="{{ $email or null }}"></reset-password>
-            @endif
-        </v-toolbar>
-        <v-content>
-            <section>
-                <v-parallax src="/img/salto-angel.jpeg" height="600">
-                    <v-layout
-                            column
-                            align-center
-                            justify-center
-                            class="white--text"
-                    >
-                        <img src="/img/vuetify.png" alt="Vuetify.js" height="200">
-                        <h1 class="white--text mb-2 display-1 text-xs-center">Sistema Gestion de Pagos en Divisas</h1>
-                        <div class="subheading mb-3 text-xs-center">Ordenados por el Ejecutivo Nacional </div>
-                    </v-layout>
-                </v-parallax>
-            </section>
-
-            <section>
-                <v-layout
-                        column
-                        wrap
-                        class="my-5"
-                        align-center
-                >
-                    <v-flex xs12 sm4 class="my-3">
-                        <div class="text-xs-center">
-                            <h2 class="headline">Informacion Adicional</h2>
-                            <span class="subheading">
-                Cras facilisis mi vitae nunc
-              </span>
-                        </div>
-                    </v-flex>
-                    <v-flex xs12>
-                        <v-container grid-list-xl>
-                            <v-layout row wrap align-center>
-                                <v-flex xs12 md4>
-                                    <v-card class="elevation-0 transparent">
-                                        <v-card-text class="text-xs-center">
-                                            <v-icon x-large class="blue--text text--lighten-2">color_lens</v-icon>
-                                        </v-card-text>
-                                        <v-card-title primary-title class="layout justify-center">
-                                            <div class="headline text-xs-center">Diseño Profesional</div>
-                                        </v-card-title>
-                                        <v-card-text>
-                                            Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-                                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                                            Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
-                                        </v-card-text>
-                                    </v-card>
-                                </v-flex>
-                                <v-flex xs12 md4>
-                                    <v-card class="elevation-0 transparent">
-                                        <v-card-text class="text-xs-center">
-                                            <v-icon x-large class="blue--text text--lighten-2">flash_on</v-icon>
-                                        </v-card-text>
-                                        <v-card-title primary-title class="layout justify-center">
-                                            <div class="headline">Rapido Desarrollo</div>
-                                        </v-card-title>
-                                        <v-card-text>
-                                            Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-                                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                                            Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
-                                        </v-card-text>
-                                    </v-card>
-                                </v-flex>
-                                <v-flex xs12 md4>
-                                    <v-card class="elevation-0 transparent">
-                                        <v-card-text class="text-xs-center">
-                                            <v-icon x-large class="blue--text text--lighten-2">build</v-icon>
-                                        </v-card-text>
-                                        <v-card-title primary-title class="layout justify-center">
-                                            <div class="headline text-xs-center">Sofware Libre</div>
-                                        </v-card-title>
-                                        <v-card-text>
-                                            Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-                                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                                            Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
-                                        </v-card-text>
-                                    </v-card>
-                                </v-flex>
-                            </v-layout>
-                        </v-container>
-                    </v-flex>
-                </v-layout>
-            </section>
-
-            <section>
-                <v-parallax src="/img/pico-bolivar.jpg" height="380">
+  <v-app light v-cloak>
+    <v-content>
+      <section id="inicio">
+        <v-parallax ref="parallax" :src="parallax.images" :height="parallax.height">
+          <v-layout column align-center justify-center>
+            <div class="wrapper-forms">
+              <v-container grid-list-md text-xs-center>
+                <v-layout row wrap>
+                  <v-flex xs12 md6 class="logo" align-center justify-center>
                     <v-layout column align-center justify-center>
-                        <div class="headline white--text mb-3 text-xs-center">Informacion Adicional</div>
-                        <em>Detalle de Aplicacion</em>
-                        <v-btn
-                                class="blue lighten-2 mt-5"
-                                dark
-                                large
-                                href="/home"
-                        >
-                            Ingresar
-                        </v-btn>
+                      SISGESPAG
                     </v-layout>
-                </v-parallax>
-            </section>
-
-            <section>
-                <v-container grid-list-xl>
-                    <v-layout row wrap justify-center class="my-5">
-                        <v-flex xs12 sm4>
-                            <v-card class="elevation-0 transparent">
-                                <v-card-title primary-title class="layout justify-center">
-                                    <div class="headline">Informacion de la Empresa</div>
-                                </v-card-title>
-                                <v-card-text>
-                                    Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-                                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                                    Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
-                                </v-card-text>
-                            </v-card>
-                        </v-flex>
-                        <v-flex xs12 sm4 offset-sm1>
-                            <v-card class="elevation-0 transparent">
-                                <v-card-title primary-title class="layout justify-center">
-                                    <div class="headline">Contactanos</div>
-                                </v-card-title>
-                                <v-card-text>
-                                    Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-                                </v-card-text>
-                                <v-list class="transparent">
-                                    <v-list-tile>
-                                        <v-list-tile-action>
-                                            <v-icon class="blue--text text--lighten-2">phone</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>0412-9098862</v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-action>
-                                            <v-icon class="blue--text text--lighten-2">place</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>Caracas, Venezuela</v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-action>
-                                            <v-icon class="blue--text text--lighten-2">email</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>info@greatapps.com</v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                </v-list>
-                            </v-card>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </section>
-
-            <v-footer class="blue darken-2">
-                <v-layout row wrap align-center>
-                    <v-flex xs12>
-                        <div class="white--text ml-3">
-                            <v-icon class="red--text">favorite</v-icon>
-                            Republica Bolivariana de Venezuela 
-                        </div>
-                    </v-flex>
+                  </v-flex>
+                  <v-flex xs12 md6 class="forms">
+                    <slick
+                      ref="slick"
+                      :options="slickOptions">
+                      <div id="wrapper-form-login">
+                        <form-login action="{{ $action or null }}"></form-login>
+                      </div>
+                      <div id="wrapper-form-recovery">
+                        <form-recovery></form-recovery>
+                      </div>
+                    </slick>
+                  </v-flex>
                 </v-layout>
-            </v-footer>
-        </v-content>
-    </v-app>
+              </v-container>
+            </div>
+          </v-layout>
+        </v-parallax>
+      </section>
+    </v-content>
+  </v-app>
 </div>
+
 <script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
+
 </body>
 </html>
