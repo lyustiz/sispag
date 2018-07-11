@@ -130,7 +130,7 @@ export default {
             listas:{
                 banco:      ['/grupo/1'],
                 etapaEnvio: [],
-                status:     ['/grupo/3'],
+                status:     ['/grupo/6'],
             },
             rules:{
                 etapa: [

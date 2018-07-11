@@ -3,7 +3,8 @@ export default {
               
         this.listasLoader()
         this.basePath += this.tabla + '/'
-        this.form.id_usuario = this.$store.getters.user.id
+        //this.form.id_usuario = this.$store.getters.user.id
+        this.form.id_usuario = 1;
     },
     data() {
 
@@ -41,7 +42,8 @@ export default {
 
             if(val=='upd')
             {
-                this.mapForm()
+                this.mapForm();
+                
             }else
             {
                 this.clear();
@@ -145,7 +147,7 @@ export default {
 
                 this.dates[key] = null;
             }
-            this.form.id_usuario = this.$store.getters.user.id
+            this.form.id_usuario = 1
         },
 
         clear () {

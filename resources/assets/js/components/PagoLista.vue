@@ -63,7 +63,7 @@
                         <!--status-->
                         <td class="text-xs-left">
                             
-                            <v-tooltip bottom v-if="getMontos(item.item).pendiente == 0">
+                            <v-tooltip bottom v-if="getMontos(item.item).pendiente == 0 || acreditado">
                             <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
                                 <v-icon >thumb_up</v-icon>
                             </v-btn>
@@ -85,7 +85,7 @@
                         
                         <v-card flat>
                             <v-card-text>
-                                <pago-det :instruccion="item.item"></pago-det>
+                                <pago-det :instruccion="item.item" @acreditado="acreditado=true"></pago-det>
                             </v-card-text>
                         </v-card>
                     </template>
@@ -118,6 +118,7 @@ export default {
     mixins:[ listHelper, withSnackbar ],
     data () {
     return {
+        acreditado: false,
         headers: [
         { text: 'Categoria',    value: 'solicitud.categoria.nb_categoria' },
         { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
@@ -165,7 +166,7 @@ export default {
                
                item.pago.forEach(function(item) 
                {
-                    if(item.id_status == 13)
+                    if(item.id_status == 31)
                     {
                         monto.pagado += Number(item.mo_final_pago);
                     }
@@ -173,7 +174,6 @@ export default {
                 });
             }
             monto.pendiente = monto.instruido - monto.pagado;
-
             return monto;
         }
     }

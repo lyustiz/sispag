@@ -931,7 +931,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
         this.listasLoader();
         this.basePath += this.tabla + '/';
-        this.form.id_usuario = this.$store.getters.user.id;
+        //this.form.id_usuario = this.$store.getters.user.id
+        this.form.id_usuario = 1;
     },
     data: function data() {
 
@@ -1067,7 +1068,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
                 this.dates[key] = null;
             }
-            this.form.id_usuario = this.$store.getters.user.id;
+            this.form.id_usuario = 1;
         },
         clear: function clear() {
 
@@ -44579,7 +44580,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -44718,6 +44719,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             this.montos.pagado = moPagado;
             this.montos.pendiente = this.montos.instruido - moPagado;
+        },
+        acreditado: function acreditado(val) {
+            if (val) {
+                this.$emit('acreditado');
+            }
         }
     },
     methods: {
@@ -44918,7 +44924,7 @@ var render = function() {
                                       )
                                     ]),
                                     _vm._v(" "),
-                                    item.item.id_status != 13
+                                    item.item.id_status == 10 && !_vm.acreditado
                                       ? _c(
                                           "td",
                                           { staticClass: "text-xs-left" },
@@ -44992,7 +44998,12 @@ var render = function() {
                                           "v-card-text",
                                           [
                                             _c("ejecucion-lista", {
-                                              attrs: { pago: item.item }
+                                              attrs: { pago: item.item },
+                                              on: {
+                                                acreditado: function($event) {
+                                                  _vm.acreditado = true
+                                                }
+                                              }
                                             })
                                           ],
                                           1
@@ -45278,6 +45289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
+            acreditado: false,
             headers: [{ text: 'Categoria', value: 'solicitud.categoria.nb_categoria' }, { text: 'Ente', value: 'instruccion.ente.nb_ente' }, { text: 'Concepto', value: 'instruccion.tx_concepto' }, { text: 'Monto', value: 'mo_instruccion' }, { text: 'Fecha', value: 'fe_instruccion' }, { text: 'Esq. Pago', value: 'esquema.nb_esquema' }, { text: 'Sta. Pago', value: 'id_status' }],
             listas: {
                 categoria: []
@@ -45310,13 +45322,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (item.pago.length > 0) {
 
                 item.pago.forEach(function (item) {
-                    if (item.id_status == 13) {
+                    if (item.id_status == 31) {
                         monto.pagado += Number(item.mo_final_pago);
                     }
                 });
             }
             monto.pendiente = monto.instruido - monto.pagado;
-
             return monto;
         }
     }
@@ -45541,7 +45552,7 @@ var render = function() {
                                         { staticClass: "text-xs-left" },
                                         [
                                           _vm.getMontos(item.item).pendiente ==
-                                          0
+                                            0 || _vm.acreditado
                                             ? _c(
                                                 "v-tooltip",
                                                 { attrs: { bottom: "" } },
@@ -45645,6 +45656,11 @@ var render = function() {
                                               _c("pago-det", {
                                                 attrs: {
                                                   instruccion: item.item
+                                                },
+                                                on: {
+                                                  acreditado: function($event) {
+                                                    _vm.acreditado = true
+                                                  }
                                                 }
                                               })
                                             ],
@@ -47895,7 +47911,7 @@ var render = function() {
                                                 },
                                                 [
                                                   _c("v-icon", [
-                                                    _vm._v("thumb_up")
+                                                    _vm._v("https")
                                                   ])
                                                 ],
                                                 1
@@ -55227,7 +55243,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _items.forEach(function (item) {
                     etapa = Number(item.id_etapa_envio) > etapa ? Number(item.id_etapa_envio) : etapa;
 
-                    if (item.id_etapa_envio == 3 && item.id_status == 13) //proceso completado
+                    if (item.id_etapa_envio == 3 && item.id_status == 31) //proceso completado
                         {
                             acreditado = true;
                         }
@@ -55237,7 +55253,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         acreditado: function acreditado(val) {
-            this.$emit('acreditado');
+            if (val) {
+                this.$emit('acreditado');
+            }
         }
     },
     methods: {
@@ -55680,7 +55698,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             listas: {
                 banco: ['/grupo/1'],
                 etapaEnvio: [],
-                status: ['/grupo/3']
+                status: ['/grupo/6']
             },
             rules: {
                 etapa: [function (v) {

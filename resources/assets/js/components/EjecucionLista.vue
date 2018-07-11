@@ -110,7 +110,7 @@ export default {
                             ? Number(item.id_etapa_envio)
                             : etapa
                     
-                    if(item.id_etapa_envio ==3 && item.id_status ==13) //proceso completado
+                    if(item.id_etapa_envio ==3 && item.id_status ==31) //proceso completado
                     {
                         acreditado = true;
                     }
@@ -122,7 +122,7 @@ export default {
         },
         acreditado: function(val)
         {
-            this.$emit('acreditado')
+            if(val) { this.$emit('acreditado') } 
         }
     },
     methods:

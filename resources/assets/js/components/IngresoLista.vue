@@ -66,7 +66,7 @@
             <td class="text-xs-center" v-else>
                 <v-tooltip bottom>
                     <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
-                        <v-icon >thumb_up</v-icon>
+                        <v-icon >https</v-icon>
                     </v-btn>
                     <span>Confirmado</span>
                 </v-tooltip>

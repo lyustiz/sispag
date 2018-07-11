@@ -45,7 +45,7 @@
             <td class="text-xs-left"> {{ item.item.fe_pago | formDate  }}</td>
             <td class="text-xs-left"> {{ item.item.status.nb_status }}</td>
             <!--acciones-->
-            <td class="text-xs-left" v-if="item.item.id_status !=13">
+            <td class="text-xs-left" v-if="item.item.id_status == 10 && !acreditado ">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
             </td>
@@ -64,7 +64,7 @@
         <template slot="expand" slot-scope="item">
             <v-card flat>
                 <v-card-text>
-                    <ejecucion-lista :pago="item.item"></ejecucion-lista>
+                    <ejecucion-lista :pago="item.item" @acreditado="acreditado=true"></ejecucion-lista>
                 </v-card-text>
             </v-card>
         </template>
@@ -133,6 +133,10 @@ export default {
             }
             this.montos.pagado    = moPagado;
             this.montos.pendiente = this.montos.instruido - moPagado;
+        },
+        acreditado: function(val)
+        {
+            if(val) { this.$emit('acreditado') } 
         }
     },
     methods:
