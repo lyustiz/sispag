@@ -85,7 +85,7 @@
 
     </v-navigation-drawer>
     <v-toolbar
-            color="red"
+            color="red darken-1"
             dark
             app
             clipped-left

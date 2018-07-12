@@ -21,8 +21,8 @@ class Usuario extends Authenticatable
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'nb_usuario',
-                            'tx_password',
+                            'usuario',
+                            'password',
                             'nu_cedula',
                             'nb_nombre',
                             'nb_apellido',

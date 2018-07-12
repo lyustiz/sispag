@@ -14,7 +14,9 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = Usuario::with(['status'])->get();
+        
+        return $usuarios;
     }
 
     /**
@@ -24,7 +26,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +37,20 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+
+            'usuario'       => 'required',
+            'password'      => 'required',
+            'nu_cedula'        => 'required',
+            'nb_nombre'        => 'required',
+            'nb_apellido'      => 'required',
+            'id_status'        => 'required',
+
+        ]);
+
+        $usuario = Usuario::create($request->all());
+
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('usuario') ];
     }
 
     /**
@@ -69,7 +84,20 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, Usuario $usuario)
     {
-        //
+        $validate = request()->validate([
+
+            'usuario'       => 'required',
+            'password'      => 'required',
+            'nu_cedula'        => 'required',
+            'nb_nombre'        => 'required',
+            'nb_apellido'      => 'required',
+            'id_status'        => 'required',
+
+        ]);
+
+        $usuario = $usuario->update($request->all());
+
+        return [ 'msj' => 'Registro Actualizado Correctamente', compact('usuario') ];
     }
 
     /**
@@ -80,6 +108,8 @@ class UsuarioController extends Controller
      */
     public function destroy(Usuario $usuario)
     {
-        //
+        $usuario = $usuario->delete();
+ 
+        return [ 'msj' => 'Registro Eliminado' , compact('usuario')];
     }
 }

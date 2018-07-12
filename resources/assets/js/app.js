@@ -34,6 +34,10 @@ Vue.component('register-button', require('./components/RegisterButtonComponent.v
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
 Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
 
+Vue.component('usuario-lista', require('./components/UsuarioLista.vue'));
+Vue.component('usuario-form', require('./components/UsuarioForm.vue'));
+
+
 Vue.component('cuenta-lista', require('./components/CuentaLista.vue'));
 Vue.component('movimiento-lista', require('./components/MovimientoLista.vue'));
 
@@ -150,7 +154,7 @@ const app = new Vue({
         ], 
       },
       { heading: 'Administracion' },
-      { icon: 'person', text: 'Usuarios', href: '/reports.reports' },
+      { icon: 'person', text: 'Usuarios', href: '/usuario' },
       
       
       
