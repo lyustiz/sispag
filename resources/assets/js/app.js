@@ -65,6 +65,8 @@ Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
 Vue.component('tipo-ingreso-lista', require('./components/TipoIngresoLista.vue'));
 Vue.component('tipo-ingreso-form', require('./components/TipoIngresoForm.vue'));
 
+Vue.component('home', require('./components/Home.vue'));
+
 //Componentes Frontend
 Vue.component('form-login', require('./components/frontend/form-login.vue'));
 Vue.component('form-recovery', require('./components/frontend/form-recovery.vue'));
@@ -131,8 +133,8 @@ const app = new Vue({
       { icon: 'assignment_returned', text: 'Pagos', href: '/pago' },
       { icon: 'assessment', text: 'Cuentas', href: '/cuenta' },
       { heading: 'Datos Maestros' },
-      { icon: 'assignment', text: 'Datos Maestros', 
-        children: 
+      { icon: 'assignment', text: 'Datos Maestros',
+        children:
         [
           { icon: 'account_balance', text: 'Banco', href: '/banco' },
           { icon: 'store_mall_directory', text: 'Entes', href: '/ente' },
@@ -140,25 +142,27 @@ const app = new Vue({
           { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
           { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' },
           { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' },
-        ], 
+        ],
       },
       { heading: 'Reportes' },
-      { icon: 'description', text: 'Reportes', 
-        children: 
+      { icon: 'description', text: 'Reportes',
+        children:
         [
           { icon: 'description', text: 'Bancos', href: '/reports.banco' },
           { icon: 'description', text: 'Ingresos', href: '/construccion' },
           { icon: 'description', text: 'Solicitudes', href: '/construccion' },
           { icon: 'description', text: 'Intrucciones', href: '/construccion' },
+
           { icon: 'description', text: 'General', href: '/reports.general' },
         ], 
+
       },
       { heading: 'Administracion' },
       { icon: 'person', text: 'Usuarios', href: '/usuario' },
-      
-      
-      
-      
+
+
+
+
       //{ heading: 'Administració', role: 'Manager' }
     ]
   }),

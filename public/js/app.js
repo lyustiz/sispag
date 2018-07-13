@@ -36261,6 +36261,8 @@ Vue.component('ejecucion-form', __webpack_require__(211));
 Vue.component('tipo-ingreso-lista', __webpack_require__(214));
 Vue.component('tipo-ingreso-form', __webpack_require__(219));
 
+Vue.component('home', __webpack_require__(256));
+
 //Componentes Frontend
 Vue.component('form-login', __webpack_require__(222));
 Vue.component('form-recovery', __webpack_require__(227));
@@ -36323,6 +36325,7 @@ var app = new Vue({
         children: [{ icon: 'account_balance', text: 'Banco', href: '/banco' }, { icon: 'store_mall_directory', text: 'Entes', href: '/ente' }, { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }, { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' }, { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' }]
       }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
         children: [{ icon: 'description', text: 'Bancos', href: '/reports.banco' }, { icon: 'description', text: 'Ingresos', href: '/construccion' }, { icon: 'description', text: 'Solicitudes', href: '/construccion' }, { icon: 'description', text: 'Intrucciones', href: '/construccion' }, { icon: 'description', text: 'General', href: '/reports.general' }]
+
       }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }]
     };
   },
@@ -80413,6 +80416,902 @@ exports.default = Object.freeze({
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(257)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(259)
+/* template */
+var __vue_template__ = __webpack_require__(260)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-85ef4954"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Home.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-85ef4954", Component.options)
+  } else {
+    hotAPI.reload("data-v-85ef4954", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(258);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("1ea1b3e8", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85ef4954\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Home.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85ef4954\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Home.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.separador[data-v-85ef4954] {\n  height:50px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 259 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(6);
+throw new Error("Cannot find module \"vue-chartkick\"");
+throw new Error("Cannot find module \"chart.js\"");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_chartkick___default.a, { adapter: __WEBPACK_IMPORTED_MODULE_3_chart_js___default.a });
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
+  data: function data() {
+    return {
+      chartData1: {
+        data: [["2017-01-01", 4], ["2017-01-02", 11], ["2017-01-03", 12]],
+        colors: ['#fff', '#000']
+      },
+      chartData2: {
+        data: [['David', 44], ['Yustiz', 23], ['Dayana', 25], ['Lesly', -5], ['Deibys', 1]],
+        colors: ['#fff']
+      },
+      chartData3: {
+        data: [['David', 44], ['Yustiz', 23], ['Chacal', -10]],
+        colors: ['#fff']
+      }
+    };
+  },
+
+  created: function created() {},
+  methods: {},
+  mounted: function mounted() {}
+});
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    { attrs: { row: "", "justify-center": "", wrap: "" } },
+    [
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm6: "", md3: "" } },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { dark: "", color: "blue" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        { staticClass: "text-xs-center" },
+                        [
+                          _c("v-icon", { attrs: { "x-large": "" } }, [
+                            _vm._v("euro_symbol")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { color: "" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Ingreso Euros")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v("3.000.543,00")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm6: "", md3: "" } },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { dark: "", color: "red" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        { staticClass: "text-xs-center" },
+                        [
+                          _c("v-icon", { attrs: { "x-large": "" } }, [
+                            _vm._v("attach_money")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { color: "" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Ingreso Dolar")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v("3.000.543,00")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm6: "", md3: "" } },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { dark: "", color: "green" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        { staticClass: "text-xs-center" },
+                        [
+                          _c("v-icon", { attrs: { "x-large": "" } }, [
+                            _vm._v("shop_two")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { color: "" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Otros Ingresos")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v("3.000.543,00")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm6: "", md3: "" } },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { dark: "", color: "orange" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        { staticClass: "text-xs-center" },
+                        [
+                          _c("v-icon", { attrs: { "x-large": "" } }, [
+                            _vm._v("account_balance")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { color: "" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Total Ingresos")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v("3.000.543,00")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-flex", { staticClass: "separador", attrs: { xs12: "" } }),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", md6: "" } },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { dark: "", color: "orange" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        { staticClass: "text-xs-center" },
+                        [
+                          _c("line-chart", {
+                            attrs: {
+                              data: _vm.chartData1.data,
+                              colors: _vm.chartData1.colors
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { color: "" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Ventas Diarias")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v("55% de imcremento")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", md6: "" } },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { dark: "", color: "light-green" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        { staticClass: "text-xs-center" },
+                        [
+                          _c("column-chart", {
+                            attrs: {
+                              data: _vm.chartData2.data,
+                              colors: _vm.chartData2.colors
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { color: "" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Quien es el mejor Programador?")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v("Alucinaras!!!")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-flex", { staticClass: "separador", attrs: { xs12: "" } }),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", md6: "" } },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { dark: "", color: "red lighten-1" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        { staticClass: "text-xs-center" },
+                        [
+                          _c("bar-chart", {
+                            attrs: {
+                              data: _vm.chartData3.data,
+                              colors: _vm.chartData3.colors
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { flat: "", xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { color: "" } },
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Quien es el mejor COD?")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v("Alucinaras!!!")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-85ef4954", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
