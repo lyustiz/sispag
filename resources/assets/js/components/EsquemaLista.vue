@@ -4,7 +4,7 @@
         <v-flex xs11>
         <v-card>
             
-            <v-toolbar class="blue accent-1 white--text">
+            <v-toolbar class="light-blue darken-3 white--text">
             <h3>Esquemas de Pago</h3>
                 <v-spacer></v-spacer>
                 <v-btn fab @click="insItem" dark small absolute right bottom class="success">
@@ -42,7 +42,7 @@
                 <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
                 <!--acciones-->
                 <td class="text-xs-left">
-                    <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+                    <list-buttons @editar="updItem(item.item)" :del="false">
                     </list-buttons>
                 </td>
 

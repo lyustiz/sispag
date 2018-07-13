@@ -4,7 +4,7 @@
         <v-flex xs12>
         <v-card>
             
-            <v-toolbar class="blue accent-1 white--text">
+            <v-toolbar class="blue lighten-3 white--text">
             <h3>Reporte</h3>
                 <v-spacer></v-spacer>
                

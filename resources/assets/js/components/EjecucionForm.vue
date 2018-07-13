@@ -5,7 +5,7 @@
         <v-form ref="form" v-model="valido" lazy-validation>
         <v-card>
             
-            <v-card-title class="red accent-1 white--text">
+            <v-card-title class="light-blue darken-3 white--text">
                 <h2>Ejecucion de Pago</h2>
             </v-card-title>
             
@@ -155,7 +155,7 @@ export default {
             
             if (this.$refs.form.validate()) 
             {           
-                if( this.form.id_etapa_envio == 3 &&  this.form.id_status == 13 )
+                if( this.form.id_etapa_envio == 3 &&  this.form.id_status == 31 )
                 {
                     if(!confirm('Esta operacion completara el proceso de pago \n Desea continuar?'))
                     {
@@ -169,6 +169,7 @@ export default {
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
                 })
                 .catch(error => 
                 {

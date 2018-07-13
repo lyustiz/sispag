@@ -4,14 +4,15 @@
         <v-flex xs12>
         <v-card>
             
-            <v-toolbar class="blue-grey white--text">
-            <h3>Movimiento</h3>
-                <v-spacer></v-spacer>
-            </v-toolbar>
-
             <v-card-text>
+            <div class="text-sm-left">
+                <v-chip>
+                <v-avatar class="teal"><v-icon>import_export</v-icon></v-avatar>
+                    <h3>Movimientos {{ moneda.nb_moneda}} {{ moneda.tx_signo}}</h3>  
+                </v-chip>
+            </div>
                 
-            
+
             <v-data-table
             :headers="headers"
             :items  ="items"
@@ -27,7 +28,6 @@
                 <td class="text-xs-left">{{ item.item.tx_tipomov }}</td>
                 <td class="text-xs-right">{{ item.item.mo_movimiento  | formatNumber}}</td>
                 <td class="text-xs-left">{{ item.item.fe_movimiento}}</td>
-
             </template>
 
             <template slot="expand" slot-scope="item">
@@ -80,7 +80,7 @@ export default {
     {
         list () {
 
-            axios.get('/api/v1/movimiento/moneda/'+this.moneda)
+            axios.get('/api/v1/movimiento/moneda/'+this.moneda.id_moneda)
             .then(respuesta => {
                 this.items = respuesta.data;
             })

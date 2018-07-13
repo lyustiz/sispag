@@ -5,7 +5,7 @@
     <v-flex xs12>
     <v-card>
         
-        <v-toolbar class="blue accent-1 white--text">
+        <v-toolbar class="light-blue darken-3 white--text">
             <h3>Ingresos</h3>
             <v-spacer></v-spacer>
             <v-btn fab @click="insItem" dark small absolute right bottom class="success">

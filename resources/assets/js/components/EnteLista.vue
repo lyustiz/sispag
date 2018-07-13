@@ -4,8 +4,8 @@
         <v-flex xs12>
         <v-card>
 
-            <v-toolbar class="blue accent-1 white--text">
-            <h3>Entes</h3>
+            <v-toolbar class="light-blue darken-3 white--text">
+            <h3>Entes</h3> 
                 <v-spacer></v-spacer>
                 <v-btn fab @click="insItem" dark small absolute right bottom class="success">
                         <v-icon dark>add</v-icon>
@@ -41,7 +41,7 @@
                 <!--acciones-->
                 <td class="text-xs-left">
 
-                    <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+                    <list-buttons @editar="updItem(item.item)" :del="false">
                     </list-buttons>
                         
                 </td>

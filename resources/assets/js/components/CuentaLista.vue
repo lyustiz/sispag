@@ -4,7 +4,7 @@
         <v-flex xs12>
         <v-card>
             
-            <v-toolbar class="blue accent-1 white--text">
+            <v-toolbar class="light-blue darken-3 white--text">
             <h3>Cuenta</h3>
                 <v-spacer></v-spacer>
             </v-toolbar>
@@ -50,7 +50,7 @@
             <template slot="expand" slot-scope="item">
                 <v-card flat>
                     <v-card-text>
-                        <movimiento-lista :moneda="item.item.id_moneda"></movimiento-lista>
+                        <movimiento-lista :moneda="item.item.moneda"></movimiento-lista>
                     </v-card-text>
                 </v-card>
             </template>

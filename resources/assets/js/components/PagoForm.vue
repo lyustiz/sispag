@@ -5,7 +5,7 @@
         <v-form ref="form" v-model="valido" lazy-validation>
         <v-card>
             
-            <v-card-title class="red accent-1 white--text">
+            <v-card-title class="light-blue darken-3 white--text">
                 <h2>Pago</h2>
             </v-card-title>
             
@@ -122,7 +122,7 @@
                 hint="Ej 107,02"
                 ></v-text-field>
             </v-flex>    
-
+            <!--
             <v-flex xs12 sm6>  
                 <v-select
                 :items="listas.status"
@@ -135,7 +135,7 @@
                 required
                 ></v-select>
             </v-flex>
-
+            -->
             <v-flex xs12 >
                 <v-text-field
                     :rules="rules.tx_observaciones"
@@ -199,7 +199,7 @@ export default {
                 banco:    ['/grupo/1'],
                 moneda:   [],
                 tipoPago: [],
-                status:   ['/grupo/3'],
+                //status:   ['/grupo/3'],
             },
             rules:{
                 montoPago: [
@@ -249,11 +249,12 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {               
-               this.form.id_instruccion = this.instruccion.id_instruccion
+               this.form.id_instruccion = this.instruccion.id_instruccion               
 
                axios.put(this.basePath + this.item.id_pago, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
                 })
                 .catch(error => {
                     this.showError(error);
@@ -264,8 +265,8 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {                
-                this.form.id_instruccion = this.instruccion.id_instruccion
-
+                this.form.id_instruccion = this.instruccion.id_instruccion;
+                this.form.id_status = 10; 
                 axios.post(this.basePath, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)

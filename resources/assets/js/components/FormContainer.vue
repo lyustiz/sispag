@@ -3,7 +3,7 @@
 <v-dialog v-model="modal" fullscreen hide-overlay transition="dialog-bottom-transition">
     <v-card>
 
-        <v-toolbar dark color="blue accent-1 white--text">
+        <v-toolbar dark color="red darken-1 lighten-4 white--text">
            
             <v-btn icon dark @click.native="cerrarModal">
                 <v-icon>close</v-icon>

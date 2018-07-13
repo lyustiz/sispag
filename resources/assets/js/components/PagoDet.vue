@@ -4,10 +4,10 @@
     <v-flex xs12>
     <v-card>
         
-        <v-toolbar class="blue accent-1 white--text">
+        <v-toolbar class="light-blue darken-3 white--text">
             <h3>Pagos: </h3> 
             <v-chip color="info  white--text"  >
-                Instrudo: {{montos.instruido | formatNumber}}
+                Instruido: {{montos.instruido | formatNumber}}
             </v-chip>
             <v-chip color="error  white--text"  >
                Pendiente: {{montos.pendiente | formatNumber}}

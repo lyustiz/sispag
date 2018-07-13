@@ -146,11 +146,11 @@ const app = new Vue({
       { icon: 'description', text: 'Reportes', 
         children: 
         [
-          { icon: 'description', text: 'Bancos', href: '/reports.reports' },
+          { icon: 'description', text: 'Bancos', href: '/reports.banco' },
           { icon: 'description', text: 'Ingresos', href: '/construccion' },
           { icon: 'description', text: 'Solicitudes', href: '/construccion' },
           { icon: 'description', text: 'Intrucciones', href: '/construccion' },
-          { icon: 'description', text: 'General', href: '/construccion' },
+          { icon: 'description', text: 'General', href: '/reports.general' },
         ], 
       },
       { heading: 'Administracion' },

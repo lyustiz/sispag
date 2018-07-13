@@ -5,7 +5,7 @@
         <v-form ref="form" v-model="valido" lazy-validation>
         <v-card>
             
-        <v-card-title class="red accent-1 white--text">
+        <v-card-title class="light-blue darken-3 white--text">
             <h2>Ingreso</h2>
         </v-card-title>
         
@@ -217,7 +217,7 @@ export default {
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
-                    this.cancel();
+                    this.$emit('cerrarModal');
                 })
                 .catch(error => 
                 {
@@ -242,7 +242,7 @@ export default {
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
-                    this.cancel();
+                    this.$emit('cerrarModal');
                 })
                 .catch(error => 
                 {

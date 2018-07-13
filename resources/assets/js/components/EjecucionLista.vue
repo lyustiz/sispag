@@ -4,7 +4,7 @@
     <v-flex xs12>
     <v-card>
         
-        <v-toolbar class="blue-grey white--text">
+        <v-toolbar class="light-blue darken-3 white--text">
             <h3>Ejecucion del Pago</h3>
 
             <v-spacer></v-spacer>
@@ -21,7 +21,7 @@
         :items  ="items"
         hide-actions
         item-key="id_ejecucion"
-        disable-initial-sort
+        disable-initial-sort 
         >
 
         <template slot="items" slot-scope="item">
