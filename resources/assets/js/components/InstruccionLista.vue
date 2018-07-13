@@ -7,7 +7,7 @@
         <v-toolbar class="light-blue darken-3 white--text">
             <h3>Instrucciones</h3>
             <v-spacer></v-spacer>
-            <v-btn fab @click="insItem" dark small absolute right bottom class="success">
+            <v-btn fab  @click="insItem" dark small absolute right bottom class="success">
                 <v-icon dark>add</v-icon>
             </v-btn>
         </v-toolbar>

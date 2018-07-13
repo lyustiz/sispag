@@ -127,6 +127,7 @@ const app = new Vue({
     items: [
 
       { heading: 'Modulos' },
+      { icon: 'home', text: 'Inicio', href: '/home' },
       { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
       { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' },
       { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' },
@@ -148,12 +149,11 @@ const app = new Vue({
       { icon: 'description', text: 'Reportes',
         children:
         [
+          { icon: 'description', text: 'General', href: '/reports.general' },
           { icon: 'description', text: 'Bancos', href: '/reports.banco' },
           { icon: 'description', text: 'Ingresos', href: '/construccion' },
           { icon: 'description', text: 'Solicitudes', href: '/construccion' },
           { icon: 'description', text: 'Intrucciones', href: '/construccion' },
-
-          { icon: 'description', text: 'General', href: '/reports.general' },
         ], 
 
       },
