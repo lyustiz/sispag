@@ -50,6 +50,7 @@
         <template slot="items" slot-scope="item">
             
             <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.ente.nb_ente }}</td>
+            <td class="text-xs-left">{{ item.item.nu_solicitud }}</td>
             <td class="text-xs-right">{{ item.item.mo_solicitud | formatNumber }}</td>
             <td class="text-xs-left">{{ item.item.tx_concepto }}</td>
             <td class="text-xs-left">{{ item.item.categoria.nb_categoria }}</td>
@@ -72,9 +73,23 @@
         </template>
 
         <template slot="expand" slot-scope="item">
-            <v-card flat>
-                <v-card-text>Detalle Solicitud  {{item.item}}</v-card-text>
-            </v-card>
+            <v-flex xs5 sm4>
+                <list-data 
+                    titulo="Detalle Solicitud" 
+                    :items="{ 
+                            'Categoria'       : item.item.categoria.nb_categoria,
+                            'Ente'            : item.item.ente.nb_ente,
+                            'Concepto'        : item.item.tx_concepto,
+                            'Monto Solicitado': formatNumber(item.item.mo_solicitud),
+                            'Nro Solicitud'   : item.item.nu_solicitud,
+                            'Fech. Solicitud' : formatDate(item.item.fe_solicitud),
+                            'Status Solicitud': item.item.status.nb_status,
+                            'Obs. Solicitud'  : item.item.tx_observaciones,
+                            }" 
+                    :visible="true"
+                    @cerrar="item.expanded = !item.expanded">
+                </list-data >
+                </v-flex>
         </template>
 
         <v-alert slot="no-results" :value="true" color="info" icon="info">
@@ -119,6 +134,7 @@ export default {
     return {
         headers: [
         { text: 'Ente Solic.', value: 'ente.nb_ente' },
+        { text: 'Nro. Solic.', value: 'nu_solicitud' },
         { text: 'Monto',       value: 'mo_solicitud' },
         { text: 'Concepto',    value: 'tx_concepto' },
         { text: 'Categoria',   value: 'categoria.nb_categoria' },

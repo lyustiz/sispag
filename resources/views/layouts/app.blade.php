@@ -25,7 +25,7 @@
             app
             v-model="drawer"
     >
-    
+    <!-- MENU -->
     <v-list dense v-for="(item, idx) in items" :key="idx">
 
         <!-- header -->
@@ -117,52 +117,25 @@
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-icon>account_circle</v-icon>
-                    </v-flex>
-                    <v-flex xs12>
-                        <h3>@{{  user.name }}</h3>
+                        <h3>@{{ user.usuario }}</h3>
                     </v-flex>
                 </v-layout>
             </v-container>
             <v-card-text class="px-0 grey lighten-3">
-                <v-form class="pl-3 pr-1 ma-0">
-                    <v-text-field :readonly="!editingUser"
-                                  label="Correo"
-                                  :value="user.email"
-                                  ref="email"
-                                  @input="updateEmail"
-                    ></v-text-field>
-                    <v-text-field :readonly="!editingUser"
-                                  label="Usuario"
-                                  :value="user.name"
-                                  @input="updateName"
-                    ></v-text-field>
-                    <v-text-field readonly
-                                  label="Creado"
-                                  :value="user.created_at"
-                                  readonly
-                    ></v-text-field>
-                </v-form>
+
             </v-card-text>
             <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn :loading="updatingUser" flat color="green" @click="updateUser" v-if="editingUser">
-                    <v-icon right dark>save</v-icon>
-                    Guardar
+
+                <v-btn :loading="changingPassword" flat color="red" @click="changePassword">
+                 <v-icon right dark>lock</v-icon>  Password
                 </v-btn>
-                <v-btn flat color="orange" @click="editUser()" v-else>
-                    <v-icon right dark>edit</v-icon>
-                    Editar
+
+                <v-btn  @click="logout" flat color="orange">
+                    <v-icon dark>exit_to_app</v-icon> Salir
                 </v-btn>
-                <v-btn :loading="logoutLoading" @click="logout" flat color="orange">
-                    <v-icon right dark>exit_to_app</v-icon>
-                    Salir</v-btn>
-                <v-spacer></v-spacer>
+
             </v-card-actions>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn :loading="changingPassword" flat color="red" @click="changePassword">Cambiar Contraseña</v-btn>
-                <v-spacer></v-spacer>
-            </v-card-actions>
+   
         </v-card>
     </v-navigation-drawer>
     <v-content>

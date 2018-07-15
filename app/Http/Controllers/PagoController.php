@@ -20,16 +20,6 @@ class PagoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -77,16 +67,6 @@ class PagoController extends Controller
                     ->get();
         return $pago;
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pago  $pago
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pago $pago)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -111,7 +91,7 @@ class PagoController extends Controller
 
         $pago = Pago::find($pago->id_pago)->update($request->all());
 
-        return (['msj'=>'Registro Actualizado Correctamente ', 'pago' =>$pago]);
+        return ['msj'=>'Registro Actualizado Correctamente ', compact($pago)];
     }
 
     /**
@@ -124,6 +104,6 @@ class PagoController extends Controller
     {
         $pago = $pago->delete();
 
-        return ['msj' => 'Pago Eliminado'];
+        return ['msj' => 'Pago Eliminado', compact($pago)];
     }
 }

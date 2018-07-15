@@ -16,8 +16,8 @@ class CategoriaController extends Controller
     {
 
         $categorias = Categoria::with(['status'])
-        ->orderBy('nb_categoria', 'asc')
-        ->get();
+                                ->orderBy('nb_categoria', 'asc')
+                                ->get();
         
         return $categorias;
 
@@ -27,21 +27,12 @@ class CategoriaController extends Controller
     {
 
         $categorias = Categoria::with(['status'])
-        ->orderBy('nb_categoria', 'asc')
-        ->get();
+                                ->orderBy('nb_categoria', 'asc')
+                                ->where('id_status',22)
+                                ->get();
         
         return $categorias;
 
-    }
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -72,18 +63,7 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Categoria  $categoria
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Categoria $categoria)
-    {
-        //
+        return $categoria;
     }
 
     /**

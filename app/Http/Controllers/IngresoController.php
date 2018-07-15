@@ -21,14 +21,14 @@ class IngresoController extends Controller
         return $ingresos;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function ingresoTipoIngreso()
     {
-        //
+        $ingresos = Ingreso::select(['tipoIngreso'])
+                            ->groupBy('id_tipo_ingreso')
+                            ->get();
+        
+        return $ingresos;
     }
 
     /**
@@ -52,7 +52,6 @@ class IngresoController extends Controller
 
         ]);
         
-
         $ingreso = Ingreso::create($request->all());
 
         return (['msj'=>'Registro Agregado Correctamente ', 'ingreso' =>$ingreso]);
@@ -66,18 +65,7 @@ class IngresoController extends Controller
      */
     public function show(Ingreso $ingreso)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Ingreso  $ingreso
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ingreso $ingreso)
-    {
-        //
+        return $ingreso->load(['tipoIngreso', 'ente', 'moneda', 'banco', 'status']);
     }
 
     /**

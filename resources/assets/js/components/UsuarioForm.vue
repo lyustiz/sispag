@@ -136,7 +136,6 @@ export default {
                     nu_cedula:        '',
                     nb_nombre:        '',
                     nb_apellido:      '',
-                    remember_token:   '',
                     tx_observaciones: '',
                     id_status:        '',
             },
@@ -145,7 +144,7 @@ export default {
             },
             rules:{
                 password1: [
-                    v => !!v || 'Seleccione una Opcion (Campo Requerido)',
+                    v => !!v || 'Indique Password',
                     v => v.length > 5 || 'El password debe tener almenos 6 Caracteres'
                 ],
                 password2: [

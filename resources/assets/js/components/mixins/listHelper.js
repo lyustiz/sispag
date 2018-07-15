@@ -26,6 +26,12 @@ export default {
             value = value.toString();
             return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4);
         },
+        formatDateTime: function (value) {
+
+            if (!value) return ''
+            value = value.toString();
+            return value.substr(8, 2)+'/'+value.substr(5, 2)+'/'+value.substr(0, 4)+' '+value.substr(12, 10);
+        },
         formatNumber: function (value) 
         {
             let val = (value/1).toFixed(2).replace('.', ',')
@@ -34,14 +40,27 @@ export default {
 
     },
     methods: {
-
+        formatNumber: function (value) 
+        {
+            let val = (value/1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        },
+        formatDate (date) 
+        { 
+            if (!date) return null
+    
+            const [year, month, day] = date.split('-')
+            return `${day}/${month}/${year}`
+        },
         cerrarModal(){
-            this.modal = false;
-            this.item = '';
+            this.modal  = false;
+            this.item   = '';
             this.list();
+            this.accion = false;
         },
         insItem () {
 
+            this.item = '';
             this.nb_accion  = 'Agregar:';
             this.accion     = 'ins';
             this.modal      = true;

@@ -67,14 +67,14 @@
         loading: false,
         done: false,
         emailRules: [
-          (v) => !!v || 'El email és obligatori',
+          (v) => !!v || 'El correo és obligatorio',
           (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'S\'ha d\'indicar un email vàlid'
         ],
         password: '',
         passwordConfirmation: '',
         passwordRules: [
-          (v) => !!v || 'La paraula de pas és obligatòria',
-          (v) => v.length >= 6 || 'La paraula de pas ha de tenir com a mínim 6 caràcters'
+          (v) => !!v || 'El password es obligatorio',
+          (v) => v.length >= 6 || 'El password debe tener almenos 6 caracteres'
         ],
         valid: false
       }

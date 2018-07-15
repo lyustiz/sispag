@@ -30,32 +30,6 @@ class CuentaController extends Controller
     }
 
 
-    public function prueba()
-    {
-       // $sumIntruida = \DB::table('instruccion')->where('id_moneda', '=', 1)->sum('mo_instruccion');
-        
-       //$sumIntruida = \App\Models\Instruccion::get()->where('id_moneda', '=', 1)->sum('mo_instruccion');
-
-       $cuentas  = Cuenta::with(['moneda.instruccion','status'])->get()->toArray();
-
-       // $Intruido = \App\Models\Instruccion::get()->where('id_moneda', '=', 1)->sum('mo_instruccion');
-        //$cuentas =  $cuentas->put('instruido', $Intruido); 
-        return $cuentas;
-
-        //return $sumIntruida;
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -75,19 +49,9 @@ class CuentaController extends Controller
      */
     public function show(Cuenta $cuenta)
     {
-        //
+        return $cuenta;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cuenta  $cuenta
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cuenta $cuenta)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

@@ -74,10 +74,27 @@
             
         </template>
 
-        <template slot="expand" slot-scope="ingreso">
-            <v-card flat>
-                <v-card-text>Detalle Ingreso  {{ingreso.item}}</v-card-text>
-            </v-card>
+        <template slot="expand" slot-scope="item">
+            <v-layout wrap>
+            <v-flex xs5 sm4>
+            <list-data 
+                titulo="Detalle Ingreso" 
+                :items="{ 
+                        'Tipo de Ingreso' : item.item.tipo_ingreso.nb_tipo_ingreso,
+                        'Ente Receptor'   : item.item.ente.nb_ente,
+                        'Banco Receptor'  : item.item.banco.nb_banco,
+                        'Moneda'          : item.item.moneda.nb_moneda,
+                        'Monto Ingreso'   : formatNumber(item.item.mo_ingreso),
+                        'Tasa '           : formatNumber(item.item.mo_tasa),
+                        'F. Ingreso'      : formatDate(item.item.fe_ingreso),
+                        'Status'          : item.item.status.nb_status,
+                        'Obs. Solicitud'  : item.item.tx_observaciones,
+                        }" 
+                :visible="true"
+                @cerrar="item.expanded = !item.expanded">
+            </list-data >
+            </v-flex>
+            </v-layout>
         </template>
 
         <v-alert slot="no-results" :value="true" color="info" icon="info">

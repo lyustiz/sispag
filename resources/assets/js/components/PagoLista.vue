@@ -122,7 +122,7 @@ export default {
         headers: [
         { text: 'Categoria',    value: 'solicitud.categoria.nb_categoria' },
         { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
-        { text: 'Concepto',     value: 'instruccion.tx_concepto' },
+        { text: 'Concepto',     value: 'solicitud.tx_concepto' },
         { text: 'Monto',        value: 'mo_instruccion' },
         { text: 'Fecha',        value: 'fe_instruccion' },
         { text: 'Esq. Pago',    value: 'esquema.nb_esquema' },

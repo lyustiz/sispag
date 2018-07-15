@@ -54,8 +54,8 @@
                           'Ente Solicitante': solicitud.ente.nb_ente,
                           'Concepto'        : solicitud.tx_concepto,
                           'Moneda Solicitud': solicitud.moneda.nb_moneda,
-                          'Monto Solicitado': solicitud.mo_solicitud,
-                          'Fecha Solicitud' : solicitud.fe_solicitud,
+                          'Monto Solicitado': formatNumber(solicitud.mo_solicitud),
+                          'Fecha Solicitud' : formatDate(solicitud.fe_solicitud),
                         }" 
                 :visible="true"
                 @cerrar="remSolicitud"
@@ -69,9 +69,9 @@
                 titulo="Ingreso" 
                 :items="{ 
                           'Moneda'          : ingreso.moneda.nb_moneda,
-                          'Monto Total'     : ingreso.mo_total,
-                          'Monto Instruido' : ingreso.mo_instruido,
-                          'Monto Disponible': ingreso.mo_disponible,
+                          'Monto Total'     : formatNumber(ingreso.mo_total),
+                          'Monto Instruido' : formatNumber(ingreso.mo_instruido),
+                          'Monto Disponible': formatNumber(ingreso.mo_disponible),
                         }"
                 :visible="true" 
                 @cerrar="remIngreso"
@@ -287,6 +287,11 @@ export default {
                 this.categoria = 1;
                 this.getSolicitud();
                 this.getIngreso();
+            }else
+            {
+                this.form.id_status = 1;
+                this.form.bo_ofi_cta_mte = 1; 
+
             }
         },
         categoria: function(val)
@@ -370,6 +375,7 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {
+                
                 axios.put(this.basePath + this.item.id_instruccion, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
@@ -383,6 +389,7 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {            
+                
                 axios.post(this.basePath, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)

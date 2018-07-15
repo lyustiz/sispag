@@ -23,16 +23,6 @@ export default {
       })
     })
   },
-  [ actions.REGISTER ] (context, user) {
-    return new Promise((resolve, reject) => {
-      auth.register(user).then(response => {
-        context.commit(mutations.LOGGED, false)
-        resolve(response)
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
   [ actions.REMEMBER_PASSWORD ] (context, email) {
     return new Promise((resolve, reject) => {
       auth.remember(email).then(response => {

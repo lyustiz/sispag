@@ -2,9 +2,11 @@ export default {
     created() {
               
         this.listasLoader()
+        this.rstForm();
         this.basePath += this.tabla + '/'
         //this.form.id_usuario = this.$store.getters.user.id
         this.form.id_usuario = 1;
+
     },
     data() {
 
@@ -47,7 +49,7 @@ export default {
             }else
             {
                 this.clear();
-            }
+            } 
             
         },
 
@@ -77,6 +79,11 @@ export default {
     
             const [year, month, day] = date.split('-')
             return `${day}/${month}/${year}`
+        },
+        formatNumber: function (value) 
+        {
+            let val = (value/1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         },
         listRequests(objListas) 
         {
@@ -138,7 +145,6 @@ export default {
         },
 
         rstForm(){
-
             for(var key in this.form) {
 
                 this.form[key] = null;

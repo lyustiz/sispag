@@ -14,14 +14,14 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $status = Status::get();
+        $status = Status::get()->where('bo_oculto','<>', 1);
         
         return $status;
     }
 
     public function statusGrupo($grupo)
     {
-        $status = Status::grupo($grupo)->get();
+        $status = Status::grupo($grupo)->get()->where('bo_oculto','<>', 1);
         
         return $status;
     }

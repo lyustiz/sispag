@@ -5087,6 +5087,8 @@ function applyToTag (styleElement, obj) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     created: function created() {
         this.items = this.list();
@@ -5116,6 +5118,12 @@ function applyToTag (styleElement, obj) {
             value = value.toString();
             return value.substr(8, 2) + '/' + value.substr(5, 2) + '/' + value.substr(0, 4);
         },
+        formatDateTime: function formatDateTime(value) {
+
+            if (!value) return '';
+            value = value.toString();
+            return value.substr(8, 2) + '/' + value.substr(5, 2) + '/' + value.substr(0, 4) + ' ' + value.substr(12, 10);
+        },
         formatNumber: function formatNumber(value) {
             var val = (value / 1).toFixed(2).replace('.', ',');
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -5123,13 +5131,30 @@ function applyToTag (styleElement, obj) {
 
     },
     methods: {
+        formatNumber: function formatNumber(value) {
+            var val = (value / 1).toFixed(2).replace('.', ',');
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+        formatDate: function formatDate(date) {
+            if (!date) return null;
+
+            var _date$split = date.split('-'),
+                _date$split2 = _slicedToArray(_date$split, 3),
+                year = _date$split2[0],
+                month = _date$split2[1],
+                day = _date$split2[2];
+
+            return day + '/' + month + '/' + year;
+        },
         cerrarModal: function cerrarModal() {
             this.modal = false;
             this.item = '';
             this.list();
+            this.accion = false;
         },
         insItem: function insItem() {
 
+            this.item = '';
             this.nb_accion = 'Agregar:';
             this.accion = 'ins';
             this.modal = true;
@@ -5156,171 +5181,6 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 /* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    created: function created() {
-
-        this.listasLoader();
-        this.basePath += this.tabla + '/';
-        //this.form.id_usuario = this.$store.getters.user.id
-        this.form.id_usuario = 1;
-    },
-    data: function data() {
-
-        return {
-
-            basePath: '/api/v1/',
-            valido: false,
-            btnAccion: '',
-            picker: false,
-            dates: {},
-            rules: {
-                select: [function (v) {
-                    return !!v || 'Seleccione una Opcion (Campo Requerido)';
-                }],
-                requerido: [function (v) {
-                    return !!v || 'Campo Requerido';
-                }],
-                monto: [function (v) {
-                    return !!v || 'Monto Requerido';
-                }],
-                fecha: [function (v) {
-                    return !!v || 'Fecha Requerida';
-                }]
-            }
-
-        };
-    },
-
-    props: ['accion', 'item'],
-
-    watch: {
-
-        accion: function accion(val) {
-            this.btnAccion = val;
-
-            if (val == 'upd') {
-                this.mapForm();
-            } else {
-                this.clear();
-            }
-        },
-
-        item: function item(val) {
-            this.mapForm();
-        }
-    },
-    filters: {
-
-        formDate: function formDate(value) {
-
-            if (!date) return null;
-
-            var _date$split = date.split('-'),
-                _date$split2 = _slicedToArray(_date$split, 3),
-                year = _date$split2[0],
-                month = _date$split2[1],
-                day = _date$split2[2];
-
-            return day + '/' + month + '/' + year;
-        },
-        formatNumber: function formatNumber(value) {
-            var val = (value / 1).toFixed(2).replace('.', ',');
-            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-
-    },
-    methods: {
-        formatDate: function formatDate(date) {
-            if (!date) return null;
-
-            var _date$split3 = date.split('-'),
-                _date$split4 = _slicedToArray(_date$split3, 3),
-                year = _date$split4[0],
-                month = _date$split4[1],
-                day = _date$split4[2];
-
-            return day + '/' + month + '/' + year;
-        },
-        listRequests: function listRequests(objListas) {
-            var peticiones = [];
-
-            for (var lista in objListas) {
-                var parametro = objListas[lista] ? objListas[lista] : '';
-
-                peticiones.push(axios.get(this.basePath + lista + parametro));
-            }
-
-            return axios.all(peticiones);
-        },
-        listasLoader: function listasLoader() {
-            var _this = this;
-
-            this.listRequests(this.listas).then(axios.spread(function () {
-                for (var _len = arguments.length, dataLists = Array(_len), _key = 0; _key < _len; _key++) {
-                    dataLists[_key] = arguments[_key];
-                }
-
-                var i = 0;
-                for (var key in _this.listas) {
-                    _this.listas[key] = dataLists[i].data;
-                    i++;
-                }
-            })).catch(function (error) {
-
-                _this.showError(error);
-            });
-        },
-        mapForm: function mapForm() {
-
-            if (this.item) {
-                for (var key in this.item) {
-
-                    if (this.form.hasOwnProperty(key)) {
-
-                        if (key.substr(0, 2) == 'fe') {
-                            this.dates[key] = this.formatDate(this.item[key]);
-                        }
-                        this.form[key] = this.item[key];
-                    }
-                }
-            } else {
-
-                this.rstForm();
-            }
-        },
-        rstForm: function rstForm() {
-
-            for (var key in this.form) {
-
-                this.form[key] = null;
-            }
-            for (var key in this.dates) {
-
-                this.dates[key] = null;
-            }
-            this.form.id_usuario = 1;
-        },
-        clear: function clear() {
-
-            this.$refs.form.reset();
-            this.rstForm();
-        },
-        cancel: function cancel() {
-
-            this.$emit('cerrarModal');
-            this.clear();
-        }
-    }
-
-});
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5630,6 +5490,176 @@ module.exports = {
 
 
 /***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    created: function created() {
+
+        this.listasLoader();
+        this.rstForm();
+        this.basePath += this.tabla + '/';
+        //this.form.id_usuario = this.$store.getters.user.id
+        this.form.id_usuario = 1;
+    },
+    data: function data() {
+
+        return {
+
+            basePath: '/api/v1/',
+            valido: false,
+            btnAccion: '',
+            picker: false,
+            dates: {},
+            rules: {
+                select: [function (v) {
+                    return !!v || 'Seleccione una Opcion (Campo Requerido)';
+                }],
+                requerido: [function (v) {
+                    return !!v || 'Campo Requerido';
+                }],
+                monto: [function (v) {
+                    return !!v || 'Monto Requerido';
+                }],
+                fecha: [function (v) {
+                    return !!v || 'Fecha Requerida';
+                }]
+            }
+
+        };
+    },
+
+    props: ['accion', 'item'],
+
+    watch: {
+
+        accion: function accion(val) {
+            this.btnAccion = val;
+
+            if (val == 'upd') {
+                this.mapForm();
+            } else {
+                this.clear();
+            }
+        },
+
+        item: function item(val) {
+            this.mapForm();
+        }
+    },
+    filters: {
+
+        formDate: function formDate(value) {
+
+            if (!date) return null;
+
+            var _date$split = date.split('-'),
+                _date$split2 = _slicedToArray(_date$split, 3),
+                year = _date$split2[0],
+                month = _date$split2[1],
+                day = _date$split2[2];
+
+            return day + '/' + month + '/' + year;
+        },
+        formatNumber: function formatNumber(value) {
+            var val = (value / 1).toFixed(2).replace('.', ',');
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+    },
+    methods: {
+        formatDate: function formatDate(date) {
+            if (!date) return null;
+
+            var _date$split3 = date.split('-'),
+                _date$split4 = _slicedToArray(_date$split3, 3),
+                year = _date$split4[0],
+                month = _date$split4[1],
+                day = _date$split4[2];
+
+            return day + '/' + month + '/' + year;
+        },
+
+        formatNumber: function formatNumber(value) {
+            var val = (value / 1).toFixed(2).replace('.', ',');
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+        listRequests: function listRequests(objListas) {
+            var peticiones = [];
+
+            for (var lista in objListas) {
+                var parametro = objListas[lista] ? objListas[lista] : '';
+
+                peticiones.push(axios.get(this.basePath + lista + parametro));
+            }
+
+            return axios.all(peticiones);
+        },
+        listasLoader: function listasLoader() {
+            var _this = this;
+
+            this.listRequests(this.listas).then(axios.spread(function () {
+                for (var _len = arguments.length, dataLists = Array(_len), _key = 0; _key < _len; _key++) {
+                    dataLists[_key] = arguments[_key];
+                }
+
+                var i = 0;
+                for (var key in _this.listas) {
+                    _this.listas[key] = dataLists[i].data;
+                    i++;
+                }
+            })).catch(function (error) {
+
+                _this.showError(error);
+            });
+        },
+        mapForm: function mapForm() {
+
+            if (this.item) {
+                for (var key in this.item) {
+
+                    if (this.form.hasOwnProperty(key)) {
+
+                        if (key.substr(0, 2) == 'fe') {
+                            this.dates[key] = this.formatDate(this.item[key]);
+                        }
+                        this.form[key] = this.item[key];
+                    }
+                }
+            } else {
+
+                this.rstForm();
+            }
+        },
+        rstForm: function rstForm() {
+            for (var key in this.form) {
+
+                this.form[key] = null;
+            }
+            for (var key in this.dates) {
+
+                this.dates[key] = null;
+            }
+            this.form.id_usuario = 1;
+        },
+        clear: function clear() {
+
+            this.$refs.form.reset();
+            this.rstForm();
+        },
+        cancel: function cancel() {
+
+            this.$emit('cerrarModal');
+            this.clear();
+        }
+    }
+
+});
+
+/***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5758,16 +5788,14 @@ module.exports = Element;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOGOUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return REGISTER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return REMEMBER_PASSWORD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return RESET_PASSWORD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return REMEMBER_PASSWORD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return RESET_PASSWORD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FETCH_USERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return UPDATE_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SELECTED_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return UPDATE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SELECTED_USER; });
 // AUTH MODULE
 var LOGIN = 'LOGIN';
 var LOGOUT = 'LOGOUT';
-var REGISTER = 'REGISTER';
 var REMEMBER_PASSWORD = 'REMEMBER_PASSWORD';
 var RESET_PASSWORD = 'RESET_PASSWORD';
 
@@ -27102,7 +27130,7 @@ module.exports = __webpack_require__(165);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 var normalizeHeaderName = __webpack_require__(168);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -39989,7 +40017,7 @@ process.umask = function() { return 0; };
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 var settle = __webpack_require__(169);
 var buildURL = __webpack_require__(171);
 var parseHeaders = __webpack_require__(172);
@@ -54900,7 +54928,6 @@ Vue.component('report', __webpack_require__(229));
 Vue.component('report-data', __webpack_require__(234));
 
 Vue.component('login-button', __webpack_require__(237));
-Vue.component('register-button', __webpack_require__(240));
 Vue.component('remember-password', __webpack_require__(243));
 Vue.component('reset-password', __webpack_require__(246));
 
@@ -54990,8 +55017,6 @@ var app = new Vue({
       },
       drawer: null,
       drawerRight: false,
-      editingUser: false,
-      logoutLoading: false,
       changingPassword: false,
       updatingUser: false,
       items: [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' }, { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' }, { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' }, { icon: 'assignment_returned', text: 'Pagos', href: '/pago' }, { icon: 'assessment', text: 'Cuentas', href: '/cuenta' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
@@ -55019,30 +55044,6 @@ var app = new Vue({
         _this.parallax.height = window.innerHeight;
       });
     },
-    editUser: function editUser() {
-      this.editingUser = true;
-      this.$nextTick(this.$refs.email.focus);
-    },
-    updateUser: function updateUser() {
-      var _this2 = this;
-
-      this.updatingUser = true;
-      this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["h" /* UPDATE_USER */], this.user).then(function (response) {
-        _this2.showMessage('Usuario Modificado Correctamente');
-      }).catch(function (error) {
-        console.dir(error);
-        _this2.showError(error);
-      }).then(function () {
-        _this2.editingUser = false;
-        _this2.updatingUser = false;
-      });
-    },
-    updateEmail: function updateEmail(email) {
-      this.$store.commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["i" /* USER */], _extends({}, this.user, { email: email }));
-    },
-    updateName: function updateName(name) {
-      this.$store.commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["i" /* USER */], _extends({}, this.user, { name: name }));
-    },
     toogleRightDrawer: function toogleRightDrawer() {
       this.drawerRight = !this.drawerRight;
     },
@@ -55055,7 +55056,7 @@ var app = new Vue({
       return true;
     },
     logout: function logout() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.logoutLoading = true;
       this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["c" /* LOGOUT */]).then(function (response) {
@@ -55063,7 +55064,7 @@ var app = new Vue({
       }).catch(function (error) {
         console.log(error);
       }).then(function () {
-        _this3.logoutLoading = false;
+        _this2.logoutLoading = false;
       });
     },
     menuItemSelected: function menuItemSelected(item) {
@@ -55076,16 +55077,16 @@ var app = new Vue({
       }
     },
     changePassword: function changePassword() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.changingPassword = true;
-      this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["e" /* REMEMBER_PASSWORD */], this.user.email).then(function (response) {
-        _this4.showMessage('Correo para reinicio de contrase\xF1a');
+      this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["d" /* REMEMBER_PASSWORD */], this.user.email).then(function (response) {
+        _this3.showMessage('Correo para reinicio de contrase\xF1a');
       }).catch(function (error) {
         console.dir(error);
-        _this4.showError(error);
+        _this3.showError(error);
       }).then(function () {
-        _this4.changingPassword = false;
+        _this3.changingPassword = false;
       });
     }
   }
@@ -55147,7 +55148,7 @@ if (userHeader) if (userHeader.content) window.user = JSON.parse(userHeader.cont
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 var bind = __webpack_require__(26);
 var Axios = __webpack_require__(167);
 var defaults = __webpack_require__(21);
@@ -55234,7 +55235,7 @@ function isSlowBuffer (obj) {
 
 
 var defaults = __webpack_require__(21);
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 var InterceptorManager = __webpack_require__(176);
 var dispatchRequest = __webpack_require__(177);
 
@@ -55319,7 +55320,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -55399,7 +55400,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -55472,7 +55473,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -55532,7 +55533,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -55650,7 +55651,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -55710,7 +55711,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -55769,7 +55770,7 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 var transformData = __webpack_require__(178);
 var isCancel = __webpack_require__(30);
 var defaults = __webpack_require__(21);
@@ -55862,7 +55863,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(9);
+var utils = __webpack_require__(8);
 
 /**
  * Transform the data for a request or a response
@@ -57696,6 +57697,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -61309,392 +61311,9 @@ if (false) {
 }
 
 /***/ }),
-/* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(241)
-/* template */
-var __vue_template__ = __webpack_require__(242)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\RegisterButtonComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-53759da1", Component.options)
-  } else {
-    hotAPI.reload("data-v-53759da1", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 241 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_action_types__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_withSnackbar__ = __webpack_require__(2);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_withSnackbar__["a" /* default */]],
-  data: function data() {
-    return {
-      errors: [],
-      internalAction: this.action,
-      name: '',
-      nameRules: [function (v) {
-        return !!v || 'User name is mandatory';
-      }],
-      email: '',
-      emailRules: [function (v) {
-        return !!v || 'Mail is mandatory';
-      }, function (v) {
-        return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email have to be valid'
-        );
-      }],
-      password: '',
-      passwordRules: [function (v) {
-        return !!v || 'Password is mandatory';
-      }, function (v) {
-        return v.length >= 6 || 'Password at least have to be 6 characters';
-      }],
-      passwordConfirmation: '',
-      valid: false,
-      registerLoading: false
-    };
-  },
-
-  props: {
-    action: {
-      type: String,
-      default: null
-    },
-    show: {
-      type: Boolean,
-      default: true
-    }
-  },
-  computed: {
-    showRegister: {
-      get: function get() {
-        if (this.internalAction && this.internalAction === 'register') return true;
-        return false;
-      },
-      set: function set(value) {
-        if (value) this.internalAction = 'register';else this.internalAction = null;
-      }
-    }
-  },
-  methods: {
-    register: function register() {
-      var _this = this;
-
-      if (this.$refs.registrationForm.validate()) {
-        this.registerLoading = true;
-        var user = {
-          'name': this.name,
-          'email': this.email,
-          'password': this.password,
-          'password_confirmation': this.passwordConfirmation
-        };
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["d" /* REGISTER */], user).then(function (response) {
-          _this.registerLoading = false;
-          _this.showRegister = false;
-          window.location = '/home';
-        }).catch(function (error) {
-          if (error.response && error.response.status === 422) {
-            _this.showError({
-              message: 'Invalid data'
-            });
-          } else {
-            _this.showError(error);
-          }
-          _this.errors = error.response.data.errors;
-        }).then(function () {
-          _this.registerLoading = false;
-        });
-      }
-    }
-  }
-});
-
-/***/ }),
-/* 242 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm.show
-    ? _c(
-        "v-dialog",
-        {
-          attrs: { fullscreen: "", persistent: "" },
-          model: {
-            value: _vm.showRegister,
-            callback: function($$v) {
-              _vm.showRegister = $$v
-            },
-            expression: "showRegister"
-          }
-        },
-        [
-          _c("v-btn", { attrs: { slot: "activator" }, slot: "activator" }, [
-            _vm._v("Register")
-          ]),
-          _vm._v(" "),
-          _c(
-            "v-card",
-            [
-              _c("v-card-title", [
-                _c("span", { staticClass: "headline" }, [
-                  _vm._v("User registration")
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "v-card-text",
-                [
-                  _c(
-                    "v-form",
-                    {
-                      ref: "registrationForm",
-                      model: {
-                        value: _vm.valid,
-                        callback: function($$v) {
-                          _vm.valid = $$v
-                        },
-                        expression: "valid"
-                      }
-                    },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "User name",
-                          rules: _vm.nameRules,
-                          required: ""
-                        },
-                        model: {
-                          value: _vm.name,
-                          callback: function($$v) {
-                            _vm.name = $$v
-                          },
-                          expression: "name"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "Email",
-                          rules: _vm.emailRules,
-                          error: _vm.errors["email"],
-                          "error-messages": _vm.errors["email"],
-                          required: ""
-                        },
-                        model: {
-                          value: _vm.email,
-                          callback: function($$v) {
-                            _vm.email = $$v
-                          },
-                          expression: "email"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          name: "password",
-                          label: "Password",
-                          rules: _vm.passwordRules,
-                          hint: "At least 6 characters",
-                          error: _vm.errors["email"],
-                          "error-messages": _vm.errors["email"],
-                          required: "",
-                          min: "6",
-                          type: "password"
-                        },
-                        model: {
-                          value: _vm.password,
-                          callback: function($$v) {
-                            _vm.password = $$v
-                          },
-                          expression: "password"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          name: "password",
-                          label: "Password confirmation",
-                          rules: _vm.passwordRules,
-                          hint: "At least 6 characters",
-                          min: "6",
-                          type: "password",
-                          required: "",
-                          error: _vm.errors["password"],
-                          "error-messages": _vm.errors["password"]
-                        },
-                        model: {
-                          value: _vm.passwordConfirmation,
-                          callback: function($$v) {
-                            _vm.passwordConfirmation = $$v
-                          },
-                          expression: "passwordConfirmation"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { attrs: { href: "/login", color: "blue darken-2" } },
-                    [
-                      _vm._v(
-                        "\n                I already have an user\n            "
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                [
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "blue darken-1", flat: "" },
-                      nativeOn: {
-                        click: function($event) {
-                          _vm.showRegister = false
-                        }
-                      }
-                    },
-                    [_vm._v("Cerrar")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    : _vm._e()
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-53759da1", module.exports)
-  }
-}
-
-/***/ }),
+/* 240 */,
+/* 241 */,
+/* 242 */,
 /* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61832,7 +61451,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       if (this.$refs.resetPasswordForm.validate()) {
         this.loading = true;
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["e" /* REMEMBER_PASSWORD */], this.email).then(function (response) {
+        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["d" /* REMEMBER_PASSWORD */], this.email).then(function (response) {
           _this.loading = false;
           _this.done = true;
           Object(__WEBPACK_IMPORTED_MODULE_1__utils_sleep__["a" /* default */])(4000).then(function () {
@@ -62130,7 +61749,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       loading: false,
       done: false,
       emailRules: [function (v) {
-        return !!v || 'El email és obligatori';
+        return !!v || 'El correo és obligatorio';
       }, function (v) {
         return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'S\'ha d\'indicar un email vàlid'
         );
@@ -62138,9 +61757,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       password: '',
       passwordConfirmation: '',
       passwordRules: [function (v) {
-        return !!v || 'La paraula de pas és obligatòria';
+        return !!v || 'El password es obligatorio';
       }, function (v) {
-        return v.length >= 6 || 'La paraula de pas ha de tenir com a mínim 6 caràcters';
+        return v.length >= 6 || 'El password debe tener almenos 6 caracteres';
       }],
       valid: false
     };
@@ -62182,7 +61801,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           'token': this.token
         };
         this.loading = true;
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["f" /* RESET_PASSWORD */], user).then(function (response) {
+        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["e" /* RESET_PASSWORD */], user).then(function (response) {
           _this.loading = false;
           _this.done = true;
           Object(__WEBPACK_IMPORTED_MODULE_1__utils_sleep__["a" /* default */])(4000).then(function () {
@@ -62877,7 +62496,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -63018,7 +62637,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 nu_cedula: '',
                 nb_nombre: '',
                 nb_apellido: '',
-                remember_token: '',
                 tx_observaciones: '',
                 id_status: ''
             },
@@ -63027,7 +62645,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             rules: {
                 password1: [function (v) {
-                    return !!v || 'Seleccione una Opcion (Campo Requerido)';
+                    return !!v || 'Indique Password';
                 }, function (v) {
                     return v.length > 5 || 'El password debe tener almenos 6 Caracteres';
                 }],
@@ -63714,9 +63332,11 @@ var render = function() {
                                   _c("td", { staticClass: "text-xs-left" }, [
                                     _vm._v(
                                       _vm._s(
-                                        item.item.fe_actualizado
-                                          ? item.item.fe_actualizado
-                                          : item.item.fe_creado
+                                        _vm._f("formatDateTime")(
+                                          item.item.fe_actualizado
+                                            ? item.item.fe_actualizado
+                                            : item.item.fe_creado
+                                        )
                                       )
                                     )
                                   ])
@@ -64098,7 +63718,13 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
-                                    _vm._v(_vm._s(item.item.fe_movimiento))
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatDateTime")(
+                                          item.item.fe_movimiento
+                                        )
+                                      )
+                                    )
                                   ])
                                 ]
                               }
@@ -64994,7 +64620,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             acreditado: false,
-            headers: [{ text: 'Categoria', value: 'solicitud.categoria.nb_categoria' }, { text: 'Ente', value: 'instruccion.ente.nb_ente' }, { text: 'Concepto', value: 'instruccion.tx_concepto' }, { text: 'Monto', value: 'mo_instruccion' }, { text: 'Fecha', value: 'fe_instruccion' }, { text: 'Esq. Pago', value: 'esquema.nb_esquema' }, { text: 'Sta. Pago', value: 'id_status' }],
+            headers: [{ text: 'Categoria', value: 'solicitud.categoria.nb_categoria' }, { text: 'Ente', value: 'instruccion.ente.nb_ente' }, { text: 'Concepto', value: 'solicitud.tx_concepto' }, { text: 'Monto', value: 'mo_instruccion' }, { text: 'Fecha', value: 'fe_instruccion' }, { text: 'Esq. Pago', value: 'esquema.nb_esquema' }, { text: 'Sta. Pago', value: 'id_status' }],
             listas: {
                 categoria: []
             }
@@ -65507,7 +65133,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -66694,7 +66320,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -67163,7 +66789,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -67176,6 +66802,23 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -67596,18 +67239,54 @@ var render = function() {
                             },
                             {
                               key: "expand",
-                              fn: function(ingreso) {
+                              fn: function(item) {
                                 return [
                                   _c(
-                                    "v-card",
-                                    { attrs: { flat: "" } },
+                                    "v-layout",
+                                    { attrs: { wrap: "" } },
                                     [
-                                      _c("v-card-text", [
-                                        _vm._v(
-                                          "Detalle Ingreso  " +
-                                            _vm._s(ingreso.item)
-                                        )
-                                      ])
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs5: "", sm4: "" } },
+                                        [
+                                          _c("list-data", {
+                                            attrs: {
+                                              titulo: "Detalle Ingreso",
+                                              items: {
+                                                "Tipo de Ingreso":
+                                                  item.item.tipo_ingreso
+                                                    .nb_tipo_ingreso,
+                                                "Ente Receptor":
+                                                  item.item.ente.nb_ente,
+                                                "Banco Receptor":
+                                                  item.item.banco.nb_banco,
+                                                Moneda:
+                                                  item.item.moneda.nb_moneda,
+                                                "Monto Ingreso": _vm.formatNumber(
+                                                  item.item.mo_ingreso
+                                                ),
+                                                "Tasa ": _vm.formatNumber(
+                                                  item.item.mo_tasa
+                                                ),
+                                                "F. Ingreso": _vm.formatDate(
+                                                  item.item.fe_ingreso
+                                                ),
+                                                Status:
+                                                  item.item.status.nb_status,
+                                                "Obs. Solicitud":
+                                                  item.item.tx_observaciones
+                                              },
+                                              visible: true
+                                            },
+                                            on: {
+                                              cerrar: function($event) {
+                                                item.expanded = !item.expanded
+                                              }
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   )
@@ -67764,7 +67443,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_autonumeric__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_autonumeric___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_autonumeric__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -68497,7 +68176,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -68620,6 +68299,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -68629,7 +68323,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
-            headers: [{ text: 'Ente Solic.', value: 'ente.nb_ente' }, { text: 'Monto', value: 'mo_solicitud' }, { text: 'Concepto', value: 'tx_concepto' }, { text: 'Categoria', value: 'categoria.nb_categoria' }, { text: 'Fecha', value: 'fe_solicitud' }, { text: 'Estatus', value: 'status.nb_status' }, { text: 'Acciones', value: 'id_status' }],
+            headers: [{ text: 'Ente Solic.', value: 'ente.nb_ente' }, { text: 'Nro. Solic.', value: 'nu_solicitud' }, { text: 'Monto', value: 'mo_solicitud' }, { text: 'Concepto', value: 'tx_concepto' }, { text: 'Categoria', value: 'categoria.nb_categoria' }, { text: 'Fecha', value: 'fe_solicitud' }, { text: 'Estatus', value: 'status.nb_status' }, { text: 'Acciones', value: 'id_status' }],
             listas: {
                 categoria: []
             }
@@ -68810,6 +68504,10 @@ var render = function() {
                                     [_vm._v(_vm._s(item.item.ente.nb_ente))]
                                   ),
                                   _vm._v(" "),
+                                  _c("td", { staticClass: "text-xs-left" }, [
+                                    _vm._v(_vm._s(item.item.nu_solicitud))
+                                  ]),
+                                  _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-right" }, [
                                     _vm._v(
                                       _vm._s(
@@ -68912,15 +68610,38 @@ var render = function() {
                               fn: function(item) {
                                 return [
                                   _c(
-                                    "v-card",
-                                    { attrs: { flat: "" } },
+                                    "v-flex",
+                                    { attrs: { xs5: "", sm4: "" } },
                                     [
-                                      _c("v-card-text", [
-                                        _vm._v(
-                                          "Detalle Solicitud  " +
-                                            _vm._s(item.item)
-                                        )
-                                      ])
+                                      _c("list-data", {
+                                        attrs: {
+                                          titulo: "Detalle Solicitud",
+                                          items: {
+                                            Categoria:
+                                              item.item.categoria.nb_categoria,
+                                            Ente: item.item.ente.nb_ente,
+                                            Concepto: item.item.tx_concepto,
+                                            "Monto Solicitado": _vm.formatNumber(
+                                              item.item.mo_solicitud
+                                            ),
+                                            "Nro Solicitud":
+                                              item.item.nu_solicitud,
+                                            "Fech. Solicitud": _vm.formatDate(
+                                              item.item.fe_solicitud
+                                            ),
+                                            "Status Solicitud":
+                                              item.item.status.nb_status,
+                                            "Obs. Solicitud":
+                                              item.item.tx_observaciones
+                                          },
+                                          visible: true
+                                        },
+                                        on: {
+                                          cerrar: function($event) {
+                                            item.expanded = !item.expanded
+                                          }
+                                        }
+                                      })
                                     ],
                                     1
                                   )
@@ -69078,7 +68799,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -70231,17 +69952,20 @@ var render = function() {
                                                 Concepto:
                                                   item.item.solicitud
                                                     .tx_concepto,
-                                                "Monto Solicitado":
+                                                "Monto Solicitado": _vm.formatNumber(
                                                   item.item.solicitud
-                                                    .mo_solicitud,
+                                                    .mo_solicitud
+                                                ),
                                                 "Nro Solicitud":
                                                   item.item.solicitud
                                                     .nu_solicitud,
-                                                "F. Solicitud":
+                                                "F. Solicitud": _vm.formatDate(
                                                   item.item.solicitud
-                                                    .fe_solicitud,
+                                                    .fe_solicitud
+                                                ),
                                                 "Obs. Solicitud":
-                                                  item.item.tx_observaciones
+                                                  item.item.solicitud
+                                                    .tx_observaciones
                                               },
                                               visible: true
                                             },
@@ -70263,10 +69987,12 @@ var render = function() {
                                             attrs: {
                                               titulo: "Detalle Instruccion",
                                               items: {
-                                                "Monto Instruido":
-                                                  item.item.mo_instruccion,
-                                                "F. Instruccion":
-                                                  item.item.fe_instruccion,
+                                                "Monto Instruido": _vm.formatNumber(
+                                                  item.item.mo_instruccion
+                                                ),
+                                                "F. Instruccion": _vm.formatDate(
+                                                  item.item.fe_instruccion
+                                                ),
                                                 "Esquema de Pago":
                                                   item.item.esquema.nb_esquema,
                                                 "Nro. Esq. Pago":
@@ -70478,7 +70204,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70490,7 +70216,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -70779,6 +70505,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.categoria = 1;
                 this.getSolicitud();
                 this.getIngreso();
+            } else {
+                this.form.id_status = 1;
+                this.form.bo_ofi_cta_mte = 1;
             }
         },
         categoria: function categoria(val) {
@@ -70847,6 +70576,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             if (this.$refs.form.validate()) {
+
                 axios.put(this.basePath + this.item.id_instruccion, this.form).then(function (respuesta) {
                     _this4.showMessage(respuesta.data.msj);
                 }).catch(function (error) {
@@ -70858,6 +70588,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this5 = this;
 
             if (this.$refs.form.validate()) {
+
                 axios.post(this.basePath, this.form).then(function (respuesta) {
                     _this5.showMessage(respuesta.data.msj);
                     _this5.$emit('cerrarModal');
@@ -71059,10 +70790,12 @@ var render = function() {
                                             Concepto: _vm.solicitud.tx_concepto,
                                             "Moneda Solicitud":
                                               _vm.solicitud.moneda.nb_moneda,
-                                            "Monto Solicitado":
-                                              _vm.solicitud.mo_solicitud,
-                                            "Fecha Solicitud":
+                                            "Monto Solicitado": _vm.formatNumber(
+                                              _vm.solicitud.mo_solicitud
+                                            ),
+                                            "Fecha Solicitud": _vm.formatDate(
                                               _vm.solicitud.fe_solicitud
+                                            )
                                           },
                                           visible: true
                                         },
@@ -71086,12 +70819,15 @@ var render = function() {
                                             items: {
                                               Moneda:
                                                 _vm.ingreso.moneda.nb_moneda,
-                                              "Monto Total":
-                                                _vm.ingreso.mo_total,
-                                              "Monto Instruido":
-                                                _vm.ingreso.mo_instruido,
-                                              "Monto Disponible":
+                                              "Monto Total": _vm.formatNumber(
+                                                _vm.ingreso.mo_total
+                                              ),
+                                              "Monto Instruido": _vm.formatNumber(
+                                                _vm.ingreso.mo_instruido
+                                              ),
+                                              "Monto Disponible": _vm.formatNumber(
                                                 _vm.ingreso.mo_disponible
+                                              )
                                             },
                                             visible: true
                                           },
@@ -71927,7 +71663,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -72750,7 +72486,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -73505,7 +73241,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -74327,7 +74063,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -75222,7 +74958,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -76195,7 +75931,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
 //
 //
 //
@@ -93293,7 +93029,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           'token': this.token
         };
         this.loading = true;
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["f" /* RESET_PASSWORD */], user).then(function (response) {
+        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["e" /* RESET_PASSWORD */], user).then(function (response) {
           _this2.loading = false;
           _this2.done = true;
           Object(__WEBPACK_IMPORTED_MODULE_1__utils_sleep__["a" /* default */])(4000).then(function () {
@@ -111300,16 +111036,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["d" /* REGISTER */], function (context, user) {
-  return new Promise(function (resolve, reject) {
-    __WEBPACK_IMPORTED_MODULE_2__api_auth__["a" /* default */].register(user).then(function (response) {
-      context.commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["a" /* LOGGED */], false);
-      resolve(response);
-    }).catch(function (error) {
-      reject(error);
-    });
-  });
-}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["e" /* REMEMBER_PASSWORD */], function (context, email) {
+}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["d" /* REMEMBER_PASSWORD */], function (context, email) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_auth__["a" /* default */].remember(email).then(function (response) {
       resolve(response);
@@ -111317,7 +111044,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["f" /* RESET_PASSWORD */], function (context, user) {
+}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["e" /* RESET_PASSWORD */], function (context, user) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_auth__["a" /* default */].reset(user).then(function (response) {
       resolve(response);
@@ -111342,14 +111069,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   logout: function logout() {
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/logout');
-  },
-  register: function register(user) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/register', {
-      'name': user.name,
-      'email': user.email,
-      'password': user.password,
-      'password_confirmation': user.password_confirmation
-    });
   },
   remember: function remember(email) {
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/password/email', { 'email': email });
@@ -111507,7 +111226,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = (_actions$SELECTED_USE = {}, _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["g" /* SELECTED_USER */], function (context, user) {
+/* harmony default export */ __webpack_exports__["a"] = (_actions$SELECTED_USE = {}, _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["f" /* SELECTED_USER */], function (context, user) {
   context.commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["b" /* SELECTED_USER */], user);
 }), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["a" /* FETCH_USERS */], function (context) {
   return new Promise(function (resolve, reject) {
@@ -111518,7 +111237,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["h" /* UPDATE_USER */], function (context, user) {
+}), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["g" /* UPDATE_USER */], function (context, user) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* default */].update(user).then(function (response) {
       context.commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["i" /* USER */], user);

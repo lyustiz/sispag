@@ -28,16 +28,6 @@ class InstruccionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -72,18 +62,7 @@ class InstruccionController extends Controller
      */
     public function show(Instruccion $instruccion)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Instruccion  $instruccion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Instruccion $instruccion)
-    {
-        //
+        return $instruccion->load(['esquema','solicitud.ente', 'solicitud.categoria', 'pago.ejecucionPago','status' ]);
     }
 
     /**
@@ -108,9 +87,9 @@ class InstruccionController extends Controller
             'id_status'         => 'required',
         ]);
 
-        $instruccion = Instruccion::find($instruccion->id_instruccion)->update($request->all());
+        $instruccion = $instruccion->update($request->all());
 
-        return (['msj'=>'Registro Actualizado Correctamente ', 'Instruccion' =>$instruccion]);
+        return ['msj'=>'Registro Actualizado Correctamente ', compact('instruccion')];
     }
 
     /**
@@ -121,6 +100,8 @@ class InstruccionController extends Controller
      */
     public function destroy(Instruccion $instruccion)
     {
-        //
+        $instruccion = $instruccion->delete();
+
+        return ['msj' => 'Registro Eliminado', compact('instruccion')];
     }
 }

@@ -19,14 +19,13 @@ class TipoIngresoController extends Controller
         return $tipIngresos;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function lista()
     {
-        //
+        $tipIngresos = TipoIngreso::with(['status'])
+                                    ->where('id_status',22)
+                                    ->get();
+
+        return $tipIngresos;
     }
 
     /**
@@ -48,8 +47,6 @@ class TipoIngresoController extends Controller
         $tingreso = TipoIngreso::create($request->all());
 
         return [ 'msj' => 'Registro Agregado Correctamente', compact('tingreso') ];
-        
-        
     }
 
     /**
@@ -60,19 +57,9 @@ class TipoIngresoController extends Controller
      */
     public function show(TipoIngreso $tipoIngreso)
     {
-        //
+        return $tipoIngreso;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TipoIngreso  $tipoIngreso
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TipoIngreso $tipoIngreso)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

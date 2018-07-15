@@ -27,7 +27,7 @@
                 <td class="text-xs-left">{{ item.item.nb_modulo  }}</td>
                 <td class="text-xs-left">{{ item.item.tx_tipomov }}</td>
                 <td class="text-xs-right">{{ item.item.mo_movimiento  | formatNumber}}</td>
-                <td class="text-xs-left">{{ item.item.fe_movimiento}}</td>
+                <td class="text-xs-left">{{ item.item.fe_movimiento | formatDateTime}}</td>
             </template>
 
             <template slot="expand" slot-scope="item">

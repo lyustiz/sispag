@@ -81,10 +81,10 @@
                             'Categoria'       : item.item.solicitud.categoria.nb_categoria,
                             'Ente'            : item.item.solicitud.ente.nb_ente,
                             'Concepto'        : item.item.solicitud.tx_concepto,
-                            'Monto Solicitado': item.item.solicitud.mo_solicitud,
+                            'Monto Solicitado': formatNumber(item.item.solicitud.mo_solicitud),
                             'Nro Solicitud'   : item.item.solicitud.nu_solicitud,
-                            'F. Solicitud'    : item.item.solicitud.fe_solicitud,
-                            'Obs. Solicitud'  : item.item.tx_observaciones,
+                            'F. Solicitud'    : formatDate(item.item.solicitud.fe_solicitud),
+                            'Obs. Solicitud'  : item.item.solicitud.tx_observaciones,
                             }" 
                     :visible="true"
                     @cerrar="item.expanded = !item.expanded">
@@ -95,8 +95,8 @@
                 <list-data 
                     titulo="Detalle Instruccion" 
                     :items="{ 
-                            'Monto Instruido' : item.item.mo_instruccion,
-                            'F. Instruccion'  : item.item.fe_instruccion,
+                            'Monto Instruido' : formatNumber(item.item.mo_instruccion),
+                            'F. Instruccion'  : formatDate(item.item.fe_instruccion),
                             'Esquema de Pago' : item.item.esquema.nb_esquema,
                             'Nro. Esq. Pago'  : item.item.nu_esquema,
                             'Oficio Cta. Mdte': item.item.tx_ofi_cta_mte,

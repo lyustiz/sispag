@@ -38,16 +38,6 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -88,17 +78,6 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Solicitud  $solicitud
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Solicitud $solicitud)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -123,7 +102,7 @@ class SolicitudController extends Controller
                 
         $solicitud = Solicitud::find($solicitud->id_solicitud)->update($request->all());
 
-        return (['msj'=>'Registro Actualizado Correctamente ', 'solicitud' =>$solicitud]);
+        return ['msj'=>'Registro Actualizado Correctamente ', compact($solicitud)];
     }
 
     /**
@@ -136,6 +115,6 @@ class SolicitudController extends Controller
     {
         $solicitud = $solicitud->delete();
 
-        return ['msj' => 'Solicitud Eliminada'];
+        return ['msj' => 'Solicitud Eliminada', compact($solicitud)];
     }
 }

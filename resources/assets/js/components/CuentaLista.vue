@@ -43,7 +43,7 @@
                 <td class="text-xs-right">{{ item.item.mo_disponible | formatNumber }}</td>
                 <td class="text-xs-right">{{ item.item.mo_instruido | formatNumber}}</td>
                 <td class="text-xs-right">{{ item.item.mo_aprobado  | formatNumber}}</td>
-                <td class="text-xs-left">{{ (item.item.fe_actualizado) ? item.item.fe_actualizado : item.item.fe_creado }}</td>
+                <td class="text-xs-left">{{ ((item.item.fe_actualizado) ? item.item.fe_actualizado : item.item.fe_creado) |formatDateTime }}</td>
 
             </template>
 

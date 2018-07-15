@@ -21,7 +21,9 @@ class EnteController extends Controller
 
     public function enteGrupo($grupo)
     {
-        $ente = Ente::grupo($grupo)->get();
+        $ente = Ente::grupo($grupo)
+                    ->get()
+                    ->where('id_status',22);
         
         return $ente;
     }

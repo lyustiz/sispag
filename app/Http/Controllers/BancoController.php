@@ -14,14 +14,17 @@ class BancoController extends Controller
      */
     public function index()
     {
-        $bancos = Banco::with(['tipoBanco','grupoBanco','status'])->get();
+        $bancos = Banco::with(['tipoBanco','grupoBanco','status'])
+                        ->get();
         
         return $bancos;
     }
 
     public function bancoGrupo($grupo)
     {
-        $bancos = Banco::grupo($grupo)->get();
+        $bancos = Banco::grupo($grupo)
+                        ->get()
+                        ->where('id_status',22);
         
         return $bancos;
     }
@@ -57,7 +60,7 @@ class BancoController extends Controller
      */
     public function show(Banco $banco)
     {
-        return compact('banco');
+        return $banco;
     }
 
 

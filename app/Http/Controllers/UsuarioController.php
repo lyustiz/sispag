@@ -20,16 +20,6 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,12 +29,12 @@ class UsuarioController extends Controller
     {
         $validate = request()->validate([
 
-            'usuario'       => 'required',
-            'password'      => 'required',
-            'nu_cedula'        => 'required',
-            'nb_nombre'        => 'required',
-            'nb_apellido'      => 'required',
-            'id_status'        => 'required',
+            'usuario'     => 'required',
+            'password'    => 'required',
+            'nu_cedula'   => 'required',
+            'nb_nombre'   => 'required',
+            'nb_apellido' => 'required',
+            'id_status'   => 'required',
 
         ]);
 
@@ -61,18 +51,7 @@ class UsuarioController extends Controller
      */
     public function show(Usuario $usuario)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Usuario  $usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Usuario $usuario)
-    {
-        //
+        return $usuario->load('status');
     }
 
     /**
@@ -86,12 +65,12 @@ class UsuarioController extends Controller
     {
         $validate = request()->validate([
 
-            'usuario'       => 'required',
-            'password'      => 'required',
-            'nu_cedula'        => 'required',
-            'nb_nombre'        => 'required',
-            'nb_apellido'      => 'required',
-            'id_status'        => 'required',
+            'usuario'     => 'required',
+            'password'    => 'required',
+            'nu_cedula'   => 'required',
+            'nb_nombre'   => 'required',
+            'nb_apellido' => 'required',
+            'id_status'   => 'required',
 
         ]);
 

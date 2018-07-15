@@ -30,7 +30,6 @@ Vue.component('report', require('./components/reports/Report.vue'));
 Vue.component('report-data', require('./components/reports/ReportData.vue'));
 
 Vue.component('login-button', require('./components/LoginButtonComponent.vue'));
-Vue.component('register-button', require('./components/RegisterButtonComponent.vue'));
 Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
 Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
 
@@ -120,8 +119,6 @@ const app = new Vue({
     },
     drawer: null,
     drawerRight: false,
-    editingUser: false,
-    logoutLoading: false,
     changingPassword: false,
     updatingUser: false,
     items: [
@@ -185,29 +182,6 @@ const app = new Vue({
         this.parallax.height = window.innerHeight
       });
 
-    },
-    editUser () {
-      this.editingUser = true
-      this.$nextTick(this.$refs.email.focus)
-    },
-    updateUser () {
-
-      this.updatingUser = true
-      this.$store.dispatch(actions.UPDATE_USER, this.user).then(response => {
-        this.showMessage('Usuario Modificado Correctamente')
-      }).catch(error => {
-        console.dir(error)
-        this.showError(error)
-      }).then(() => {
-        this.editingUser = false
-        this.updatingUser = false
-      })
-    },
-    updateEmail (email) {
-      this.$store.commit(mutations.USER, {...this.user, email})
-    },
-    updateName (name) {
-      this.$store.commit(mutations.USER, {...this.user, name})
     },
     toogleRightDrawer () {
       this.drawerRight = !this.drawerRight

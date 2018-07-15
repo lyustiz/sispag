@@ -22,16 +22,6 @@ class EjecucionPagoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -60,7 +50,7 @@ class EjecucionPagoController extends Controller
      */
     public function show(EjecucionPago $ejecucionPago)
     {
-        //
+        return $ejecucionPago->load(['pago', 'banco', 'etapaEnvio','status']);
     }
 
     public function ejecucionPagoPago($id_pago)
@@ -71,17 +61,6 @@ class EjecucionPagoController extends Controller
                     ->orderBy('id_etapa_envio', 'asc')
                     ->get();
         return $ejecucion;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\models\EjecucionPago  $ejecucionPago
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(EjecucionPago $ejecucionPago)
-    {
-        //
     }
 
     /**

@@ -12,6 +12,7 @@
     </v-toolbar>
     
     <v-card-text>
+        
     <v-list dense two-line subheader>
 
         <v-list-tile v-for="(texto, titulo) in items" :key="titulo" >

@@ -18,6 +18,15 @@ class MonedaController extends Controller
         
         return $moneda;
     }
+
+    public function lista()
+    {
+        $moneda = Moneda::with(['status'])
+                        ->where('id_status',22)
+                        ->get();
+        
+        return $moneda;
+    }
     
 
     /**
