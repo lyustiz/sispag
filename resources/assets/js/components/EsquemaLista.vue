@@ -31,7 +31,9 @@
             :search ="buscar"
             v-model ="selected"
             item-key="id_esquema"
+            :loading="IsLoading"
             rows-per-page-text="Res. x Pag"
+            disable-initial-sort
             >
 
             <template slot="items" slot-scope="item">
@@ -104,9 +106,11 @@ export default {
 
             axios.get('/api/v1/esquema')
             .then(respuesta => {
+                this.IsLoading = false
                 this.items = respuesta.data;
             })
             .catch(error => {
+                this.IsLoading = false
                 this.showError(error) 
             })
         },

@@ -47,6 +47,7 @@
         v-model ="selected"
         item-key="id_ingreso"
         rows-per-page-text="Res. x Pag"
+        :loading="IsLoading"
         disable-initial-sort
         >
         <template slot="items" slot-scope="item">
@@ -159,9 +160,11 @@ export default {
 
             axios.get('/api/v1/ingreso')
             .then(respuesta => {
+                this.IsLoading = false
                 this.items = respuesta.data;
             })
             .catch(error => {
+                this.IsLoading = false
                 this.showError(error)
             })
 

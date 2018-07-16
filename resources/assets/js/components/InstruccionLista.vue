@@ -46,6 +46,7 @@
                 :search ="buscar"
                 v-model ="selected"
                 item-key="id_instruccion"
+                :loading="IsLoading"
                 rows-per-page-text="Res. x Pag"
             >
             <template slot="items" slot-scope="item">
@@ -170,9 +171,11 @@ export default {
 
             axios.get('/api/v1/instruccion')
             .then(respuesta => {
+                this.IsLoading = false
                 this.items = respuesta.data;
             })
             .catch(error => {
+                this.IsLoading = false
                 this.showError(error)    
             })
             

@@ -4,7 +4,7 @@
 
    <v-container fluid grid-list-md text-xs-center>
 
-    <report tabla="vw_instrucciones"></report>
+    <report tabla="vw_instruccion"></report>
 
     </v-container>
 

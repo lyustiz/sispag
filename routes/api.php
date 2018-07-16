@@ -11,6 +11,7 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::put('/user', 'LoggedUserController@update');
 
     Route::apiResource('/usuario', 'UsuarioController');
+    Route::Get('/usuario/update/password/{usuario}', 'UsuarioController@updatePassword');
     
     Route::apiResource('/banco', 'BancoController');
     Route::Get('/banco/grupo/{id_grupo_banco}', 'BancoController@bancoGrupo');

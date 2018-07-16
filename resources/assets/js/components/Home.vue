@@ -175,7 +175,6 @@
 <script>
 
 import withSnackbar from '../components/mixins/withSnackbar';
-
 import VueChartkick from 'vue-chartkick';
 import Chart from 'chart.js';
 
@@ -210,10 +209,6 @@ export default {
     methods:{
 
     },
-    mounted () {
-
-
-    }
 
 }
 

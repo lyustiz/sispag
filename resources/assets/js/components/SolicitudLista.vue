@@ -35,6 +35,8 @@
             single-line
             hide-details
             clearable
+            :loading="IsLoading"
+            disable-initial-sort
         ></v-select>
         </v-flex>
         </v-layout>
@@ -153,9 +155,11 @@ export default {
             
             axios.get('/api/v1/solicitud')
             .then(respuesta => {
+                this.IsLoading = false
                 this.items = respuesta.data;
             })
             .catch(error => {
+                this.IsLoading = false
                 this.showError(error)    
             })
 

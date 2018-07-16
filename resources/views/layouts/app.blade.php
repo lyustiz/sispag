@@ -79,9 +79,7 @@
 
         </v-list-tile>
 
-
 </v-list>
-
 
     </v-navigation-drawer>
     <v-toolbar
@@ -114,15 +112,30 @@
     >
         <v-card>
             <v-container fluid grid-list-md class="grey lighten-4">
-                <v-layout row wrap>
-                    <v-flex xs12>
+                <v-list-tile >
+                    <v-list-tile-avatar>
                         <v-icon>account_circle</v-icon>
-                        <h3>@{{ user.usuario }}</h3>
-                    </v-flex>
-                </v-layout>
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                        <v-list-tile-title>@{{ user.usuario }} </v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
             </v-container>
             <v-card-text class="px-0 grey lighten-3">
-
+                <v-list two-line>
+                    <v-list-tile >
+                        <v-list-tile-content>
+                            <v-list-tile-title>Nombres y Apellidos </v-list-tile-title>
+                            <v-list-tile-sub-title >@{{ user.nb_nombre }} @{{ user.nb_apellido }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile >
+                        <v-list-tile-content>
+                            <v-list-tile-title>Email </v-list-tile-title>
+                            <v-list-tile-sub-title >@{{ user.email }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-list>
             </v-card-text>
             <v-card-actions>
 

@@ -66,7 +66,6 @@ class UsuarioController extends Controller
         $validate = request()->validate([
 
             'usuario'     => 'required',
-            'password'    => 'required',
             'nu_cedula'   => 'required',
             'nb_nombre'   => 'required',
             'nb_apellido' => 'required',
@@ -77,6 +76,19 @@ class UsuarioController extends Controller
         $usuario = $usuario->update($request->all());
 
         return [ 'msj' => 'Registro Actualizado Correctamente', compact('usuario') ];
+    }
+
+    public function updatePassword(Request $request, Usuario $usuario)
+    {
+        $validate = request()->validate([
+
+            'id_usuario'  => 'required',
+            'password'  => 'required',
+        ]);
+
+        $usuario = $usuario->update($validate);
+
+        return [ 'msj' => 'Password Actualizado Correctamente', compact('usuario') ];
     }
 
     /**

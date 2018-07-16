@@ -1,19 +1,7 @@
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 Vue.component('form-buttons', require('./components/FormButtons.vue'));
 Vue.component('list-buttons', require('./components/ListButtons.vue'));
@@ -59,10 +47,13 @@ Vue.component('moneda-lista', require('./components/MonedaLista.vue'));
 Vue.component('moneda-form', require('./components/MonedaForm.vue'));
 Vue.component('esquema-lista', require('./components/EsquemaLista.vue'));
 Vue.component('esquema-form', require('./components/EsquemaForm.vue'));
-Vue.component('ejecucion-lista', require('./components/EjecucionLista.vue'));
-Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
 Vue.component('tipo-ingreso-lista', require('./components/TipoIngresoLista.vue'));
 Vue.component('tipo-ingreso-form', require('./components/TipoIngresoForm.vue'));
+
+Vue.component('ejecucion-lista', require('./components/EjecucionPagoLista.vue'));
+Vue.component('ejecucion-form', require('./components/EjecucionPagoForm.vue'));
+//Vue.component('ejecucion-lista', require('./components/EjecucionLista.vue'));
+//Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
 
 Vue.component('home', require('./components/Home.vue'));
 
@@ -106,11 +97,6 @@ const app = new Vue({
       height: 0,
       images: "/img/salto-angel.jpeg"
     },
-    formLogin: {
-      name: "",
-      nameRules: "",
-      valid: false
-    },
     slickOptions: {
       draggable: false,
       nextArrow: "",
@@ -147,20 +133,15 @@ const app = new Vue({
         children:
         [
           { icon: 'description', text: 'General', href: '/reports.general' },
+          { icon: 'description', text: 'Ingresos', href: '/reports.ingreso' },
+          { icon: 'description', text: 'Solicitudes', href: '/reports.solicitud' },
+          { icon: 'description', text: 'Intrucciones', href: '/reports.instruccion' },
+          { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' },
           { icon: 'description', text: 'Bancos', href: '/reports.banco' },
-          { icon: 'description', text: 'Ingresos', href: '/construccion' },
-          { icon: 'description', text: 'Solicitudes', href: '/construccion' },
-          { icon: 'description', text: 'Intrucciones', href: '/construccion' },
         ], 
-
       },
       { heading: 'Administracion' },
       { icon: 'person', text: 'Usuarios', href: '/usuario' },
-
-
-
-
-      //{ heading: 'Administració', role: 'Manager' }
     ]
   }),
   created: function () {

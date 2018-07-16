@@ -29,9 +29,9 @@
             
 
             <td class="text-xs-left">{{ item.item.etapa_envio.nb_etapa_envio }}</td>
-            <td class="text-xs-left">{{ item.item.banco.nb_banco }}</td>
+            <td class="text-xs-left">{{ item.item.banco }}</td>
             <td class="text-xs-left">{{ item.item.fe_envio_inst | formDate }}</td>
-            <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
+            <td class="text-xs-left">{{ item.item.status }}</td>
             <!--acciones-->
             <td class="text-xs-left" v-if="!acreditado">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
@@ -86,7 +86,7 @@ export default {
         acreditado: false,
         headers: [
         { text: 'Etapa',    value: 'etapa_envio.nb_etapa_envio' },
-        { text: 'Banco',    value: 'banco.nb_banco' },
+        { text: 'Banco',    value: 'banco' },
         { text: 'Fecha',    value: 'fe_envio_inst' },
         { text: 'Status',   value: 'id_status'  },
         { text: 'Acciones', value: 'id_status'  },

@@ -31,7 +31,9 @@
             :search ="buscar"
             v-model ="selected"
             item-key="id_banco"
+            :loading="IsLoading"
             rows-per-page-text="Res. x Pag"
+            disable-initial-sort
             >
 
             <template slot="items" slot-scope="item">
@@ -111,9 +113,11 @@ export default {
             axios.get('/api/v1/banco')
             .then(respuesta => {
                 this.items = respuesta.data;
+                this.IsLoading = false
             })
             .catch(error => {
                 this.showError(error)
+                this.IsLoading = false
             })
         },
         delItem(){

@@ -20,6 +20,7 @@
             item-key="id_movimiento"
             rows-per-page-text="Res. x Pag"
             disable-initial-sort
+            :loading="IsLoading"
             >
 
             <template slot="items" slot-scope="item">
@@ -82,9 +83,11 @@ export default {
 
             axios.get('/api/v1/movimiento/moneda/'+this.moneda.id_moneda)
             .then(respuesta => {
+                this.IsLoading = false
                 this.items = respuesta.data;
             })
             .catch(error => {
+                this.IsLoading = false
                 this.showError(error)
             })
         }

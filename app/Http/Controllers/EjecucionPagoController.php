@@ -29,15 +29,51 @@ class EjecucionPagoController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = request()->validate([  
-                'id_banco',
-                'fe_envio_inst',
-                'id_etapa_envio',
-                'id_usuario',
-                'id_status',
-                ]);
         
+        switch (true) {
+            case $request->id_etapa_envio == 1: //Corresponsal
+                
+                $validate = request()->validate([  
+                            'id_pago'       => 'required',
+                            'id_banco_co'   => 'required',
+                            'fe_envio_co'   => 'required',
+                            'id_etapa_envio'=> 'required',
+                            'id_usuario'    => 'required',
+                            'id_status_co'  => 'required',
+                            ]);
+                break;
+   
+            case $request->id_etapa_envio == 2: //Intermediario
+                
+                $validate = request()->validate([  
+                            'id_pago'       => 'required',
+                            'id_banco_in'   => 'required',
+                            'fe_envio_in'   => 'required',
+                            'id_etapa_envio'=> 'required',
+                            'id_usuario'    => 'required',
+                            'id_status_in'  => 'required',
+                            ]);
+                break;
+
+            case $request->id_etapa_envio == 3: //Bneficiario
+                
+                $validate = request()->validate([  
+                            'id_pago'       => 'required',
+                            'id_banco'      => 'required',
+                            'fe_envio_pago' => 'required',
+                            'id_etapa_envio'=> 'required',
+                            'id_usuario'    => 'required',
+                            'id_status'     => 'required',
+                            ]);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+            
         $ejecucion = EjecucionPago::create($request->all());
+        //$ejecucion = EjecucionPago::create($validate);
 
         return (['msj'=>'Registro Agregado Correctamente ', 'ejecucion' => $ejecucion]);
     }

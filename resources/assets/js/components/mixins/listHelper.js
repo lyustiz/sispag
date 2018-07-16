@@ -7,6 +7,7 @@ export default {
         return {
 
             basePath: '/api/v1/',
+            IsLoading: true,
             modal: false,
             selected: [],
             items: '',

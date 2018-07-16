@@ -30,6 +30,7 @@
         :items  ="items"
         hide-actions
         item-key="id_pago"
+        :loading="IsLoading"
         >
 
         <template slot="items" slot-scope="item">
@@ -107,6 +108,7 @@ export default {
             pendiente:  0,
             pagado:     0,
         },
+        acreditado: false,
         headers: [
         { text: 'Tipo Pago',value: 'tipo_pago.nb_tipo_pago' },
         { text: 'Monto',    value: 'mo_final_pago' },
@@ -145,9 +147,11 @@ export default {
 
             axios.get('/api/v1/pago/instruccion/'+this.instruccion.id_instruccion)
             .then(respuesta => {
+                this.IsLoading = false
                 this.items = respuesta.data;
             })
             .catch(error => {
+                this.IsLoading = false
                 this.showError(error);   
             })
         },

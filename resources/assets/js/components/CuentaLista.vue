@@ -29,6 +29,7 @@
             v-model ="selected"
             item-key="id_cuenta"
             rows-per-page-text="Res. x Pag"
+            :loading="IsLoading"
             disable-initial-sort
             >
 
@@ -99,9 +100,11 @@ export default {
 
             axios.get('/api/v1/cuenta')
             .then(respuesta => {
+                this.IsLoading = false
                 this.items = respuesta.data;
             })
             .catch(error => {
+                this.IsLoading = false
                 this.showError(error)
             })
         }
