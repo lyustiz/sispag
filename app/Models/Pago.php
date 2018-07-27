@@ -23,6 +23,7 @@ class Pago extends Model
                             'mo_tasa',
                             'mo_final_pago',
                             'id_tipo_pago',
+                            'id_ente',
                             'tx_observacion',
                             'id_usuario',
                             'id_status',
@@ -51,6 +52,12 @@ class Pago extends Model
     public function instruccion(){
     
         return $this->BelongsTo('App\Models\Instruccion', 'id_instruccion');
+    
+    }
+
+    public function ente(){
+    
+        return $this->BelongsTo('App\Models\Ente', 'id_ente');
     
     }
     

@@ -5503,7 +5503,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         this.listasLoader();
         this.rstForm();
         this.basePath += this.tabla + '/';
-        //this.form.id_usuario = this.$store.getters.user.id
         this.form.id_usuario = 1;
     },
     data: function data() {
@@ -54945,11 +54944,11 @@ Vue.component('moneda-lista', __webpack_require__(326));
 Vue.component('moneda-form', __webpack_require__(329));
 Vue.component('esquema-lista', __webpack_require__(332));
 Vue.component('esquema-form', __webpack_require__(335));
-Vue.component('tipo-ingreso-lista', __webpack_require__(346));
-Vue.component('tipo-ingreso-form', __webpack_require__(351));
+Vue.component('tipo-ingreso-lista', __webpack_require__(338));
+Vue.component('tipo-ingreso-form', __webpack_require__(343));
 
-Vue.component('ejecucion-lista', __webpack_require__(447));
-Vue.component('ejecucion-form', __webpack_require__(448));
+Vue.component('ejecucion-lista', __webpack_require__(346));
+Vue.component('ejecucion-form', __webpack_require__(351));
 //Vue.component('ejecucion-lista', require('./components/EjecucionLista.vue'));
 //Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
 
@@ -56686,7 +56685,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     props: {
-        // Basic type check (`null` matches any type)
         upd: {
             type: Boolean,
             default: true
@@ -60069,7 +60067,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -60287,6 +60285,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.showError(error);
             });
         },
+        getReporteExcel: function getReporteExcel() {
+
+            var formData = new FormData();
+
+            for (var key in this.form) {
+
+                if (this.form.hasOwnProperty(key)) {
+                    formData.append(key, this.form[key]);
+                }
+            }
+            console.log(formData);
+            var request = new XMLHttpRequest();
+
+            request.open("POST", "http://127.0.0.1:8000/prueba");
+            request.setRequestHeader('X-CSRF-TOKEN', 'nyPaSRCE0WEphhfdb8ZpohmDPuNOGX4rhFVyypnD');
+            request.send(this.form);
+        },
         clear: function clear() {
             this.$refs.form.reset();
             this.items = false;
@@ -60376,6 +60391,7 @@ var render = function() {
                             {
                               staticClass: "success",
                               attrs: { slot: "activator", fab: "", small: "" },
+                              on: { click: _vm.getReporteExcel },
                               slot: "activator"
                             },
                             [_c("v-icon", [_vm._v("grid_on")])],
@@ -63901,7 +63917,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63914,6 +63930,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
 //
 //
 //
@@ -64025,7 +64042,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 pagado: 0
             },
             acreditado: false,
-            headers: [{ text: 'Tipo Pago', value: 'tipo_pago.nb_tipo_pago' }, { text: 'Monto', value: 'mo_final_pago' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Fecha', value: 'fe_pago' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
+            headers: [{ text: 'Tipo Pago', value: 'tipo_pago.nb_tipo_pago' }, { text: 'Proveedor', value: 'ente.nb_ente' }, { text: 'Monto', value: 'mo_final_pago' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Fecha', value: 'fe_pago' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
         };
     },
 
@@ -64216,6 +64233,10 @@ var render = function() {
                                       ],
                                       1
                                     ),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-xs-right" }, [
+                                      _vm._v(_vm._s(item.item.ente.nb_ente))
+                                    ]),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-xs-right" }, [
                                       _vm._v(
@@ -65307,6 +65328,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -65333,6 +65367,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 mo_tasa: '',
                 mo_final_pago: '',
                 id_tipo_pago: '',
+                id_ente: '',
                 tx_observaciones: '',
                 id_usuario: '',
                 id_status: ''
@@ -65340,7 +65375,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             listas: {
                 banco: ['/grupo/1'],
                 moneda: [],
-                tipoPago: []
+                tipoPago: [],
+                ente: ['/grupo/6']
                 //status:   ['/grupo/3'],
             },
             rules: {
@@ -65520,6 +65556,32 @@ var render = function() {
                                 "v-flex",
                                 { attrs: { xs12: "", sm6: "" } },
                                 [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.listas.ente,
+                                      "item-text": "nb_ente",
+                                      "item-value": "id_ente",
+                                      rules: _vm.rules.select,
+                                      label: "Provedor",
+                                      autocomplete: "",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.id_ente,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "id_ente", $$v)
+                                      },
+                                      expression: "form.id_ente"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
                                   _c(
                                     "v-menu",
                                     {
@@ -65594,7 +65656,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm6: "" } },
+                                { attrs: { xs12: "", sm3: "" } },
                                 [
                                   _c(
                                     "v-menu",
@@ -74487,27 +74549,19 @@ if (false) {
 }
 
 /***/ }),
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(347)
+  __webpack_require__(339)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(349)
+var __vue_script__ = __webpack_require__(341)
 /* template */
-var __vue_template__ = __webpack_require__(350)
+var __vue_template__ = __webpack_require__(342)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -74546,13 +74600,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 347 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(348);
+var content = __webpack_require__(340);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -74572,7 +74626,7 @@ if(false) {
 }
 
 /***/ }),
-/* 348 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)(false);
@@ -74586,7 +74640,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 349 */
+/* 341 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -74723,7 +74777,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 350 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -74949,15 +75003,15 @@ if (false) {
 }
 
 /***/ }),
-/* 351 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(352)
+var __vue_script__ = __webpack_require__(344)
 /* template */
-var __vue_template__ = __webpack_require__(353)
+var __vue_template__ = __webpack_require__(345)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -74996,7 +75050,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 352 */
+/* 344 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75125,7 +75179,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 353 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -75299,6 +75353,1898 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7caa6c9a", module.exports)
+  }
+}
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(347)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(349)
+/* template */
+var __vue_template__ = __webpack_require__(350)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\EjecucionPagoLista.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-65eb406c", Component.options)
+  } else {
+    hotAPI.reload("data-v-65eb406c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(348);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("c7c4d450", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-65eb406c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EjecucionPagoLista.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-65eb406c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EjecucionPagoLista.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 348 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 349 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
+    data: function data() {
+        return {
+            etapa: 0,
+            acreditado: false,
+            headers: [{ text: 'Etapa', value: 'etapa_envio.nb_etapa_envio' }, { text: 'Banco', value: 'banco' }, { text: 'Fecha', value: 'fe_envio_inst' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
+        };
+    },
+
+    props: ['pago'],
+    computed: {
+        itemsFiltrados: function itemsFiltrados() {
+            var _this = this;
+
+            if (this.items) {
+                this.etapa = this.items.reduce(function (maximo, item) {
+                    return maximo > item.id_etapa_envio ? maximo : Number(item.id_etapa_envio);
+                });
+
+                return this.items.filter(function (item) {
+                    return Number(item.id_etapa_envio) == _this.etapa;
+                });
+            } else {
+                this.etapa = 0;
+            }
+        }
+
+    },
+    watch: {
+        items: function items(_items) {
+
+            var acreditado = false;
+
+            if (_items) {
+                _items.forEach(function (item) {
+                    if (item.id_etapa_envio == 3 && item.id_status == 31) {
+                        acreditado = true;
+                    }
+                });
+                this.acreditado = acreditado;
+            }
+        },
+        acreditado: function acreditado(_acreditado) {
+            if (_acreditado) {
+                this.$emit('acreditado');
+            }
+        }
+    },
+    methods: {
+        list: function list() {
+            var _this2 = this;
+
+            axios.get('/api/v1/ejecucionPago/pago/' + this.pago.id_pago).then(function (respuesta) {
+                _this2.IsLoading = false;
+                _this2.items = respuesta.data;
+                _this2.item = _this2.items;
+            }).catch(function (error) {
+                _this2.IsLoading = false;
+                _this2.showError(error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-container",
+    { attrs: { fluid: "", "grid-list-md": "", "text-xs-center": "" } },
+    [
+      _c(
+        "v-layout",
+        { attrs: { row: "", "justify-center": "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-toolbar",
+                    { staticClass: "light-blue darken-3 white--text" },
+                    [
+                      _c("h3", [_vm._v("Ejecucion del Pago")]),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _vm.etapa != 3 || !_vm.acreditado
+                        ? _c(
+                            "v-btn",
+                            {
+                              staticClass: "success",
+                              attrs: {
+                                fab: "",
+                                dark: "",
+                                small: "",
+                                absolute: "",
+                                right: "",
+                                bottom: ""
+                              },
+                              on: { click: _vm.insItem }
+                            },
+                            [
+                              _c("v-icon", { attrs: { dark: "" } }, [
+                                _vm._v("add")
+                              ])
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c("v-data-table", {
+                            attrs: {
+                              headers: _vm.headers,
+                              items: _vm.itemsFiltrados,
+                              "hide-actions": "",
+                              loading: _vm.IsLoading,
+                              "item-key": "id_ejecucion_pago",
+                              "disable-initial-sort": ""
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "items",
+                                fn: function(item) {
+                                  return [
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass: "text-xs-left",
+                                        on: {
+                                          click: function($event) {
+                                            item.expanded = !item.expanded
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            item.item.etapa_envio.nb_etapa_envio
+                                          )
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-xs-left" }, [
+                                      _vm._v(_vm._s(item.item.banco.nb_banco))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-xs-left" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("formDate")(
+                                            item.item.fe_envio_inst
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-xs-left" }, [
+                                      _vm._v(_vm._s(item.item.status.nb_status))
+                                    ]),
+                                    _vm._v(" "),
+                                    !_vm.acreditado
+                                      ? _c(
+                                          "td",
+                                          { staticClass: "text-xs-left" },
+                                          [
+                                            _c("list-buttons", {
+                                              attrs: { del: false },
+                                              on: {
+                                                editar: function($event) {
+                                                  _vm.updItem(item)
+                                                }
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _c(
+                                          "td",
+                                          { staticClass: "text-xs-center" },
+                                          [
+                                            _c(
+                                              "v-tooltip",
+                                              { attrs: { bottom: "" } },
+                                              [
+                                                _c(
+                                                  "v-btn",
+                                                  {
+                                                    attrs: {
+                                                      slot: "activator",
+                                                      fab: "",
+                                                      small: "",
+                                                      color: "success"
+                                                    },
+                                                    nativeOn: {
+                                                      click: function($event) {
+                                                        _vm.dsolicitud = true
+                                                      }
+                                                    },
+                                                    slot: "activator"
+                                                  },
+                                                  [
+                                                    _c("v-icon", [
+                                                      _vm._v("thumb_up")
+                                                    ])
+                                                  ],
+                                                  1
+                                                ),
+                                                _vm._v(" "),
+                                                _c("span", [
+                                                  _vm._v("Acreditado")
+                                                ])
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                  ]
+                                }
+                              },
+                              {
+                                key: "expand",
+                                fn: function(item) {
+                                  return [
+                                    _c(
+                                      "v-card",
+                                      { attrs: { flat: "" } },
+                                      [
+                                        _c("v-card-text", [
+                                          _vm._v(
+                                            "\n               " +
+                                              _vm._s(_vm.items) +
+                                              "\n            "
+                                          )
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                }
+                              }
+                            ])
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "form-container",
+        {
+          attrs: { "nb-accion": _vm.nb_accion, modal: _vm.modal },
+          on: { cerrarModal: _vm.cerrarModal }
+        },
+        [
+          _c("ejecucion-form", {
+            attrs: {
+              accion: _vm.accion,
+              etapa: _vm.etapa,
+              pago: _vm.pago,
+              item: _vm.items
+            },
+            on: { cerrarModal: _vm.cerrarModal }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-65eb406c", module.exports)
+  }
+}
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(352)
+/* template */
+var __vue_template__ = __webpack_require__(353)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\EjecucionPagoForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-041a584d", Component.options)
+  } else {
+    hotAPI.reload("data-v-041a584d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 352 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
+    data: function data() {
+        var _this = this;
+
+        return {
+            tabla: 'ejecucionPago',
+            basePath: '/api/v1/',
+            valido: false,
+            btnAccion: '',
+            picker: {
+                corresponsal: false,
+                intermediario: false,
+                beneficiario: false
+            },
+            etapa: {
+                corresponsal: {
+                    active: false,
+                    closed: false
+                },
+                intermediario: {
+                    active: false,
+                    closed: false
+                },
+                beneficiario: {
+                    active: false,
+                    closed: false
+                }
+            },
+            dates: {
+                corresponsal: false,
+                intermediario: false,
+                beneficiario: false
+            },
+            form: {
+                id_usuario: '',
+                id_etapa_envio: [],
+                corresponsal: {
+                    id_etapa_envio: 1,
+                    id_pago: null,
+                    id_banco: null,
+                    fe_envio_inst: null,
+                    id_status: null,
+                    tx_observaciones: null
+                },
+                intermediario: {
+                    id_etapa_envio: 2,
+                    id_pago: null,
+                    id_banco: null,
+                    fe_envio_inst: null,
+                    id_status: null,
+                    tx_observaciones: null
+                },
+                beneficiario: {
+                    id_etapa_envio: 3,
+                    id_pago: null,
+                    id_banco: null,
+                    fe_envio_inst: null,
+                    id_status: null,
+                    tx_observaciones: null
+                }
+            },
+            listas: {
+                banco: ['/grupo/1'],
+                etapaEnvio: [],
+                status: ['/grupo/6']
+            },
+            rules: {
+                etapa: [function (v) {
+                    return v.length > 0 || 'Seleccione una Opcion (Campo Requerido)';
+                }, function (v) {
+                    return _this.accion == 'upd' && Number(v) < _this.item.id_etapa_envio ? 'Debe seleccionar la siguiente Etapa' : true;
+                }],
+                etapaCo: [function (v) {
+                    return true;
+                }],
+                etapaIn: [function (v) {
+                    return true;
+                }],
+                etapaBe: [function (v) {
+                    return true;
+                }]
+
+            }
+
+        };
+    },
+
+    props: ['pago', 'etapas'],
+    computed: {
+        etapaActual: function etapaActual() {
+            var etapaActual = 0;
+
+            this.form.id_etapa_envio.forEach(function callback(item, index) {
+                etapaActual = etapaActual > item ? etapaActual : Number(item);
+            }, this);
+
+            return etapaActual;
+        },
+        etapaCompletada: function etapaCompletada() {
+            var nombreEtapa = this.nombreEtapa(this.etapaActual);
+
+            return this.form[nombreEtapa] ? this.form[nombreEtapa].id_banco != null && this.form[nombreEtapa].fe_envio_inst != null && this.form[nombreEtapa].id_status != null : false;
+        }
+    },
+    watch: {
+        item: function item(_item) {
+            if (this.btnAccion == 'upd') {
+
+                this.setEtapa();
+            }
+        },
+
+        form: {
+            deep: true,
+            handler: function handler(form) {}
+
+        }
+    },
+    methods: {
+        setEtapa: function setEtapa() {
+            this.$refs.etapaSelect.menuIsActive = false;
+            this.etapa.corresponsal.active = this.form.id_etapa_envio.includes(1) ? true : false;
+            this.etapa.intermediario.active = this.form.id_etapa_envio.includes(2) ? true : false;
+            this.etapa.beneficiario.active = this.form.id_etapa_envio.includes(3) ? true : false;
+        },
+        mapForm: function mapForm() {
+            if (this.btnAccion == 'upd') {
+                this.item.forEach(function callback(item, index) {
+                    var nombreEtapa = this.nombreEtapa(item.id_etapa_envio);
+
+                    if (!this.form.id_etapa_envio.includes(item.id_etapa_envio)) {
+                        this.form.id_etapa_envio.push(item.id_etapa_envio);
+                    }
+
+                    if (item.id_id_status == 31) {
+                        this.etapa[nombreEtapa].closed = true;
+                    }
+
+                    this.dates[nombreEtapa] = this.formatDate(item.fe_envio_inst);
+
+                    for (var key in this.form[nombreEtapa]) {
+                        if (this.form[nombreEtapa].hasOwnProperty(key)) {
+                            this.form[nombreEtapa][key] = item[key];
+                        }
+                    }
+                }, this);
+                this.setEtapa();
+            }
+        },
+        update: function update() {
+            var _this2 = this;
+
+            if (this.$refs.form.validate()) {
+                if (this.form.id_etapa_envio == 3 && this.form.beneficiario.id_status == 31) {
+                    if (!confirm('Esta operacion cerrara el proceso de pago \n Desea continuar?')) {
+                        return false;
+                    }
+                }
+
+                this.form.id_pago = this.pago.id_pago;
+
+                axios.put(this.basePath + this.item.id_ejecucion_pago, this.form).then(function (respuesta) {
+                    _this2.showMessage(respuesta.data.msj);
+                    _this2.$emit('cerrarModal');
+                }).catch(function (error) {
+                    _this2.showError(error);
+                });
+            }
+        },
+        store: function store() {
+            var _this3 = this;
+
+            if (this.$refs.form.validate()) {
+                this.form.id_pago = this.pago.id_pago;
+
+                axios.post(this.basePath, this.form).then(function (respuesta) {
+                    _this3.showMessage(respuesta.data.msj);
+                    _this3.$emit('cerrarModal');
+                }).catch(function (error) {
+                    _this3.showError(error);
+                });
+            }
+        },
+        rstForm: function rstForm() {},
+        nombreEtapa: function nombreEtapa(idEtapa) {
+            var nombreEtapa = null;
+
+            switch (idEtapa) {
+                case 1:
+                    nombreEtapa = 'corresponsal';
+                    break;
+                case 2:
+                    nombreEtapa = 'intermediario';
+                    break;
+                case 3:
+                    nombreEtapa = 'beneficiario';
+                    break;
+            }
+
+            return nombreEtapa;
+        }
+    }
+
+});
+
+/***/ }),
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-container",
+    { attrs: { fluid: "", "grid-list-md": "", "text-xs-center": "" } },
+    [
+      _c(
+        "v-layout",
+        { attrs: { row: "", "justify-center": "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-form",
+                {
+                  ref: "form",
+                  attrs: { "lazy-validation": "" },
+                  model: {
+                    value: _vm.valido,
+                    callback: function($$v) {
+                      _vm.valido = $$v
+                    },
+                    expression: "valido"
+                  }
+                },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-card-title",
+                        { staticClass: "light-blue darken-3 white--text" },
+                        [_c("h2", [_vm._v("Ejecucion de Pago")])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-layout",
+                            { attrs: { wrap: "" } },
+                            [
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-select", {
+                                    ref: "etapaSelect",
+                                    attrs: {
+                                      items: _vm.listas.etapaEnvio,
+                                      "item-text": "nb_etapa_envio",
+                                      "item-value": "id_etapa_envio",
+                                      rules: _vm.rules.etapa,
+                                      label: "Etapa de Ejecucion de Pago",
+                                      "hide-selected": "",
+                                      multiple: "",
+                                      required: "",
+                                      chips: "",
+                                      readonly:
+                                        _vm.etapa.beneficiario.closed ||
+                                        (!_vm.etapaCompletada &&
+                                          _vm.etapaActual > 0)
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        _vm.setEtapa()
+                                      }
+                                    },
+                                    model: {
+                                      value: _vm.form.id_etapa_envio,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.form,
+                                          "id_etapa_envio",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "form.id_etapa_envio"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-layout",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.etapa.corresponsal.active,
+                                      expression: "etapa.corresponsal.active"
+                                    }
+                                  ],
+                                  attrs: { row: "", wrap: "" }
+                                },
+                                [
+                                  _c(
+                                    "v-flex",
+                                    {
+                                      staticClass: "text-sm-left",
+                                      attrs: { xs12: "" }
+                                    },
+                                    [
+                                      _c(
+                                        "v-chip",
+                                        [
+                                          _c(
+                                            "v-avatar",
+                                            { staticClass: "teal" },
+                                            [
+                                              _c("v-icon", [
+                                                _vm._v("expand_more")
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("h3", [_vm._v("Corresponsal")])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider")
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "" } },
+                                    [
+                                      _c("v-select", {
+                                        attrs: {
+                                          items: _vm.listas.banco,
+                                          "item-text": "nb_banco",
+                                          "item-value": "id_banco",
+                                          rules: _vm.rules.etapaCo,
+                                          label: "Banco Corresponsal",
+                                          autocomplete: "",
+                                          required: "",
+                                          readonly:
+                                            _vm.etapaActual > 1 ||
+                                            _vm.etapa.corresponsal.closed
+                                        },
+                                        model: {
+                                          value: _vm.form.corresponsal.id_banco,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.corresponsal,
+                                              "id_banco",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.corresponsal.id_banco"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm3: "" } },
+                                    [
+                                      _c(
+                                        "v-menu",
+                                        {
+                                          ref: "picker",
+                                          attrs: {
+                                            "full-width": "",
+                                            "min-width": "290px",
+                                            readonly:
+                                              _vm.etapaActual > 1 ||
+                                              _vm.etapa.corresponsal.closed
+                                          },
+                                          model: {
+                                            value: _vm.picker.corresponsal,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.picker,
+                                                "corresponsal",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "picker.corresponsal"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              slot: "activator",
+                                              rules: _vm.rules.etapaCo,
+                                              label: "Fecha Corresponsal",
+                                              "prepend-icon": "event",
+                                              readonly: "",
+                                              required: ""
+                                            },
+                                            slot: "activator",
+                                            model: {
+                                              value: _vm.dates.corresponsal,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.dates,
+                                                  "corresponsal",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "dates.corresponsal"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-date-picker", {
+                                            attrs: {
+                                              locale: "es",
+                                              readonly:
+                                                _vm.etapaActual > 1 ||
+                                                _vm.etapa.corresponsal.closed
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                _vm.dates.corresponsal = _vm.formatDate(
+                                                  _vm.form.corresponsal
+                                                    .fe_envio_inst
+                                                )
+                                              }
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.form.corresponsal
+                                                  .fe_envio_inst,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.form.corresponsal,
+                                                  "fe_envio_inst",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "form.corresponsal.fe_envio_inst"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm3: "" } },
+                                    [
+                                      _c("v-select", {
+                                        attrs: {
+                                          items: _vm.listas.status,
+                                          "item-text": "nb_status",
+                                          "item-value": "id_status",
+                                          rules: _vm.rules.etapaCo,
+                                          label: "Status Corresponsal",
+                                          autocomplete: "",
+                                          required: "",
+                                          readonly:
+                                            _vm.etapaActual > 1 ||
+                                            _vm.etapa.corresponsal.closed
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.form.corresponsal.id_status,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.corresponsal,
+                                              "id_status",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.corresponsal.id_status"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          rules: _vm.rules.tx_observaciones,
+                                          label: "Observaciones",
+                                          placeholder: "Indique Observaciones"
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.form.corresponsal
+                                              .tx_observaciones,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.corresponsal,
+                                              "tx_observaciones",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.corresponsal.tx_observaciones"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-layout",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.etapa.intermediario.active,
+                                      expression: "etapa.intermediario.active"
+                                    }
+                                  ],
+                                  attrs: { row: "", wrap: "" }
+                                },
+                                [
+                                  _c(
+                                    "v-flex",
+                                    {
+                                      staticClass: "text-sm-left",
+                                      attrs: { xs12: "" }
+                                    },
+                                    [
+                                      _c(
+                                        "v-chip",
+                                        [
+                                          _c(
+                                            "v-avatar",
+                                            { staticClass: "teal" },
+                                            [
+                                              _c("v-icon", [
+                                                _vm._v("expand_more")
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("h3", [_vm._v("Intermediario")])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider")
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "" } },
+                                    [
+                                      _c("v-select", {
+                                        attrs: {
+                                          items: _vm.listas.banco,
+                                          "item-text": "nb_banco",
+                                          "item-value": "id_banco",
+                                          rules: _vm.rules.etapaIn,
+                                          label: "Banco Intermediario",
+                                          autocomplete: "",
+                                          required: "",
+                                          readonly:
+                                            _vm.etapaActual > 2 ||
+                                            _vm.etapa.intermediario.closed
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.form.intermediario.id_banco,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.intermediario,
+                                              "id_banco",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.intermediario.id_banco"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm3: "" } },
+                                    [
+                                      _c(
+                                        "v-menu",
+                                        {
+                                          ref: "picker",
+                                          attrs: {
+                                            "full-width": "",
+                                            "min-width": "290px",
+                                            readonly:
+                                              _vm.etapaActual > 2 ||
+                                              _vm.etapa.intermediario.closed
+                                          },
+                                          model: {
+                                            value: _vm.picker.intermediario,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.picker,
+                                                "intermediario",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "picker.intermediario"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              slot: "activator",
+                                              rules: _vm.rules.etapaIn,
+                                              label: "Fecha Intermediario",
+                                              "prepend-icon": "event",
+                                              readonly: "",
+                                              required: ""
+                                            },
+                                            slot: "activator",
+                                            model: {
+                                              value: _vm.dates.intermediario,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.dates,
+                                                  "intermediario",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "dates.intermediario"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-date-picker", {
+                                            attrs: {
+                                              locale: "es",
+                                              readonly:
+                                                _vm.etapaActual > 2 ||
+                                                _vm.etapa.intermediario.closed
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                _vm.dates.intermediario = _vm.formatDate(
+                                                  _vm.form.intermediario
+                                                    .fe_envio_inst
+                                                )
+                                              }
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.form.intermediario
+                                                  .fe_envio_inst,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.form.intermediario,
+                                                  "fe_envio_inst",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "form.intermediario.fe_envio_inst"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm3: "" } },
+                                    [
+                                      _c("v-select", {
+                                        attrs: {
+                                          items: _vm.listas.status,
+                                          "item-text": "nb_status",
+                                          "item-value": "id_status",
+                                          rules: _vm.rules.etapaIn,
+                                          label: "Status Intermediario",
+                                          autocomplete: "",
+                                          required: "",
+                                          readonly:
+                                            _vm.etapaActual > 2 ||
+                                            _vm.etapa.intermediario.closed
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.form.intermediario.id_status,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.intermediario,
+                                              "id_status",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.intermediario.id_status"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          rules: _vm.rules.tx_observaciones,
+                                          label: "Observaciones",
+                                          placeholder: "Indique Observaciones",
+                                          disabled: !_vm.etapa.intermediario
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.form.intermediario
+                                              .tx_observaciones,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.intermediario,
+                                              "tx_observaciones",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.intermediario.tx_observaciones"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-layout",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.etapa.beneficiario.active,
+                                      expression: "etapa.beneficiario.active"
+                                    }
+                                  ],
+                                  attrs: { row: "", wrap: "" }
+                                },
+                                [
+                                  _c(
+                                    "v-flex",
+                                    {
+                                      staticClass: "text-sm-left",
+                                      attrs: { xs12: "" }
+                                    },
+                                    [
+                                      _c(
+                                        "v-chip",
+                                        [
+                                          _c(
+                                            "v-avatar",
+                                            { staticClass: "teal" },
+                                            [
+                                              _c("v-icon", [
+                                                _vm._v("expand_more")
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("h3", [_vm._v("Beneficiario")])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider")
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "" } },
+                                    [
+                                      _c("v-select", {
+                                        attrs: {
+                                          items: _vm.listas.banco,
+                                          "item-text": "nb_banco",
+                                          "item-value": "id_banco",
+                                          rules: _vm.rules.etapaBe,
+                                          label: "Banco Beneficiario",
+                                          autocomplete: "",
+                                          required: "",
+                                          readonly:
+                                            _vm.etapa.beneficiario.closed
+                                        },
+                                        model: {
+                                          value: _vm.form.beneficiario.id_banco,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.beneficiario,
+                                              "id_banco",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.beneficiario.id_banco"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm3: "" } },
+                                    [
+                                      _c(
+                                        "v-menu",
+                                        {
+                                          ref: "picker",
+                                          attrs: {
+                                            "full-width": "",
+                                            "min-width": "290px",
+                                            readonly:
+                                              _vm.etapa.beneficiario.closed
+                                          },
+                                          model: {
+                                            value: _vm.picker.beneficiario,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.picker,
+                                                "beneficiario",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "picker.beneficiario"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              slot: "activator",
+                                              rules: _vm.rules.etapaBe,
+                                              label: "Fecha Beneficiario",
+                                              "prepend-icon": "event",
+                                              readonly: "",
+                                              required: ""
+                                            },
+                                            slot: "activator",
+                                            model: {
+                                              value: _vm.dates.beneficiario,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.dates,
+                                                  "beneficiario",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "dates.beneficiario"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-date-picker", {
+                                            attrs: {
+                                              locale: "es",
+                                              readonly:
+                                                _vm.etapa.beneficiario.closed
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                _vm.dates.beneficiario = _vm.formatDate(
+                                                  _vm.form.beneficiario
+                                                    .fe_envio_inst
+                                                )
+                                              }
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.form.beneficiario
+                                                  .fe_envio_inst,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.form.beneficiario,
+                                                  "fe_envio_inst",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "form.beneficiario.fe_envio_inst"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm3: "" } },
+                                    [
+                                      _c("v-select", {
+                                        attrs: {
+                                          items: _vm.listas.status,
+                                          "item-text": "nb_status",
+                                          "item-value": "id_status",
+                                          rules: _vm.rules.etapaBe,
+                                          label: "Status Beneficiario",
+                                          autocomplete: "",
+                                          required: "",
+                                          disabled: !_vm.etapa.beneficiario
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.form.beneficiario.id_status,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.beneficiario,
+                                              "id_status",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.beneficiario.id_status"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          rules: _vm.rules.tx_observaciones,
+                                          label: "Observaciones",
+                                          placeholder: "Indique Observaciones",
+                                          disabled: !_vm.etapa.beneficiario
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.form.beneficiario
+                                              .tx_observaciones,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form.beneficiario,
+                                              "tx_observaciones",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "form.beneficiario.tx_observaciones"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("form-buttons", {
+                            attrs: {
+                              btnAccion: _vm.btnAccion,
+                              valido: _vm.valido
+                            },
+                            on: {
+                              update: _vm.update,
+                              store: _vm.store,
+                              clear: _vm.clear,
+                              cancel: _vm.cancel
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("pre", [_vm._v("etapa " + _vm._s(_vm.etapaActual))]),
+                      _vm._v(" "),
+                      _c("pre", [
+                        _vm._v("comp " + _vm._s(_vm.etapaCompletada))
+                      ]),
+                      _vm._v(" "),
+                      _c("pre", [_vm._v(_vm._s(_vm.$data))])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-041a584d", module.exports)
   }
 }
 
@@ -113982,1514 +115928,6 @@ exports.default = Object.freeze({
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 444 */,
-/* 445 */,
-/* 446 */,
-/* 447 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(449)
-}
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(451)
-/* template */
-var __vue_template__ = __webpack_require__(452)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\EjecucionPagoLista.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-65eb406c", Component.options)
-  } else {
-    hotAPI.reload("data-v-65eb406c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 448 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(453)
-/* template */
-var __vue_template__ = __webpack_require__(454)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\EjecucionPagoForm.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-041a584d", Component.options)
-  } else {
-    hotAPI.reload("data-v-041a584d", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 449 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(450);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("c7c4d450", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-65eb406c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EjecucionPagoLista.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-65eb406c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EjecucionPagoLista.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 450 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 451 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
-    data: function data() {
-        return {
-            etapa: 0,
-            acreditado: false,
-            headers: [{ text: 'Etapa', value: 'etapa_envio.nb_etapa_envio' }, { text: 'Banco', value: 'banco' }, { text: 'Fecha', value: 'fe_envio_inst' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
-        };
-    },
-
-    props: ['pago'],
-    watch: {
-        items: function items(_items) {
-            var etapa = 0;
-            var acreditado = false;
-
-            if (!_items) {
-                this.etapa = 0;
-            } else {
-                _items.forEach(function (item) {
-                    etapa = Number(item.id_etapa_envio) > etapa ? Number(item.id_etapa_envio) : etapa;
-
-                    if (item.id_etapa_envio == 3 && item.id_status == 31) //proceso completado
-                        {
-                            acreditado = true;
-                        }
-                });
-                this.etapa = etapa;
-                this.acreditado = acreditado;
-            }
-        },
-        acreditado: function acreditado(val) {
-            if (val) {
-                this.$emit('acreditado');
-            }
-        }
-    },
-    methods: {
-        list: function list() {
-            var _this = this;
-
-            axios.get('/api/v1/ejecucionPago/pago/' + this.pago.id_pago).then(function (respuesta) {
-                _this.IsLoading = false;
-                _this.items = respuesta.data;
-            }).catch(function (error) {
-                _this.IsLoading = false;
-                _this.showError(error);
-            });
-        },
-        delItem: function delItem() {
-            var _this2 = this;
-
-            axios.delete('/api/v1/ejecucionPAgo/' + this.item.id_ejecucion_pago).then(function (respuesta) {
-
-                _this2.showMessage(respuesta.data.msj);
-                _this2.list();
-                _this2.item = '';
-                _this2.dialogo = false;
-            }).catch(function (error) {
-                _this2.showError(error);
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 452 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-container",
-    { attrs: { fluid: "", "grid-list-md": "", "text-xs-center": "" } },
-    [
-      _c(
-        "v-layout",
-        { attrs: { row: "", "justify-center": "" } },
-        [
-          _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
-            [
-              _c(
-                "v-card",
-                [
-                  _c(
-                    "v-toolbar",
-                    { staticClass: "light-blue darken-3 white--text" },
-                    [
-                      _c("h3", [_vm._v("Ejecucion del Pago")]),
-                      _vm._v(" "),
-                      _c("v-spacer"),
-                      _vm._v(" "),
-                      _vm.etapa != 3 || !_vm.acreditado
-                        ? _c(
-                            "v-btn",
-                            {
-                              staticClass: "success",
-                              attrs: {
-                                fab: "",
-                                dark: "",
-                                small: "",
-                                absolute: "",
-                                right: "",
-                                bottom: ""
-                              },
-                              on: { click: _vm.insItem }
-                            },
-                            [
-                              _c("v-icon", { attrs: { dark: "" } }, [
-                                _vm._v("add")
-                              ])
-                            ],
-                            1
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-text",
-                    [
-                      _c(
-                        "v-flex",
-                        { attrs: { xs12: "" } },
-                        [
-                          _c("v-data-table", {
-                            attrs: {
-                              headers: _vm.headers,
-                              items: _vm.items,
-                              "hide-actions": "",
-                              loading: _vm.IsLoading,
-                              "item-key": "id_ejecucion",
-                              "disable-initial-sort": ""
-                            },
-                            scopedSlots: _vm._u([
-                              {
-                                key: "items",
-                                fn: function(item) {
-                                  return [
-                                    _c("td", { staticClass: "text-xs-left" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          item.item.etapa_envio.nb_etapa_envio
-                                        )
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", { staticClass: "text-xs-left" }, [
-                                      _vm._v(_vm._s(item.item.banco))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", { staticClass: "text-xs-left" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("formDate")(
-                                            item.item.fe_envio_inst
-                                          )
-                                        )
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", { staticClass: "text-xs-left" }, [
-                                      _vm._v(_vm._s(item.item.status))
-                                    ]),
-                                    _vm._v(" "),
-                                    !_vm.acreditado
-                                      ? _c(
-                                          "td",
-                                          { staticClass: "text-xs-left" },
-                                          [
-                                            _c("list-buttons", {
-                                              on: {
-                                                editar: function($event) {
-                                                  _vm.updItem(item.item)
-                                                },
-                                                eliminar: function($event) {
-                                                  _vm.delForm(item.item)
-                                                }
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        )
-                                      : _c(
-                                          "td",
-                                          { staticClass: "text-xs-center" },
-                                          [
-                                            _c(
-                                              "v-tooltip",
-                                              { attrs: { bottom: "" } },
-                                              [
-                                                _c(
-                                                  "v-btn",
-                                                  {
-                                                    attrs: {
-                                                      slot: "activator",
-                                                      fab: "",
-                                                      small: "",
-                                                      color: "success"
-                                                    },
-                                                    nativeOn: {
-                                                      click: function($event) {
-                                                        _vm.dsolicitud = true
-                                                      }
-                                                    },
-                                                    slot: "activator"
-                                                  },
-                                                  [
-                                                    _c("v-icon", [
-                                                      _vm._v("thumb_up")
-                                                    ])
-                                                  ],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c("span", [
-                                                  _vm._v("Acreditado")
-                                                ])
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                  ]
-                                }
-                              }
-                            ])
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "form-container",
-        {
-          attrs: { "nb-accion": _vm.nb_accion, modal: _vm.modal },
-          on: { cerrarModal: _vm.cerrarModal }
-        },
-        [
-          _c("ejecucion-form", {
-            attrs: {
-              accion: _vm.accion,
-              etapa: _vm.etapa,
-              pago: _vm.pago,
-              item: _vm.item
-            },
-            on: { cerrarModal: _vm.cerrarModal }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("dialogo", {
-        attrs: {
-          dialogo: _vm.dialogo,
-          mensaje: "Desea Eliminar la Ejejcucion de Pago? "
-        },
-        on: { delItem: _vm.delItem, delCancel: _vm.delCancel }
-      })
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-65eb406c", module.exports)
-  }
-}
-
-/***/ }),
-/* 453 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(9);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
-    data: function data() {
-        var _this = this;
-
-        return {
-            picker: {
-                corresponsal: false,
-                intermediario: false,
-                beneficiario: false
-            },
-            etapa: {
-                corresponsal: false,
-                intermediario: false,
-                beneficiario: false
-            },
-            tabla: 'ejecucionPago',
-            form: {
-                id_pago: '',
-                id_banco: '',
-                fe_envio_inst: '',
-                id_etapa_envio: '',
-                tx_observaciones: '',
-                id_usuario: '',
-                id_status: '',
-                //update
-                id_banco_co: '',
-                fe_envio_co: '',
-                id_status_co: '',
-                id_banco_in: '',
-                fe_envio_in: '',
-                id_status_in: ''
-            },
-            listas: {
-                banco: ['/grupo/1'],
-                etapaEnvio: [],
-                status: ['/grupo/6']
-            },
-            rules: {
-                etapa: [function (v) {
-                    return !!v || 'Seleccione una Opcion (Campo Requerido)';
-                }, function (v) {
-                    return _this.accion == 'upd' && Number(v) < _this.item.id_etapa_envio ? 'Debe seleccionar la siguiente Etapa' : true;
-                }],
-                etapaCo: [function (v) {
-                    return v && _this.accion == 'ins' && _this.form.id_etapa_envio == 1 ? true : 'Obligatorio para etapa Corresponsal';
-                }, function (v) {
-                    return v && _this.accion == 'upd' && _this.item.id_etapa_envio == 1 ? true : 'Obligatorio para etapa Corresponsal';
-                }],
-                etapaIn: [function (v) {
-                    return v && _this.accion == 'ins' && _this.form.id_etapa_envio == 2 ? true : 'Obligatorio para etapa Intermediario';
-                }, function (v) {
-                    return v && _this.accion == 'upd' && _this.item.id_etapa_envio == 2 ? true : 'Obligatorio para etapa Intermediario';
-                }],
-                etapaBe: [function (v) {
-                    return v && _this.accion == 'ins' && _this.form.id_etapa_envio == 3 ? true : 'Obligatorio para etapa Beneficiario';
-                }, function (v) {
-                    return v && _this.accion == 'upd' && _this.item.id_etapa_envio == 3 ? true : 'Obligatorio para etapa Beneficiario';
-                }]
-
-            }
-
-        };
-    },
-
-    props: ['pago', 'etapas'],
-    methods: {
-        setEtapa: function setEtapa(etapa) {
-            switch (true) {
-                case etapa == 1:
-                    this.etapa.corresponsal = true;
-                    this.etapa.intermediario = false;
-                    this.etapa.beneficiario = false;
-                    break;
-
-                case etapa == 2:
-                    this.etapa.corresponsal = true;
-                    this.etapa.intermediario = true;
-                    this.etapa.beneficiario = false;
-                    break;
-
-                case etapa == 3:
-                    this.etapa.corresponsal = true;
-                    this.etapa.intermediario = true;
-                    this.etapa.beneficiario = true;
-                    break;
-
-                default:
-                    break;
-            }
-        },
-        update: function update() {
-            var _this2 = this;
-
-            if (this.$refs.form.validate()) {
-                if (this.form.id_etapa_envio == 3 && this.form.id_status == 31) {
-                    if (!confirm('Esta operacion completara el proceso de pago \n Desea continuar?')) {
-                        return false;
-                    }
-                }
-
-                this.form.id_pago = this.pago.id_pago;
-
-                axios.put(this.basePath + this.item.id_ejecucion_pago, this.form).then(function (respuesta) {
-                    _this2.showMessage(respuesta.data.msj);
-                    _this2.$emit('cerrarModal');
-                }).catch(function (error) {
-                    _this2.showError(error);
-                });
-            }
-        },
-        store: function store() {
-            var _this3 = this;
-
-            if (this.$refs.form.validate()) {
-                this.form.id_pago = this.pago.id_pago;
-
-                axios.post(this.basePath, this.form).then(function (respuesta) {
-                    _this3.showMessage(respuesta.data.msj);
-                    _this3.$emit('cerrarModal');
-                }).catch(function (error) {
-                    _this3.showError(error);
-                });
-            }
-        }
-    }
-
-});
-
-/***/ }),
-/* 454 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-container",
-    { attrs: { fluid: "", "grid-list-md": "", "text-xs-center": "" } },
-    [
-      _c(
-        "v-layout",
-        { attrs: { row: "", "justify-center": "" } },
-        [
-          _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
-            [
-              _c(
-                "v-form",
-                {
-                  ref: "form",
-                  attrs: { "lazy-validation": "" },
-                  model: {
-                    value: _vm.valido,
-                    callback: function($$v) {
-                      _vm.valido = $$v
-                    },
-                    expression: "valido"
-                  }
-                },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c(
-                        "v-card-title",
-                        { staticClass: "light-blue darken-3 white--text" },
-                        [_c("h2", [_vm._v("Ejecucion de Pago")])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-text",
-                        [
-                          _c(
-                            "v-layout",
-                            { attrs: { wrap: "" } },
-                            [
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.listas.etapaEnvio,
-                                      "item-text": "nb_etapa_envio",
-                                      "item-value": "id_etapa_envio",
-                                      rules: _vm.rules.etapa,
-                                      label: "Etapa de Ejecucion de Pago",
-                                      autocomplete: "",
-                                      required: ""
-                                    },
-                                    on: {
-                                      input: function($event) {
-                                        _vm.setEtapa(_vm.form.id_etapa_envio)
-                                      }
-                                    },
-                                    model: {
-                                      value: _vm.form.id_etapa_envio,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.form,
-                                          "id_etapa_envio",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "form.id_etapa_envio"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                {
-                                  staticClass: "text-sm-left",
-                                  attrs: { xs12: "" }
-                                },
-                                [
-                                  _c("v-subheader", [_vm._v("Corresponsal")]),
-                                  _vm._v(" "),
-                                  _c("v-divider")
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.listas.banco,
-                                      "item-text": "nb_banco",
-                                      "item-value": "id_banco",
-                                      rules: _vm.rules.etapaCo,
-                                      label: "Banco Corresponsal",
-                                      autocomplete: "",
-                                      required: "",
-                                      disabled: !_vm.etapa.corresponsal
-                                    },
-                                    model: {
-                                      value: _vm.form.id_banco_co,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "id_banco_co", $$v)
-                                      },
-                                      expression: "form.id_banco_co"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm3: "" } },
-                                [
-                                  _c(
-                                    "v-menu",
-                                    {
-                                      ref: "picker",
-                                      attrs: {
-                                        "full-width": "",
-                                        "min-width": "290px",
-                                        disabled: !_vm.etapa.corresponsal
-                                      },
-                                      model: {
-                                        value: _vm.picker.corresponsal,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.picker,
-                                            "corresponsal",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "picker.corresponsal"
-                                      }
-                                    },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          slot: "activator",
-                                          rules: _vm.rules.etapaCo,
-                                          label: "Fecha Corresponsal",
-                                          "prepend-icon": "event",
-                                          readonly: "",
-                                          required: "",
-                                          disabled: !_vm.etapa.corresponsal
-                                        },
-                                        slot: "activator",
-                                        model: {
-                                          value: _vm.dates.fe_envio_co,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.dates,
-                                              "fe_envio_co",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "dates.fe_envio_co"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("v-date-picker", {
-                                        attrs: { locale: "es" },
-                                        on: {
-                                          input: function($event) {
-                                            _vm.dates.fe_envio_co = _vm.formatDate(
-                                              _vm.form.fe_envio_co
-                                            )
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.form.fe_envio_co,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.form,
-                                              "fe_envio_co",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "form.fe_envio_co"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm3: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.listas.status,
-                                      "item-text": "nb_status",
-                                      "item-value": "id_status",
-                                      rules: _vm.rules.etapaCo,
-                                      label: "Status Corresponsal",
-                                      autocomplete: "",
-                                      required: "",
-                                      disabled: !_vm.etapa.corresponsal
-                                    },
-                                    model: {
-                                      value: _vm.form.id_status_co,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "id_status_co", $$v)
-                                      },
-                                      expression: "form.id_status_co"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                {
-                                  staticClass: "text-sm-left",
-                                  attrs: { xs12: "" }
-                                },
-                                [
-                                  _c("v-subheader", [_vm._v("Intermediario")]),
-                                  _vm._v(" "),
-                                  _c("v-divider")
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.listas.banco,
-                                      "item-text": "nb_banco",
-                                      "item-value": "id_banco",
-                                      rules: _vm.rules.etapaIn,
-                                      label: "Banco Intermediario",
-                                      autocomplete: "",
-                                      required: "",
-                                      disabled: !_vm.etapa.intermediario
-                                    },
-                                    model: {
-                                      value: _vm.form.id_banco_in,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "id_banco_in", $$v)
-                                      },
-                                      expression: "form.id_banco_in"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm3: "" } },
-                                [
-                                  _c(
-                                    "v-menu",
-                                    {
-                                      ref: "picker",
-                                      attrs: {
-                                        "full-width": "",
-                                        "min-width": "290px",
-                                        disabled: !_vm.etapa.intermediario
-                                      },
-                                      model: {
-                                        value: _vm.picker.intermediario,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.picker,
-                                            "intermediario",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "picker.intermediario"
-                                      }
-                                    },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          slot: "activator",
-                                          rules: _vm.rules.etapaIn,
-                                          label: "Fecha Intermediario",
-                                          "prepend-icon": "event",
-                                          readonly: "",
-                                          required: "",
-                                          disabled: !_vm.etapa.intermediario
-                                        },
-                                        slot: "activator",
-                                        model: {
-                                          value: _vm.dates.fe_envio_in,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.dates,
-                                              "fe_envio_in",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "dates.fe_envio_in"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("v-date-picker", {
-                                        attrs: { locale: "es" },
-                                        on: {
-                                          input: function($event) {
-                                            _vm.dates.fe_envio_in = _vm.formatDate(
-                                              _vm.form.fe_envio_in
-                                            )
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.form.fe_envio_in,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.form,
-                                              "fe_envio_in",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "form.fe_envio_in"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm3: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.listas.status,
-                                      "item-text": "nb_status",
-                                      "item-value": "id_status",
-                                      rules: _vm.rules.etapaIn,
-                                      label: "Status Intermediario",
-                                      autocomplete: "",
-                                      required: "",
-                                      disabled: !_vm.etapa.intermediario
-                                    },
-                                    model: {
-                                      value: _vm.form.id_status_in,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "id_status_in", $$v)
-                                      },
-                                      expression: "form.id_status_in"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                {
-                                  staticClass: "text-sm-left",
-                                  attrs: { xs12: "" }
-                                },
-                                [
-                                  _c("v-subheader", [_vm._v("Beneficiario")]),
-                                  _vm._v(" "),
-                                  _c("v-divider")
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.listas.banco,
-                                      "item-text": "nb_banco",
-                                      "item-value": "id_banco",
-                                      rules: _vm.rules.etapaBe,
-                                      label: "Banco Beneficiario",
-                                      autocomplete: "",
-                                      required: "",
-                                      disabled: !_vm.etapa.beneficiario
-                                    },
-                                    model: {
-                                      value: _vm.form.id_banco,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "id_banco", $$v)
-                                      },
-                                      expression: "form.id_banco"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm3: "" } },
-                                [
-                                  _c(
-                                    "v-menu",
-                                    {
-                                      ref: "picker",
-                                      attrs: {
-                                        "full-width": "",
-                                        "min-width": "290px",
-                                        disabled: !_vm.etapa.beneficiario
-                                      },
-                                      model: {
-                                        value: _vm.picker.beneficiario,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.picker,
-                                            "beneficiario",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "picker.beneficiario"
-                                      }
-                                    },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          slot: "activator",
-                                          rules: _vm.rules.etapaBe,
-                                          label: "Fecha Beneficiario",
-                                          "prepend-icon": "event",
-                                          readonly: "",
-                                          required: "",
-                                          disabled: !_vm.etapa.beneficiario
-                                        },
-                                        slot: "activator",
-                                        model: {
-                                          value: _vm.dates.fe_envio_inst,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.dates,
-                                              "fe_envio_inst",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "dates.fe_envio_inst"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("v-date-picker", {
-                                        attrs: { locale: "es" },
-                                        on: {
-                                          input: function($event) {
-                                            _vm.dates.fe_envio_inst = _vm.formatDate(
-                                              _vm.form.fe_envio_inst
-                                            )
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.form.fe_envio_inst,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.form,
-                                              "fe_envio_inst",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "form.fe_envio_inst"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm3: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.listas.status,
-                                      "item-text": "nb_status",
-                                      "item-value": "id_status",
-                                      rules: _vm.rules.etapaBe,
-                                      label: "Status Beneficiario",
-                                      autocomplete: "",
-                                      required: "",
-                                      disabled: !_vm.etapa.beneficiario
-                                    },
-                                    model: {
-                                      value: _vm.form.id_status,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "id_status", $$v)
-                                      },
-                                      expression: "form.id_status"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      rules: _vm.rules.tx_observaciones,
-                                      label: "Observaciones",
-                                      placeholder: "Indique Observaciones"
-                                    },
-                                    model: {
-                                      value: _vm.form.tx_observaciones,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.form,
-                                          "tx_observaciones",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "form.tx_observaciones"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
-                          _c("form-buttons", {
-                            attrs: {
-                              btnAccion: _vm.btnAccion,
-                              valido: _vm.valido
-                            },
-                            on: {
-                              update: _vm.update,
-                              store: _vm.store,
-                              clear: _vm.clear,
-                              cancel: _vm.cancel
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("pre", [_vm._v(_vm._s(this.item))])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-041a584d", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

@@ -38,7 +38,6 @@ export default {
         },
     },
     props:{
-        // Basic type check (`null` matches any type)
         upd: {
         type: Boolean,
         default: true

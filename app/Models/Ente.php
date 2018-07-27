@@ -60,6 +60,12 @@ class Ente extends Model
         return $this->HasMany('App\Models\Solicitud', 'id_ente');
     
     }
+
+    public function pago(){
+    
+        return $this->BelongsTo('App\Models\Pago', 'id_ente');
+    
+    }
     
     public function status(){
     

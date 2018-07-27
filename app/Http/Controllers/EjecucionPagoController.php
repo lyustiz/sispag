@@ -16,7 +16,7 @@ class EjecucionPagoController extends Controller
     {
         $Ejecucion = EjecucionPago::with(['pago', 'banco', 'etapaEnvio','status'])
                                     ->get()
-                                    ->orderBy('id_etapa_envio', 'asc');
+                                    ->orderBy('id_etapa_envio');
         
         return $Ejecucion;
     }
@@ -29,55 +29,59 @@ class EjecucionPagoController extends Controller
      */
     public function store(Request $request)
     {
-        
-        switch (true) {
-            case $request->id_etapa_envio == 1: //Corresponsal
-                
-                $validate = request()->validate([  
-                            'id_pago'       => 'required',
-                            'id_banco_co'   => 'required',
-                            'fe_envio_co'   => 'required',
-                            'id_etapa_envio'=> 'required',
-                            'id_usuario'    => 'required',
-                            'id_status_co'  => 'required',
-                            ]);
-                break;
-   
-            case $request->id_etapa_envio == 2: //Intermediario
-                
-                $validate = request()->validate([  
-                            'id_pago'       => 'required',
-                            'id_banco_in'   => 'required',
-                            'fe_envio_in'   => 'required',
-                            'id_etapa_envio'=> 'required',
-                            'id_usuario'    => 'required',
-                            'id_status_in'  => 'required',
-                            ]);
-                break;
+        $id_etapa_envio = request()->validate([ 'id_etapa_envio'=> 'required']);
+       
+        foreach ($request->id_etapa_envio as $key => $etapa) 
+        {
+            $nombreEtapa = $this->nombreEtapa($etapa);
 
-            case $request->id_etapa_envio == 3: //Bneficiario
-                
-                $validate = request()->validate([  
-                            'id_pago'       => 'required',
-                            'id_banco'      => 'required',
-                            'fe_envio_pago' => 'required',
-                            'id_etapa_envio'=> 'required',
-                            'id_usuario'    => 'required',
-                            'id_status'     => 'required',
-                            ]);
-                break;
+            $validate = request()->validate(
+                [  
+                    "id_pago"                    => 'required',
+                    "$nombreEtapa.id_banco"      => 'required',
+                    "$nombreEtapa.fe_envio_inst" => 'required',
+                    "$nombreEtapa.id_etapa_envio"=> 'required',
+                    "id_usuario"                 => 'required',
+                    "$nombreEtapa.id_status"     => 'required',
+                ]
+            );
 
-            default:
-                # code...
-                break;
+            $data = $request->all();
+               
+            $ejecucion[] = EjecucionPago::create(
+                [
+                    'id_pago'           => $data['id_pago'],
+                    'id_banco'          => $data[$nombreEtapa]['id_banco'],
+                    'fe_envio_inst'     => $data[$nombreEtapa]['fe_envio_inst'],
+                    'id_etapa_envio'    => $data[$nombreEtapa]['id_etapa_envio'],
+                    'tx_observaciones'  => $data[$nombreEtapa]['tx_observaciones'],
+                    'id_usuario'        => $data['id_usuario'],
+                    'id_status'         => $data[$nombreEtapa]['id_status'],  
+                ] 
+            );
         }
-            
-        $ejecucion = EjecucionPago::create($request->all());
-        //$ejecucion = EjecucionPago::create($validate);
 
         return (['msj'=>'Registro Agregado Correctamente ', 'ejecucion' => $ejecucion]);
     }
 
+    public function nombreEtapa($id_etapa)
+    {
+        $nombreEtapa = NULL;
+
+        switch ($id_etapa) {
+            case 1:
+                $nombreEtapa = 'corresponsal';
+                break;
+            case 2: 
+                $nombreEtapa = 'intermediario';
+                break;
+            case 3:
+                $nombreEtapa = 'beneficiario';
+                break;
+        }
+
+        return $nombreEtapa;
+    }
     /**
      * Display the specified resource.
      *

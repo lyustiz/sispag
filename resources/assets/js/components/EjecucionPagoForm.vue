@@ -19,29 +19,38 @@
                 item-value="id_etapa_envio"
                 v-model="form.id_etapa_envio"
                 :rules="rules.etapa"
+                ref="etapaSelect"
                 label="Etapa de Ejecucion de Pago"
-                autocomplete
+                hide-selected
+                multiple
                 required
-                @input="setEtapa(form.id_etapa_envio)"
+                chips
+                @input="setEtapa()"
+                :readonly="etapa.beneficiario.closed || (!etapaCompletada && etapaActual > 0)"
                 ></v-select>
             </v-flex>
 
+            <!--CORRESPONSAL -->
+            <v-layout row v-show="etapa.corresponsal.active" wrap>
             <v-flex xs12 class="text-sm-left">
-                <v-subheader>Corresponsal</v-subheader> 
+                <v-chip>
+                <v-avatar class="teal"><v-icon>expand_more</v-icon></v-avatar>
+                    <h3>Corresponsal</h3>  
+                </v-chip>
                 <v-divider></v-divider>
             </v-flex>
-            <!--CORRESPONSAL -->
+            
             <v-flex xs12 sm6>  
                 <v-select
                 :items="listas.banco"
                 item-text="nb_banco"
                 item-value="id_banco"
-                v-model="form.id_banco_co"
+                v-model="form.corresponsal.id_banco"
                 :rules="rules.etapaCo"
                 label="Banco Corresponsal"
                 autocomplete
                 required
-                :disabled="!etapa.corresponsal"
+                :readonly="etapaActual > 1 || etapa.corresponsal.closed"
                 ></v-select>
             </v-flex>
 
@@ -51,23 +60,23 @@
                 v-model="picker.corresponsal"
                 full-width
                 min-width="290px"
-                :disabled="!etapa.corresponsal"
+                :readonly="etapaActual > 1 || etapa.corresponsal.closed"
             >
                 <v-text-field
                 slot="activator"
-                v-model="dates.fe_envio_co"
+                v-model="dates.corresponsal"
                 :rules="rules.etapaCo"
                 label="Fecha Corresponsal"
                 prepend-icon="event"
                 readonly
                 required
-                :disabled="!etapa.corresponsal"
                 ></v-text-field>
 
                 <v-date-picker 
-                    v-model="form.fe_envio_co" 
+                    v-model="form.corresponsal.fe_envio_inst" 
                     locale="es"
-                    @input="dates.fe_envio_co = formatDate( form.fe_envio_co )"
+                    :readonly="etapaActual > 1 || etapa.corresponsal.closed"
+                    @input="dates.corresponsal = formatDate( form.corresponsal.fe_envio_inst )"
                 ></v-date-picker>
 
             </v-menu>
@@ -78,31 +87,46 @@
                 :items="listas.status"
                 item-text="nb_status"
                 item-value="id_status"
-                v-model="form.id_status_co"
+                v-model="form.corresponsal.id_status"
                 :rules="rules.etapaCo"
                 label="Status Corresponsal"
                 autocomplete
                 required
-                :disabled="!etapa.corresponsal"
+                :readonly="etapaActual > 1 || etapa.corresponsal.closed"
                 ></v-select>
             </v-flex>
 
+            <v-flex xs12 >
+                <v-text-field
+                    :rules="rules.tx_observaciones"
+                    v-model="form.corresponsal.tx_observaciones"
+                    label="Observaciones"
+                    placeholder="Indique Observaciones"
+                ></v-text-field>
+            </v-flex>
+            </v-layout>
+
+            <!--INTERMEDIARIO -->
+            <v-layout row v-show="etapa.intermediario.active" wrap>
             <v-flex xs12 class="text-sm-left">
-                <v-subheader>Intermediario</v-subheader> 
+                <v-chip>
+                <v-avatar class="teal"><v-icon>expand_more</v-icon></v-avatar>
+                    <h3>Intermediario</h3>  
+                </v-chip>
                 <v-divider></v-divider>
             </v-flex>
-            <!--INTERMEDIARIO -->
+            
             <v-flex xs12 sm6>  
                 <v-select
                 :items="listas.banco"
                 item-text="nb_banco"
                 item-value="id_banco"
-                v-model="form.id_banco_in"
+                v-model="form.intermediario.id_banco"
                 :rules="rules.etapaIn"
                 label="Banco Intermediario"
                 autocomplete
                 required
-                :disabled="!etapa.intermediario"
+                :readonly="etapaActual > 2 || etapa.intermediario.closed"
                 ></v-select>
             </v-flex>
 
@@ -112,23 +136,23 @@
                 v-model="picker.intermediario"
                 full-width
                 min-width="290px"
-                :disabled="!etapa.intermediario"
+                :readonly="etapaActual > 2 || etapa.intermediario.closed"
             >
                 <v-text-field
                 slot="activator"
-                v-model="dates.fe_envio_in"
+                v-model="dates.intermediario"
                 :rules="rules.etapaIn"
                 label="Fecha Intermediario"
                 prepend-icon="event"
                 readonly
                 required
-                :disabled="!etapa.intermediario"
                 ></v-text-field>
 
                 <v-date-picker 
-                    v-model="form.fe_envio_in" 
+                    v-model="form.intermediario.fe_envio_inst" 
                     locale="es"
-                    @input="dates.fe_envio_in = formatDate( form.fe_envio_in )"
+                    :readonly="etapaActual > 2 || etapa.intermediario.closed"
+                    @input="dates.intermediario = formatDate( form.intermediario.fe_envio_inst )"
                 ></v-date-picker>
 
             </v-menu>
@@ -139,31 +163,47 @@
                 :items="listas.status"
                 item-text="nb_status"
                 item-value="id_status"
-                v-model="form.id_status_in"
+                v-model="form.intermediario.id_status"
                 :rules="rules.etapaIn"
                 label="Status Intermediario"
                 autocomplete
                 required
-                :disabled="!etapa.intermediario"
+                :readonly="etapaActual > 2 || etapa.intermediario.closed"
                 ></v-select>
             </v-flex>
 
-             <v-flex xs12 class="text-sm-left">
-                <v-subheader>Beneficiario</v-subheader> 
+            <v-flex xs12 >
+                <v-text-field
+                    :rules="rules.tx_observaciones"
+                    v-model="form.intermediario.tx_observaciones"
+                    label="Observaciones"
+                    placeholder="Indique Observaciones"
+                    :disabled="!etapa.intermediario"
+                ></v-text-field>
+            </v-flex>
+            </v-layout>
+
+            <!--BENEFICIARIO -->
+            <v-layout row v-show="etapa.beneficiario.active" wrap>
+            <v-flex xs12 class="text-sm-left">
+                <v-chip>
+                <v-avatar class="teal"><v-icon>expand_more</v-icon></v-avatar>
+                    <h3>Beneficiario</h3>  
+                </v-chip>
                 <v-divider></v-divider>
             </v-flex>
-            <!--BENEFICIARIO -->
+
             <v-flex xs12 sm6>  
                 <v-select
                 :items="listas.banco"
                 item-text="nb_banco"
                 item-value="id_banco"
-                v-model="form.id_banco"
+                v-model="form.beneficiario.id_banco"
                 :rules="rules.etapaBe"
                 label="Banco Beneficiario"
                 autocomplete
                 required
-                :disabled="!etapa.beneficiario"
+                :readonly="etapa.beneficiario.closed"
                 ></v-select>
             </v-flex>
 
@@ -173,23 +213,23 @@
                 v-model="picker.beneficiario"
                 full-width
                 min-width="290px"
-                :disabled="!etapa.beneficiario"
+                :readonly="etapa.beneficiario.closed"
             >
                 <v-text-field
                 slot="activator"
-                v-model="dates.fe_envio_inst"
+                v-model="dates.beneficiario"
                 :rules="rules.etapaBe"
                 label="Fecha Beneficiario"
                 prepend-icon="event"
                 readonly
                 required
-                :disabled="!etapa.beneficiario"
                 ></v-text-field>
 
                 <v-date-picker 
-                    v-model="form.fe_envio_inst" 
+                    v-model="form.beneficiario.fe_envio_inst" 
                     locale="es"
-                    @input="dates.fe_envio_inst = formatDate( form.fe_envio_inst )"
+                    :readonly="etapa.beneficiario.closed"
+                    @input="dates.beneficiario = formatDate( form.beneficiario.fe_envio_inst )"
                     
                 ></v-date-picker>
 
@@ -201,7 +241,7 @@
                 :items="listas.status"
                 item-text="nb_status"
                 item-value="id_status"
-                v-model="form.id_status"
+                v-model="form.beneficiario.id_status"
                 :rules="rules.etapaBe"
                 label="Status Beneficiario"
                 autocomplete
@@ -210,16 +250,16 @@
                 ></v-select>
             </v-flex>
 
-
-
             <v-flex xs12 >
                 <v-text-field
                     :rules="rules.tx_observaciones"
-                    v-model="form.tx_observaciones"
+                    v-model="form.beneficiario.tx_observaciones"
                     label="Observaciones"
                     placeholder="Indique Observaciones"
+                    :disabled="!etapa.beneficiario"
                 ></v-text-field>
             </v-flex>
+            </v-layout>
 
             </v-layout>
             </v-card-text>
@@ -236,7 +276,9 @@
                 ></form-buttons>  
 
             </v-card-actions>
-                    <pre>{{this.item}}</pre>            
+            <pre>etapa {{etapaActual}}</pre>
+            <pre>comp {{etapaCompletada}}</pre>  
+                    <pre>{{$data}}</pre>            
         </v-card>
         </v-form>
     </v-flex>
@@ -249,35 +291,64 @@ import withSnackbar from '../components/mixins/withSnackbar';
 import formHelper from '../components/mixins/formHelper';
 
 export default {
-    mixins: [ formHelper, withSnackbar ],
+    mixins: [  formHelper, withSnackbar ],
     data () {
         return {
+            tabla: 'ejecucionPago',
+            basePath: '/api/v1/',
+            valido: false,
+            btnAccion: '',
             picker:{
                 corresponsal:   false,
                 intermediario:  false,
                 beneficiario:   false,
             },
             etapa:{
+                corresponsal:   {
+                                    active: false,
+                                    closed: false
+                                },
+                intermediario:  {
+                                    active: false,
+                                    closed: false
+                },
+                beneficiario:   {
+                                    active: false,
+                                    closed: false
+                },
+            },
+            dates:{
                 corresponsal:   false,
                 intermediario:  false,
                 beneficiario:   false,
             },
-            tabla: 'ejecucionPago',
             form:{
-                id_pago :         '',
-                id_banco:         '',
-                fe_envio_inst:    '',
-                id_etapa_envio:   '',
-                tx_observaciones: '',
                 id_usuario:       '',
-                id_status:        '',
-                //update
-                id_banco_co:      '',
-                fe_envio_co:      '',
-                id_status_co:     '',
-                id_banco_in:      '',
-                fe_envio_in:      '',
-                id_status_in:     ''
+                id_etapa_envio:  [],
+                corresponsal:{
+                    id_etapa_envio:   1,
+                    id_pago:          null,
+                    id_banco:         null,
+                    fe_envio_inst:    null,
+                    id_status:        null,
+                    tx_observaciones: null,
+                },
+                intermediario:{
+                    id_etapa_envio:   2,
+                    id_pago:          null,
+                    id_banco:         null,
+                    fe_envio_inst:    null,
+                    id_status:        null,
+                    tx_observaciones: null,
+                },
+                beneficiario:{
+                    id_etapa_envio:   3,
+                    id_pago:          null,
+                    id_banco:         null,
+                    fe_envio_inst:    null,
+                    id_status:        null,
+                    tx_observaciones: null,
+                },
             },
             listas:{
                 banco:      ['/grupo/1'],
@@ -286,34 +357,37 @@ export default {
             },
             rules:{
                 etapa: [
-                    v => !!v || 'Seleccione una Opcion (Campo Requerido)',
+                    v => v.length > 0 || 'Seleccione una Opcion (Campo Requerido)',
                     v => ( this.accion == 'upd' && Number(v) < this.item.id_etapa_envio) 
                          ? 'Debe seleccionar la siguiente Etapa'
                          : true,
                    ],
                 etapaCo:[
-                    v => ( v && this.accion == 'ins' && this.form.id_etapa_envio == 1)
+                    v => true,/*
+                    v => (!( !!v && this.accion == 'ins' && this.form.etapa.includes(1)))
+                         ? 'Obligatorio para etapa Corresponsal'
+                         : true,
+                    v => ( !!v && this.accion == 'upd' && this.etapa.form.includes(1))
                          ? true
-                         : 'Obligatorio para etapa Corresponsal',
-                    v => ( v && this.accion == 'upd' && this.item.id_etapa_envio == 1)
-                         ? true
-                         : 'Obligatorio para etapa Corresponsal',
-                    ],
+                         : 'Obligatorio para etapa Corresponsal',*/
+                    ], 
                 etapaIn:[
-                    v =>(  v && this.accion == 'ins' && this.form.id_etapa_envio == 2) 
+                    v => true,/*
+                    (  v && this.accion == 'ins' && this.etapa.form.includes(2)) 
                          ? true
                          : 'Obligatorio para etapa Intermediario',
-                    v =>(  v && this.accion == 'upd' && this.item.id_etapa_envio == 2) 
+                    v =>(  v && this.accion == 'upd' && this.etapa.form.includes(2)) 
                          ? true
-                         : 'Obligatorio para etapa Intermediario',
+                         : 'Obligatorio para etapa Intermediario',*/
                     ],
                 etapaBe:[
-                    v =>( v && this.accion == 'ins' && this.form.id_etapa_envio == 3) 
+                    v => true,/*
+                    ( v && this.accion == 'ins' && this.etapa.form.includes(3)) 
                          ? true
                          : 'Obligatorio para etapa Beneficiario',
-                    v =>( v && this.accion == 'upd' && this.item.id_etapa_envio == 3) 
+                    v =>( v && this.accion == 'upd' && this.etapa.form.includes(3)) 
                          ? true
-                         : 'Obligatorio para etapa Beneficiario',
+                         : 'Obligatorio para etapa Beneficiario',*/
                     ],
 
             }
@@ -321,41 +395,100 @@ export default {
         }
     },
     props:['pago', 'etapas'],
+    computed:
+    {
+        etapaActual()
+        {
+            var etapaActual = 0
+            
+            this.form.id_etapa_envio.forEach(function callback(item, index) 
+            {
+                etapaActual = (etapaActual > item) ? etapaActual : Number(item);
+                
+            }, this);
+
+            return etapaActual
+        },
+        etapaCompletada()
+        {
+            let nombreEtapa = this.nombreEtapa(this.etapaActual);
+
+            return (this.form[nombreEtapa]) ?  this.form[nombreEtapa].id_banco      != null 
+                                            && this.form[nombreEtapa].fe_envio_inst != null 
+                                            && this.form[nombreEtapa].id_status     != null 
+                                            : false; 
+        }
+    },
+    watch:{
+
+        item(item)
+        {
+          if(this.btnAccion == 'upd')
+           {
+                    
+               this.setEtapa()
+           } 
+        },
+        form:
+        {
+            deep: true,
+            handler: function (form) 
+            { 
+                
+            },
+            
+        }
+    },
     methods:
     {
-        setEtapa(etapa)
+        setEtapa()
         {
-            switch (true) {
-                case etapa == 1:
-                    this.etapa.corresponsal  = true;
-                    this.etapa.intermediario = false;
-                    this.etapa.beneficiario  = false;
-                    break;
+            this.$refs.etapaSelect.menuIsActive = false
+            this.etapa.corresponsal.active  = ( this.form.id_etapa_envio.includes(1) ) ? true: false;
+            this.etapa.intermediario.active = ( this.form.id_etapa_envio.includes(2) ) ? true: false;
+            this.etapa.beneficiario.active  = ( this.form.id_etapa_envio.includes(3) ) ? true: false;
 
-                case etapa == 2:
-                    this.etapa.corresponsal = true;
-                    this.etapa.intermediario = true;
-                    this.etapa.beneficiario = false;
-                    break;
+        },
+        mapForm()
+        {
+            if(this.btnAccion == 'upd') 
+            {
+                this.item.forEach(function callback(item, index) 
+                {
+                    let nombreEtapa = this.nombreEtapa(item.id_etapa_envio);
+                    
+                    if(!this.form.id_etapa_envio.includes(item.id_etapa_envio))
+                    {
+                        this.form.id_etapa_envio.push(item.id_etapa_envio);
+                    }
+                    
+                    if(item.id_id_status == 31)
+                    {
+                        this.etapa[nombreEtapa].closed = true;
+                    }
 
-                case etapa == 3:
-                    this.etapa.corresponsal = true;
-                    this.etapa.intermediario = true;
-                    this.etapa.beneficiario = true;
-                    break;
-            
-                default:
-                    break;
+                    this.dates[nombreEtapa] = this.formatDate(item.fe_envio_inst);
+
+                    for(var key in this.form[nombreEtapa]) 
+                    {
+                        if(this.form[nombreEtapa].hasOwnProperty(key)) 
+                        {
+                            this.form[nombreEtapa][key]  =  item[key];
+                        }
+                    }
+                }, this);
+                this.setEtapa()
             }
+            
         },
         update()
         {
             
             if (this.$refs.form.validate()) 
             {           
-                if( this.form.id_etapa_envio == 3 &&  this.form.id_status == 31 )
+                if( this.form.id_etapa_envio == 3 &&  this.form.beneficiario.id_status == 31 )
                 {
-                    if(!confirm('Esta operacion completara el proceso de pago \n Desea continuar?'))
+                    if(!confirm('Esta operacion cerrara el proceso de pago \n Desea continuar?'))
                     {
                         return false;
                     }
@@ -392,6 +525,27 @@ export default {
                     this.showError(error);
                 })
             }
+        },
+        rstForm(){
+        },
+        nombreEtapa(idEtapa)
+        {
+            let nombreEtapa = null;
+
+            switch (idEtapa) 
+            {
+                case 1:
+                    nombreEtapa = 'corresponsal';
+                    break;
+                case 2: 
+                    nombreEtapa = 'intermediario';
+                    break;
+                case 3:
+                    nombreEtapa = 'beneficiario';
+                    break;
+            }
+  
+            return nombreEtapa;
         }
     }
     

@@ -4,7 +4,6 @@ export default {
         this.listasLoader()
         this.rstForm();
         this.basePath += this.tabla + '/'
-        //this.form.id_usuario = this.$store.getters.user.id
         this.form.id_usuario = 1;
 
     },

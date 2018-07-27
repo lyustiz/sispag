@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Reportes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reportes\ReporteModel;
+use \App\Http\Controllers\Reportes\ExcelReportClass ;
 
 class ReporteController extends Controller
 {
@@ -228,108 +229,47 @@ class ReporteController extends Controller
 		return  ['data' => $data, 'headers' => $headers];
 		
 	}
-	
-	
-	public function get_table_Excel($campos, $data)
+
+	public function getReporteExcel($request)
 	{
-		$this->CI->load->helper('url');
-		
-		$archivo  = 'reporte.xlsx';
-		
-		$FILEPATH = $_SERVER['DOCUMENT_ROOT'] .'/sistemas_pro/assets/modules/votaciones/files/'.$archivo;
-		
-		$URL 	  = base_url().'assets/modules/votaciones/files/'.$archivo;
-
-		$tabla    = $data;
-
-		$this->CI->load->library('excel');
-
-		$objPHPExcel = new PHPExcel();
-		
-		$objWriter 	 = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-		
-		$objPHPExcel->getProperties()
-					->setCreator	("Tecnologia Bandes")
-					->setTitle		("Reporte Excell Autogenerado")
-					->setSubject	("Reporte Excell Autogenerado Coprovex")
-					->setDescription("Reporte Excell Autogenerado con la Libreria PHPExcel")
-					->setKeywords	("office openxml php PHPExcel")
-					->setCategory	("Reportes");
-		
-		$headArray = array(
-							'font' => array(
-								'bold' => true,
-								'color' => array("rgb" => "FFFFFF")
-							),
-							'alignment' => array(
-								'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-							),
-							'fill' => array(
-								'type' => PHPExcel_Style_Fill::FILL_SOLID,
-								'color' => array("rgb" => "000000"),
-							)
-						);
-		
-		$encabezado = true;
-		
-		$letColEnc	= 'A';
-		
-		foreach($campos as $columna => $campo)
+		dd($request);
+		$tabla  	  = $request['tabla'];
+		$headers	  = [];
+		$campos       = [];
+		$filtros   	  = []; 
+	 	$between   	  = []; 
+		$order_by 	  = []; 
+		$group_by 	  = [];
+		 
+		//check Filtros
+		foreach( $request['filtros'] as $filtro )
 		{
-			$linea      = 1;
-			
-			$nroColumna = $columna;
-			
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($nroColumna, $linea, $campo);
-				
-			$objPHPExcel->getActiveSheet()->getStyle($letColEnc.(1))->applyFromArray($headArray);
-				
-			$objPHPExcel->getActiveSheet()->getColumnDimension($letColEnc)->setAutoSize(true);
-			
-			$letColEnc++;
-			
-		}
-		$letColEnc--;
-		
-		foreach($tabla as $nroLinea => $lineas) {
-			
-			$nroColumna = 0;
-			$letColumna	= 'A';
-			
-			foreach($lineas as $columna => $celda) {
-				
-				if(!$encabezado)
-				{
-					$linea = $nroLinea+1;
-					
-					$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($nroColumna, $linea, $columna);
-					
-					$objPHPExcel->getActiveSheet()->getStyle($letColumna.(1))->applyFromArray($headArray);
-					
-					$objPHPExcel->getActiveSheet()->getColumnDimension($letColumna)->setAutoSize(true);
-						
-				}
-				$nroLin = $nroLinea+2;
-				
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($nroColumna, $nroLin, $celda);
-
-				$nroColumna++;
-				$letColumna++;
-				
+			if( $filtro[ key( $filtro ) ]  != null  )
+			{
+				$filtros[ key( $filtro) ] = $filtro[ key( $filtro ) ];
 			}
-			
-			$encabezado = true;
-		}
-        $objPHPExcel->getActiveSheet()->setAutoFilter('A1:'.$letColEnc.$nroLin);
-		
-		$objWriter->save($FILEPATH);
-		
-		$objPHPExcel->disconnectWorksheets();
-		
-		unset($objPHPExcel);
 
-		return array('url'=> $URL);
+		}
+		//check Campos
+		foreach( $request['campos'] as $data )
+		{
+			$data = explode( '|', $data);
+
+			$campos []  = $data[0];
+			$headers[]  = ['text'=> $data[1], 'value' =>  $data[0] ];
+
+
+		}
+		dd($request);
+		$data = $this->dataReport->getReporte($tabla, $campos, $filtros, $between, $order_by, $group_by);
 		
+		$repoteExcel = new ExcelReportClass($data);
+
+		return \Excel::download($repoteExcel, 'reporte.xlsx');
+	
 	}
+	
+	
+	
 	
 }

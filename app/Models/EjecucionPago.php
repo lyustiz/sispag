@@ -24,14 +24,6 @@ class EjecucionPago extends Model
                             'id_status',
                             'fe_creado',
                             'fe_actualizado',
-                            
-                            //nueva version
-                            'id_banco_co',
-                            'fe_envio_co',
-                            'id_status_co',
-                            'id_banco_in',
-                            'fe_envio_in',
-                            'id_status_in'
                             ]; 
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];

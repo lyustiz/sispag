@@ -23,7 +23,7 @@
                 </v-tooltip>
                 
                 <v-tooltip top>
-                    <v-btn slot="activator" fab small  class="success">
+                    <v-btn slot="activator" fab small @click="getReporteExcel" class="success">
                         <v-icon>grid_on</v-icon>
                     </v-btn>
                 <span>Excel</span>
@@ -215,6 +215,25 @@ export default {
             {
                this.showError(error);
             })
+
+        },
+        getReporteExcel(){
+            
+            var formData = new FormData();
+
+            for(var key in this.form) {
+                    
+                if(this.form.hasOwnProperty(key)) 
+                {
+                    formData.append(key, this.form[key]);
+                }
+            }
+            console.log(formData);
+            var request = new XMLHttpRequest();
+            
+            request.open("POST", "http://127.0.0.1:8000/prueba");
+            request.setRequestHeader('X-CSRF-TOKEN', 'nyPaSRCE0WEphhfdb8ZpohmDPuNOGX4rhFVyypnD')
+            request.send(this.form);
 
         },
         clear()

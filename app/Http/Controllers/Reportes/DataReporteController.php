@@ -134,8 +134,6 @@ class DataReporteController extends Controller
 			$resultado = array("error en la consulta",  $e->getMessage());
 		
 		}
-
-		chrome_log($this->db->get_compiled_select("$this->schema.$tabla"));
 		
 		return($resultado);
 		

@@ -18,23 +18,22 @@
         <v-flex xs12>
         <v-data-table
         :headers="headers"
-        :items  ="items"
+        :items  ="itemsFiltrados"
         hide-actions
         :loading="IsLoading"
-        item-key="id_ejecucion"
+        item-key="id_ejecucion_pago"
         disable-initial-sort 
         >
 
         <template slot="items" slot-scope="item">
             
-
-            <td class="text-xs-left">{{ item.item.etapa_envio.nb_etapa_envio }}</td>
-            <td class="text-xs-left">{{ item.item.banco }}</td>
+            <td class="text-xs-left" @click="item.expanded = !item.expanded">{{ item.item.etapa_envio.nb_etapa_envio }}</td>
+            <td class="text-xs-left">{{ item.item.banco.nb_banco }}</td>
             <td class="text-xs-left">{{ item.item.fe_envio_inst | formDate }}</td>
-            <td class="text-xs-left">{{ item.item.status }}</td>
+            <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
             <!--acciones-->
             <td class="text-xs-left" v-if="!acreditado">
-                <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+                <list-buttons @editar="updItem(item)" :del="false">
                 </list-buttons>
             </td>
             <td class="text-xs-center" v-else>
@@ -45,29 +44,27 @@
                     <span>Acreditado</span>
                 </v-tooltip>
             </td>
-           
 
+        </template>
+
+        <template slot="expand" slot-scope="item">
+            <v-card flat>
+                <v-card-text>
+                   {{items}}
+                </v-card-text>
+            </v-card>
         </template>
 
         </v-data-table>
         </v-flex>
         </v-card-text>
-    
     </v-card>
     </v-flex>
     </v-layout>
 
     <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-        <ejecucion-form :accion="accion" :etapa="etapa" :pago="pago" :item="item" @cerrarModal="cerrarModal"></ejecucion-form>
+        <ejecucion-form :accion="accion" :etapa="etapa" :pago="pago" :item="items" @cerrarModal="cerrarModal"></ejecucion-form>
     </form-container>
-
-    <dialogo 
-        :dialogo="dialogo" 
-        :mensaje="'Desea Eliminar la Ejejcucion de Pago? ' "
-        @delItem="delItem"
-        @delCancel="delCancel"
-    >
-    </dialogo>
 
     </v-container>
 
@@ -94,36 +91,44 @@ export default {
     }
     },
     props:['pago'],
+    computed:{
+        itemsFiltrados: function()
+        {
+           if(this.items)
+           {
+               this.etapa = this.items.reduce( (maximo, item) =>{
+                    return (maximo > item.id_etapa_envio) ? maximo : Number(item.id_etapa_envio)  
+                } );
+
+                return this.items.filter(item => Number(item.id_etapa_envio) == this.etapa);
+           }else
+           {
+               this.etapa = 0;
+           }
+        }
+
+    },
     watch:{
         items: function(items){
-            let  etapa      = 0
+
             let  acreditado = false;
 
-            if (!items) 
-            {
-                this.etapa = 0
-
-            }else
+            if (items) 
             {
                 items.forEach(function(item) 
                 {
-                    etapa = ( Number(item.id_etapa_envio) > etapa) 
-                            ? Number(item.id_etapa_envio)
-                            : etapa
-                    
-                    if(item.id_etapa_envio ==3 && item.id_status ==31) //proceso completado
+                    if(item.id_etapa_envio ==3 && item.id_status ==31) 
                     {
                         acreditado = true;
                     }
 
                 });
-                this.etapa      = etapa;
                 this.acreditado = acreditado;
             }
         },
-        acreditado: function(val)
+        acreditado: function(acreditado)
         {
-            if(val) { this.$emit('acreditado') } 
+            if(acreditado) { this.$emit('acreditado') } 
         }
     },
     methods:
@@ -134,27 +139,13 @@ export default {
             .then(respuesta => {
                 this.IsLoading = false
                 this.items = respuesta.data;
+                this.item = this.items;
             })
             .catch(error => {
                 this.IsLoading = false
                 this.showError(error);        
             })
         },
-         delItem(){
-            axios.delete('/api/v1/ejecucionPAgo/'+this.item.id_ejecucion_pago)
-            .then(respuesta => {
-
-                this.showMessage(respuesta.data.msj)
-                this.list();
-                this.item = '';
-                this.dialogo = false;
-                
-            })
-            .catch(error => {
-                this.showError(error)    
-            })
-
-        }
        
     }
 }

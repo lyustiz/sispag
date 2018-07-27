@@ -39,7 +39,20 @@
                 ></v-select>
             </v-flex>
 
-            <v-flex xs12 sm6>
+            <v-flex xs12 sm6>  
+                <v-select
+                :items="listas.ente"
+                item-text="nb_ente"
+                item-value="id_ente"
+                v-model="form.id_ente"
+                :rules="rules.select"
+                label="Provedor"
+                autocomplete
+                required
+                ></v-select>
+            </v-flex>
+
+            <v-flex xs12 sm3>
             <v-menu
                 v-model="pickers.fe_liq_bcv"
                 :ref="pickers.fe_liq_bcv"
@@ -63,7 +76,7 @@
             </v-menu>
             </v-flex>
 
-            <v-flex xs12 sm6>
+            <v-flex xs12 sm3>
             <v-menu
                 v-model="pickers.fe_pago"
                 :ref="pickers.fe_pago"
@@ -191,6 +204,7 @@ export default {
                 mo_tasa:         '',
                 mo_final_pago:   '',
                 id_tipo_pago:    '',
+                id_ente:         '',
                 tx_observaciones:'',
                 id_usuario:      '',
                 id_status:       '',
@@ -199,6 +213,7 @@ export default {
                 banco:    ['/grupo/1'],
                 moneda:   [],
                 tipoPago: [],
+                ente:     ['/grupo/6']
                 //status:   ['/grupo/3'],
             },
             rules:{

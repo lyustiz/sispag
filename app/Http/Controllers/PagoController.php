@@ -14,7 +14,7 @@ class PagoController extends Controller
      */
     public function index()
     {
-        $pagos = Pago::with(['moneda', 'banco', 'tipoPago', 'status'])->get();
+        $pagos = Pago::with(['moneda', 'banco', 'tipoPago', 'ente', 'status'])->get();
         
         return $pagos;
     }
@@ -35,6 +35,7 @@ class PagoController extends Controller
             'mo_tasa'       => 'required',
             'mo_final_pago' => 'required',
             'id_tipo_pago'  => 'required',
+            'id_ente'       => 'required',
             'id_usuario'    => 'required',
             'id_status'     => 'required',
         ]);
@@ -62,7 +63,7 @@ class PagoController extends Controller
 
     public function pagoInstruccion($id_instruccion)
     {        
-        $pago = Pago::with(['moneda', 'banco', 'tipoPago', 'status'])
+        $pago = Pago::with(['moneda', 'banco', 'tipoPago', 'ente', 'status'])
                     ->where('id_instruccion','=', $id_instruccion)
                     ->get();
         return $pago;
@@ -85,6 +86,7 @@ class PagoController extends Controller
             'mo_tasa'       => 'required',
             'mo_final_pago' => 'required',
             'id_tipo_pago'  => 'required',
+            'id_ente'       => 'required',
             'id_usuario'    => 'required',
             'id_status'     => 'required',
         ]);

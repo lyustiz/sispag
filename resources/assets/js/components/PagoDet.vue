@@ -41,6 +41,7 @@
                 </v-btn>
                {{ item.item.tipo_pago.nb_tipo_pago }}
             </td>
+            <td class="text-xs-right">{{ item.item.ente.nb_ente }}</td>
             <td class="text-xs-right">{{ item.item.mo_final_pago | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
             <td class="text-xs-left"> {{ item.item.fe_pago | formDate  }}</td>
@@ -111,6 +112,7 @@ export default {
         acreditado: false,
         headers: [
         { text: 'Tipo Pago',value: 'tipo_pago.nb_tipo_pago' },
+        { text: 'Proveedor',value: 'ente.nb_ente' },
         { text: 'Monto',    value: 'mo_final_pago' },
         { text: 'Moneda',   value: 'moneda.nb_moneda' },
         { text: 'Fecha',    value: 'fe_pago' },
