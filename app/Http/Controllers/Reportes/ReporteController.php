@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reportes\ReporteModel;
 use \App\Http\Controllers\Reportes\ExcelReportClass ;
+use Illuminate\Support\Facades\Storage;
+use \Symfony\Component\HttpFoundation\Response;
 
 class ReporteController extends Controller
 {
@@ -230,9 +232,10 @@ class ReporteController extends Controller
 		
 	}
 
-	public function getReporteExcel($request)
-	{
-		dd($request);
+	public function getReporteExcel(Request $request)
+	{		
+		
+		$request      = $request->all();
 		$tabla  	  = $request['tabla'];
 		$headers	  = [];
 		$campos       = [];
@@ -242,14 +245,12 @@ class ReporteController extends Controller
 		$group_by 	  = [];
 		 
 		//check Filtros
-		foreach( $request['filtros'] as $filtro )
+		/*foreach( $request['filtros'] as $key => $filtro )
 		{
-			if( $filtro[ key( $filtro ) ]  != null  )
-			{
-				$filtros[ key( $filtro) ] = $filtro[ key( $filtro ) ];
-			}
+			$filtros[ $key ][] = $filtro;
 
 		}
+		dd($request['filtros'], $filtros);*/
 		//check Campos
 		foreach( $request['campos'] as $data )
 		{
@@ -260,13 +261,22 @@ class ReporteController extends Controller
 
 
 		}
-		dd($request);
 		$data = $this->dataReport->getReporte($tabla, $campos, $filtros, $between, $order_by, $group_by);
 		
 		$repoteExcel = new ExcelReportClass($data);
 
-		return \Excel::download($repoteExcel, 'reporte.xlsx');
+		if( \Excel::store($repoteExcel, 'reporte.xlsx', 'public') )
+		{
+			return  Storage::url('reporte.xlsx');
+		};
 	
+	}
+
+	public function getArchivo()
+	{
+		$file ='./storage/reporte.xlsx';
+		return response()->download($file);
+
 	}
 	
 	

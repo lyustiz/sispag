@@ -60067,7 +60067,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -60079,6 +60079,11 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
 //
 //
 //
@@ -60292,15 +60297,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             for (var key in this.form) {
 
                 if (this.form.hasOwnProperty(key)) {
-                    formData.append(key, this.form[key]);
+                    if (Array.isArray(this.form[key])) {
+                        for (var key2 in this.form[key]) {
+
+                            if (_typeof(this.form[key][key2]) === 'object') {
+                                for (var key3 in this.form[key][key2]) {
+                                    if (this.form[key][key2][key3].length > 0) {
+                                        this.form[key][key2][key3].forEach(function (item, index) {
+                                            formData.append(key + '[' + key3 + '][' + index + ']', this.form[key][key2][key3][index]);
+                                        }, this);
+                                    }
+                                }
+                            } else {
+
+                                formData.append(key + '[]', this.form[key][key2]);
+                            }
+                        }
+                    } else {
+                        formData.append(key, this.form[key]);
+                    }
                 }
             }
             console.log(formData);
             var request = new XMLHttpRequest();
 
             request.open("POST", "http://127.0.0.1:8000/prueba");
-            request.setRequestHeader('X-CSRF-TOKEN', 'nyPaSRCE0WEphhfdb8ZpohmDPuNOGX4rhFVyypnD');
-            request.send(this.form);
+            request.setRequestHeader('X-CSRF-TOKEN', 'iYYJh9qSDveakm3XxD7MHJA7rYNIUpx8daknbAAg');
+            request.send(formData);
         },
         clear: function clear() {
             this.$refs.form.reset();
@@ -60502,6 +60525,7 @@ var render = function() {
                                                       rules: _vm.rules.select,
                                                       label: filtro.etiqueta,
                                                       autocomplete: "",
+                                                      multiple: "",
                                                       clearable: ""
                                                     },
                                                     model: {
@@ -60652,7 +60676,9 @@ var render = function() {
             ],
             1
           )
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c("pre", [_vm._v(_vm._s(_vm.$data.form))])
     ],
     1
   )
@@ -75442,7 +75468,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -75548,31 +75574,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.items) {
-                this.etapa = this.items.reduce(function (maximo, item) {
-                    return maximo > item.id_etapa_envio ? maximo : Number(item.id_etapa_envio);
-                });
-
-                return this.items.filter(function (item) {
-                    return Number(item.id_etapa_envio) == _this.etapa;
-                });
-            } else {
-                this.etapa = 0;
+                if (this.items.length > 0) {
+                    this.etapa = this.items.reduce(function (maximo, item) {
+                        return maximo > item.id_etapa_envio ? maximo : Number(item.id_etapa_envio);
+                    });
+                    return this.items.filter(function (item) {
+                        return Number(item.id_etapa_envio) == _this.etapa;
+                    });
+                }
             }
+            this.etapa = 0;
         }
 
     },
     watch: {
         items: function items(_items) {
 
-            var acreditado = false;
-
             if (_items) {
                 _items.forEach(function (item) {
                     if (item.id_etapa_envio == 3 && item.id_status == 31) {
-                        acreditado = true;
+                        this.acreditado = true;
                     }
-                });
-                this.acreditado = acreditado;
+                }, this);
             }
         },
         acreditado: function acreditado(_acreditado) {
@@ -75628,7 +75651,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("v-spacer"),
                       _vm._v(" "),
-                      _vm.etapa != 3 || !_vm.acreditado
+                      _vm.etapa == 0
                         ? _c(
                             "v-btn",
                             {
@@ -76266,13 +76289,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return _this.accion == 'upd' && Number(v) < _this.item.id_etapa_envio ? 'Debe seleccionar la siguiente Etapa' : true;
                 }],
                 etapaCo: [function (v) {
-                    return true;
+                    switch (true) {
+                        case !!v && _this.accion == 'ins' && _this.form.id_etapa_envio.includes(1):
+                            return true;
+                            break;
+                        case !!v && _this.accion == 'upd' && _this.form.id_etapa_envio.includes(1):
+                            return true;
+                            break;
+                        default:
+                            return 'Campo Obligatorio para Etapa Corresponsal';
+                            break;
+                    }
                 }],
                 etapaIn: [function (v) {
-                    return true;
+                    switch (true) {
+                        case !!v && _this.accion == 'ins' && _this.form.id_etapa_envio.includes(1):
+                            return true;
+                            break;
+                        case !!v && _this.accion == 'upd' && _this.form.id_etapa_envio.includes(1):
+                            return true;
+                            break;
+                        default:
+                            return 'Campo Obligatorio para Etapa Intermediario';
+                            break;
+                    }
                 }],
                 etapaBe: [function (v) {
-                    return true;
+                    switch (true) {
+                        case !!v && _this.accion == 'ins' && _this.form.id_etapa_envio.includes(1):
+                            return true;
+                            break;
+                        case !!v && _this.accion == 'upd' && _this.form.id_etapa_envio.includes(1):
+                            return true;
+                            break;
+                        default:
+                            return 'Campo Obligatorio para Etapa Beneficiario';
+                            break;
+                    }
                 }]
 
             }
@@ -76285,7 +76338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         etapaActual: function etapaActual() {
             var etapaActual = 0;
 
-            this.form.id_etapa_envio.forEach(function callback(item, index) {
+            this.form.id_etapa_envio.forEach(function (item, index) {
                 etapaActual = etapaActual > item ? etapaActual : Number(item);
             }, this);
 
@@ -76294,26 +76347,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         etapaCompletada: function etapaCompletada() {
             var nombreEtapa = this.nombreEtapa(this.etapaActual);
 
-            return this.form[nombreEtapa] ? this.form[nombreEtapa].id_banco != null && this.form[nombreEtapa].fe_envio_inst != null && this.form[nombreEtapa].id_status != null : false;
+            return this.form[nombreEtapa] ? this.form[nombreEtapa].id_banco != null && this.form[nombreEtapa].fe_envio_inst != null && this.form[nombreEtapa].id_status == 31 : false;
         }
     },
     watch: {
         item: function item(_item) {
             if (this.btnAccion == 'upd') {
-
                 this.setEtapa();
             }
-        },
-
-        form: {
-            deep: true,
-            handler: function handler(form) {}
-
         }
     },
     methods: {
+        disableEtapa: function disableEtapa() {
+            this.$refs.etapaSelect.items.forEach(function (item, index) {
+                if (Number(item.id_etapa_envio) <= this.etapaActual) {
+                    this.$refs.etapaSelect.items[index].disabled = true;
+                } else {
+                    this.$refs.etapaSelect.items[index].disabled = false;
+                }
+            }, this);
+        },
         setEtapa: function setEtapa() {
             this.$refs.etapaSelect.menuIsActive = false;
+            this.disableEtapa();
             this.etapa.corresponsal.active = this.form.id_etapa_envio.includes(1) ? true : false;
             this.etapa.intermediario.active = this.form.id_etapa_envio.includes(2) ? true : false;
             this.etapa.beneficiario.active = this.form.id_etapa_envio.includes(3) ? true : false;

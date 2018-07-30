@@ -363,32 +363,56 @@ export default {
                          : true,
                    ],
                 etapaCo:[
-                    v => true,/*
-                    v => (!( !!v && this.accion == 'ins' && this.form.etapa.includes(1)))
-                         ? 'Obligatorio para etapa Corresponsal'
-                         : true,
-                    v => ( !!v && this.accion == 'upd' && this.etapa.form.includes(1))
-                         ? true
-                         : 'Obligatorio para etapa Corresponsal',*/
+                    v => 
+                    {
+                        switch(true)
+                        {
+                            case !!v && this.accion == 'ins'&& this.form.id_etapa_envio.includes(1):
+                                return true;
+                                break;
+                            case !!v && this.accion == 'upd'&& this.form.id_etapa_envio.includes(1):
+                                return true;
+                                break;
+                            default:
+                                return 'Campo Obligatorio para Etapa Corresponsal'
+                            break;
+                        }
+                    }
                     ], 
                 etapaIn:[
-                    v => true,/*
-                    (  v && this.accion == 'ins' && this.etapa.form.includes(2)) 
-                         ? true
-                         : 'Obligatorio para etapa Intermediario',
-                    v =>(  v && this.accion == 'upd' && this.etapa.form.includes(2)) 
-                         ? true
-                         : 'Obligatorio para etapa Intermediario',*/
-                    ],
+                    v => 
+                    {
+                        switch(true)
+                        {
+                            case !!v && this.accion == 'ins'&& this.form.id_etapa_envio.includes(1):
+                                return true;
+                                break;
+                            case !!v && this.accion == 'upd'&& this.form.id_etapa_envio.includes(1):
+                                return true;
+                                break;
+                            default:
+                                return 'Campo Obligatorio para Etapa Intermediario'
+                            break;
+                        }
+                    }
+                    ], 
                 etapaBe:[
-                    v => true,/*
-                    ( v && this.accion == 'ins' && this.etapa.form.includes(3)) 
-                         ? true
-                         : 'Obligatorio para etapa Beneficiario',
-                    v =>( v && this.accion == 'upd' && this.etapa.form.includes(3)) 
-                         ? true
-                         : 'Obligatorio para etapa Beneficiario',*/
-                    ],
+                    v => 
+                    {
+                        switch(true)
+                        {
+                            case !!v && this.accion == 'ins'&& this.form.id_etapa_envio.includes(1):
+                                return true;
+                                break;
+                            case !!v && this.accion == 'upd'&& this.form.id_etapa_envio.includes(1):
+                                return true;
+                                break;
+                            default:
+                                return 'Campo Obligatorio para Etapa Beneficiario'
+                            break;
+                        }
+                    }
+                    ], 
 
             }
             
@@ -401,7 +425,7 @@ export default {
         {
             var etapaActual = 0
             
-            this.form.id_etapa_envio.forEach(function callback(item, index) 
+            this.form.id_etapa_envio.forEach(function(item, index) 
             {
                 etapaActual = (etapaActual > item) ? etapaActual : Number(item);
                 
@@ -412,10 +436,10 @@ export default {
         etapaCompletada()
         {
             let nombreEtapa = this.nombreEtapa(this.etapaActual);
-
+            
             return (this.form[nombreEtapa]) ?  this.form[nombreEtapa].id_banco      != null 
                                             && this.form[nombreEtapa].fe_envio_inst != null 
-                                            && this.form[nombreEtapa].id_status     != null 
+                                            && this.form[nombreEtapa].id_status     == 31 
                                             : false; 
         }
     },
@@ -425,25 +449,32 @@ export default {
         {
           if(this.btnAccion == 'upd')
            {
-                    
                this.setEtapa()
            } 
         },
-        form:
-        {
-            deep: true,
-            handler: function (form) 
-            { 
-                
-            },
-            
-        }
     },
     methods:
     {
+        disableEtapa()
+        {
+            this.$refs.etapaSelect.items.forEach(function(item, index) 
+            {
+                if( Number(item.id_etapa_envio) <= (this.etapaActual) ) 
+                {
+                    this.$refs.etapaSelect.items[index].disabled = true
+                }
+                else
+                {
+                    this.$refs.etapaSelect.items[index].disabled = false
+                }
+
+            }, this);
+
+        },
         setEtapa()
         {
             this.$refs.etapaSelect.menuIsActive = false
+            this.disableEtapa();
             this.etapa.corresponsal.active  = ( this.form.id_etapa_envio.includes(1) ) ? true: false;
             this.etapa.intermediario.active = ( this.form.id_etapa_envio.includes(2) ) ? true: false;
             this.etapa.beneficiario.active  = ( this.form.id_etapa_envio.includes(3) ) ? true: false;
@@ -476,6 +507,7 @@ export default {
                             this.form[nombreEtapa][key]  =  item[key];
                         }
                     }
+
                 }, this);
                 this.setEtapa()
             }

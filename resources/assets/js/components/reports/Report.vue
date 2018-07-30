@@ -71,6 +71,7 @@
                     :rules="rules.select"
                     :label="filtro.etiqueta"
                     autocomplete
+                    multiple
                     clearable
                 ></v-select>
                 </v-card-text>
@@ -111,6 +112,8 @@
         <div v-if="items">
         <report-data :items="items" :headers="headers"></report-data> 
         </div>
+
+        <pre>{{$data.form}}</pre>
     </v-container>  
             
 
@@ -225,15 +228,44 @@ export default {
                     
                 if(this.form.hasOwnProperty(key)) 
                 {
-                    formData.append(key, this.form[key]);
+                    if(Array.isArray(this.form[key]))
+                    {
+                        for(var key2 in this.form[key]) {
+
+                            if( typeof  this.form[key][key2] === 'object')
+                            {
+                                for(var key3 in this.form[key][key2])
+                                {
+                                    if(this.form[key][key2][key3].length >0)
+                                    {
+                                        this.form[key][key2][key3].forEach(function(item, index) 
+                                        {
+                                            formData.append(`${key}[${key3}][${index}]`, this.form[key][key2][key3][index]);
+
+                                        },this);
+                                    }
+
+                                }
+                            }
+                            else{
+
+                                formData.append(`${key}[]`, this.form[key][key2]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        formData.append(key, this.form[key]);
+                    }
+                    
                 }
             }
             console.log(formData);
             var request = new XMLHttpRequest();
             
             request.open("POST", "http://127.0.0.1:8000/prueba");
-            request.setRequestHeader('X-CSRF-TOKEN', 'nyPaSRCE0WEphhfdb8ZpohmDPuNOGX4rhFVyypnD')
-            request.send(this.form);
+            request.setRequestHeader('X-CSRF-TOKEN', 'iYYJh9qSDveakm3XxD7MHJA7rYNIUpx8daknbAAg')
+            request.send(formData);
 
         },
         clear()

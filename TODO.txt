@@ -41,3 +41,5 @@
   artisan route:cache
   artisan view:cache 
   artisan config:cache 
+
+  php artisan storage:link

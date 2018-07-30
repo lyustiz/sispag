@@ -8,7 +8,7 @@
             <h3>Ejecucion del Pago</h3>
 
             <v-spacer></v-spacer>
-            <v-btn v-if="etapa!= 3 || !acreditado" fab @click="insItem" dark small absolute right bottom class="success">
+            <v-btn v-if="etapa == 0" fab @click="insItem" dark small absolute right bottom class="success">
                 <v-icon dark>add</v-icon>
             </v-btn>
         </v-toolbar>
@@ -96,34 +96,31 @@ export default {
         {
            if(this.items)
            {
-               this.etapa = this.items.reduce( (maximo, item) =>{
+               if(this.items.length > 0)
+               {
+                    this.etapa = this.items.reduce( (maximo, item) =>{
                     return (maximo > item.id_etapa_envio) ? maximo : Number(item.id_etapa_envio)  
-                } );
-
-                return this.items.filter(item => Number(item.id_etapa_envio) == this.etapa);
-           }else
-           {
-               this.etapa = 0;
+                    } );
+                    return this.items.filter(item => Number(item.id_etapa_envio) == this.etapa);
+               }
            }
+            this.etapa = 0;        
         }
 
     },
     watch:{
         items: function(items){
 
-            let  acreditado = false;
-
             if (items) 
             {
                 items.forEach(function(item) 
                 {
-                    if(item.id_etapa_envio ==3 && item.id_status ==31) 
+                    if(item.id_etapa_envio == 3 && item.id_status == 31) 
                     {
-                        acreditado = true;
+                        this.acreditado = true;
                     }
 
-                });
-                this.acreditado = acreditado;
+                }, this);
             }
         },
         acreditado: function(acreditado)
