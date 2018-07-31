@@ -3,35 +3,35 @@
         <v-layout row justify-center>
         <v-flex xs12>
         <v-card>
-            
+        <v-form ref="form" v-model="valido" lazy-validation>
+
             <v-toolbar class="blue lighten-3 white--text">
             <h3>Reporte</h3>
                 <v-spacer></v-spacer>
                
                 <v-tooltip top>
-                <v-btn slot="activator" fab small @click="clear" class="warning">
+                <v-btn slot="activator" fab small @click="clear" class="warning" >
                     <v-icon>refresh</v-icon>
                 </v-btn>
                 <span>Limpiar</span>
                 </v-tooltip>
 
                 <v-tooltip top>
-                <v-btn slot="activator" fab small @click="getReporte" class="info">
+                <v-btn slot="activator" fab small @click="getReporte" class="info" :disabled="!valido">
                     <v-icon>web</v-icon>
                 </v-btn>
                 <span>Reporte Web</span>
                 </v-tooltip>
                 
                 <v-tooltip top>
-                    <v-btn slot="activator" fab small @click="getReporteExcel" class="success">
+                    <v-btn slot="activator" fab small @click="getReporteExcel" class="success" :disabled="!valido">
                         <v-icon>grid_on</v-icon>
                     </v-btn>
                 <span>Excel</span>
                 </v-tooltip>
 
             </v-toolbar>
-
-            <v-form ref="form" v-model="valido" lazy-validation>
+            
             <v-card-text>
             
             <!--  campos  -->
@@ -56,9 +56,12 @@
 
             <!--  filtros  -->
             <v-layout row wrap v-if="filtros">
-            <v-expansion-panel expand>
-            <v-expansion-panel-content ripple>
-                <div slot="header" >Filtros</div>
+            <v-expansion-panel expand >
+            <v-expansion-panel-content ripple v-model="panel">
+                <div slot="header" >
+                    <v-icon>filter_list</v-icon>
+                    Filtros
+                </div>
                 <v-card>
                 <v-card-text>
                 <v-select
@@ -104,8 +107,8 @@
             </v-layout>
 
             </v-card-text>
-            </v-form>
-
+            
+        </v-form>
         </v-card>
         </v-flex> 
         </v-layout>
@@ -113,8 +116,7 @@
         <report-data :items="items" :headers="headers"></report-data> 
         </div>
     </v-container>  
-            
-
+        
 </template>
 
 <script>
@@ -129,7 +131,8 @@ export default {
     } ,
     data () {
         return {
-            valido:   false,
+            panel:    false,
+            valido:   true,
             campos:   false,
             filtros:  false,
             dateSets: false,
@@ -143,7 +146,9 @@ export default {
                 tabla: this.tabla
             },
             rules:{
-                select: [],
+                 select: [
+                    v => v.length > 0 || 'Seleccione una Opcion (Campo Requerido)',
+                    ],
             }
 
         }
@@ -153,6 +158,7 @@ export default {
     {
         list()
         {
+            
             axios.get('/api/v1/reports/'+this.tabla)
             .then(respuesta => 
             {
@@ -206,20 +212,25 @@ export default {
         getReporte(){
             
             this.items = false; 
-            axios.post('/api/v1/reports', this.form)
-            .then(respuesta => 
-            {
-                this.items   = respuesta.data.data;
-                this.headers = respuesta.data.headers;
-            })
-            .catch(error =>  
-            {
-               this.showError(error);
-            })
+            this.panel = false;
+
+            if (this.$refs.form.validate()) 
+            { 
+                axios.post('/api/v1/reports', this.form)
+                .then(respuesta => 
+                {
+                    this.items   = respuesta.data.data;
+                    this.headers = respuesta.data.headers;
+                })
+                .catch(error =>  
+                {
+                this.showError(error);
+                })
+            }
 
         },
         getReporteExcel(){
-            
+            this.panel = false;
             var formData = new FormData();
 
             for(var key in this.form) {
@@ -258,15 +269,19 @@ export default {
                     
                 }
             }
-            axios.post('/api/v1/getReporteExcel', formData)
-            .then(respuesta => 
+
+            if (this.$refs.form.validate()) 
             {
-                window.open('/getReporteExcel')
-            })
-            .catch(error =>  
-            {
-               this.showError(error);
-            })
+                axios.post('/api/v1/getReporteExcel', formData)
+                .then(respuesta => 
+                {
+                    window.open('/getReporteExcel')
+                })
+                .catch(error =>  
+                {
+                this.showError(error);
+                })
+            }
 
         },
         clear()

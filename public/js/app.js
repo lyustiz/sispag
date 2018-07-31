@@ -60067,7 +60067,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -60200,6 +60200,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
 
 
 
@@ -60211,7 +60213,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
     data: function data() {
         return {
-            valido: false,
+            panel: false,
+            valido: true,
             campos: false,
             filtros: false,
             dateSets: false,
@@ -60225,7 +60228,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 tabla: this.tabla
             },
             rules: {
-                select: []
+                select: [function (v) {
+                    return v.length > 0 || 'Seleccione una Opcion (Campo Requerido)';
+                }]
             }
 
         };
@@ -60281,16 +60286,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var _this2 = this;
 
             this.items = false;
-            axios.post('/api/v1/reports', this.form).then(function (respuesta) {
-                _this2.items = respuesta.data.data;
-                _this2.headers = respuesta.data.headers;
-            }).catch(function (error) {
-                _this2.showError(error);
-            });
+            this.panel = false;
+
+            if (this.$refs.form.validate()) {
+                axios.post('/api/v1/reports', this.form).then(function (respuesta) {
+                    _this2.items = respuesta.data.data;
+                    _this2.headers = respuesta.data.headers;
+                }).catch(function (error) {
+                    _this2.showError(error);
+                });
+            }
         },
         getReporteExcel: function getReporteExcel() {
             var _this3 = this;
 
+            this.panel = false;
             var formData = new FormData();
 
             for (var key in this.form) {
@@ -60317,11 +60327,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     }
                 }
             }
-            axios.post('/api/v1/getReporteExcel', formData).then(function (respuesta) {
-                window.open('/getReporteExcel');
-            }).catch(function (error) {
-                _this3.showError(error);
-            });
+
+            if (this.$refs.form.validate()) {
+                axios.post('/api/v1/getReporteExcel', formData).then(function (respuesta) {
+                    window.open('/getReporteExcel');
+                }).catch(function (error) {
+                    _this3.showError(error);
+                });
+            }
         },
         clear: function clear() {
             this.$refs.form.reset();
@@ -60354,80 +60367,6 @@ var render = function() {
                 "v-card",
                 [
                   _c(
-                    "v-toolbar",
-                    { staticClass: "blue lighten-3 white--text" },
-                    [
-                      _c("h3", [_vm._v("Reporte")]),
-                      _vm._v(" "),
-                      _c("v-spacer"),
-                      _vm._v(" "),
-                      _c(
-                        "v-tooltip",
-                        { attrs: { top: "" } },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "warning",
-                              attrs: { slot: "activator", fab: "", small: "" },
-                              on: { click: _vm.clear },
-                              slot: "activator"
-                            },
-                            [_c("v-icon", [_vm._v("refresh")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("span", [_vm._v("Limpiar")])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-tooltip",
-                        { attrs: { top: "" } },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "info",
-                              attrs: { slot: "activator", fab: "", small: "" },
-                              on: { click: _vm.getReporte },
-                              slot: "activator"
-                            },
-                            [_c("v-icon", [_vm._v("web")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("span", [_vm._v("Reporte Web")])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-tooltip",
-                        { attrs: { top: "" } },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "success",
-                              attrs: { slot: "activator", fab: "", small: "" },
-                              on: { click: _vm.getReporteExcel },
-                              slot: "activator"
-                            },
-                            [_c("v-icon", [_vm._v("grid_on")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("span", [_vm._v("Excel")])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
                     "v-form",
                     {
                       ref: "form",
@@ -60441,6 +60380,94 @@ var render = function() {
                       }
                     },
                     [
+                      _c(
+                        "v-toolbar",
+                        { staticClass: "blue lighten-3 white--text" },
+                        [
+                          _c("h3", [_vm._v("Reporte")]),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-tooltip",
+                            { attrs: { top: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "warning",
+                                  attrs: {
+                                    slot: "activator",
+                                    fab: "",
+                                    small: ""
+                                  },
+                                  on: { click: _vm.clear },
+                                  slot: "activator"
+                                },
+                                [_c("v-icon", [_vm._v("refresh")])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("span", [_vm._v("Limpiar")])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-tooltip",
+                            { attrs: { top: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "info",
+                                  attrs: {
+                                    slot: "activator",
+                                    fab: "",
+                                    small: "",
+                                    disabled: !_vm.valido
+                                  },
+                                  on: { click: _vm.getReporte },
+                                  slot: "activator"
+                                },
+                                [_c("v-icon", [_vm._v("web")])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("span", [_vm._v("Reporte Web")])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-tooltip",
+                            { attrs: { top: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "success",
+                                  attrs: {
+                                    slot: "activator",
+                                    fab: "",
+                                    small: "",
+                                    disabled: !_vm.valido
+                                  },
+                                  on: { click: _vm.getReporteExcel },
+                                  slot: "activator"
+                                },
+                                [_c("v-icon", [_vm._v("grid_on")])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("span", [_vm._v("Excel")])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
                       _c(
                         "v-card-text",
                         [
@@ -60494,7 +60521,16 @@ var render = function() {
                                     [
                                       _c(
                                         "v-expansion-panel-content",
-                                        { attrs: { ripple: "" } },
+                                        {
+                                          attrs: { ripple: "" },
+                                          model: {
+                                            value: _vm.panel,
+                                            callback: function($$v) {
+                                              _vm.panel = $$v
+                                            },
+                                            expression: "panel"
+                                          }
+                                        },
                                         [
                                           _c(
                                             "div",
@@ -60502,7 +60538,15 @@ var render = function() {
                                               attrs: { slot: "header" },
                                               slot: "header"
                                             },
-                                            [_vm._v("Filtros")]
+                                            [
+                                              _c("v-icon", [
+                                                _vm._v("filter_list")
+                                              ]),
+                                              _vm._v(
+                                                "\n                Filtros\n            "
+                                              )
+                                            ],
+                                            1
                                           ),
                                           _vm._v(" "),
                                           _c(
@@ -60742,7 +60786,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 //
 //
 //
@@ -60787,48 +60830,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
-    created: function created() {
-        //console.log(this.lista)
-        //console.log(this.headers)
-    },
     data: function data() {
         return {
             buscar: '',
-            selected: [],
             lista: this.items
         };
     },
 
-    props: ['headers', 'items'],
-    methods: {
-        getItemText: function getItemText(item, key) {
-            console.log(item);
-            /* if(key.indexOf(".") > -1)
-             {
-                 let subKey = key.split('.');
-                 return item[subKey[0]][subKey[1]]
-               }else{
-                 return item[key];
-             }*/
-            return 1;
-        }
-    }
+    props: ['headers', 'items']
 });
 
 /***/ }),
@@ -60894,9 +60906,9 @@ var render = function() {
                                 { key: index, staticClass: "text-xs-left" },
                                 [
                                   _vm._v(
-                                    "\n                        \n                         " +
+                                    "\n                        " +
                                       _vm._s(linea) +
-                                      "   \n\n                    "
+                                      "   \n                "
                                   )
                                 ]
                               )
@@ -60905,14 +60917,7 @@ var render = function() {
                         ]
                       }
                     }
-                  ]),
-                  model: {
-                    value: _vm.selected,
-                    callback: function($$v) {
-                      _vm.selected = $$v
-                    },
-                    expression: "selected"
-                  }
+                  ])
                 },
                 [
                   _c(
@@ -60928,9 +60933,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        '\n            Busqueda de: "' +
+                        '\n        Busqueda de: "' +
                           _vm._s(_vm.buscar) +
-                          '" Sin resultados\n            '
+                          '" Sin resultados\n        '
                       )
                     ]
                   )
