@@ -44,7 +44,6 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::apiResource('/movimiento', 'MovimientoController');
     Route::get('/movimiento/moneda/{id_moneda}', 'MovimientoController@movimientoMoneda');
 
-
     Route::apiResource('/solicitud', 'SolicitudController');
     Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
 
@@ -62,4 +61,5 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
 
     Route::Get('/reports/{nb_tabla}', 'Reportes\ReporteController@showReporte');
     Route::Post('/reports', 'Reportes\ReporteController@getReporte');
+    Route::post('/getReporteExcel', 'Reportes\ReporteController@getReporteExcel');
 });

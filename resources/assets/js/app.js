@@ -103,7 +103,7 @@ const app = new Vue({
       prevArrow: "",
       slidesToShow: 1
     },
-    drawer: null,
+    drawer: false,
     drawerRight: false,
     changingPassword: false,
     updatingUser: false,

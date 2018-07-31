@@ -112,8 +112,6 @@
         <div v-if="items">
         <report-data :items="items" :headers="headers"></report-data> 
         </div>
-
-        <pre>{{$data.form}}</pre>
     </v-container>  
             
 
@@ -260,12 +258,15 @@ export default {
                     
                 }
             }
-            console.log(formData);
-            var request = new XMLHttpRequest();
-            
-            request.open("POST", "http://127.0.0.1:8000/prueba");
-            request.setRequestHeader('X-CSRF-TOKEN', 'iYYJh9qSDveakm3XxD7MHJA7rYNIUpx8daknbAAg')
-            request.send(formData);
+            axios.post('/api/v1/getReporteExcel', formData)
+            .then(respuesta => 
+            {
+                window.open('/getReporteExcel')
+            })
+            .catch(error =>  
+            {
+               this.showError(error);
+            })
 
         },
         clear()

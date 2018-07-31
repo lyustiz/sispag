@@ -175,7 +175,7 @@ class ReporteController extends Controller
             'campos'        	=> 'required',
 		],
 		[
-			'campos.required'   => 'Seleccione almenos un campo de la tabla'
+			'campos.required'   => 'Seleccione por lo menos un campo del reporte'
 		]);
 
 		$data = $this->getDataReporte($request->all());
@@ -222,8 +222,6 @@ class ReporteController extends Controller
 
 			$campos []  = $data[0];
 			$headers[]  = ['text'=> $data[1], 'value' =>  $data[0] ];
-
-
 		}
 
 		$data = $this->dataReport->getReporte($tabla, $campos, $filtros, $between, $order_by, $group_by);
@@ -232,52 +230,80 @@ class ReporteController extends Controller
 		
 	}
 
-	public function getReporteExcel(Request $request)
-	{		
+	public function getReporteExcel(Request $request) 
+    {         
 		
-		$request      = $request->all();
-		$tabla  	  = $request['tabla'];
-		$headers	  = [];
-		$campos       = [];
-		$filtros   	  = []; 
-	 	$between   	  = []; 
-		$order_by 	  = []; 
-		$group_by 	  = [];
-		 
-		//check Filtros
-		/*foreach( $request['filtros'] as $key => $filtro )
-		{
-			$filtros[ $key ][] = $filtro;
+		$validate = request()->validate([
 
+            'campos'        	=> 'required',
+		],
+		[
+			'campos.required'   => 'Seleccione por lo menos un campo del reporte'
+		]);
+
+        $request  = $request->all(); 
+        $tabla    = $request['tabla']; 
+        $headers  = []; 
+        $campos   = []; 
+        $filtros  = []; 
+        $between  = []; 
+        $order_by = []; 
+        $group_by = []; 
+         
+		//check Filtros 
+		if(isset($request['filtros']))
+		{
+
+			foreach( $request['filtros'] as $key => $filtro ) 
+			{ 
+				$filtros[ $key ][] = $filtro; 
+
+			} 
 		}
-		dd($request['filtros'], $filtros);*/
-		//check Campos
-		foreach( $request['campos'] as $data )
-		{
-			$data = explode( '|', $data);
 
-			$campos []  = $data[0];
-			$headers[]  = ['text'=> $data[1], 'value' =>  $data[0] ];
+        //check Campos 
+        foreach( $request['campos'] as $data ) 
+        { 
+            $data = explode( '|', $data); 
 
+            $campos []  = $data[0]; 
+            $headers[]  = $data[1]; 
 
-		}
-		$data = $this->dataReport->getReporte($tabla, $campos, $filtros, $between, $order_by, $group_by);
-		
-		$repoteExcel = new ExcelReportClass($data);
+        } 
+        $data = $this->dataReport->getReporte($tabla, $campos, $filtros, $between, $order_by, $group_by); 
+        $data = json_decode(json_encode($data),true); 
+        $repoteExcel = new ExcelReportClass($data, $headers); 
 
-		if( \Excel::store($repoteExcel, 'reporte.xlsx', 'public') )
-		{
-			return  Storage::url('reporte.xlsx');
-		};
-	
-	}
+        if( \Excel::store($repoteExcel, 'reporte.xlsx', 'public') ) 
+        { 
+            return  Storage::url('reporte.xlsx'); 
+        }; 
+     
+    } 
 
-	public function getArchivo()
-	{
-		$file ='./storage/reporte.xlsx';
-		return response()->download($file);
+    public function getArchivo() 
+    { 
+        $file ='./storage/reporte.xlsx'; 
+        return response()->download($file); 
 
-	}
+    } 
+
+    public function objectToArray($d) 
+    { 
+        if (is_object($d)) 
+        { 
+            $d = get_object_vars($d); 
+        } 
+         
+        if (is_array($d)) 
+        { 
+            return array_map(__FUNCTION__, $d); 
+        } 
+        else 
+        { 
+            return $d; 
+        } 
+    } 
 	
 	
 	
