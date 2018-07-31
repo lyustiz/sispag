@@ -6,51 +6,23 @@
         <v-card>
             
         <v-card-title class="light-blue darken-3 white--text">
-            <h2>Usuario</h2>
+            <h2>Cambio de Password</h2>
         </v-card-title>
         
         <v-card-text>
         <v-layout wrap>
         
-            <v-flex xs12 sm6 >
+            <v-flex xs12 >
             <v-text-field
                 v-model="form.usuario"
                 :rules="rules.requerido"
                 label="Nombre del Usuario"
                 prepend-icon="account_circle"
                 required
-                :readonly="btnAccion=='upd'"
+                readonly
             ></v-text-field>
             </v-flex>
 
-            <v-flex xs12 sm6 >
-            <v-text-field
-                v-model="form.nu_cedula"
-                :rules="rules.requerido"
-                label="Cedula del Usuario"
-                required
-            ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12 sm6 >
-            <v-text-field
-                v-model="form.nb_nombre"
-                :rules="rules.requerido"
-                label="Nombre del Usuario"
-                required
-            ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12 sm6 >
-            <v-text-field
-                v-model="form.nb_apellido"
-                :rules="rules.requerido"
-                label="Apellido del Usuario"
-                required
-            ></v-text-field>
-            </v-flex>
-
-            <v-layout row wrap v-if="btnAccion=='ins'">
             <v-flex xs12 sm6 >
             <v-text-field
                 v-model="form.password"
@@ -73,28 +45,6 @@
                 required
                 counter="10"
             ></v-text-field>
-            </v-flex>
-            </v-layout>
-
-            <v-flex xs12>  
-                <v-select
-                :items="listas.status"
-                item-text="nb_status"
-                item-value="id_status"
-                v-model="form.id_status"
-                :rules="rules.select"
-                label="Status del Usuario"
-                autocomplete
-                required
-                ></v-select>
-            </v-flex>
-
-            <v-flex xs12 >
-                <v-text-field
-                    v-model="form.tx_observaciones"
-                    label="Observaciones"
-                    placeholder="Indique Observaciones"
-                ></v-text-field>
             </v-flex>
                     
             </v-layout>
@@ -136,23 +86,16 @@ export default {
                     id_usuario:       '',
                     usuario:          '',
                     password:         '',
-                    nu_cedula:        '',
-                    nb_nombre:        '',
-                    nb_apellido:      '',
-                    tx_observaciones: '',
-                    id_status:        '',
             },
             listas:{
-                status:     ['/grupo/5']
             },
             rules:{
                 password1: [
-                    v => !!v || 'Indique Password',
-                    v => v.length > 5 || 'El password debe tener almenos 6 Caracteres'
+                    v => !!v && v.length > 5 || 'El password debe poseer almenos 6 Caracteres',
                 ],
                 password2: [
                     v => !!v || 'Seleccione una Opcion (Campo Requerido)',
-                    v => v == this.form.password || 'Los password no coinciden'
+                    v => v === this.form.password || 'Los password no coinciden'
                 ],
             }
             
@@ -161,17 +104,11 @@ export default {
     methods:{
         update()
         {
-           
-           if (this.$refs.form.validate()) 
+            if (this.$refs.form.validate()) 
             {           
-                delete this.form.password;
                 this.form.id_usuario = this.item.id_usuario;
 
-                if(this.form.id_usuario == 1 && !confirm(' Atencion!!! Cambios al usuario Administrador favor tome sus previsiones'))
-                {
-                    return
-                }    
-                axios.put(this.basePath + this.form.id_usuario, this.form)
+                axios.put(this.basePath +'update/password/' + this.form.id_usuario, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                     this.cancel();
@@ -180,7 +117,6 @@ export default {
                     this.showError(error);
                     
                 })
-
             }
         },
         store()

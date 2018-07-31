@@ -33,7 +33,7 @@ class Usuario extends Authenticatable
                             'fe_actualizado'
                             ]; 
     
-    protected $hidden     = ['remember_token','password','id_usuario','fe_creado','fe_actualizado'];
+    protected $hidden     = ['remember_token','password','fe_creado','fe_actualizado'];
     
     public function status(){
     

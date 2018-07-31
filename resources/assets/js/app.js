@@ -23,6 +23,7 @@ Vue.component('reset-password', require('./components/ResetPasswordComponent.vue
 
 Vue.component('usuario-lista', require('./components/UsuarioLista.vue'));
 Vue.component('usuario-form', require('./components/UsuarioForm.vue'));
+Vue.component('usuario-password', require('./components/UsuarioPassword.vue'));
 
 
 Vue.component('cuenta-lista', require('./components/CuentaLista.vue'));

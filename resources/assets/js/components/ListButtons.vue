@@ -20,6 +20,8 @@
         </v-btn>
         <span>Editar</span>
         </v-tooltip>
+
+        <slot></slot>
             
     </v-speed-dial></v-layout>
 </template>

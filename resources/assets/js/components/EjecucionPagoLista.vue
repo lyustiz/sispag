@@ -27,7 +27,7 @@
 
         <template slot="items" slot-scope="item">
             
-            <td class="text-xs-left" @click="item.expanded = !item.expanded">{{ item.item.etapa_envio.nb_etapa_envio }}</td>
+            <td class="text-xs-left">{{ item.item.etapa_envio.nb_etapa_envio }}</td>
             <td class="text-xs-left">{{ item.item.banco.nb_banco }}</td>
             <td class="text-xs-left">{{ item.item.fe_envio_inst | formDate }}</td>
             <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
@@ -50,7 +50,7 @@
         <template slot="expand" slot-scope="item">
             <v-card flat>
                 <v-card-text>
-                   {{items}}
+                  <pre>{{items}}</pre> 
                 </v-card-text>
             </v-card>
         </template>

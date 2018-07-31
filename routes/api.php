@@ -11,17 +11,17 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::put('/user', 'LoggedUserController@update');
 
     Route::apiResource('/usuario', 'UsuarioController');
-    Route::Get('/usuario/update/password/{usuario}', 'UsuarioController@updatePassword');
+    Route::put('/usuario/update/password/{usuario}', 'UsuarioController@updatePassword');
     
     Route::apiResource('/banco', 'BancoController');
-    Route::Get('/banco/grupo/{id_grupo_banco}', 'BancoController@bancoGrupo');
+    Route::get('/banco/grupo/{id_grupo_banco}', 'BancoController@bancoGrupo');
     Route::apiResource('/tipoBanco', 'TipoBancoController');
     Route::apiResource('/grupoBanco', 'GrupoBancoController');
     
     Route::apiResource('/ente', 'EnteController');
-    Route::Get('/ente/tipo/{id_tipo_ente}', 'EnteController@enteTipo');
-    Route::Get('/ente/grupo/{id_grupo_ente}', 'EnteController@enteGrupo');
-    Route::Get('/ente/tipo/{id_tipo_ente}/grupo/{id_grupo_ente}', 'EnteController@enteTipoGrupo');
+    Route::get('/ente/tipo/{id_tipo_ente}', 'EnteController@enteTipo');
+    Route::get('/ente/grupo/{id_grupo_ente}', 'EnteController@enteGrupo');
+    Route::get('/ente/tipo/{id_tipo_ente}/grupo/{id_grupo_ente}', 'EnteController@enteTipoGrupo');
     Route::apiResource('/grupoEnte', 'GrupoEnteController');
     Route::apiResource('/tipoEnte', 'TipoEnteController');
 
@@ -48,18 +48,18 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
 
     Route::apiResource('/instruccion', 'InstruccionController');
-    Route::Get('/instruccion/pagos', 'InstruccionController@instruccionPagos');
+    Route::get('/instruccion/pagos', 'InstruccionController@instruccionPagos');
     
-    Route::Get('/esquema/padre', 'EsquemaController@esquemaPadre');
+    Route::get('/esquema/padre', 'EsquemaController@esquemaPadre');
     Route::apiResource('/esquema', 'EsquemaController');
 
     Route::apiResource('/etapaEnvio', 'EtapaEnvioController');
 
     Route::apiResource('/status', 'StatusController');
     
-    Route::Get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
+    Route::get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
 
-    Route::Get('/reports/{nb_tabla}', 'Reportes\ReporteController@showReporte');
-    Route::Post('/reports', 'Reportes\ReporteController@getReporte');
+    Route::get('/reports/{nb_tabla}', 'Reportes\ReporteController@showReporte');
+    Route::post('/reports', 'Reportes\ReporteController@getReporte');
     Route::post('/getReporteExcel', 'Reportes\ReporteController@getReporteExcel');
 });

@@ -71,7 +71,6 @@
                     v-model="form.filtros[index][filtro.campoid]"
                     item-text="nombre"
                     item-value="valor"
-                    :rules="rules.select"
                     :label="filtro.etiqueta"
                     autocomplete
                     multiple
@@ -83,7 +82,6 @@
             </v-expansion-panel> 
             </v-layout>
             
-
             <!--  date selector  aun no implementado (oculto por defecto)-->
             <v-layout row wrap v-if="false">
                 <v-flex xs12 sm6>

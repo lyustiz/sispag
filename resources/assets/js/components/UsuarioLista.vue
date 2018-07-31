@@ -43,7 +43,13 @@
                 <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
                 <!--acciones-->
                 <td class="text-xs-left">
-                    <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+                    <list-buttons @editar="updItem(item.item)" :del="false">
+                        <v-tooltip top>
+                        <v-btn slot="activator" fab dark small color="error" @click="editPasw(item.item)">
+                            <v-icon>lock</v-icon>
+                        </v-btn>
+                        <span>Cambio de Password</span>
+                        </v-tooltip>
                     </list-buttons>
                 </td>
 
@@ -68,6 +74,11 @@
             <usuario-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></usuario-form>
         </form-container>
 
+        <form-container :nb-accion="nb_accion" :modal="modalPasw" @cerrarModal="cerrarModalPasw">
+            <usuario-password :accion="accion" :item="item" @cerrarModal="cerrarModalPasw"></usuario-password>
+        </form-container>
+
+
         <dialogo 
             :dialogo="dialogo" 
             :mensaje="'Desea Eliminar el Usuario: ' + item.nb_usuario "
@@ -89,6 +100,7 @@ export default {
     mixins:[ listHelper, withSnackbar ],
     data () {
     return {
+        modalPasw : false,
         headers: [
         { text: 'Usuario',  value: 'usuario' },
         { text: 'Cedula',   value: 'nu_cedula' },
@@ -125,6 +137,16 @@ export default {
                 this.showError(error)    
             })
 
+        },
+        editPasw(item)
+        {
+            this.accion = 'upd';
+            this.item = item;
+            this.modalPasw = true;
+        },
+        cerrarModalPasw()
+        {
+            this.modalPasw = false;
         }
     }
 }

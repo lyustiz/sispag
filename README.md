@@ -10,11 +10,12 @@ base de datos postgre:
 - instalar  PHP composer
 - ejecutar dentro de la carpeta 
 - composer install 
+- php artisan storage:link
+
 
 iniciar dentro de la carpeta sispag el laravel - > php artisan serve
-en el navegado ingresar a 127.0.0.1:800
-click en ingresar en la barra superior (tengo que hacer uno ajustes)
-usuario:  lyustis@gmail.com
+en el navegado ingresar a 127.0.0.1:8000
+usuario:  admin
 password: 12345678
 
 

@@ -169,7 +169,9 @@
         </v-flex>
       </v-card>
     </v-flex>
+
   </v-layout>
+  
 </template>
 
 <script>

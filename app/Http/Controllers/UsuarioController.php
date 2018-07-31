@@ -80,6 +80,7 @@ class UsuarioController extends Controller
 
     public function updatePassword(Request $request, Usuario $usuario)
     {
+        
         $validate = request()->validate([
 
             'id_usuario'  => 'required',
