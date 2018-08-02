@@ -274,10 +274,7 @@
                 ></form-buttons>  
 
             </v-card-actions>
-            <pre>etapa {{etapaActual}}</pre>
-            <pre>comp {{etapaCompletada}}</pre>  
-                    <pre>{{$data.form}}</pre> 
-                    <pre>{{item}}</pre>            
+          
         </v-card>
         </v-form>
     </v-flex>
@@ -369,11 +366,10 @@ export default {
                     {
                         switch(true)
                         {
-                            
-                            case !!v && this.accion == 'ins'&& this.form.id_etapa_envio.includes(1):
+                            case !!v && this.form.id_etapa_envio.includes(1):
                                 return true;
                                 break;
-                            case !!v && this.accion == 'upd'&& this.form.id_etapa_envio.includes(1):
+                            case !v && !this.form.id_etapa_envio.includes(1):
                                 return true;
                                 break;
                             default:
@@ -385,8 +381,6 @@ export default {
                 etapaIn:[
                     v => 
                     {
-                        console.log(1, !!v, this.form.id_etapa_envio.includes(2))
-                        console.log(2, !v, !this.form.id_etapa_envio.includes(2))
                         switch(true)
                         {
                             case !!v && this.form.id_etapa_envio.includes(2):

@@ -64745,7 +64745,7 @@ var render = function() {
                                       1
                                     ),
                                     _vm._v(" "),
-                                    _c("td", { staticClass: "text-xs-right" }, [
+                                    _c("td", { staticClass: "text-xs-left" }, [
                                       _vm._v(_vm._s(item.item.ente.nb_ente))
                                     ]),
                                     _vm._v(" "),
@@ -76679,9 +76679,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -76764,11 +76761,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }],
                 etapaCo: [function (v) {
                     switch (true) {
-
-                        case !!v && _this.accion == 'ins' && _this.form.id_etapa_envio.includes(1):
+                        case !!v && _this.form.id_etapa_envio.includes(1):
                             return true;
                             break;
-                        case !!v && _this.accion == 'upd' && _this.form.id_etapa_envio.includes(1):
+                        case !v && !_this.form.id_etapa_envio.includes(1):
                             return true;
                             break;
                         default:
@@ -76777,8 +76773,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 }],
                 etapaIn: [function (v) {
-                    console.log(1, !!v, _this.form.id_etapa_envio.includes(2));
-                    console.log(2, !v, !_this.form.id_etapa_envio.includes(2));
                     switch (true) {
                         case !!v && _this.form.id_etapa_envio.includes(2):
                             return true;
@@ -77747,17 +77741,7 @@ var render = function() {
                           })
                         ],
                         1
-                      ),
-                      _vm._v(" "),
-                      _c("pre", [_vm._v("etapa " + _vm._s(_vm.etapaActual))]),
-                      _vm._v(" "),
-                      _c("pre", [
-                        _vm._v("comp " + _vm._s(_vm.etapaCompletada))
-                      ]),
-                      _vm._v(" "),
-                      _c("pre", [_vm._v(_vm._s(_vm.$data.form))]),
-                      _vm._v(" "),
-                      _c("pre", [_vm._v(_vm._s(_vm.item))])
+                      )
                     ],
                     1
                   )
