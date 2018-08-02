@@ -34,6 +34,7 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::get('/pago/instruccion/{id_instruccion}', 'PagoController@pagoInstruccion');
     Route::apiResource('/tipoPago', 'TipoPagoController');
     Route::apiResource('/ejecucionPago', 'EjecucionPagoController');
+    Route::put('/ejecucionPago/update', 'EjecucionPagoController@update');
     Route::get('/ejecucionPago/pago/{id_pago}', 'EjecucionPagoController@ejecucionPagoPago');
 
     Route::apiResource('/moneda', 'MonedaController');

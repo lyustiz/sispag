@@ -132,17 +132,19 @@ export default {
         return {
             tabla: 'usuario',
             checkPasswd: null,
-            form:{
-                    id_usuario:       '',
-                    usuario:          '',
-                    password:         '',
-                    nu_cedula:        '',
-                    nb_nombre:        '',
-                    nb_apellido:      '',
-                    tx_observaciones: '',
-                    id_status:        '',
+            form:
+            {
+                id_usuario:       '',
+                usuario:          '',
+                password:         '',
+                nu_cedula:        '',
+                nb_nombre:        '',
+                nb_apellido:      '',
+                tx_observaciones: '',
+                id_status:        '',
             },
-            listas:{
+            listas:
+            {
                 status:     ['/grupo/5']
             },
             rules:{

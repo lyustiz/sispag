@@ -230,9 +230,7 @@
                     locale="es"
                     :readonly="etapa.beneficiario.closed"
                     @input="dates.beneficiario = formatDate( form.beneficiario.fe_envio_inst )"
-                    
                 ></v-date-picker>
-
             </v-menu>
             </v-flex>
 
@@ -278,7 +276,8 @@
             </v-card-actions>
             <pre>etapa {{etapaActual}}</pre>
             <pre>comp {{etapaCompletada}}</pre>  
-                    <pre>{{$data}}</pre>            
+                    <pre>{{$data.form}}</pre> 
+                    <pre>{{item}}</pre>            
         </v-card>
         </v-form>
     </v-flex>
@@ -318,32 +317,35 @@ export default {
                 },
             },
             dates:{
-                corresponsal:   false,
-                intermediario:  false,
-                beneficiario:   false,
+                corresponsal:   null,
+                intermediario:  null,
+                beneficiario:   null,
             },
             form:{
                 id_usuario:       '',
                 id_etapa_envio:  [],
                 corresponsal:{
+                    id_ejecucion_pago:null,
                     id_etapa_envio:   1,
-                    id_pago:          null,
+                    id_pago:          this.pago.id_pago,
                     id_banco:         null,
                     fe_envio_inst:    null,
                     id_status:        null,
                     tx_observaciones: null,
                 },
                 intermediario:{
+                    id_ejecucion_pago:null,
                     id_etapa_envio:   2,
-                    id_pago:          null,
+                    id_pago:          this.pago.id_pago,
                     id_banco:         null,
                     fe_envio_inst:    null,
                     id_status:        null,
                     tx_observaciones: null,
                 },
                 beneficiario:{
+                    id_ejecucion_pago:null,
                     id_etapa_envio:   3,
-                    id_pago:          null,
+                    id_pago:          this.pago.id_pago,
                     id_banco:         null,
                     fe_envio_inst:    null,
                     id_status:        null,
@@ -367,6 +369,7 @@ export default {
                     {
                         switch(true)
                         {
+                            
                             case !!v && this.accion == 'ins'&& this.form.id_etapa_envio.includes(1):
                                 return true;
                                 break;
@@ -382,12 +385,14 @@ export default {
                 etapaIn:[
                     v => 
                     {
+                        console.log(1, !!v, this.form.id_etapa_envio.includes(2))
+                        console.log(2, !v, !this.form.id_etapa_envio.includes(2))
                         switch(true)
                         {
-                            case !!v && this.accion == 'ins'&& this.form.id_etapa_envio.includes(1):
+                            case !!v && this.form.id_etapa_envio.includes(2):
                                 return true;
                                 break;
-                            case !!v && this.accion == 'upd'&& this.form.id_etapa_envio.includes(1):
+                            case !v && !this.form.id_etapa_envio.includes(2):
                                 return true;
                                 break;
                             default:
@@ -401,14 +406,14 @@ export default {
                     {
                         switch(true)
                         {
-                            case !!v && this.accion == 'ins'&& this.form.id_etapa_envio.includes(1):
+                            case !!v && this.form.id_etapa_envio.includes(3):
                                 return true;
                                 break;
-                            case !!v && this.accion == 'upd'&& this.form.id_etapa_envio.includes(1):
+                            case !v && !this.form.id_etapa_envio.includes(3):
                                 return true;
                                 break;
                             default:
-                                return 'Campo Obligatorio para Etapa Beneficiario'
+                                return 'Campo Obligatorio para Etapa Beneficicario'
                             break;
                         }
                     }
@@ -497,6 +502,9 @@ export default {
                     {
                         this.etapa[nombreEtapa].closed = true;
                     }
+                    
+                    
+                    this.form[nombreEtapa].id_ejecucion_pago =  item.id_ejecucion_pago;
 
                     this.dates[nombreEtapa] = this.formatDate(item.fe_envio_inst);
 
@@ -511,6 +519,7 @@ export default {
                 }, this);
                 this.setEtapa()
             }
+
             
         },
         update()
@@ -525,10 +534,9 @@ export default {
                         return false;
                     }
                 }
-                
                 this.form.id_pago = this.pago.id_pago
 
-                axios.put(this.basePath + this.item.id_ejecucion_pago, this.form)
+                axios.put(this.basePath +'update', this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)

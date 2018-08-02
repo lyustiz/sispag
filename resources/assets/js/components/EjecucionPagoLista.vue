@@ -98,9 +98,12 @@ export default {
            {
                if(this.items.length > 0)
                {
-                    this.etapa = this.items.reduce( (maximo, item) =>{
-                    return (maximo > item.id_etapa_envio) ? maximo : Number(item.id_etapa_envio)  
-                    } );
+                    this.items.forEach(function(item, index) 
+                    {
+                        this.etapa = (this.etapa > item.id_etapa_envio) ? this.etapa : Number(item.id_etapa_envio);
+                        
+                    }, this);
+                            
                     return this.items.filter(item => Number(item.id_etapa_envio) == this.etapa);
                }
            }
@@ -135,8 +138,10 @@ export default {
             axios.get('/api/v1/ejecucionPago/pago/'+this.pago.id_pago)
             .then(respuesta => {
                 this.IsLoading = false
+                
                 this.items = respuesta.data;
                 this.item = this.items;
+      
             })
             .catch(error => {
                 this.IsLoading = false

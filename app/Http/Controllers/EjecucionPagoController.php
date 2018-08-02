@@ -110,20 +110,66 @@ class EjecucionPagoController extends Controller
      * @param  \App\models\EjecucionPago  $ejecucionPago
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EjecucionPago $ejecucionPago)
+    public function update(Request $request)
     {
-        
-        $validate = request()->validate([  
-            'id_banco',
-            'fe_envio_inst',
-            'id_etapa_envio',
-            'id_usuario',
-            'id_status',
-            ]);
-            
-        $ejecucion = $ejecucionPago->update($request->all());
+      
+        foreach ($request->id_etapa_envio as $key => $etapa) 
+        {
+            $nombreEtapa = $this->nombreEtapa($etapa);
 
-        return ['msj'=>'Registro Actualizado Correctamente ', compact('ejecucion') ];
+            $validate = request()->validate(
+                [  
+                    "$nombreEtapa.id_pago"           => 'required',
+                    "$nombreEtapa.id_banco"          => 'required',
+                    "$nombreEtapa.fe_envio_inst"     => 'required',
+                    "$nombreEtapa.id_etapa_envio"    => 'required',
+                    "id_usuario"                     => 'required',
+                    "$nombreEtapa.id_status"         => 'required',
+                ]
+            );
+
+            $data = $request->all();
+
+            if($data[$nombreEtapa]['id_ejecucion_pago'] != null)
+            {
+                $ejecucionPago = EjecucionPago::find($data[$nombreEtapa]['id_ejecucion_pago']);
+
+                $ejecucion[] = $ejecucionPago->update(
+                    [
+                        'id_pago'           => $data['id_pago'],
+                        'id_banco'          => $data[$nombreEtapa]['id_banco'],
+                        'fe_envio_inst'     => $data[$nombreEtapa]['fe_envio_inst'],
+                        'id_etapa_envio'    => $data[$nombreEtapa]['id_etapa_envio'],
+                        'tx_observaciones'  => $data[$nombreEtapa]['tx_observaciones'],
+                        'id_usuario'        => $data['id_usuario'],
+                        'id_status'         => $data[$nombreEtapa]['id_status'],  
+                    ] 
+                );
+
+            }else{
+
+                $ejecucion[] = EjecucionPago::create(
+                    [
+                        'id_pago'           => $data['id_pago'],
+                        'id_banco'          => $data[$nombreEtapa]['id_banco'],
+                        'fe_envio_inst'     => $data[$nombreEtapa]['fe_envio_inst'],
+                        'id_etapa_envio'    => $data[$nombreEtapa]['id_etapa_envio'],
+                        'tx_observaciones'  => $data[$nombreEtapa]['tx_observaciones'],
+                        'id_usuario'        => $data['id_usuario'],
+                        'id_status'         => $data[$nombreEtapa]['id_status'],  
+                    ] 
+                );
+
+
+
+            }
+               
+            
+
+
+        }
+
+        return (['msj'=>'Registro Editado Correctamente ', 'ejecucion' => $ejecucion]);
     }
 
     /**
