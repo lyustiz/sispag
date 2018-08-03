@@ -39,8 +39,10 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
 
     Route::apiResource('/moneda', 'MonedaController');
 
+    Route::get('/cuenta/totales', 'CuentaController@cuentaTotales');
     Route::apiResource('/cuenta', 'CuentaController',['parameters' => ['cuenta' => 'cuenta']]);
     Route::get('/cuenta/moneda/{id_moneda}', 'CuentaController@cuentaMoneda');
+    
 
     Route::apiResource('/movimiento', 'MovimientoController');
     Route::get('/movimiento/moneda/{id_moneda}', 'MovimientoController@movimientoMoneda');

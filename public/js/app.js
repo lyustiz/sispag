@@ -78054,26 +78054,77 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_chartkick__["a" /* default */], { adapter: __WEBPACK_IMPORTED_MODULE_2_chart_js___default.a });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
-  data: function data() {
-    return {
-      chartData1: {
-        data: [{ name: 'Ingresos', data: { '2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5 } }, { name: 'Pagos', data: { '2017-01-01': 8, '2017-01-02': 6, '2017-01-03': 12 } }, { name: 'Instrucciones', data: { '2017-01-01': 5, '2017-01-02': 7, '2017-01-03': 1 } }, { name: 'Solicitudes', data: { '2017-01-01': 2, '2017-01-02': 8, '2017-01-03': 5 } }]
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
+    data: function data() {
+        return {
+            items: [],
+            montos: {
+                dolar: 0,
+                euro: 0,
+                otros: 0,
+                total: 0
+            },
+            chartData1: {
+                data: [{ name: 'Ingresos', data: { '2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5 } }, { name: 'Pagos', data: { '2017-01-01': 8, '2017-01-02': 6, '2017-01-03': 12 } }, { name: 'Instrucciones', data: { '2017-01-01': 5, '2017-01-02': 7, '2017-01-03': 1 } }, { name: 'Solicitudes', data: { '2017-01-01': 2, '2017-01-02': 8, '2017-01-03': 5 } }]
 
-      },
-      chartData2: {
-        data: [['Venta Oro', 44], ['Pres. Pais', 23], ['Pdvsa', 25], ['Pres. OM', 3], ['Retiro CC', 54], ['Div OP', 34], ['Div. DICOM', 12], ['Ing. Prop', 5]]
+            },
+            chartData2: {
+                data: [['Venta Oro', 44], ['Pres. Pais', 23], ['Pdvsa', 25], ['Pres. OM', 3], ['Retiro CC', 54], ['Div OP', 34], ['Div. DICOM', 12], ['Ing. Prop', 5]]
 
-      },
-      chartData3: {
-        data: [['Alimentos', 2345], ['Billetes', 1234], ['Clap', 6789], ['Deuda', 4568], ['FANB', 1234], ['Medicam.', 1222]]
-      }
+            },
+            chartData3: {
+                data: [['Alimentos', 2345], ['Billetes', 1234], ['Clap', 6789], ['Deuda', 4568], ['FANB', 1234], ['Medicam.', 1222]]
+            }
 
-    };
-  },
+        };
+    },
+    created: function created() {
 
-  created: function created() {},
-  methods: {}
+        this.list();
+    },
+
+    filters: {
+
+        formatNumber: function formatNumber(value) {
+            var val = (value / 1).toFixed(2).replace('.', ',');
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+    },
+    watch: {
+        items: function items() {
+            this.montos.otros = 0;
+            this.montos.total = 0;
+
+            for (var key in this.items) {
+
+                switch (key) {
+                    case '1':
+                        this.montos.dolar = Number(this.items[key]);
+                        break;
+                    case '2':
+                        this.montos.euro = Number(this.items[key]);
+                        break;
+                    default:
+                        this.montos.otros += Number(this.items[key]);
+                        break;
+                }
+
+                this.montos.total += Number(this.items[key]);
+            }
+        }
+    },
+    methods: {
+        list: function list() {
+            var _this = this;
+
+            axios.get('/api/v1/cuenta/totales').then(function (respuesta) {
+                _this.items = respuesta.data;
+            }).catch(function (error) {
+                _this.showError(error);
+            });
+        }
+    }
 
 });
 
@@ -93352,7 +93403,11 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v("3.000.543,00")
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatNumber")(_vm.montos.euro)
+                                      )
+                                    )
                                   ])
                                 ],
                                 1
@@ -93430,7 +93485,11 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v("3.000.543,00")
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatNumber")(_vm.montos.dolar)
+                                      )
+                                    )
                                   ])
                                 ],
                                 1
@@ -93508,7 +93567,11 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v("3.000.543,00")
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatNumber")(_vm.montos.otros)
+                                      )
+                                    )
                                   ])
                                 ],
                                 1
@@ -93586,7 +93649,11 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v("3.000.543,00")
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatNumber")(_vm.montos.total)
+                                      )
+                                    )
                                   ])
                                 ],
                                 1

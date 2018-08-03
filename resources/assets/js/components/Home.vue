@@ -21,7 +21,7 @@
               <v-list-tile>
                 <v-list-tile-content>
                   <v-list-tile-title>Ingreso Euros</v-list-tile-title>
-                  <v-list-tile-sub-title>3.000.543,00</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>{{ montos.euro | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -44,7 +44,7 @@
               <v-list-tile>
                 <v-list-tile-content>
                   <v-list-tile-title>Ingreso Dolar</v-list-tile-title>
-                  <v-list-tile-sub-title>3.000.543,00</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>{{ montos.dolar | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -67,7 +67,7 @@
               <v-list-tile>
                 <v-list-tile-content>
                   <v-list-tile-title>Otros Ingresos</v-list-tile-title>
-                  <v-list-tile-sub-title>3.000.543,00</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>{{ montos.otros | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -90,7 +90,7 @@
               <v-list-tile>
                 <v-list-tile-content>
                   <v-list-tile-title>Total Ingresos</v-list-tile-title>
-                  <v-list-tile-sub-title>3.000.543,00</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>{{ montos.total | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -186,6 +186,13 @@ export default {
     mixins: [ withSnackbar ],
     data () {
       return {
+        items: [],
+        montos: {
+              dolar: 0,
+              euro : 0,
+              otros: 0,
+              total: 0
+        },
         chartData1: {
           data: [
             {name: 'Ingresos', data: {'2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5}},
@@ -205,10 +212,59 @@ export default {
       
       }
     },
-    created: function () {
+    created() {
+
+      this.list();
 
     },
+     filters: {
+
+        formatNumber: function (value) 
+        {
+            let val = (value/1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }
+
+    },
+    watch:{
+        items()
+        {
+           this.montos.otros = 0;
+           this.montos.total = 0;
+
+            for(var key in this.items) 
+            {
+
+              switch (key) {
+                case '1':
+                    this.montos.dolar = Number(this.items[key])
+                  break;
+                case '2':
+                    this.montos.euro = Number(this.items[key])
+                  break;
+                default:
+                    this.montos.otros += Number(this.items[key])
+                  break;
+              }
+
+              this.montos.total += Number(this.items[key]);
+                
+            }
+        } 
+    },
     methods:{
+
+      list()
+      {
+          axios.get('/api/v1/cuenta/totales')
+            .then(respuesta => {
+                this.items = respuesta.data;
+            })
+            .catch(error => {
+                this.showError(error)
+            })
+
+      }
 
     },
 

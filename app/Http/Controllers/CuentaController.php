@@ -29,6 +29,16 @@ class CuentaController extends Controller
         return $cuenta;
     }
 
+    public function cuentaTotales()
+    {
+        $cuenta  = Cuenta::select('id_moneda', \DB::raw('sum(mo_disponible) as mo_disponible'))
+                            ->groupBy('id_moneda')
+                            ->pluck('mo_disponible','id_moneda')->all();
+                     
+        return $cuenta;
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
