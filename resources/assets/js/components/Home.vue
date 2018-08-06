@@ -104,7 +104,7 @@
         <v-flex flat xs12>
           <v-card  >
             <v-card-text class="text-xs-center">
-              <line-chart :data="chartData1.data" :colors="chartData1.colors" :download="true"></line-chart>
+              <line-chart :data="chartProcesos.data"  :download="true"></line-chart>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -127,7 +127,7 @@
         <v-flex flat xs12>
           <v-card >
             <v-card-text class="text-xs-center">
-              <column-chart :data="chartData2.data" :colors="chartData2.colors" :download="true"></column-chart>
+              <column-chart :data="chartIngresos.data" :colors="chartIngresos.colors" :download="true"></column-chart>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -151,7 +151,7 @@
         <v-flex flat xs12>
           <v-card  color="">
             <v-card-text class="text-xs-center">
-              <pie-chart :data="chartData3.data" :colors="chartData3.colors" :download="true"></pie-chart>
+              <pie-chart :data="chartInstrucciones.data" :colors="chartInstrucciones.colors" :download="true"></pie-chart>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -186,30 +186,21 @@ export default {
     mixins: [ withSnackbar ],
     data () {
       return {
-        items: [],
+         
+        items:    [],
+        cuenta:   [],
+        ingreso:  [],
+        instruccion:[],
+        procesos: [],
         montos: {
               dolar: 0,
               euro : 0,
               otros: 0,
               total: 0
         },
-        chartData1: {
-          data: [
-            {name: 'Ingresos', data: {'2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5}},
-            {name: 'Pagos', data: {'2017-01-01': 8, '2017-01-02': 6, '2017-01-03': 12}},
-            {name: 'Instrucciones', data: {'2017-01-01': 5, '2017-01-02': 7, '2017-01-03': 1}},
-            {name: 'Solicitudes', data: {'2017-01-01': 2, '2017-01-02': 8, '2017-01-03': 5}}
-          ],
- 
-        },
-        chartData2: {
-          data: [['Venta Oro', 44], ['Pres. Pais', 23], ['Pdvsa', 25], ['Pres. OM', 3],['Retiro CC', 54], ['Div OP', 34], ['Div. DICOM', 12], ['Ing. Prop', 5]],
-    
-        },
-        chartData3: {
-          data: [['Alimentos', 2345], ['Billetes', 1234], ['Clap', 6789],['Deuda', 4568],['FANB', 1234],['Medicam.', 1222]],
-        }
-      
+        chartProcesos:      {},
+        chartIngresos:      {},
+        chartInstrucciones: {}
       }
     },
     created() {
@@ -226,46 +217,109 @@ export default {
         }
 
     },
-    watch:{
-        items()
-        {
-           this.montos.otros = 0;
-           this.montos.total = 0;
-
-            for(var key in this.items) 
-            {
-
-              switch (key) {
-                case '1':
-                    this.montos.dolar = Number(this.items[key])
-                  break;
-                case '2':
-                    this.montos.euro = Number(this.items[key])
-                  break;
-                default:
-                    this.montos.otros += Number(this.items[key])
-                  break;
-              }
-
-              this.montos.total += Number(this.items[key]);
-                
-            }
-        } 
-    },
     methods:{
 
       list()
       {
-          axios.get('/api/v1/cuenta/totales')
+          axios.get('/api/v1/home/totales')
             .then(respuesta => {
-                this.items = respuesta.data;
+                this.cuenta      = respuesta.data.cuenta
+                this.ingreso     = respuesta.data.ingreso
+                this.instruccion = respuesta.data.instruccion
+                this.procesos    = respuesta.data.procesos
+                this.setCuenta()
+                this.setProcesos()
+                this.setIngresos()
+                this.setInstruccion()
+
             })
             .catch(error => {
                 this.showError(error)
             })
 
-      }
+      },
+       setCuenta()
+        {
+            this.montos.otros = 0;
+            this.montos.total = 0;
 
+            this.cuenta.forEach(function(item, index) 
+            {
+               switch (item.nb_moneda) {
+                case 'Dolar':
+                    this.montos.dolar = Number(item.mo_total)
+                  break;
+                case 'Euro':
+                    this.montos.euro = Number(item.mo_total)
+                  break;
+                default:
+                    this.montos.otros += Number(item.mo_total)
+                  break;
+              }
+               this.montos.total += Number(item.mo_total);
+            }, this);
+        },
+        setProcesos()
+        {
+          let ingreso     = new Object();
+          let solicitud   = new Object();
+          let instruccion = new Object();
+          let pago        = new Object();
+
+          this.procesos.forEach(function(item, index) 
+            {
+               switch (item.tipo) {
+                case 'ingreso':
+                  ingreso[item.fecha]     = item.cantidad;
+                  break;
+                case 'solicitud':
+                  solicitud[item.fecha]   = item.cantidad;
+                  break;
+                case 'instruccion':
+                  instruccion[item.fecha] = item.cantidad;
+                  break;
+                case 'pago':
+                  pago[item.fecha]        = item.cantidad;
+                  break;
+              }
+            }, this);
+            
+            this.chartProcesos = 
+                                {
+                                  data: 
+                                        [
+                                          {name: 'Ingresos',    data: ingreso},
+                                          {name: 'solicitud',   data: solicitud},
+                                          {name: 'instruccion', data: instruccion},
+                                          {name: 'pago',        data: pago}
+                                        ] 
+                                } ;
+
+        },
+        setIngresos()
+        {
+            let ingresos = [];
+
+            this.ingreso.forEach(function(item, index) 
+            {
+              ingresos[index] = [item.nb_tipo_ingreso, item.mo_ingreso];
+            }, this);
+
+            this.chartIngresos =  { data : ingresos } 
+                        
+        },
+        setInstruccion()
+        {
+            let instrucciones = [];
+
+            this.instruccion.forEach(function(item, index) 
+            {
+              instrucciones[index] = [item.nb_categoria, item.mo_instruccion];
+            }, this);
+
+            this.chartInstrucciones =  { data : instrucciones } 
+
+        }
     },
 
 }

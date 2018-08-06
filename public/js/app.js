@@ -4705,7 +4705,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     showError: function showError(error) {
 
-      if (error.response.data.errors) {
+      if (error.hasOwnProperty('response')) {
 
         var msg = '';
 
@@ -54973,8 +54973,15 @@ Vue.use(Vuetify);
 
 
 if (window.user) {
+
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["i" /* USER */], user);
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["a" /* LOGGED */], true);
+} else {
+
+  if (window.location.pathname != '/') {
+    alert('La session actual es Invalida Favor Ingresar nuevamente');
+    window.location = '/';
+  }
 }
 
 Vue.use(Vuetify, {
@@ -62876,7 +62883,7 @@ var render = function() {
                                   _c("v-text-field", {
                                     attrs: {
                                       rules: _vm.rules.requerido,
-                                      label: "Nombre del Usuario",
+                                      label: "Usuario",
                                       "prepend-icon": "account_circle",
                                       required: "",
                                       readonly: _vm.btnAccion == "upd"
@@ -78054,77 +78061,121 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_chartkick__["a" /* default */], { adapter: __WEBPACK_IMPORTED_MODULE_2_chart_js___default.a });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
-    data: function data() {
-        return {
-            items: [],
-            montos: {
-                dolar: 0,
-                euro: 0,
-                otros: 0,
-                total: 0
-            },
-            chartData1: {
-                data: [{ name: 'Ingresos', data: { '2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5 } }, { name: 'Pagos', data: { '2017-01-01': 8, '2017-01-02': 6, '2017-01-03': 12 } }, { name: 'Instrucciones', data: { '2017-01-01': 5, '2017-01-02': 7, '2017-01-03': 1 } }, { name: 'Solicitudes', data: { '2017-01-01': 2, '2017-01-02': 8, '2017-01-03': 5 } }]
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
+  data: function data() {
+    return {
 
-            },
-            chartData2: {
-                data: [['Venta Oro', 44], ['Pres. Pais', 23], ['Pdvsa', 25], ['Pres. OM', 3], ['Retiro CC', 54], ['Div OP', 34], ['Div. DICOM', 12], ['Ing. Prop', 5]]
+      items: [],
+      cuenta: [],
+      ingreso: [],
+      instruccion: [],
+      procesos: [],
+      montos: {
+        dolar: 0,
+        euro: 0,
+        otros: 0,
+        total: 0
+      },
+      chartProcesos: {},
+      chartIngresos: {},
+      chartInstrucciones: {}
+    };
+  },
+  created: function created() {
 
-            },
-            chartData3: {
-                data: [['Alimentos', 2345], ['Billetes', 1234], ['Clap', 6789], ['Deuda', 4568], ['FANB', 1234], ['Medicam.', 1222]]
-            }
+    this.list();
+  },
 
-        };
-    },
-    created: function created() {
+  filters: {
 
-        this.list();
-    },
-
-    filters: {
-
-        formatNumber: function formatNumber(value) {
-            var val = (value / 1).toFixed(2).replace('.', ',');
-            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-
-    },
-    watch: {
-        items: function items() {
-            this.montos.otros = 0;
-            this.montos.total = 0;
-
-            for (var key in this.items) {
-
-                switch (key) {
-                    case '1':
-                        this.montos.dolar = Number(this.items[key]);
-                        break;
-                    case '2':
-                        this.montos.euro = Number(this.items[key]);
-                        break;
-                    default:
-                        this.montos.otros += Number(this.items[key]);
-                        break;
-                }
-
-                this.montos.total += Number(this.items[key]);
-            }
-        }
-    },
-    methods: {
-        list: function list() {
-            var _this = this;
-
-            axios.get('/api/v1/cuenta/totales').then(function (respuesta) {
-                _this.items = respuesta.data;
-            }).catch(function (error) {
-                _this.showError(error);
-            });
-        }
+    formatNumber: function formatNumber(value) {
+      var val = (value / 1).toFixed(2).replace('.', ',');
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
+
+  },
+  methods: {
+    list: function list() {
+      var _this = this;
+
+      axios.get('/api/v1/home/totales').then(function (respuesta) {
+        _this.cuenta = respuesta.data.cuenta;
+        _this.ingreso = respuesta.data.ingreso;
+        _this.instruccion = respuesta.data.instruccion;
+        _this.procesos = respuesta.data.procesos;
+        _this.setCuenta();
+        _this.setProcesos();
+        _this.setIngresos();
+        _this.setInstruccion();
+      }).catch(function (error) {
+        _this.showError(error);
+      });
+    },
+    setCuenta: function setCuenta() {
+      this.montos.otros = 0;
+      this.montos.total = 0;
+
+      this.cuenta.forEach(function (item, index) {
+        switch (item.nb_moneda) {
+          case 'Dolar':
+            this.montos.dolar = Number(item.mo_total);
+            break;
+          case 'Euro':
+            this.montos.euro = Number(item.mo_total);
+            break;
+          default:
+            this.montos.otros += Number(item.mo_total);
+            break;
+        }
+        this.montos.total += Number(item.mo_total);
+      }, this);
+    },
+    setProcesos: function setProcesos() {
+      var ingreso = new Object();
+      var solicitud = new Object();
+      var instruccion = new Object();
+      var pago = new Object();
+
+      this.procesos.forEach(function (item, index) {
+        switch (item.tipo) {
+          case 'ingreso':
+            ingreso[item.fecha] = item.cantidad;
+            break;
+          case 'solicitud':
+            solicitud[item.fecha] = item.cantidad;
+            break;
+          case 'instruccion':
+            instruccion[item.fecha] = item.cantidad;
+            break;
+          case 'pago':
+            pago[item.fecha] = item.cantidad;
+            break;
+        }
+      }, this);
+
+      this.chartProcesos = {
+        data: [{ name: 'Ingresos', data: ingreso }, { name: 'solicitud', data: solicitud }, { name: 'instruccion', data: instruccion }, { name: 'pago', data: pago }]
+      };
+    },
+    setIngresos: function setIngresos() {
+      var ingresos = [];
+
+      this.ingreso.forEach(function (item, index) {
+        ingresos[index] = [item.nb_tipo_ingreso, item.mo_ingreso];
+      }, this);
+
+      this.chartIngresos = { data: ingresos };
+    },
+    setInstruccion: function setInstruccion() {
+      var instrucciones = [];
+
+      this.instruccion.forEach(function (item, index) {
+        instrucciones[index] = [item.nb_categoria, item.mo_instruccion];
+      }, this);
+
+      this.chartInstrucciones = { data: instrucciones };
+    }
+  }
 
 });
 
@@ -93699,8 +93750,7 @@ var render = function() {
                         [
                           _c("line-chart", {
                             attrs: {
-                              data: _vm.chartData1.data,
-                              colors: _vm.chartData1.colors,
+                              data: _vm.chartProcesos.data,
                               download: true
                             }
                           })
@@ -93782,8 +93832,8 @@ var render = function() {
                         [
                           _c("column-chart", {
                             attrs: {
-                              data: _vm.chartData2.data,
-                              colors: _vm.chartData2.colors,
+                              data: _vm.chartIngresos.data,
+                              colors: _vm.chartIngresos.colors,
                               download: true
                             }
                           })
@@ -93866,8 +93916,8 @@ var render = function() {
                         [
                           _c("pie-chart", {
                             attrs: {
-                              data: _vm.chartData3.data,
-                              colors: _vm.chartData3.colors,
+                              data: _vm.chartInstrucciones.data,
+                              colors: _vm.chartInstrucciones.colors,
                               download: true
                             }
                           })

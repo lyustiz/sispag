@@ -76,8 +76,17 @@ import Slick from 'vue-slick';
 import colors from 'vuetify/es5/util/colors';
 
 if (window.user) {
+ 
   store.commit(mutations.USER,  user)
   store.commit(mutations.LOGGED, true)
+
+}else{
+  
+    if(window.location.pathname != '/')
+    {
+      alert('La session actual es Invalida Favor Ingresar nuevamente');  
+      window.location = '/'
+    }
 }
 
 Vue.use(Vuetify, {

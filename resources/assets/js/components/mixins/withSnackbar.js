@@ -13,7 +13,7 @@ export default {
     },
     showError (error) {
                 
-      if(error.response.data.errors)
+      if(error.hasOwnProperty('response'))
       {
       
         let msg    = '';

@@ -16,7 +16,7 @@
             <v-text-field
                 v-model="form.usuario"
                 :rules="rules.requerido"
-                label="Nombre del Usuario"
+                label="Usuario"
                 prepend-icon="account_circle"
                 required
                 :readonly="btnAccion=='upd'"

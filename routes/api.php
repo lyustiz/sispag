@@ -10,6 +10,10 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     
     Route::put('/user', 'LoggedUserController@update');
 
+
+
+    Route::get('/home/totales', 'HomeController@totales');
+
     Route::apiResource('/usuario', 'UsuarioController');
     Route::put('/usuario/update/password/{usuario}', 'UsuarioController@updatePassword');
     
@@ -43,7 +47,6 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     Route::apiResource('/cuenta', 'CuentaController',['parameters' => ['cuenta' => 'cuenta']]);
     Route::get('/cuenta/moneda/{id_moneda}', 'CuentaController@cuentaMoneda');
     
-
     Route::apiResource('/movimiento', 'MovimientoController');
     Route::get('/movimiento/moneda/{id_moneda}', 'MovimientoController@movimientoMoneda');
 
