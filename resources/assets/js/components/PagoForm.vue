@@ -121,6 +121,7 @@
                 v-model="form.id_moneda"
                 :rules="rules.select"
                 label="Moneda"
+                @input="setTasa"
                 autocomplete
                 required
                 ></v-select>
@@ -133,6 +134,7 @@
                 label="Tasa de Cambio"
                 placeholder="Ingrese Tasa"
                 hint="Ej 107,02"
+                :disabled="tasaReadOnly"
                 ></v-text-field>
             </v-flex>    
             <!--
@@ -194,6 +196,7 @@ export default {
                 fe_liq_bcv: false,
                 fe_pago:    false
             },
+            tasaReadOnly: false,
             esquema: 'Solicitud',
             form:{
                 id_instruccion:  '',
@@ -235,7 +238,7 @@ export default {
     },
     computed:
     {
-        moPendiente: function()
+        moPendiente()
         {
            return (this.accion == 'ins') 
                   ? this.montos.pendiente 
@@ -244,6 +247,20 @@ export default {
     },
     props:['instruccion', 'montos'],
     methods:{
+        setTasa(val)
+        {
+           if(this.form.id_moneda == this.instruccion.id_moneda)
+            {
+                this.form.mo_tasa = 1;
+                this.tasaReadOnly = true;
+            }
+            else
+            {
+                this.form.mo_tasa = null;
+                this.tasaReadOnly = false;
+
+            }
+        },
         tipoPago()
         {
             if(this.form.id_tipo_pago == 1){ //pago total

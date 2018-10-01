@@ -4707,11 +4707,54 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
       if (error.hasOwnProperty('response')) {
 
+        var status = error.response.status;
         var msg = '';
 
-        for (var idx in error.response.data.errors) {
-          msg = msg + error.response.data.errors[idx];
+        switch (status) {
+          case 500:
+            msg = 'Error interno ->' + error.response.data.message;
+            break;
+
+          case 404:
+            msg = 'Servicio No disponible';
+            break;
+
+          case 403:
+            msg = 'Sin autorizacion';
+            break;
+
+          case 401:
+            msg = 'Session invalida favor Ingresar nuevamente ';
+            this.showSnackBar(msg, 'error');
+            window.location.href = '/';
+            break;
+
+          case 429:
+            for (var idx in error.response.data.errors) {
+              msg = msg + error.response.data.errors[idx];
+            }
+            msg = msg != '' ? msg : 'Servicio Ocupado favor Ingresar en unos Minutos';
+            break;
+
+          case 422:
+            for (var idx in error.response.data.errors) {
+              msg = msg + error.response.data.errors[idx];
+            }
+            break;
+
+          case 400:
+            for (var idx in error.response.data) {
+              msg = msg + error.response.data[idx];
+            }
+            break;
+
+          default:
+            for (var idx in error.response.data) {
+              msg = msg + error.response.data[idx];
+            }
+            break;
         }
+
         this.showSnackBar(msg, 'error');
       } else {
 
@@ -65859,6 +65902,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -65875,6 +65920,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 fe_liq_bcv: false,
                 fe_pago: false
             },
+            tasaReadOnly: false,
             esquema: 'Solicitud',
             form: {
                 id_instruccion: '',
@@ -65920,6 +65966,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     props: ['instruccion', 'montos'],
     methods: {
+        setTasa: function setTasa(val) {
+            if (this.form.id_moneda == this.instruccion.id_moneda) {
+                this.form.mo_tasa = 1;
+                this.tasaReadOnly = true;
+            } else {
+                this.form.mo_tasa = null;
+                this.tasaReadOnly = false;
+            }
+        },
         tipoPago: function tipoPago() {
             if (this.form.id_tipo_pago == 1) {
                 //pago total
@@ -66276,6 +66331,7 @@ var render = function() {
                                       autocomplete: "",
                                       required: ""
                                     },
+                                    on: { input: _vm.setTasa },
                                     model: {
                                       value: _vm.form.id_moneda,
                                       callback: function($$v) {
@@ -66297,7 +66353,8 @@ var render = function() {
                                       rules: _vm.rules.montoNR,
                                       label: "Tasa de Cambio",
                                       placeholder: "Ingrese Tasa",
-                                      hint: "Ej 107,02"
+                                      hint: "Ej 107,02",
+                                      disabled: _vm.tasaReadOnly
                                     },
                                     model: {
                                       value: _vm.form.mo_tasa,

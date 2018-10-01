@@ -10,8 +10,6 @@ Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
     
     Route::put('/user', 'LoggedUserController@update');
 
-
-
     Route::get('/home/totales', 'HomeController@totales');
 
     Route::apiResource('/usuario', 'UsuarioController');
