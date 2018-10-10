@@ -258,7 +258,6 @@ export default {
             {
                 this.form.mo_tasa = null;
                 this.tasaReadOnly = false;
-
             }
         },
         tipoPago()
