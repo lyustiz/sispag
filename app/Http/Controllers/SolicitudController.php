@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class SolicitudController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Solicitud     
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,7 +22,7 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listar Solicitud     
      *
      * @return \Illuminate\Http\Response
      */
@@ -38,9 +38,9 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Solicitud
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -65,9 +65,9 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Solicitud especifico
      *
-     * @param  \App\Models\Solicitud  $solicitud
+     * @bodyParam  \App\Models\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
     public function show(Solicitud $solicitud)
@@ -78,10 +78,10 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Solicitud
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Solicitud  $solicitud
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Solicitud $solicitud)
@@ -106,9 +106,9 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Solicitud
      *
-     * @param  \App\Models\Solicitud  $solicitud
+     * @bodyParam  \App\Models\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
     public function destroy(Solicitud $solicitud)

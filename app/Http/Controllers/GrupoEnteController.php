@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GrupoEnteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Grupo Ente     
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,9 +20,9 @@ class GrupoEnteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Grupo Ente
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,9 +31,9 @@ class GrupoEnteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Grupo Ente especifico
      *
-     * @param  \App\Models\GrupoEnte  $grupoEnte
+     * @bodyParam  \App\Models\GrupoEnte  $grupoEnte
      * @return \Illuminate\Http\Response
      */
     public function show(GrupoEnte $grupoEnte)
@@ -42,10 +42,10 @@ class GrupoEnteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Grupo Ente
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GrupoEnte  $grupoEnte
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\GrupoEnte  $grupoEnte
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, GrupoEnte $grupoEnte)
@@ -54,9 +54,9 @@ class GrupoEnteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Grupo Ente
      *
-     * @param  \App\Models\GrupoEnte  $grupoEnte
+     * @bodyParam  \App\Models\GrupoEnte  $grupoEnte
      * @return \Illuminate\Http\Response
      */
     public function destroy(GrupoEnte $grupoEnte)

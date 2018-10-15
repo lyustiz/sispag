@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CuentaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Cuenta     
      *
      * @return \Illuminate\Http\Response
      */
@@ -41,9 +41,9 @@ class CuentaController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Cuenta
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,9 +52,9 @@ class CuentaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Cuenta especifico
      *
-     * @param  \App\Models\Cuenta  $cuenta
+     * @bodyParam  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
     public function show(Cuenta $cuenta)
@@ -64,10 +64,10 @@ class CuentaController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Cuenta
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cuenta  $cuenta
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Cuenta $cuenta)
@@ -76,9 +76,9 @@ class CuentaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Cuenta
      *
-     * @param  \App\Models\Cuenta  $cuenta
+     * @bodyParam  \App\Models\Cuenta  $cuenta
      * @return \Illuminate\Http\Response
      */
     public function destroy(Cuenta $cuenta)

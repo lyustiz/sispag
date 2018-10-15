@@ -26,6 +26,7 @@
 <body>
 
 <div id="app">
+
   <v-app light v-cloak>
     <v-content>
       <section id="inicio">

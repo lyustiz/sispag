@@ -54993,8 +54993,6 @@ Vue.component('tipo-ingreso-form', __webpack_require__(346));
 
 Vue.component('ejecucion-lista', __webpack_require__(349));
 Vue.component('ejecucion-form', __webpack_require__(354));
-//Vue.component('ejecucion-lista', require('./components/EjecucionLista.vue'));
-//Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
 
 Vue.component('home', __webpack_require__(357));
 
@@ -55019,12 +55017,6 @@ if (window.user) {
 
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["i" /* USER */], user);
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["a" /* LOGGED */], true);
-} else {
-
-  if (window.location.pathname != '/') {
-    alert('La session actual es Invalida Favor Ingresar nuevamente');
-    window.location = '/';
-  }
 }
 
 Vue.use(Vuetify, {
@@ -55059,7 +55051,7 @@ var app = new Vue({
       items: [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' }, { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' }, { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' }, { icon: 'assignment_returned', text: 'Pagos', href: '/pago' }, { icon: 'assessment', text: 'Cuentas', href: '/cuenta' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
         children: [{ icon: 'account_balance', text: 'Banco', href: '/banco' }, { icon: 'store_mall_directory', text: 'Entes', href: '/ente' }, { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }, { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' }, { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' }]
       }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
-        children: [{ icon: 'description', text: 'General', href: '/reports.general' }, { icon: 'description', text: 'Ingresos', href: '/reports.ingreso' }, { icon: 'description', text: 'Solicitudes', href: '/reports.solicitud' }, { icon: 'description', text: 'Intrucciones', href: '/reports.instruccion' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }, { icon: 'description', text: 'Bancos', href: '/reports.banco' }]
+        children: [{ icon: 'description', text: 'General', href: '/reportes/general' }, { icon: 'description', text: 'Ingresos', href: '/reportes/ingreso' }, { icon: 'description', text: 'Solicitudes', href: '/reportes/solicitud' }, { icon: 'description', text: 'Intrucciones', href: '/reportes/instruccion' }, { icon: 'description', text: 'Bitacora', href: '/reportes/bitacora' }, { icon: 'description', text: 'Bancos', href: '/reportes/banco' }]
       }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }]
     };
   },

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class MonedaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Moneda     
      *
      * @return \Illuminate\Http\Response
      */
@@ -40,9 +40,9 @@ class MonedaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Moneda
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -61,9 +61,9 @@ class MonedaController extends Controller
         
 
     /**
-     * Display the specified resource.
+     * Retornar Moneda especifico
      *
-     * @param  \App\Models\Moneda  $moneda
+     * @bodyParam  \App\Models\Moneda  $moneda
      * @return \Illuminate\Http\Response
      */
     public function show(Moneda $moneda)
@@ -74,7 +74,7 @@ class MonedaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Moneda  $moneda
+     * @bodyParam  \App\Models\Moneda  $moneda
      * @return \Illuminate\Http\Response
      */
     public function edit(Moneda $moneda)
@@ -83,10 +83,10 @@ class MonedaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Moneda
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Moneda  $moneda
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Moneda  $moneda
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Moneda $moneda)
@@ -104,9 +104,9 @@ class MonedaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Moneda
      *
-     * @param  \App\Models\Moneda  $moneda
+     * @bodyParam  \App\Models\Moneda  $moneda
      * @return \Illuminate\Http\Response
      */
     public function destroy(Moneda $moneda)

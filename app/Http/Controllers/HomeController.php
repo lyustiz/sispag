@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Models\Modulo;
+use \App\Models\UsuarioRol; 
+use \Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -17,15 +20,79 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Mostrar Pagina de Inicio.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('welcome');
+        
+        $usuario = Auth::user();
+
+        $usuarioRol = UsuarioRol::select('id_rol')
+                      ->where('id_usuario_r', $usuario->id_usuario)
+                      ->get();
+        
+        $roles = [];
+
+        foreach ($usuarioRol as $key => $rol) 
+        {
+          
+            $roles[] = $rol->id_rol;
+        }
+       // 
+        
+
+        
+        
+        //->with('usuarioRol.rol')->get()->toArray();
+        
+
+
+
+        dd($roles);
+        $rol = $usuario->load();
+        
+        /*$modulo  = Modulo::with(['menu.permiso.rol.usuarioRol' => function($query){
+            $query->where('id_usuario_r', '1');
+        }]);*/
+
+       /* $modulo =  \DB::table('modulo')
+                    ->select('modulo.id_modulo', 'modulo.nb_modulo', 'modulo.tx_icono', 'modulo.tx_extra', 'modulo.id_status')
+                    ->select('modulo.id_modulo')
+                    ->join('menu',          'menu.id_modulo',     '=', 'modulo.id_modulo')
+                    ->join('permiso',       'permiso.id_menu',    '=', 'menu.id_menu')
+                    ->join('rol',           'rol.id_rol',         '=', 'permiso.id_rol')
+                    ->join('usuario_rol',   'usuario_rol.id_rol', '=', 'rol.id_rol')
+                    ->where('id_usuario_r', '1')
+                    ->get();*/
+        
+        //$modulo  = Modulo::select('modulo.id_modulo', 'modulo.nb_modulo', 'modulo.tx_icono', 'modulo.tx_extra', 'modulo.id_status')->get();
+            
+
+        $menu = $modulo->load('menu');
+
+        $menu = $menu->load('menu.permiso');
+    
+    dd($menu);
+    /*
+    ')->get()->toArray();
+       
+       dd($modulo);
+        /*
+        .usuario', function($query){
+                $query->where('id_usuario', '1');
+        }]);
+
+        
+        */
+       // return view('welcome');
     }
 
+    /**
+     * Muestra Indicadores Totalizados
+     *
+     */
     public function totales()
     {
         

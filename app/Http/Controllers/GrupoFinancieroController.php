@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GrupoFinancieroController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Grupo Financiero     
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,9 +28,9 @@ class GrupoFinancieroController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Grupo Financiero
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -39,9 +39,9 @@ class GrupoFinancieroController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Grupo Financiero especifico
      *
-     * @param  \App\Models\GrupoFinanciero  $grupoFinanciero
+     * @bodyParam  \App\Models\GrupoFinanciero  $grupoFinanciero
      * @return \Illuminate\Http\Response
      */
     public function show(GrupoFinanciero $grupoFinanciero)
@@ -52,7 +52,7 @@ class GrupoFinancieroController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\GrupoFinanciero  $grupoFinanciero
+     * @bodyParam  \App\Models\GrupoFinanciero  $grupoFinanciero
      * @return \Illuminate\Http\Response
      */
     public function edit(GrupoFinanciero $grupoFinanciero)
@@ -61,10 +61,10 @@ class GrupoFinancieroController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Grupo Financiero
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GrupoFinanciero  $grupoFinanciero
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\GrupoFinanciero  $grupoFinanciero
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, GrupoFinanciero $grupoFinanciero)
@@ -73,9 +73,9 @@ class GrupoFinancieroController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Grupo Financiero
      *
-     * @param  \App\Models\GrupoFinanciero  $grupoFinanciero
+     * @bodyParam  \App\Models\GrupoFinanciero  $grupoFinanciero
      * @return \Illuminate\Http\Response
      */
     public function destroy(GrupoFinanciero $grupoFinanciero)

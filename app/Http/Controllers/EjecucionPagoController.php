@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class EjecucionPagoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Ejecucion Pago     
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,9 +22,9 @@ class EjecucionPagoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Ejecucion Pago
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -83,9 +83,9 @@ class EjecucionPagoController extends Controller
         return $nombreEtapa;
     }
     /**
-     * Display the specified resource.
+     * Retornar Ejecucion Pago especifico
      *
-     * @param  \App\models\EjecucionPago  $ejecucionPago
+     * @bodyParam  \App\models\EjecucionPago  $ejecucionPago
      * @return \Illuminate\Http\Response
      */
     public function show(EjecucionPago $ejecucionPago)
@@ -104,10 +104,10 @@ class EjecucionPagoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Ejecucion Pago
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\models\EjecucionPago  $ejecucionPago
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\models\EjecucionPago  $ejecucionPago
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -173,9 +173,9 @@ class EjecucionPagoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Ejecucion Pago
      *
-     * @param  \App\models\EjecucionPago  $ejecucionPago
+     * @bodyParam  \App\models\EjecucionPago  $ejecucionPago
      * @return \Illuminate\Http\Response
      */
     public function destroy(EjecucionPago $ejecucionPago)

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ClaseEnteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Clase Ente     
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,9 +28,9 @@ class ClaseEnteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Clase Ente
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -39,9 +39,9 @@ class ClaseEnteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Clase Ente especifico
      *
-     * @param  \App\Models\ClaseEnte  $claseEnte
+     * @bodyParam  \App\Models\ClaseEnte  $claseEnte
      * @return \Illuminate\Http\Response
      */
     public function show(ClaseEnte $claseEnte)
@@ -52,7 +52,7 @@ class ClaseEnteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ClaseEnte  $claseEnte
+     * @bodyParam  \App\Models\ClaseEnte  $claseEnte
      * @return \Illuminate\Http\Response
      */
     public function edit(ClaseEnte $claseEnte)
@@ -61,10 +61,10 @@ class ClaseEnteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Clase Ente
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ClaseEnte  $claseEnte
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\ClaseEnte  $claseEnte
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ClaseEnte $claseEnte)
@@ -73,9 +73,9 @@ class ClaseEnteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Clase Ente
      *
-     * @param  \App\Models\ClaseEnte  $claseEnte
+     * @bodyParam  \App\Models\ClaseEnte  $claseEnte
      * @return \Illuminate\Http\Response
      */
     public function destroy(ClaseEnte $claseEnte)

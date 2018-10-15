@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GrupoStatusController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Grupo Status     
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,9 +28,9 @@ class GrupoStatusController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Grupo Status
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -39,9 +39,9 @@ class GrupoStatusController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Grupo Status especifico
      *
-     * @param  \App\Models\GrupoStatus  $grupoStatus
+     * @bodyParam  \App\Models\GrupoStatus  $grupoStatus
      * @return \Illuminate\Http\Response
      */
     public function show(GrupoStatus $grupoStatus)
@@ -52,7 +52,7 @@ class GrupoStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\GrupoStatus  $grupoStatus
+     * @bodyParam  \App\Models\GrupoStatus  $grupoStatus
      * @return \Illuminate\Http\Response
      */
     public function edit(GrupoStatus $grupoStatus)
@@ -61,10 +61,10 @@ class GrupoStatusController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Grupo Status
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GrupoStatus  $grupoStatus
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\GrupoStatus  $grupoStatus
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, GrupoStatus $grupoStatus)
@@ -73,9 +73,9 @@ class GrupoStatusController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Grupo Status
      *
-     * @param  \App\Models\GrupoStatus  $grupoStatus
+     * @bodyParam  \App\Models\GrupoStatus  $grupoStatus
      * @return \Illuminate\Http\Response
      */
     public function destroy(GrupoStatus $grupoStatus)

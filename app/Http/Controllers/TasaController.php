@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TasaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar XYX     
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,9 +28,9 @@ class TasaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar XYX
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -39,9 +39,9 @@ class TasaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar XYX especifico
      *
-     * @param  \App\Models\Tasa  $tasa
+     * @bodyParam  \App\Models\Tasa  $tasa
      * @return \Illuminate\Http\Response
      */
     public function show(Tasa $tasa)
@@ -52,7 +52,7 @@ class TasaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tasa  $tasa
+     * @bodyParam  \App\Models\Tasa  $tasa
      * @return \Illuminate\Http\Response
      */
     public function edit(Tasa $tasa)
@@ -61,10 +61,10 @@ class TasaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar XYX
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tasa  $tasa
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Tasa  $tasa
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Tasa $tasa)
@@ -73,9 +73,9 @@ class TasaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar XYX
      *
-     * @param  \App\Models\Tasa  $tasa
+     * @bodyParam  \App\Models\Tasa  $tasa
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tasa $tasa)

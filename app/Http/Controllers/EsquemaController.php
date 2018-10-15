@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class EsquemaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Esquema     
      *
      * @return \Illuminate\Http\Response
      */
@@ -50,9 +50,9 @@ class EsquemaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Esquema
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -75,9 +75,9 @@ class EsquemaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Esquema especifico
      *
-     * @param  \App\Models\Esquema  $esquema
+     * @bodyParam  \App\Models\Esquema  $esquema
      * @return \Illuminate\Http\Response
      */
     public function show(Esquema $esquema)
@@ -88,7 +88,7 @@ class EsquemaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Esquema  $esquema
+     * @bodyParam  \App\Models\Esquema  $esquema
      * @return \Illuminate\Http\Response
      */
     public function edit(Esquema $esquema)
@@ -97,10 +97,10 @@ class EsquemaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Esquema
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Esquema  $esquema
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Esquema  $esquema
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Esquema $esquema)
@@ -122,9 +122,9 @@ class EsquemaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Esquema
      *
-     * @param  \App\Models\Esquema  $esquema
+     * @bodyParam  \App\Models\Esquema  $esquema
      * @return \Illuminate\Http\Response
      */
     public function destroy(Esquema $esquema)

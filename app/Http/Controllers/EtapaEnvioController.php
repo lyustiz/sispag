@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class EtapaEnvioController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Etapa Envio     
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,9 +20,9 @@ class EtapaEnvioController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Etapa Envio
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,9 +31,9 @@ class EtapaEnvioController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Etapa Envio especifico
      *
-     * @param  \App\Models\EtapaEnvio  $etapaEnvio
+     * @bodyParam  \App\Models\EtapaEnvio  $etapaEnvio
      * @return \Illuminate\Http\Response
      */
     public function show(EtapaEnvio $etapaEnvio)
@@ -42,10 +42,10 @@ class EtapaEnvioController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Etapa Envio
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EtapaEnvio  $etapaEnvio
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\EtapaEnvio  $etapaEnvio
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, EtapaEnvio $etapaEnvio)
@@ -54,9 +54,9 @@ class EtapaEnvioController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Etapa Envio
      *
-     * @param  \App\Models\EtapaEnvio  $etapaEnvio
+     * @bodyParam  \App\Models\EtapaEnvio  $etapaEnvio
      * @return \Illuminate\Http\Response
      */
     public function destroy(EtapaEnvio $etapaEnvio)

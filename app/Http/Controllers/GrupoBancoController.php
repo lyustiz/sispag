@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GrupoBancoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Grupo Banco     
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,9 +20,9 @@ class GrupoBancoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Grupo Banco
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,9 +31,9 @@ class GrupoBancoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Grupo Banco especifico
      *
-     * @param  \App\Models\GrupoBancos  $grupoBancos
+     * @bodyParam  \App\Models\GrupoBancos  $grupoBancos
      * @return \Illuminate\Http\Response
      */
     public function show(GrupoBancos $grupoBancos)
@@ -42,10 +42,10 @@ class GrupoBancoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Grupo Banco
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GrupoBancos  $grupoBancos
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\GrupoBancos  $grupoBancos
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, GrupoBancos $grupoBancos)
@@ -54,9 +54,9 @@ class GrupoBancoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Grupo Banco
      *
-     * @param  \App\Models\GrupoBancos  $grupoBancos
+     * @bodyParam  \App\Models\GrupoBancos  $grupoBancos
      * @return \Illuminate\Http\Response
      */
     public function destroy(GrupoBancos $grupoBancos)

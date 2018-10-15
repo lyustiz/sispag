@@ -44,12 +44,24 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-
     public function username()
     {
         return 'usuario';
     }
 
+    public function showLoginForm()
+    {
+        return view('welcome');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        
+        
+      // dd('aaa',$roles);
+        return redirect('home');
+        
+    }
 
 
 }

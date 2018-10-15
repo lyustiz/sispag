@@ -9,7 +9,7 @@ use Hash;
 class UsuarioController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Usuario   
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,9 +21,9 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Usuario.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -54,9 +54,9 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Usuario  $usuario
+     * Retornar Usuario especifico
+     * 
+     * @bodyParam  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
     public function show(Usuario $usuario)
@@ -65,10 +65,10 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Usuario
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Usuario  $usuario
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Usuario $usuario)
@@ -92,6 +92,13 @@ class UsuarioController extends Controller
         return [ 'msj' => 'Registro Actualizado Correctamente', compact('usuario') ];
     }
 
+    /**
+     * Actualizar Password
+     *
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Usuario  $usuario
+     * @return \Illuminate\Http\Response
+     */
     public function updatePassword(Request $request, Usuario $usuario)
     {
         $validate = request()->validate([
@@ -107,9 +114,9 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Usuario
      *
-     * @param  \App\Models\Usuario  $usuario
+     * @bodyParam  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
     public function destroy(Usuario $usuario)

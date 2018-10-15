@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class StatusController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Status     
      *
      * @return \Illuminate\Http\Response
      */
@@ -37,9 +37,9 @@ class StatusController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Status
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,9 +48,9 @@ class StatusController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Status especifico
      *
-     * @param  \App\Models\Status  $status
+     * @bodyParam  \App\Models\Status  $status
      * @return \Illuminate\Http\Response
      */
     public function show(Status $status)
@@ -61,7 +61,7 @@ class StatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Status  $status
+     * @bodyParam  \App\Models\Status  $status
      * @return \Illuminate\Http\Response
      */
     public function edit(Status $status)
@@ -70,10 +70,10 @@ class StatusController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Status
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Status  $status
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Status  $status
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Status $status)
@@ -82,9 +82,9 @@ class StatusController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Status
      *
-     * @param  \App\Models\Status  $status
+     * @bodyParam  \App\Models\Status  $status
      * @return \Illuminate\Http\Response
      */
     public function destroy(Status $status)

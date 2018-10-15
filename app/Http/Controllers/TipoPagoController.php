@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TipoPagoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Tipo Pago     
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,9 +20,9 @@ class TipoPagoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Tipo Pago
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,9 +31,9 @@ class TipoPagoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Tipo Pago especifico
      *
-     * @param  \App\Models\TipoPago  $tipoPago
+     * @bodyParam  \App\Models\TipoPago  $tipoPago
      * @return \Illuminate\Http\Response
      */
     public function show(TipoPago $tipoPago)
@@ -42,10 +42,10 @@ class TipoPagoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Tipo Pago
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TipoPago  $tipoPago
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\TipoPago  $tipoPago
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, TipoPago $tipoPago)
@@ -54,9 +54,9 @@ class TipoPagoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Tipo Pago
      *
-     * @param  \App\Models\TipoPago  $tipoPago
+     * @bodyParam  \App\Models\TipoPago  $tipoPago
      * @return \Illuminate\Http\Response
      */
     public function destroy(TipoPago $tipoPago)

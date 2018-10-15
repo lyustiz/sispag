@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TipoBancoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Tipo Banco     
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,9 +20,9 @@ class TipoBancoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Tipo Banco
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,9 +31,9 @@ class TipoBancoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Tipo Banco especifico
      *
-     * @param  \App\Models\TipoBanco  $tipoBanco
+     * @bodyParam  \App\Models\TipoBanco  $tipoBanco
      * @return \Illuminate\Http\Response
      */
     public function show(TipoBanco $tipoBanco)
@@ -42,10 +42,10 @@ class TipoBancoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Tipo Banco
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TipoBanco  $tipoBanco
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\TipoBanco  $tipoBanco
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, TipoBanco $tipoBanco)
@@ -54,9 +54,9 @@ class TipoBancoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Tipo Banco
      *
-     * @param  \App\Models\TipoBanco  $tipoBanco
+     * @bodyParam  \App\Models\TipoBanco  $tipoBanco
      * @return \Illuminate\Http\Response
      */
     public function destroy(TipoBanco $tipoBanco)

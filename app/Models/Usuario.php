@@ -40,6 +40,12 @@ class Usuario extends Authenticatable
         return $this->BelongsTo('App\Models\Status', 'id_status');
     
     }
+
+    public function usuarioRol(){
+    
+        return $this->HasMany('App\Models\UsuarioRol', 'id_usuario_r', 'id_usuario');
+    
+    }
     
     public function banco(){
     

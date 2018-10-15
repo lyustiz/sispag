@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PagoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Pago     
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,9 +20,9 @@ class PagoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Pago
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -46,9 +46,9 @@ class PagoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Pago especifico
      *
-     * @param  \App\Models\Pago  $pago
+     * @bodyParam  \App\Models\Pago  $pago
      * @return \Illuminate\Http\Response
      */
     public function show(Pago $pago)
@@ -70,10 +70,10 @@ class PagoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Pago
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pago  $pago
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Pago  $pago
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Pago $pago)
@@ -97,9 +97,9 @@ class PagoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Pago
      *
-     * @param  \App\Models\Pago  $pago
+     * @bodyParam  \App\Models\Pago  $pago
      * @return \Illuminate\Http\Response
      */
     public function destroy(Pago $pago)

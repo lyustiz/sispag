@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class InstruccionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Instruccion     
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,9 +28,9 @@ class InstruccionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Instruccion
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,9 +55,9 @@ class InstruccionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Instruccion especifico
      *
-     * @param  \App\Models\Instruccion  $instruccion
+     * @bodyParam  \App\Models\Instruccion  $instruccion
      * @return \Illuminate\Http\Response
      */
     public function show(Instruccion $instruccion)
@@ -66,10 +66,10 @@ class InstruccionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Instruccion
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Instruccion  $instruccion
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Instruccion  $instruccion
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Instruccion $instruccion)
@@ -93,9 +93,9 @@ class InstruccionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Instruccion
      *
-     * @param  \App\Models\Instruccion  $instruccion
+     * @bodyParam  \App\Models\Instruccion  $instruccion
      * @return \Illuminate\Http\Response
      */
     public function destroy(Instruccion $instruccion)

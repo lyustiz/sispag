@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class EnteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Ente     
      *
      * @return \Illuminate\Http\Response
      */
@@ -54,9 +54,9 @@ class EnteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Ente
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -76,9 +76,9 @@ class EnteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Ente especifico
      *
-     * @param  \App\Models\Ente  $ente
+     * @bodyParam  \App\Models\Ente  $ente
      * @return \Illuminate\Http\Response
      */
     public function show(Ente $ente)
@@ -89,7 +89,7 @@ class EnteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Ente  $ente
+     * @bodyParam  \App\Models\Ente  $ente
      * @return \Illuminate\Http\Response
      */
     public function edit(Ente $ente)
@@ -98,10 +98,10 @@ class EnteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Ente
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ente  $ente
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Ente  $ente
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Ente $ente)
@@ -121,9 +121,9 @@ class EnteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Ente
      *
-     * @param  \App\Models\Ente  $ente
+     * @bodyParam  \App\Models\Ente  $ente
      * @return \Illuminate\Http\Response
      */
     public function destroy(Ente $ente)

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TipoEnteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Tipo Ente     
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,9 +20,9 @@ class TipoEnteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Tipo Ente
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,9 +31,9 @@ class TipoEnteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Tipo Ente especifico
      *
-     * @param  \App\Models\TipoEnte  $tipoEnte
+     * @bodyParam  \App\Models\TipoEnte  $tipoEnte
      * @return \Illuminate\Http\Response
      */
     public function show(TipoEnte $tipoEnte)
@@ -42,10 +42,10 @@ class TipoEnteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Tipo Ente
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TipoEnte  $tipoEnte
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\TipoEnte  $tipoEnte
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, TipoEnte $tipoEnte)
@@ -54,9 +54,9 @@ class TipoEnteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Tipo Ente
      *
-     * @param  \App\Models\TipoEnte  $tipoEnte
+     * @bodyParam  \App\Models\TipoEnte  $tipoEnte
      * @return \Illuminate\Http\Response
      */
     public function destroy(TipoEnte $tipoEnte)

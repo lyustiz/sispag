@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class IngresoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Ingreso     
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,9 +32,9 @@ class IngresoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Ingreso
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -58,9 +58,9 @@ class IngresoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Ingreso especifico
      *
-     * @param  \App\Models\Ingreso  $ingreso
+     * @bodyParam  \App\Models\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
     public function show(Ingreso $ingreso)
@@ -69,10 +69,10 @@ class IngresoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Ingreso
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ingreso  $ingreso
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Ingreso $ingreso)
@@ -96,9 +96,9 @@ class IngresoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Ingreso
      *
-     * @param  \App\Models\Ingreso  $ingreso
+     * @bodyParam  \App\Models\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
     public function destroy(Ingreso $ingreso)

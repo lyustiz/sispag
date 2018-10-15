@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CategoriaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Categoria     
      *
      * @return \Illuminate\Http\Response
      */
@@ -36,9 +36,9 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Categoria
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -56,9 +56,9 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Categoria especifico
      *
-     * @param  \App\Models\Categoria  $categoria
+     * @bodyParam  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
     public function show(Categoria $categoria)
@@ -67,10 +67,10 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Categoria
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Categoria  $categoria
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Categoria $categoria)
@@ -87,9 +87,9 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Categoria
      *
-     * @param  \App\Models\Categoria  $categoria
+     * @bodyParam  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
     public function destroy(Categoria $categoria)

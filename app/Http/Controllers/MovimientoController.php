@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class MovimientoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Movimiento     
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,9 +30,9 @@ class MovimientoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Movimiento
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,9 +41,9 @@ class MovimientoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Movimiento especifico
      *
-     * @param  \App\Models\Movimiento  $movimiento
+     * @bodyParam  \App\Models\Movimiento  $movimiento
      * @return \Illuminate\Http\Response
      */
     public function show(Movimiento $movimiento)
@@ -53,10 +53,10 @@ class MovimientoController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Movimiento
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Movimiento  $movimiento
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\Movimiento  $movimiento
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Movimiento $movimiento)
@@ -65,9 +65,9 @@ class MovimientoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Movimiento
      *
-     * @param  \App\Models\Movimiento  $movimiento
+     * @bodyParam  \App\Models\Movimiento  $movimiento
      * @return \Illuminate\Http\Response
      */
     public function destroy(Movimiento $movimiento)

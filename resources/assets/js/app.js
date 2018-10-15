@@ -25,7 +25,6 @@ Vue.component('usuario-lista', require('./components/UsuarioLista.vue'));
 Vue.component('usuario-form', require('./components/UsuarioForm.vue'));
 Vue.component('usuario-password', require('./components/UsuarioPassword.vue'));
 
-
 Vue.component('cuenta-lista', require('./components/CuentaLista.vue'));
 Vue.component('movimiento-lista', require('./components/MovimientoLista.vue'));
 
@@ -53,8 +52,6 @@ Vue.component('tipo-ingreso-form', require('./components/TipoIngresoForm.vue'));
 
 Vue.component('ejecucion-lista', require('./components/EjecucionPagoLista.vue'));
 Vue.component('ejecucion-form', require('./components/EjecucionPagoForm.vue'));
-//Vue.component('ejecucion-lista', require('./components/EjecucionLista.vue'));
-//Vue.component('ejecucion-form', require('./components/EjecucionForm.vue'));
 
 Vue.component('home', require('./components/Home.vue'));
 
@@ -80,13 +77,6 @@ if (window.user) {
   store.commit(mutations.USER,  user)
   store.commit(mutations.LOGGED, true)
 
-}else{
-  
-    if(window.location.pathname != '/')
-    {
-      alert('La session actual es Invalida Favor Ingresar nuevamente');  
-      window.location = '/'
-    }
 }
 
 Vue.use(Vuetify, {
@@ -142,12 +132,12 @@ const app = new Vue({
       { icon: 'description', text: 'Reportes',
         children:
         [
-          { icon: 'description', text: 'General', href: '/reports.general' },
-          { icon: 'description', text: 'Ingresos', href: '/reports.ingreso' },
-          { icon: 'description', text: 'Solicitudes', href: '/reports.solicitud' },
-          { icon: 'description', text: 'Intrucciones', href: '/reports.instruccion' },
-          { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' },
-          { icon: 'description', text: 'Bancos', href: '/reports.banco' },
+          { icon: 'description', text: 'General', href: '/reportes/general' },
+          { icon: 'description', text: 'Ingresos', href: '/reportes/ingreso' },
+          { icon: 'description', text: 'Solicitudes', href: '/reportes/solicitud' },
+          { icon: 'description', text: 'Intrucciones', href: '/reportes/instruccion' },
+          { icon: 'description', text: 'Bitacora', href: '/reportes/bitacora' },
+          { icon: 'description', text: 'Bancos', href: '/reportes/banco' },
         ], 
       },
       { heading: 'Administracion' },

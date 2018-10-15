@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TipoIngresoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Tipo Ingreso     
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,9 +29,9 @@ class TipoIngresoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar Tipo Ingreso
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @bodyParam  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,9 +50,9 @@ class TipoIngresoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retornar Tipo Ingreso especifico
      *
-     * @param  \App\Models\TipoIngreso  $tipoIngreso
+     * @bodyParam  \App\Models\TipoIngreso  $tipoIngreso
      * @return \Illuminate\Http\Response
      */
     public function show(TipoIngreso $tipoIngreso)
@@ -62,10 +62,10 @@ class TipoIngresoController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar Tipo Ingreso
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TipoIngreso  $tipoIngreso
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\Models\TipoIngreso  $tipoIngreso
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, TipoIngreso $tipoIngreso)
@@ -84,9 +84,9 @@ class TipoIngresoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar Tipo Ingreso
      *
-     * @param  \App\Models\TipoIngreso  $tipoIngreso
+     * @bodyParam  \App\Models\TipoIngreso  $tipoIngreso
      * @return \Illuminate\Http\Response
      */
     public function destroy(TipoIngreso $tipoIngreso)
