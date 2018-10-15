@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Modulo;
-use \App\Models\UsuarioRol; 
+use \App\Models\UsuarioRol;
 use \Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -26,67 +26,54 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
         $usuario = Auth::user();
 
-        $usuarioRol = UsuarioRol::select('id_rol')
-                      ->where('id_usuario_r', $usuario->id_usuario)
-                      ->get();
-        
-        $roles = [];
+        $roles = UsuarioRol::with('rol.permiso.menu')->select('id_rol')
+                    ->where('id_usuario_r', $usuario->id_usuario)
+                    ->first();
 
-        foreach ($usuarioRol as $key => $rol) 
+        $rol      = $roles->rol->id_rol;
+        $permisos = $roles->rol->permiso;
+        $menus    = [];
+        $modulos  = [];
+
+        foreach ($permisos as $key => $permiso) 
         {
-          
-            $roles[] = $rol->id_rol;
+            $menus  [$permiso->menu->id_menu]   = $permiso->menu->id_menu;
+            $modulos[$permiso->menu->id_modulo] = $permiso->menu->id_modulo;
         }
-       // 
         
+        $menu  = Modulo::with([
+                    'menu'         => function($query) use ( $menus){
 
-        
-        
-        //->with('usuarioRol.rol')->get()->toArray();
-        
+                        $query->whereIn('id_menu', $menus)
+                              ->where('id_menu_base', '0');
+ 
+                    }, 
+                    'menu.permiso' => function($query) use ( $menus, $rol ){
 
+                        $query->whereIn('id_menu', $menus)
+                                ->where('id_rol' , $rol);
+ 
+                    },
+                    'menu.subMenu' => function($query) use ( $menus ){
 
+                        $query->whereIn('id_menu', $menus)
+                              ->where('id_menu_base', '<>' ,'0');
+ 
+                    },
+                    'menu.subMenu.permiso' => function($query) use ( $menus, $rol ){
 
-        dd($roles);
-        $rol = $usuario->load();
-        
-        /*$modulo  = Modulo::with(['menu.permiso.rol.usuarioRol' => function($query){
-            $query->where('id_usuario_r', '1');
-        }]);*/
+                        $query->whereIn('id_menu', $menus)
+                                ->where('id_rol' , $rol);
+ 
+                    } 
+                ])
+                ->whereIn('id_modulo', $modulos)
+                ->get()
+                ->toArray();
 
-       /* $modulo =  \DB::table('modulo')
-                    ->select('modulo.id_modulo', 'modulo.nb_modulo', 'modulo.tx_icono', 'modulo.tx_extra', 'modulo.id_status')
-                    ->select('modulo.id_modulo')
-                    ->join('menu',          'menu.id_modulo',     '=', 'modulo.id_modulo')
-                    ->join('permiso',       'permiso.id_menu',    '=', 'menu.id_menu')
-                    ->join('rol',           'rol.id_rol',         '=', 'permiso.id_rol')
-                    ->join('usuario_rol',   'usuario_rol.id_rol', '=', 'rol.id_rol')
-                    ->where('id_usuario_r', '1')
-                    ->get();*/
-        
-        //$modulo  = Modulo::select('modulo.id_modulo', 'modulo.nb_modulo', 'modulo.tx_icono', 'modulo.tx_extra', 'modulo.id_status')->get();
-            
-
-        $menu = $modulo->load('menu');
-
-        $menu = $menu->load('menu.permiso');
-    
-    dd($menu);
-    /*
-    ')->get()->toArray();
-       
-       dd($modulo);
-        /*
-        .usuario', function($query){
-                $query->where('id_usuario', '1');
-        }]);
-
-        
-        */
-       // return view('welcome');
+       return view('home', compact('menu'));
     }
 
     /**

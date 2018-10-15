@@ -33,13 +33,13 @@ class Rol extends Model
 
     public function usuarioRol(){
     
-        return $this->HasMany('App\Models\UsuarioRol', 'id_rol');
+        return $this->HasOne('App\Models\UsuarioRol', 'id_rol');
     
     }
 
     public function permiso(){
     
-        return $this->HasMany('App\Models\Permiso', 'id_permiso');
+        return $this->HasMany('App\Models\Permiso', 'id_rol');
     
     }
 

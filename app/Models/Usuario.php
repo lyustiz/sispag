@@ -43,7 +43,7 @@ class Usuario extends Authenticatable
 
     public function usuarioRol(){
     
-        return $this->HasMany('App\Models\UsuarioRol', 'id_usuario_r', 'id_usuario');
+        return $this->HasOne('App\Models\UsuarioRol', 'id_usuario_r', 'id_usuario');
     
     }
     

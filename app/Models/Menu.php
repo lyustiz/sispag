@@ -45,4 +45,15 @@ class Menu extends Model
     {
         return $this->BelongsTo('App\Models\Modulo', 'id_modulo');
     }
+
+    public function menuBase()
+    {
+        return $this->BelongsTo('App\Models\Menu', 'id_menu', 'id_menu_base');
+    }
+
+    public function subMenu()
+    {
+        return $this->hasMany('App\Models\Menu', 'id_menu_base', 'id_menu');
+        
+    }
 }

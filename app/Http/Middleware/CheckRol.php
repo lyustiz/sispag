@@ -25,7 +25,7 @@ class CheckRol
         /*dd($request->path());
         $request->is('admin/*')*/
         $roles = Auth::user()->load('usuarioRol.rol');
-
+        /*
         if(!isset($roles->usuarioRol))
         {
             abort(403, "No Autorizado: Usuario sin Roles Asignado");
@@ -48,7 +48,7 @@ class CheckRol
         else
         {
             abort(403, "Accion no Autorizada");
-        }
-
+        }*/
+        return $next($request);
     }
 }
