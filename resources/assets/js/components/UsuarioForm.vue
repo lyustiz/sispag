@@ -78,6 +78,19 @@
 
             <v-flex xs12>  
                 <v-select
+                :items="listas.rol"
+                item-text="nb_rol"
+                item-value="id_rol"
+                v-model="form.id_rol"
+                :rules="rules.select"
+                label="Rol del Usuario"
+                autocomplete
+                required
+                ></v-select>
+            </v-flex>
+
+            <v-flex xs12>  
+                <v-select
                 :items="listas.status"
                 item-text="nb_status"
                 item-value="id_status"
@@ -140,12 +153,14 @@ export default {
                 nu_cedula:        '',
                 nb_nombre:        '',
                 nb_apellido:      '',
+                id_rol:           '',
                 tx_observaciones: '',
                 id_status:        '',
             },
             listas:
             {
-                status:     ['/grupo/5']
+                status:     ['/grupo/5'],
+                rol   :     [],
             },
             rules:{
                 password1: [
@@ -160,6 +175,20 @@ export default {
             
         }
     },
+    watch:
+    {
+        item(item)
+        {
+           if(this.btnAccion == 'upd')
+           {
+               this.form.id_rol = item.usuario_rol.rol.id_rol;
+           } 
+           else
+           {
+               this.form.id_rol = '';
+           }
+        },
+    },
     methods:{
         update()
         {
@@ -173,7 +202,7 @@ export default {
                 {
                     return
                 }    
-                axios.put(this.basePath + this.form.id_usuario, this.form)
+                axios.put(this.basePath + '/' + this.form.id_usuario, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                     this.cancel();

@@ -282,7 +282,7 @@ export default {
             {               
                this.form.id_instruccion = this.instruccion.id_instruccion               
 
-               axios.put(this.basePath + this.item.id_pago, this.form)
+               axios.put(this.basePath + '/' + this.item.id_pago, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                     this.$emit('cerrarModal');

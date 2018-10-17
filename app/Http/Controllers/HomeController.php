@@ -26,6 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $this->sessionMenu();
+
+        return view('home', compact('menu'));
+    }
+
+    public function sessionMenu()
+    {
         $usuario = Auth::user();
 
         $roles = UsuarioRol::with('rol.permiso.menu')->select('id_rol')
@@ -70,10 +77,9 @@ class HomeController extends Controller
                     } 
                 ])
                 ->whereIn('id_modulo', $modulos)
-                ->get()
-                ->toArray();
+                ->get();
 
-       return view('home', compact('menu'));
+            session(['menu' => $menu]);
     }
 
     /**
@@ -82,18 +88,6 @@ class HomeController extends Controller
      */
     public function totales()
     {
-        
-       /* $cuenta  = \App\Models\Cuenta::select('id_moneda', \DB::raw('sum(mo_disponible) as mo_disponible'))
-                            ->groupBy('id_moneda')
-                            ->pluck('mo_disponible','id_moneda')->all();
-
-        $ingresos = \App\Models\Ingreso::select('id_tipo_ingreso', \DB::raw('sum(mo_ingreso) as mo_ingreso'))
-                            ->groupBy('id_tipo_ingreso')
-                            ->pluck('mo_ingreso','id_tipo_ingreso')->all();
-
-        $Intruccion = \App\Models\Instruccion::select('id_moneda', \DB::raw('sum(mo_disponible) as mo_disponible'))
-                            ->groupBy('id_moneda')
-                            ->pluck('mo_disponible','id_moneda')->all();*/
         
         $cuenta = \DB::select( \DB::raw(
                             "SELECT mon.nb_moneda, SUM(cue.mo_total) AS mo_total  
@@ -144,10 +138,5 @@ class HomeController extends Controller
         
         return compact('cuenta','ingreso','instruccion','procesos');
     }
-
-
-
-
-
 
 }

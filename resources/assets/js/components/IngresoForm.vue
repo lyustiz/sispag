@@ -213,7 +213,7 @@ export default {
                     }
                 }  
                 
-                axios.put(this.basePath + this.item.id_ingreso, this.form)
+                axios.put(this.basePath + '/' + this.item.id_ingreso, this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)

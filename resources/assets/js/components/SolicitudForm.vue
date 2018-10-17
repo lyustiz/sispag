@@ -176,7 +176,7 @@ export default {
                 id_status:        ''
             },
             listas:{
-                ente:        ['/grupo/4'],
+                ente:        ['/grupo/5'],
                 moneda:      [],
                 categoria:   [],
                 status:      ['/grupo/2'],
@@ -189,7 +189,7 @@ export default {
 
             if (this.$refs.form.validate())
             { 
-                axios.put(this.basePath + this.item.id_solicitud, this.form)
+                axios.put(this.basePath + '/' + this.item.id_solicitud, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                 })

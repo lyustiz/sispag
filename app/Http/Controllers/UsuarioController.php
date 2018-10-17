@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
+use \App\Models\UsuarioRol;
 use Illuminate\Http\Request;
 use Hash;
 
@@ -15,7 +16,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::with(['status'])->get();
+        $usuarios = Usuario::with(['status', 'usuarioRol.rol'])->get();
         
         return $usuarios;
     }
@@ -35,11 +36,11 @@ class UsuarioController extends Controller
             'nu_cedula'   => 'required|min:6',
             'nb_nombre'   => 'required|min:3',
             'nb_apellido' => 'required|min:3',
+            'id_rol'      => 'required',
             'id_status'   => 'required',
+            'id_usuario'  => 'required'
 
         ]);
-
-        $usuario = Usuario::create($request->all());
 
         $usuario = Usuario::create([
             'usuario'     => $request->usuario,
@@ -50,7 +51,23 @@ class UsuarioController extends Controller
             'id_status'   => $request->id_status,
         ]);
 
-        return [ 'msj' => 'Registro Agregado Correctamente', compact('usuario') ];
+        $usuarioRol = $this->setRol($usuario, $request->id_rol, $request->id_usuario);
+
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('usuario', 'usuarioRol') ];
+    }
+
+    public function setRol($usuario, $id_rol, $id_usuario)
+    {
+        UsuarioRol::where('id_usuario_r' , $usuario->id_usuario)->delete();
+        
+        $usuarioRol = UsuarioRol::create([
+            'id_usuario_r'  => $usuario->id_usuario,
+            'id_rol'        => $id_rol,
+            'id_usuario'    => $id_usuario,
+            'id_status'     => $usuario->id_status,
+        ]);
+
+        return  $usuarioRol;
     }
 
     /**
@@ -79,17 +96,22 @@ class UsuarioController extends Controller
             'nu_cedula'   => 'required',
             'nb_nombre'   => 'required',
             'nb_apellido' => 'required',
+            'id_rol'      => 'required',
             'id_status'   => 'required',
+            'id_usuario'  => 'required'
 
         ]);
-        $usuario = $usuario->update([
+        
+        $usuario->update([
             'nu_cedula'   => $request->nu_cedula,
             'nb_nombre'   => $request->nb_nombre,
             'nb_apellido' => $request->nb_apellido,
             'id_status'   => $request->id_status,
         ]);
 
-        return [ 'msj' => 'Registro Actualizado Correctamente', compact('usuario') ];
+        $usuarioRol = $this->setRol($usuario, $request->id_rol, $request->id_usuario);
+
+        return [ 'msj' => 'Registro Actualizado Correctamente', compact('usuario', 'usuarioRol') ];
     }
 
     /**

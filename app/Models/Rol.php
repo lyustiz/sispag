@@ -31,6 +31,12 @@ class Rol extends Model
     
     }
 
+    public function status(){
+    
+        return $this->BelongsTo('App\Models\Status', 'id_status');
+    
+    }
+
     public function usuarioRol(){
     
         return $this->HasOne('App\Models\UsuarioRol', 'id_rol');

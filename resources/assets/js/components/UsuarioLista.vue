@@ -40,6 +40,7 @@
                 <td class="text-xs-left">{{ item.item.nu_cedula }}</td>
                 <td class="text-xs-left">{{ item.item.nb_nombre }}</td>
                 <td class="text-xs-left">{{ item.item.nb_apellido }}</td>
+                <td class="text-xs-left">{{ item.item.usuario_rol.rol.nb_rol }}</td>
                 <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
                 <!--acciones-->
                 <td class="text-xs-left">
@@ -106,6 +107,7 @@ export default {
         { text: 'Cedula',   value: 'nu_cedula' },
         { text: 'Nombre',   value: 'nb_nombre' },
         { text: 'Apellido', value: 'nb_apellido'  },
+        { text: 'Rol',      value: 'usuario_rol.rol.nb_rol'  },
         { text: 'Status',   value: 'status.nb_status'  },
         { text: 'Acciones', value: 'id_status'  },
         ]

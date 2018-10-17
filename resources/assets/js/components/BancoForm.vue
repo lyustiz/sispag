@@ -126,7 +126,7 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {           
-                axios.put(this.basePath + this.form.id_banco, this.form)
+                axios.put(this.basePath + '/' + this.form.id_banco, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                     this.cancel();

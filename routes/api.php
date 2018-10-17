@@ -7,6 +7,8 @@ Route::group(['prefix'=>'v1','middleware' => ['auth:api', 'check.rol:administrad
     Route::apiResource('/usuario',          'UsuarioController');
     Route::put('/usuario/update/password/{usuario}', 'UsuarioController@updatePassword');
 
+    Route::apiResource('/rol',               'RolController');
+
     Route::get('/home/totales',              'HomeController@totales');
     
     Route::apiResource('/banco',             'BancoController');

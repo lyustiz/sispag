@@ -116,7 +116,7 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {           
-                axios.put(this.basePath + this.form.id_moneda, this.form)
+                axios.put(this.basePath + '/' + this.form.id_moneda, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                     this.$emit('cerrarModal');

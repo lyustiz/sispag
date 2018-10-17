@@ -5235,7 +5235,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
         this.listasLoader();
         this.rstForm();
-        this.basePath += this.tabla + '/';
+        this.basePath += this.tabla;
         this.form.id_usuario = 1;
     },
     data: function data() {
@@ -55048,11 +55048,7 @@ var app = new Vue({
       drawerRight: false,
       changingPassword: false,
       updatingUser: false,
-      items: [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' }, { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' }, { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' }, { icon: 'assignment_returned', text: 'Pagos', href: '/pago' }, { icon: 'assessment', text: 'Cuentas', href: '/cuenta' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
-        children: [{ icon: 'account_balance', text: 'Banco', href: '/banco' }, { icon: 'store_mall_directory', text: 'Entes', href: '/ente' }, { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }, { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' }, { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' }]
-      }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
-        children: [{ icon: 'description', text: 'General', href: '/reportes/general' }, { icon: 'description', text: 'Ingresos', href: '/reportes/ingreso' }, { icon: 'description', text: 'Solicitudes', href: '/reportes/solicitud' }, { icon: 'description', text: 'Intrucciones', href: '/reportes/instruccion' }, { icon: 'description', text: 'Bitacora', href: '/reportes/bitacora' }, { icon: 'description', text: 'Bancos', href: '/reportes/banco' }]
-      }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }]
+      items: []
     };
   },
   created: function created() {
@@ -55095,13 +55091,9 @@ var app = new Vue({
         _this2.logoutLoading = false;
       });
     },
-    menuItemSelected: function menuItemSelected(item) {
-      if (item.href) {
-        if (item.new) {
-          window.open(item.href);
-        } else {
-          window.location.href = item.href;
-        }
+    menuItemSelected: function menuItemSelected(url) {
+      if (url) {
+        window.location.href = url;
       }
     },
     changePassword: function changePassword() {
@@ -62167,7 +62159,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -62273,6 +62265,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -62283,7 +62276,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             modalPasw: false,
-            headers: [{ text: 'Usuario', value: 'usuario' }, { text: 'Cedula', value: 'nu_cedula' }, { text: 'Nombre', value: 'nb_nombre' }, { text: 'Apellido', value: 'nb_apellido' }, { text: 'Status', value: 'status.nb_status' }, { text: 'Acciones', value: 'id_status' }]
+            headers: [{ text: 'Usuario', value: 'usuario' }, { text: 'Cedula', value: 'nu_cedula' }, { text: 'Nombre', value: 'nb_nombre' }, { text: 'Apellido', value: 'nb_apellido' }, { text: 'Rol', value: 'usuario_rol.rol.nb_rol' }, { text: 'Status', value: 'status.nb_status' }, { text: 'Acciones', value: 'id_status' }]
         };
     },
 
@@ -62431,6 +62424,12 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
                                     _vm._v(_vm._s(item.item.nb_apellido))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-xs-left" }, [
+                                    _vm._v(
+                                      _vm._s(item.item.usuario_rol.rol.nb_rol)
+                                    )
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
@@ -62784,6 +62783,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -62804,11 +62816,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 nu_cedula: '',
                 nb_nombre: '',
                 nb_apellido: '',
+                id_rol: '',
                 tx_observaciones: '',
                 id_status: ''
             },
             listas: {
-                status: ['/grupo/5']
+                status: ['/grupo/5'],
+                rol: []
             },
             rules: {
                 password1: [function (v) {
@@ -62826,6 +62840,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    watch: {
+        item: function item(_item) {
+            if (this.btnAccion == 'upd') {
+                this.form.id_rol = _item.usuario_rol.rol.id_rol;
+            } else {
+                this.form.id_rol = '';
+            }
+        }
+    },
     methods: {
         update: function update() {
             var _this2 = this;
@@ -62837,7 +62860,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (this.form.id_usuario == 1 && !confirm(' Atencion!!! Cambios al usuario Administrador favor tome sus previsiones')) {
                     return;
                 }
-                axios.put(this.basePath + this.form.id_usuario, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.form.id_usuario, this.form).then(function (respuesta) {
                     _this2.showMessage(respuesta.data.msj);
                     _this2.cancel();
                 }).catch(function (error) {
@@ -63063,6 +63086,32 @@ var render = function() {
                                     1
                                   )
                                 : _vm._e(),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.listas.rol,
+                                      "item-text": "nb_rol",
+                                      "item-value": "id_rol",
+                                      rules: _vm.rules.select,
+                                      label: "Rol del Usuario",
+                                      autocomplete: "",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.id_rol,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "id_rol", $$v)
+                                      },
+                                      expression: "form.id_rol"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
                               _vm._v(" "),
                               _c(
                                 "v-flex",
@@ -65988,7 +66037,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.$refs.form.validate()) {
                 this.form.id_instruccion = this.instruccion.id_instruccion;
 
-                axios.put(this.basePath + this.item.id_pago, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.item.id_pago, this.form).then(function (respuesta) {
                     _this2.showMessage(respuesta.data.msj);
                     _this2.$emit('cerrarModal');
                 }).catch(function (error) {
@@ -67088,7 +67137,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$refs.form.validate()) {
-                axios.put(this.basePath + this.form.id_banco, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.form.id_banco, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                     _this.cancel();
                 }).catch(function (error) {
@@ -68301,7 +68350,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 }
 
-                axios.put(this.basePath + this.item.id_ingreso, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.item.id_ingreso, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                     _this.$emit('cerrarModal');
                 }).catch(function (error) {
@@ -69627,7 +69676,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id_status: ''
             },
             listas: {
-                ente: ['/grupo/4'],
+                ente: ['/grupo/5'],
                 moneda: [],
                 categoria: [],
                 status: ['/grupo/2']
@@ -69640,7 +69689,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$refs.form.validate()) {
-                axios.put(this.basePath + this.item.id_solicitud, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.item.id_solicitud, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                 }).catch(function (error) {
                     _this.showError(error);
@@ -71230,7 +71279,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.$refs.form.validate()) {
 
-                axios.put(this.basePath + this.item.id_instruccion, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.item.id_instruccion, this.form).then(function (respuesta) {
                     _this4.showMessage(respuesta.data.msj);
                 }).catch(function (error) {
                     _this4.showError(error);
@@ -72453,7 +72502,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$refs.form.validate()) {
-                axios.put('/api/v1/ente/' + this.form.id_ente, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.form.id_ente, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                     _this.$emit('cerrarModal');
                 }).catch(function (error) {
@@ -73251,7 +73300,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$refs.form.validate()) {
-                axios.put(this.basePath + this.form.id_categoria, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.form.id_categoria, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                     _this.$emit('cerrarModal');
                 }).catch(function (error) {
@@ -74032,7 +74081,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$refs.form.validate()) {
-                axios.put(this.basePath + this.form.id_moneda, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.form.id_moneda, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                     _this.$emit('cerrarModal');
                 }).catch(function (error) {
@@ -74861,7 +74910,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$refs.form.validate()) {
-                axios.put(this.basePath + this.form.id_esquema, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.form.id_esquema, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                     _this.$emit('cerrarModal');
                 }).catch(function (error) {
@@ -75721,7 +75770,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$refs.form.validate()) {
-                axios.put(this.basePath + this.form.id_tipo_ingreso, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + this.form.id_tipo_ingreso, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                     _this.$emit('cerrarModal');
                 }).catch(function (error) {
@@ -76938,7 +76987,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 this.form.id_pago = this.pago.id_pago;
 
-                axios.put(this.basePath + 'update', this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/' + 'update', this.form).then(function (respuesta) {
                     _this2.showMessage(respuesta.data.msj);
                     _this2.$emit('cerrarModal');
                 }).catch(function (error) {

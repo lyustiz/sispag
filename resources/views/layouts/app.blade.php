@@ -26,60 +26,73 @@
             v-model="drawer"
     >
     <!-- MENU -->
-    <v-list dense v-for="(item, idx) in items" :key="idx">
 
-        <!-- header -->
-        <v-layout row v-if="item.heading" align-center>                        
+    <v-list dense>
+
+    @foreach (session('menu') as $modulo)
+
+        <!-- modulo -->
+        <v-layout row align-center>
             <v-flex xs6>
-                <v-subheader v-if="item.heading">
-                    @{{ item.heading }}
+                <v-subheader>
+                    {{  $modulo->nb_modulo }}
                 </v-subheader>
             </v-flex>
         </v-layout>
+       
+        @foreach ($modulo->menu as $mmenu)
 
-        <!-- subitems -->
-        <v-list-group v-else-if="item.children" v-model="item.model" no-action>
+            @if (count($mmenu->subMenu) > 0)
 
-            <v-list-tile slot="activator">
+                <!-- menu con submenu -->
+                <v-list-group no-action>
+                    <v-list-tile slot="activator">
+                        <v-list-tile-action>
+                            <v-icon>{{ $mmenu->tx_icon }}</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $mmenu->nb_menu }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
 
-                <v-list-tile-action>
-                    <v-icon>@{{ item.icon }}</v-icon>
-                </v-list-tile-action>
+                    <!-- submenu -->
+                    @foreach ($mmenu->subMenu as $subMenu)
+                    
+                        <v-list-tile @click="menuItemSelected('{{ $subMenu->tx_url }}')">
+                            <v-list-tile-action>
+                                <v-icon>{{ $subMenu->tx_icon }}</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>{{ $subMenu->nb_menu }}</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
 
-                <v-list-tile-content>
-                    <v-list-tile-title>@{{ item.text }}</v-list-tile-title>
-                </v-list-tile-content>
+                    @endforeach
+                    
+                </v-list-group>
 
-            </v-list-tile>
+            @else
 
-            <v-list-tile v-for="(subItem, sidx) in item.children" :key="sidx"  @click="menuItemSelected(subItem)">
-                
-                <v-list-tile-action>
-                    <v-icon>@{{ subItem.icon }}</v-icon>
-                </v-list-tile-action>
+                <!-- menu sin submenu -->
+                <v-list-tile @click="menuItemSelected('{{ $mmenu->tx_url }}')">
+                    <v-list-tile-action>
+                        <v-icon> {{ $mmenu->tx_icon }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ $mmenu->nb_menu }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
 
-                <v-list-tile-content>
-                    <v-list-tile-title>@{{ subItem.text }}</v-list-tile-title>
-                </v-list-tile-content>
+            @endif
 
-            </v-list-tile>
-            
-        </v-list-group>
+        @endforeach
 
-        <!-- default items -->
-        <v-list-tile v-else @click="menuItemSelected(item)">
-            
-            <v-list-tile-action>
-                <v-icon>@{{ item.icon }}</v-icon>
-            </v-list-tile-action>
+    @endforeach
 
-            <v-list-tile-content>
-                <v-list-tile-title>@{{ item.text }}</v-list-tile-title>
-            </v-list-tile-content>
+    </v-list>
 
-        </v-list-tile>
 
-</v-list>
+
 
     </v-navigation-drawer>
     <v-toolbar

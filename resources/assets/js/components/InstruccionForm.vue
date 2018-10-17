@@ -376,7 +376,7 @@ export default {
             if (this.$refs.form.validate()) 
             {
                 
-                axios.put(this.basePath + this.item.id_instruccion, this.form)
+                axios.put(this.basePath + '/' + this.item.id_instruccion, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                 })

@@ -107,42 +107,7 @@ const app = new Vue({
     drawerRight: false,
     changingPassword: false,
     updatingUser: false,
-    items: [
-
-      { heading: 'Modulos' },
-      { icon: 'home', text: 'Inicio', href: '/home' },
-      { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' },
-      { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' },
-      { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' },
-      { icon: 'assignment_returned', text: 'Pagos', href: '/pago' },
-      { icon: 'assessment', text: 'Cuentas', href: '/cuenta' },
-      { heading: 'Datos Maestros' },
-      { icon: 'assignment', text: 'Datos Maestros',
-        children:
-        [
-          { icon: 'account_balance', text: 'Banco', href: '/banco' },
-          { icon: 'store_mall_directory', text: 'Entes', href: '/ente' },
-          { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' },
-          { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
-          { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' },
-          { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' },
-        ],
-      },
-      { heading: 'Reportes' },
-      { icon: 'description', text: 'Reportes',
-        children:
-        [
-          { icon: 'description', text: 'General', href: '/reportes/general' },
-          { icon: 'description', text: 'Ingresos', href: '/reportes/ingreso' },
-          { icon: 'description', text: 'Solicitudes', href: '/reportes/solicitud' },
-          { icon: 'description', text: 'Intrucciones', href: '/reportes/instruccion' },
-          { icon: 'description', text: 'Bitacora', href: '/reportes/bitacora' },
-          { icon: 'description', text: 'Bancos', href: '/reportes/banco' },
-        ], 
-      },
-      { heading: 'Administracion' },
-      { icon: 'person', text: 'Usuarios', href: '/usuario' },
-    ]
+    items: []
   }),
   created: function () {
 
@@ -185,14 +150,11 @@ const app = new Vue({
         this.logoutLoading = false
       })
     },
-    menuItemSelected (item) {
-      if (item.href) {
-        if (item.new) {
-          window.open(item.href)
-        } else {
-          window.location.href = item.href
+    menuItemSelected (url) {
+      if (url) {
+          window.location.href = url
         }
-      }
+
     },
     changePassword () {
       this.changingPassword = true

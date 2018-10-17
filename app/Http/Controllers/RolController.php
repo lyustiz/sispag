@@ -14,7 +14,9 @@ class RolController extends Controller
      */
     public function index()
     {
-        //
+        $rol = Rol::with(['status'])->get();
+        
+        return $rol;
     }
 
     /**

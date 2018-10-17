@@ -530,7 +530,7 @@ export default {
                 }
                 this.form.id_pago = this.pago.id_pago
 
-                axios.put(this.basePath +'update', this.form)
+                axios.put(this.basePath + '/' + 'update', this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
