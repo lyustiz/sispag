@@ -68306,6 +68306,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -68322,7 +68326,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id_ente: '',
                 id_moneda: '',
                 mo_ingreso: 0,
-                mo_tasa: '',
+                mo_tasa: 0,
                 fe_ingreso: '',
                 id_banco: '',
                 tx_observaciones: '',
@@ -68340,6 +68344,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        setTasaDolar: function setTasaDolar() {
+            if (this.form.id_moneda == 1) {
+                this.form.mo_tasa = 1;
+            }
+        },
         update: function update() {
             var _this = this;
 
@@ -68360,6 +68369,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         store: function store() {
             var _this2 = this;
+
+            this.setTasaDolar();
 
             if (this.$refs.form.validate()) {
                 if (this.form.id_status == 1) {
@@ -68526,6 +68537,7 @@ var render = function() {
                                     ref: "monto",
                                     attrs: {
                                       label: "Monto Ingreso",
+                                      rules: _vm.rules.requerido,
                                       placeholder: "Ingrese monto",
                                       hint: "Ej 845.456,12",
                                       required: "",
@@ -68555,6 +68567,7 @@ var render = function() {
                                 { attrs: { xs12: "", sm4: "" } },
                                 [
                                   _c("v-select", {
+                                    ref: "motasa",
                                     attrs: {
                                       items: _vm.listas.moneda,
                                       "item-text": "nb_moneda",
@@ -68564,6 +68577,7 @@ var render = function() {
                                       autocomplete: "",
                                       required: ""
                                     },
+                                    on: { input: _vm.setTasaDolar },
                                     model: {
                                       value: _vm.form.id_moneda,
                                       callback: function($$v) {
@@ -68581,9 +68595,9 @@ var render = function() {
                                 { attrs: { xs12: "", sm4: "" } },
                                 [
                                   _c("v-autonumeric", {
-                                    ref: "monto",
+                                    ref: "mo_tasa",
                                     attrs: {
-                                      rules: _vm.rules.montoNR,
+                                      rules: _vm.rules.requerido,
                                       label: "Tasa de Cambio",
                                       placeholder: "Ingrese Tasa",
                                       hint: "Ej 456,12",
@@ -70906,7 +70920,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70919,6 +70933,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+//
+//
 //
 //
 //
@@ -71226,6 +71242,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     },
     methods: {
+        getMontoSolicitud: function getMontoSolicitud() {
+            this.form.mo_instruccion = this.solicitud.mo_solicitud;
+        },
         setSolicitud: function setSolicitud(item) {
             this.dsolicitud = false;
             this.solicitud = item;
@@ -71548,7 +71567,10 @@ var render = function() {
                                                     "Monto de la Instuccion",
                                                   placeholder: "Ingrese Monto",
                                                   hint: "Ej 3.107.000,02",
-                                                  required: ""
+                                                  required: "",
+                                                  "append-icon": "swap_horiz",
+                                                  "append-icon-cb":
+                                                    _vm.getMontoSolicitud
                                                 },
                                                 model: {
                                                   value:

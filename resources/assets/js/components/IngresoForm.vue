@@ -57,6 +57,7 @@
                 v-model="form.mo_ingreso"
                 ref="monto"
                 label="Monto Ingreso"
+                :rules="rules.requerido"
                 placeholder="Ingrese monto"
                 hint="Ej 845.456,12"
                 required
@@ -73,12 +74,14 @@
 
             <v-flex xs12 sm4>
                 <v-select
+                ref="motasa"
                 :items="listas.moneda"
                 item-text="nb_moneda"
                 item-value="id_moneda"
                 v-model="form.id_moneda"
                 :rules="rules.select"
                 label="Moneda"
+                @input="setTasaDolar"
                 autocomplete
                 required
                 ></v-select>
@@ -87,8 +90,8 @@
             <v-flex xs12 sm4>
                 <v-autonumeric
                 v-model="form.mo_tasa"
-                ref="monto"
-                :rules="rules.montoNR"
+                ref="mo_tasa"
+                :rules="rules.requerido"
                 label="Tasa de Cambio"
                 placeholder="Ingrese Tasa"
                 hint="Ej 456,12"
@@ -142,6 +145,7 @@
                     v-model="form.tx_observaciones"
                     label="Observaciones"
                     placeholder="Indique Observaciones"
+                    
                 ></v-text-field>
             </v-flex>
                 
@@ -184,7 +188,7 @@ export default {
                 id_ente: '',
                 id_moneda: '',
                 mo_ingreso: 0,
-                mo_tasa: '',
+                mo_tasa: 0,
                 fe_ingreso: '',
                 id_banco: '',
                 tx_observaciones: '',
@@ -200,7 +204,15 @@ export default {
             }, 
         }
     },
-    methods:{
+    methods:
+    {
+        setTasaDolar()
+        {
+            if(this.form.id_moneda == 1)
+            {
+                this.form.mo_tasa = 1;
+            }
+        },
         update()
         {
             if (this.$refs.form.validate()) 
@@ -228,6 +240,8 @@ export default {
         store()
         {               
             
+            this.setTasaDolar();
+
             if (this.$refs.form.validate()) 
             { 
                 if( this.form.id_status == 1 )
