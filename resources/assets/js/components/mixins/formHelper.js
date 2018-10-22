@@ -12,6 +12,7 @@ export default {
         return {
 
             basePath: '/api/v1/',
+            id_usuario: this.$store.getters.user.id_usuario,
             valido: false,
             btnAccion: '',
             picker: false,

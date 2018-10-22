@@ -5141,6 +5141,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         return {
 
             basePath: '/api/v1/',
+            id_usuario: this.$store.getters.user.id_usuario,
             IsLoading: true,
             modal: false,
             selected: [],
@@ -5150,7 +5151,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             accion: '',
             nb_accion: '',
             dialogo: false
-
         };
     },
 
@@ -5243,6 +5243,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         return {
 
             basePath: '/api/v1/',
+            id_usuario: this.$store.getters.user.id_usuario,
             valido: false,
             btnAccion: '',
             picker: false,
@@ -55108,6 +55109,12 @@ var app = new Vue({
       }).then(function () {
         _this3.changingPassword = false;
       });
+    },
+    verAyuda: function verAyuda() {
+      window.open('/getAyuda');
+    },
+    verNotificaciones: function verNotificaciones() {
+      return true;
     }
   }
 });
@@ -56729,6 +56736,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         del: {
             type: Boolean,
             default: true
+        },
+        icono: {
+            type: String,
+            default: 'settings'
+        },
+        color: {
+            type: String,
+            default: 'info'
         }
 
     }
@@ -56755,7 +56770,7 @@ var render = function() {
             {
               attrs: {
                 slot: "activator",
-                color: "info",
+                color: _vm.color,
                 dark: "",
                 small: "",
                 fab: ""
@@ -56763,7 +56778,7 @@ var render = function() {
               slot: "activator"
             },
             [
-              _c("v-icon", [_vm._v("settings")]),
+              _c("v-icon", [_vm._v(_vm._s(_vm.icono))]),
               _vm._v(" "),
               _c("v-icon", [_vm._v("close")])
             ],
@@ -67477,7 +67492,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -67490,6 +67505,10 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
+//
+//
+//
 //
 //
 //
@@ -67668,6 +67687,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 _this2.showError(error);
             });
+        },
+        reversarIngreso: function reversarIngreso(item) {
+            var _this3 = this;
+
+            if (confirm('Desea reversar el Ingreso Seleccionado')) {
+                item.id_status = 2;
+                item.id_usuario = this.id_usuario;
+                axios.put('/api/v1/ingreso/' + item.id_ingreso, item).then(function (respuesta) {
+
+                    _this3.showMessage(respuesta.data.msj);
+                    _this3.list();
+                    _this3.item = '';
+                    _this3.dialogo = false;
+                }).catch(function (error) {
+                    _this3.showError(error);
+                });
+            }
         }
     }
 });
@@ -67892,34 +67928,55 @@ var render = function() {
                                         { staticClass: "text-xs-center" },
                                         [
                                           _c(
-                                            "v-tooltip",
-                                            { attrs: { bottom: "" } },
+                                            "list-buttons",
+                                            {
+                                              attrs: {
+                                                icono: "lock",
+                                                color: "green",
+                                                del: false,
+                                                upd: false
+                                              }
+                                            },
                                             [
                                               _c(
-                                                "v-btn",
-                                                {
-                                                  attrs: {
-                                                    slot: "activator",
-                                                    fab: "",
-                                                    small: "",
-                                                    color: "success"
-                                                  },
-                                                  nativeOn: {
-                                                    click: function($event) {
-                                                      _vm.dsolicitud = true
-                                                    }
-                                                  },
-                                                  slot: "activator"
-                                                },
+                                                "v-tooltip",
+                                                { attrs: { top: "" } },
                                                 [
-                                                  _c("v-icon", [
-                                                    _vm._v("https")
+                                                  _c(
+                                                    "v-btn",
+                                                    {
+                                                      attrs: {
+                                                        slot: "activator",
+                                                        fab: "",
+                                                        dark: "",
+                                                        small: "",
+                                                        color: "error"
+                                                      },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.reversarIngreso(
+                                                            item.item
+                                                          )
+                                                        }
+                                                      },
+                                                      slot: "activator"
+                                                    },
+                                                    [
+                                                      _c("v-icon", [
+                                                        _vm._v("reply_all")
+                                                      ])
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("span", [
+                                                    _vm._v("Reversar Ingreso")
                                                   ])
                                                 ],
                                                 1
-                                              ),
-                                              _vm._v(" "),
-                                              _c("span", [_vm._v("Confirmado")])
+                                              )
                                             ],
                                             1
                                           )
@@ -68309,7 +68366,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -68354,11 +68410,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.$refs.form.validate()) {
                 if (this.form.id_status == 1) {
-                    if (!confirm('Esta operacion comfirma el ingreso de Divisa \n No puede reversarse. desea continuar?')) {
+                    if (!confirm('Esta operacion comfirma el ingreso de Divisa \n. Desea continuar?')) {
                         return false;
                     }
                 }
-
                 axios.put(this.basePath + '/' + this.item.id_ingreso, this.form).then(function (respuesta) {
                     _this.showMessage(respuesta.data.msj);
                     _this.$emit('cerrarModal');
@@ -93568,6 +93623,7 @@ var render = function() {
                             [
                               _c(
                                 "v-list-tile-content",
+                                { staticClass: "blue--text" },
                                 [
                                   _c("v-list-tile-title", [
                                     _vm._v("Ingreso Euros")
@@ -93650,6 +93706,7 @@ var render = function() {
                             [
                               _c(
                                 "v-list-tile-content",
+                                { staticClass: "red--text" },
                                 [
                                   _c("v-list-tile-title", [
                                     _vm._v("Ingreso Dolar")
@@ -93732,6 +93789,7 @@ var render = function() {
                             [
                               _c(
                                 "v-list-tile-content",
+                                { staticClass: "green--text" },
                                 [
                                   _c("v-list-tile-title", [
                                     _vm._v("Otros Ingresos")
@@ -93814,6 +93872,7 @@ var render = function() {
                             [
                               _c(
                                 "v-list-tile-content",
+                                { staticClass: "orange--text" },
                                 [
                                   _c("v-list-tile-title", [
                                     _vm._v("Total Ingresos")

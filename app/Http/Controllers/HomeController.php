@@ -49,7 +49,7 @@ class HomeController extends Controller
             $menus  [$permiso->menu->id_menu]   = $permiso->menu->id_menu;
             $modulos[$permiso->menu->id_modulo] = $permiso->menu->id_modulo;
         }
-        
+    
         $menu  = Modulo::with([
                     'menu'         => function($query) use ( $menus){
 
@@ -138,5 +138,12 @@ class HomeController extends Controller
         
         return compact('cuenta','ingreso','instruccion','procesos');
     }
+
+    public function getAyuda() 
+    { 
+        $file ='./manual/manual_de_usuario.pdf'; 
+        return response()->download($file); 
+
+    } 
 
 }

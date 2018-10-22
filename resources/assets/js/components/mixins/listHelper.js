@@ -7,6 +7,7 @@ export default {
         return {
 
             basePath: '/api/v1/',
+            id_usuario: this.$store.getters.user.id_usuario,
             IsLoading: true,
             modal: false,
             selected: [],
@@ -16,7 +17,6 @@ export default {
             accion: '',
             nb_accion: '',
             dialogo: false,
-
         }
     },
     filters: {

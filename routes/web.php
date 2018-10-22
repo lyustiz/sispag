@@ -33,6 +33,10 @@ Route::middleware(['auth'])->group(function ()
 
     //Administracion
     Route::view('/usuario',      'usuario');
+
+    //Ayuda
+    Route::get('/getAyuda',       'HomeController@getAyuda');
+
 });
 
 Auth::routes();

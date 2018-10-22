@@ -51,7 +51,6 @@
                 ></v-select>
             </v-flex>
 
-            
             <v-flex xs12 sm4>
             <v-autonumeric
                 v-model="form.mo_ingreso"
@@ -219,12 +218,11 @@ export default {
             {           
                 if( this.form.id_status == 1 )
                 {
-                    if(!confirm('Esta operacion comfirma el ingreso de Divisa \n No puede reversarse. desea continuar?'))
+                    if(!confirm('Esta operacion comfirma el ingreso de Divisa \n. Desea continuar?'))
                     {
                         return false;
                     }
                 }  
-                
                 axios.put(this.basePath + '/' + this.item.id_ingreso, this.form)
                 .then(respuesta => 
                 {
