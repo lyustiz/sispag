@@ -1,0 +1,23 @@
+SELECT setval('pagos.cuenta_id_cuenta_seq', 1);
+truncate table pagos.cuenta;
+
+SELECT setval('pagos.ejecucion_pago_id_ejecucion_pago_seq', 1);
+truncate table pagos.ejecucion_pago;
+
+SELECT setval('pagos.ingreso_id_ingreso_seq', 1);
+truncate table pagos.ingreso;
+
+SELECT setval('pagos.instruccion_id_instruccion_seq', 1);
+truncate table pagos.instruccion;
+
+SELECT setval('pagos.movimiento_id_movimiento_seq', 1);
+truncate table pagos.movimiento;
+
+SELECT setval('pagos.pagos_id_pago_seq', 1);
+truncate table pagos.pago;
+
+SELECT setval('pagos.solicitud_id_solicitud_seq', 1);
+truncate table pagos.solicitud;
+
+SELECT setval('pagos.tr_bitacora_id_bitacora_seq', 1);
+truncate table pagos.tr_bitacora;
