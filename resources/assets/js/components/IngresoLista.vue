@@ -65,12 +65,16 @@
                 </list-buttons>
             </td>
             <td class="text-xs-center" v-else>
-                <v-tooltip bottom>
-                    <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
-                        <v-icon >https</v-icon>
-                    </v-btn>
-                    <span>Confirmado</span>
-                </v-tooltip>
+
+                <list-buttons icono="lock" color="green" :del="false" :upd="false">
+                    <v-tooltip top>
+                        <v-btn slot="activator" fab dark small color="error" @click="reversarIngreso(item.item)">
+                            <v-icon>reply_all</v-icon>
+                        </v-btn>
+                        <span>Reversar Ingreso</span>
+                   </v-tooltip>
+                </list-buttons>
+
             </td>
             
         </template>
@@ -82,7 +86,7 @@
                 titulo="Detalle Ingreso" 
                 :items="{ 
                         'Tipo de Ingreso' : item.item.tipo_ingreso.nb_tipo_ingreso,
-                        'Ente Receptor'   : item.item.ente.nb_ente,
+                        'Origen Ingreso'  : item.item.ente.nb_ente, 
                         'Banco Receptor'  : item.item.banco.nb_banco,
                         'Moneda'          : item.item.moneda.nb_moneda,
                         'Monto Ingreso'   : formatNumber(item.item.mo_ingreso),
@@ -140,7 +144,7 @@ export default {
     return {
         headers: [
         { text: 'Tipo Ingreso',  value: 'tipo_ingreso.nb_tipo_ingreso' },
-        { text: 'Ente Receptor', value: 'ente.nb_ente' },
+        { text: 'Origen Ingreso', value: 'ente.nb_ente' },
         { text: 'Banco Receptor',value: 'banco.nb_banco' },
         { text: 'Moneda',        value: 'moneda.nb_moneda' },
         { text: 'Monto',         value: 'mo_ingreso' },
@@ -191,6 +195,26 @@ export default {
             .catch(error => {
                 this.showError(error)    
             })
+
+        },
+        reversarIngreso(item)
+        {
+            if(confirm('Desea reversar el Ingreso Seleccionado'))
+            {
+                item.id_status  = 2;
+                item.id_usuario = this.id_usuario;
+                axios.put('/api/v1/ingreso/'+ item.id_ingreso, item)
+                .then(respuesta => {
+
+                    this.showMessage(respuesta.data.msj)
+                    this.list();
+                    this.item = '';
+                    this.dialogo = false;
+                })
+                .catch(error => {
+                    this.showError(error)    
+                })
+            }
 
         }
         

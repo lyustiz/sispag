@@ -25,6 +25,10 @@ Route::group(['prefix'=>'v1','middleware' => ['auth:api', 'check.rol:administrad
 
     Route::apiResource('/ingreso',           'IngresoController');
     Route::apiResource('/tipoIngreso',       'TipoIngresoController');
+
+    Route::apiResource('/solicitud',         'SolicitudController');
+    Route::apiResource('/categoria',         'CategoriaController', ['parameters' => ['categoria' => 'categoria']]);
+    Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
     
     Route::apiResource('/pago',              'PagoController');
     Route::apiResource('/tipoPago',          'TipoPagoController');
@@ -40,10 +44,6 @@ Route::group(['prefix'=>'v1','middleware' => ['auth:api', 'check.rol:administrad
     
     Route::apiResource('/movimiento',        'MovimientoController');
     Route::get('/movimiento/moneda/{id_moneda}', 'MovimientoController@movimientoMoneda');
-
-    Route::apiResource('/solicitud',         'SolicitudController');
-    Route::apiResource('/categoria',         'CategoriaController', ['parameters' => ['categoria' => 'categoria']]);
-    Route::get('/solicitud/categoria/{idCategoria}', 'SolicitudController@solicitudCategoria')->where('idCategoria', '[0-9]+');
 
     Route::apiResource('/instruccion',       'InstruccionController');
     Route::get('/instruccion/pagos',         'InstruccionController@instruccionPagos');

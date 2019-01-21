@@ -9,7 +9,7 @@
     <link rel="manifest" href="/manifest.json">
     <title>{{ config('app.name', 'SIGESPAD') }}</title>
     <link href='/assets/googlefonts/css/css.css' rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.min.css" rel="stylesheet">
+    <link href="/assets/pace/css/pace-theme-corner-indicator.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -91,9 +91,6 @@
 
     </v-list>
 
-
-
-
     </v-navigation-drawer>
     <v-toolbar
             color="red darken-1"
@@ -108,58 +105,70 @@
             <span class="hidden-xs-only">{{ config('app.shortname', 'SIGESPAD') }}</span>
         </v-toolbar-title>
         <div class="d-flex align-center" style="margin-left: auto">
-            <v-btn icon>
-                <v-icon>notifications</v-icon>
+            
+            <v-menu offset-y>
+
+            <v-btn @click="verNotificaciones" slot="activator" dark icon >
+              <v-icon>notifications</v-icon>
             </v-btn>
+
+            <v-card>
+            <v-card-text class="px-0 lighten-3">
+                <v-list two-line>
+                    <v-list-tile >
+                        <v-list-tile-content>
+                            <v-list-tile-title class="blue--text"> Estatus </v-list-tile-title>
+                            <v-list-tile-sub-title class="green--text"> <v-icon color="green">thumb_up_alt</v-icon> Sin Notificaciones</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-list>
+            </v-card-text>
+
+            </v-card>
+            </v-menu>
+          
+            <v-btn icon @click="verAyuda">
+                <v-icon>help</v-icon>
+            </v-btn>
+
             <v-btn icon @click="toogleRightDrawer">
                 <v-icon>account_circle</v-icon>
             </v-btn>
+
         </div>
     </v-toolbar>
-    <v-navigation-drawer
-            fixed
-            v-model="drawerRight"
-            right
-            clipped
-            app
-    >
+    <v-navigation-drawer fixed v-model="drawerRight" right clipped app >
         <v-card>
             <v-container fluid grid-list-md class="grey lighten-4">
                 <v-list-tile >
                     <v-list-tile-avatar>
-                        <v-icon>account_circle</v-icon>
+                        <v-icon large>account_circle</v-icon>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>@{{ user.usuario }} </v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-container>
-            <v-card-text class="px-0 grey lighten-3">
+            <v-card-text class="px-0 lighten-3">
                 <v-list two-line>
                     <v-list-tile >
                         <v-list-tile-content>
-                            <v-list-tile-title>Nombres y Apellidos </v-list-tile-title>
+                            <v-list-tile-title class="blue--text"><v-icon>person</v-icon> Nombres y Apellidos </v-list-tile-title>
                             <v-list-tile-sub-title >@{{ user.nb_nombre }} @{{ user.nb_apellido }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-list-tile >
                         <v-list-tile-content>
-                            <v-list-tile-title>Email </v-list-tile-title>
+                            <v-list-tile-title class="blue--text"><v-icon>email</v-icon> Email </v-list-tile-title>
                             <v-list-tile-sub-title >@{{ user.email }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
             </v-card-text>
             <v-card-actions>
-
-                <v-btn :loading="changingPassword" flat color="red" @click="changePassword">
-                 <v-icon right dark>lock</v-icon>  Password
+                <v-btn  @click="logout" flat color="red">
+                    <v-icon dark>exit_to_app</v-icon> Salir del Sistema
                 </v-btn>
-
-                <v-btn  @click="logout" flat color="orange">
-                    <v-icon dark>exit_to_app</v-icon> Salir
-                </v-btn>
-
             </v-card-actions>
    
         </v-card>
@@ -170,7 +179,7 @@
 </v-app>
 @stack('beforeScripts')
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<script src="/assets/pace/js/pace.min.js"></script>
 @stack('afterScripts')
 </body>
 </html>

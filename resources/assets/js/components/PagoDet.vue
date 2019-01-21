@@ -158,7 +158,8 @@ export default {
             })
         },
         delItem(){
-            axios.delete('/api/v1/instruccion/'+this.item.id_intruccion)
+            
+            axios.delete('/api/v1/pago/'+this.item.id_pago)
             .then(respuesta => {
 
                 this.showMessage(respuesta.data.msj)

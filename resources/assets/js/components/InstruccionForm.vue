@@ -86,6 +86,8 @@
                         placeholder="Ingrese Monto"
                         hint="Ej 3.107.000,02"
                         required
+                        append-icon="swap_horiz"
+                        :append-icon-cb="getMontoSolicitud"
                         ></v-text-field>
                     </v-list-tile>
 
@@ -311,6 +313,11 @@ export default {
     },
     methods:
     {
+        getMontoSolicitud()
+        {
+            this.form.mo_instruccion = this.solicitud.mo_solicitud;
+
+        },
         setSolicitud(item)
         {
             this.dsolicitud = false;

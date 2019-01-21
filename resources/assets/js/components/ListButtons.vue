@@ -2,8 +2,8 @@
 
     <v-speed-dial direction="left">
         
-        <v-btn slot="activator" color="info" dark small fab>
-            <v-icon>settings</v-icon>
+        <v-btn slot="activator" :color="color" dark small fab>
+            <v-icon>{{icono}}</v-icon>
             <v-icon>close</v-icon>
         </v-btn>
 
@@ -48,6 +48,16 @@ export default {
         type: Boolean,
         default: true
         },
+        icono:{
+        type: String, 
+        default: 'settings'  
+        },
+        color:{
+        type: String,
+        default: 'info'
+        }
+        
+        
 
     }
 }

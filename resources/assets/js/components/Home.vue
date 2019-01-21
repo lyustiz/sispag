@@ -19,7 +19,7 @@
           <v-card color="">
             <v-card-text>
               <v-list-tile>
-                <v-list-tile-content>
+                <v-list-tile-content class="blue--text">
                   <v-list-tile-title>Ingreso Euros</v-list-tile-title>
                   <v-list-tile-sub-title>{{ montos.euro | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
@@ -42,7 +42,7 @@
           <v-card color="">
             <v-card-text>
               <v-list-tile>
-                <v-list-tile-content>
+                <v-list-tile-content class="red--text">
                   <v-list-tile-title>Ingreso Dolar</v-list-tile-title>
                   <v-list-tile-sub-title>{{ montos.dolar | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
@@ -65,7 +65,7 @@
           <v-card color="">
             <v-card-text>
               <v-list-tile>
-                <v-list-tile-content>
+                <v-list-tile-content class="green--text">
                   <v-list-tile-title>Otros Ingresos</v-list-tile-title>
                   <v-list-tile-sub-title>{{ montos.otros | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
@@ -88,7 +88,7 @@
           <v-card color="">
             <v-card-text>
               <v-list-tile>
-                <v-list-tile-content>
+                <v-list-tile-content class="orange--text">
                   <v-list-tile-title>Total Ingresos</v-list-tile-title>
                   <v-list-tile-sub-title>{{ montos.total | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
