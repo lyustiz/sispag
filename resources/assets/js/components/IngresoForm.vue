@@ -32,7 +32,7 @@
                 item-value="id_ente"
                 v-model="form.id_ente"
                 :rules="rules.select"
-                label="Ente Receptor"
+                label="Origen del Ingreso"
                 autocomplete
                 required
                 ></v-select>
@@ -66,7 +66,7 @@
                     decimalCharacterAlternative: '.',
                     currencySymbolPlacement: 's',
                     roundingMethod: 'U',
-                    minimumValue: '0'
+                    minimumValue: '0',
                 }"
             ></v-autonumeric>
             </v-flex>
@@ -100,7 +100,8 @@
                     decimalCharacterAlternative: '.',
                     currencySymbolPlacement: 's',
                     roundingMethod: 'U',
-                    minimumValue: '0'
+                    minimumValue: '0',
+                    decimalPlaces: 5
                 }"
             ></v-autonumeric>
             </v-flex>

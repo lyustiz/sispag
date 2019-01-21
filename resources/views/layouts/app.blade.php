@@ -9,7 +9,7 @@
     <link rel="manifest" href="/manifest.json">
     <title>{{ config('app.name', 'SIGESPAD') }}</title>
     <link href='/assets/googlefonts/css/css.css' rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.min.css" rel="stylesheet">
+    <link href="/assets/pace/css/pace-theme-corner-indicator.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -179,7 +179,7 @@
 </v-app>
 @stack('beforeScripts')
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<script src="/assets/pace/js/pace.min.js"></script>
 @stack('afterScripts')
 </body>
 </html>

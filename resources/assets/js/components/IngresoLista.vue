@@ -86,7 +86,7 @@
                 titulo="Detalle Ingreso" 
                 :items="{ 
                         'Tipo de Ingreso' : item.item.tipo_ingreso.nb_tipo_ingreso,
-                        'Ente Receptor'   : item.item.ente.nb_ente,
+                        'Origen Ingreso'  : item.item.ente.nb_ente, 
                         'Banco Receptor'  : item.item.banco.nb_banco,
                         'Moneda'          : item.item.moneda.nb_moneda,
                         'Monto Ingreso'   : formatNumber(item.item.mo_ingreso),
@@ -144,7 +144,7 @@ export default {
     return {
         headers: [
         { text: 'Tipo Ingreso',  value: 'tipo_ingreso.nb_tipo_ingreso' },
-        { text: 'Ente Receptor', value: 'ente.nb_ente' },
+        { text: 'Origen Ingreso', value: 'ente.nb_ente' },
         { text: 'Banco Receptor',value: 'banco.nb_banco' },
         { text: 'Moneda',        value: 'moneda.nb_moneda' },
         { text: 'Monto',         value: 'mo_ingreso' },

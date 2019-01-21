@@ -143,7 +143,6 @@ class HomeController extends Controller
     { 
         $file ='./manual/manual_de_usuario.pdf'; 
         return response()->download($file); 
-
     } 
 
 }

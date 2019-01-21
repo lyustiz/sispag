@@ -25,8 +25,8 @@
                 
             <template slot="items" slot-scope="items">
                 <tr >
-                    <td v-for="(linea, index) in items.item" :key="index" class="text-xs-left">
-                            {{linea}}   
+                    <td v-for="(valor, campo) in items.item" :key="campo" class="text-xs-left">
+                            {{ formatValue(valor, campo) }}   
                     </td>
                 </tr>
             </template>
@@ -40,7 +40,6 @@
             </template>
 
             </v-data-table>
-
             </v-flex>
             
         </v-card-text>
@@ -49,7 +48,10 @@
 </template>
 <script>
 
+import format from '../mixins/formatHelper'
+
 export default {
+    mixins: [ format ],
     data () {
     return {
         buscar: '',
@@ -57,5 +59,39 @@ export default {
     }
     },
     props: ['headers', 'items'],
+    methods:
+    {
+        formatValue(value, campo)
+        {
+            let tipo =  campo.substr(0,2)
+            
+            return this.formatTipo(value, tipo)
+        },
+        formatTipo(value, tipo)
+        {
+            let valorFinal = '';
+            
+            switch (tipo) 
+            {
+                case 'fe':
+                    
+                    valorFinal = this.formatDate(value);
+                    break;
+
+                case 'mo':
+
+                    valorFinal = this.formatNumber(value);
+                    break;
+            
+                default:
+
+                    valorFinal = value;
+                    break;
+            }
+
+            return  valorFinal
+        }
+    }
+
 }
 </script>
