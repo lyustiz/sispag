@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function ()
     Route::view('/categoria',   'categoria');
     Route::view('/moneda',      'moneda');
     Route::view('/esquema',     'esquema');
-    Route::view('/tipoIngreso', 'tipoIngreso');
+    Route::view('/tipoIngreso', 'tipoingreso');
 
     //Datos Reportes
     Route::view('/reportes/general',     'reports.general');
