@@ -77,7 +77,8 @@ class IngresoController extends Controller
      */
     public function update(Request $request, Ingreso $ingreso)
     {
-        $validate = request()->validate([
+		
+		$validate = request()->validate([
 
             'id_tipo_ingreso'   => 'required',
             'id_ente'           => 'required',
@@ -90,7 +91,18 @@ class IngresoController extends Controller
 
         ]);
                 
-        $ingreso = Ingreso::find($ingreso->id_ingreso)->update($request->all());
+        $ingreso = Ingreso::find($ingreso->id_ingreso);
+
+		if($ingreso->id_status == 1 & request()->id_status == 2)
+		{
+			return (['msj'=>'Proceso de Reverso en Construccion ', 'ingreso' =>$ingreso]);
+		}
+		else
+		{
+			$ingreso->update($request->all());
+		}
+			
+		//
 
         return (['msj'=>'Registro Actualizado Correctamente ', 'ingreso' =>$ingreso]);
     }
