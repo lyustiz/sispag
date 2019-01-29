@@ -14,7 +14,7 @@ class InstruccionController extends Controller
      */
     public function index()
     {
-        $instrucciones = Instruccion::with(['esquema','solicitud.ente', 'solicitud.categoria', 'pago', 'status'])->get();
+        $instrucciones = Instruccion::with(['esquema','solicitud.ente', 'solicitud.categoria', 'pago', 'moneda', 'status'])->get();
         
         return $instrucciones;
     }
@@ -22,7 +22,7 @@ class InstruccionController extends Controller
 
     public function instruccionPagos()
     {
-        $instrucciones = Instruccion::with(['esquema','solicitud.ente', 'solicitud.categoria', 'pago.ejecucionPago','status' ])->get();
+        $instrucciones = Instruccion::with(['esquema','solicitud.ente', 'solicitud.categoria', 'pago.ejecucionPago', 'moneda', 'status' ])->get();
         
         return $instrucciones;
     }

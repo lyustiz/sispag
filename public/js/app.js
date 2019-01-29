@@ -5236,7 +5236,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         this.listasLoader();
         this.rstForm();
         this.basePath += this.tabla;
-        this.form.id_usuario = 1;
+        this.form.id_usuario = this.$store.getters.user.id_usuario;
     },
     data: function data() {
 
@@ -5257,6 +5257,15 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 }],
                 monto: [function (v) {
                     return !!v || 'Monto Requerido';
+                }, function (v) {
+                    var valor = true;
+
+                    if (v) {
+                        console.log(Number(v.replace(',', '')));
+
+                        valor = isNaN(Number(v.replace(',', ''))) ? 'Monto no Valido' : true;
+                    }
+                    return valor;
                 }],
                 fecha: [function (v) {
                     return !!v || 'Fecha Requerida';
@@ -5377,7 +5386,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
                 this.dates[key] = null;
             }
-            this.form.id_usuario = 1;
+            this.form.id_usuario = this.$store.getters.user.id_usuario;
         },
         clear: function clear() {
 
@@ -57290,9 +57299,7 @@ var render = function() {
               _vm._v(" "),
               _c("v-toolbar-title", [
                 _vm._v(
-                  "\r\n                " +
-                    _vm._s(_vm.nbAccion) +
-                    "\r\n            "
+                  "\n                " + _vm._s(_vm.nbAccion) + "\n            "
                 )
               ])
             ],
@@ -61046,7 +61053,7 @@ var render = function() {
                                 { key: campo, staticClass: "text-xs-left" },
                                 [
                                   _vm._v(
-                                    "\n                        " +
+                                    "\n                    " +
                                       _vm._s(_vm.formatValue(valor, campo)) +
                                       "   \n                "
                                   )
@@ -61089,7 +61096,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        '\n        Busqueda de: "' +
+                        '\n            Busqueda de: "' +
                           _vm._s(_vm.buscar) +
                           '" Sin resultados\n        '
                       )
@@ -64617,7 +64624,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -64630,6 +64637,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
+//
 //
 //
 //
@@ -64742,7 +64751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 pagado: 0
             },
             acreditado: false,
-            headers: [{ text: 'Tipo Pago', value: 'tipo_pago.nb_tipo_pago' }, { text: 'Proveedor', value: 'ente.nb_ente' }, { text: 'Monto', value: 'mo_final_pago' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Fecha', value: 'fe_pago' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
+            headers: [{ text: 'Tipo Pago', value: 'tipo_pago.nb_tipo_pago' }, { text: 'Proveedor', value: 'ente.nb_ente' }, { text: 'Mto Pago', value: 'mo_final_pago' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Tasa', value: 'mo_tasa' }, { text: 'Mto Total', value: 'mo_total_pago' }, { text: 'Fecha', value: 'fe_pago' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
         };
     },
 
@@ -64951,6 +64960,26 @@ var render = function() {
                                     _c("td", { staticClass: "text-xs-left" }, [
                                       _vm._v(
                                         " " + _vm._s(item.item.moneda.nb_moneda)
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-xs-right" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("formatNumber")(
+                                            item.item.mo_tasa
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-xs-right" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("formatNumber")(
+                                            item.item.mo_total_pago
+                                          )
+                                        )
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -65203,7 +65232,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65216,6 +65245,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
 //
 //
 //
@@ -65580,6 +65610,16 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "td",
+                                        { staticClass: "text-xs-right" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(item.item.moneda.nb_moneda)
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
                                         { staticClass: "text-xs-left" },
                                         [
                                           _vm._v(
@@ -65859,6 +65899,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_autonumeric__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_autonumeric___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_autonumeric__);
 //
 //
 //
@@ -66043,6 +66085,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -66056,7 +66145,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tabla: 'pago',
             pagoTotal: false,
             pickers: {
-                fe_liq_bcv: false,
                 fe_pago: false
             },
             tasaReadOnly: false,
@@ -66101,6 +66189,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         moPendiente: function moPendiente() {
             return this.accion == 'ins' ? this.montos.pendiente : this.montos.pendiente + Number(this.item.mo_final_pago);
+        },
+        fe_liq_bcv: function fe_liq_bcv() {
+            return this.formatDate(this.instruccion.fe_instruccion);
+        },
+        mo_total_pago: function mo_total_pago() {
+            return this.formatNumber(this.form.mo_final_pago * this.form.mo_tasa);
+        }
+    },
+    watch: {
+        accion: function accion(_accion) {
+            if (_accion == 'ins') {
+                this.form.fe_liq_bcv = this.instruccion.fe_instruccion;
+            }
         }
     },
     props: ['instruccion', 'montos'],
@@ -66134,6 +66235,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.$refs.form.validate()) {
                 this.form.id_instruccion = this.instruccion.id_instruccion;
+                this.form.fe_liq_bcv = this.instruccion.fe_instruccion;
 
                 axios.put(this.basePath + '/' + this.item.id_pago, this.form).then(function (respuesta) {
                     _this2.showMessage(respuesta.data.msj);
@@ -66149,6 +66251,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.$refs.form.validate()) {
                 this.form.id_instruccion = this.instruccion.id_instruccion;
                 this.form.id_status = 10;
+                this.form.fe_liq_bcv = this.instruccion.fe_instruccion;
+
                 axios.post(this.basePath, this.form).then(function (respuesta) {
                     _this3.showMessage(respuesta.data.msj);
                     _this3.$emit('cerrarModal');
@@ -66294,74 +66398,16 @@ var render = function() {
                                 "v-flex",
                                 { attrs: { xs12: "", sm3: "" } },
                                 [
-                                  _c(
-                                    "v-menu",
-                                    {
-                                      ref: _vm.pickers.fe_liq_bcv,
-                                      attrs: {
-                                        "full-width": "",
-                                        "min-width": "290px"
-                                      },
-                                      model: {
-                                        value: _vm.pickers.fe_liq_bcv,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.pickers,
-                                            "fe_liq_bcv",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "pickers.fe_liq_bcv"
-                                      }
-                                    },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          slot: "activator",
-                                          rules: _vm.rules.fecha,
-                                          label: "Fecha liquidacion BCV",
-                                          "prepend-icon": "event",
-                                          readonly: "",
-                                          required: ""
-                                        },
-                                        slot: "activator",
-                                        model: {
-                                          value: _vm.dates.fe_liq_bcv,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.dates,
-                                              "fe_liq_bcv",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "dates.fe_liq_bcv"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("v-date-picker", {
-                                        attrs: { locale: "es" },
-                                        on: {
-                                          input: function($event) {
-                                            _vm.dates.fe_liq_bcv = _vm.formatDate(
-                                              _vm.form.fe_liq_bcv
-                                            )
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.form.fe_liq_bcv,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.form,
-                                              "fe_liq_bcv",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "form.fe_liq_bcv"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      value: _vm.fe_liq_bcv,
+                                      rules: _vm.rules.fecha,
+                                      label: "Fecha liquidacion BCV",
+                                      "prepend-icon": "event",
+                                      disabled: "",
+                                      required: ""
+                                    }
+                                  })
                                 ],
                                 1
                               ),
@@ -66432,17 +66478,24 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm4: "" } },
+                                { attrs: { xs12: "", sm3: "" } },
                                 [
-                                  _c("v-text-field", {
+                                  _c("v-autonumeric", {
+                                    ref: "mo_final_pago",
                                     attrs: {
-                                      rules: _vm.rules.montoPago,
                                       label: "Monto del Pago",
-                                      placeholder: "Monto del Pago Pendiente",
-                                      hint:
-                                        "Pendiente de pago: " + _vm.moPendiente,
+                                      rules: _vm.rules.requerido,
+                                      placeholder: "Monto del Pago",
+                                      hint: "Ej 845.456,12",
                                       required: "",
-                                      readonly: _vm.pagoTotal
+                                      options: {
+                                        digitGroupSeparator: ".",
+                                        decimalCharacter: ",",
+                                        decimalCharacterAlternative: ".",
+                                        currencySymbolPlacement: "s",
+                                        roundingMethod: "U",
+                                        minimumValue: "0"
+                                      }
                                     },
                                     model: {
                                       value: _vm.form.mo_final_pago,
@@ -66458,7 +66511,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm4: "" } },
+                                { attrs: { xs12: "", sm3: "" } },
                                 [
                                   _c("v-select", {
                                     attrs: {
@@ -66485,15 +66538,25 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm4: "" } },
+                                { attrs: { xs12: "", sm3: "" } },
                                 [
-                                  _c("v-text-field", {
+                                  _c("v-autonumeric", {
+                                    ref: "mo_tasa",
                                     attrs: {
-                                      rules: _vm.rules.montoNR,
+                                      rules: _vm.rules.requerido,
                                       label: "Tasa de Cambio",
                                       placeholder: "Ingrese Tasa",
-                                      hint: "Ej 107,02",
-                                      disabled: _vm.tasaReadOnly
+                                      hint: "Ej 1,43333",
+                                      disabled: _vm.tasaReadOnly,
+                                      options: {
+                                        digitGroupSeparator: ".",
+                                        decimalCharacter: ",",
+                                        decimalCharacterAlternative: ".",
+                                        currencySymbolPlacement: "s",
+                                        roundingMethod: "U",
+                                        minimumValue: "0",
+                                        decimalPlaces: 5
+                                      }
                                     },
                                     model: {
                                       value: _vm.form.mo_tasa,
@@ -66501,6 +66564,22 @@ var render = function() {
                                         _vm.$set(_vm.form, "mo_tasa", $$v)
                                       },
                                       expression: "form.mo_tasa"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      value: _vm.mo_total_pago,
+                                      label: "Monto Total del Pago",
+                                      placeholder: "Ingrese monto/moneda/tasa",
+                                      disabled: ""
                                     }
                                   })
                                 ],
@@ -67575,7 +67654,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -67723,6 +67802,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -67732,7 +67813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
-            headers: [{ text: 'Tipo Ingreso', value: 'tipo_ingreso.nb_tipo_ingreso' }, { text: 'Origen Ingreso', value: 'ente.nb_ente' }, { text: 'Banco Receptor', value: 'banco.nb_banco' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Monto', value: 'mo_ingreso' }, { text: 'Tasa', value: 'mo_tasa' }, { text: 'Fecha', value: 'fe_ingreso' }, { text: 'Acciones', value: 'id_status' }],
+            headers: [{ text: 'Tipo Ingreso', value: 'tipo_ingreso.nb_tipo_ingreso' }, { text: 'Origen Ingreso', value: 'ente.nb_ente' }, { text: 'Banco Receptor', value: 'banco.nb_banco' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Monto', value: 'mo_ingreso' }, { text: 'Tasa', value: 'mo_tasa' }, { text: 'Mto Dolares', value: 'mo_dolares' }, { text: 'Fecha', value: 'fe_ingreso' }, { text: 'Acciones', value: 'id_status' }],
             listas: {
                 tipoIngreso: []
             }
@@ -67977,6 +68058,16 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
+                                  _c("td", { staticClass: "text-xs-right" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatNumber")(
+                                          item.item.mo_dolares
+                                        )
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
                                     _vm._v(
                                       " " +
@@ -68094,11 +68185,14 @@ var render = function() {
                                                   item.item.banco.nb_banco,
                                                 Moneda:
                                                   item.item.moneda.nb_moneda,
-                                                "Monto Ingreso": _vm.formatNumber(
+                                                "Mto Ingreso": _vm.formatNumber(
                                                   item.item.mo_ingreso
                                                 ),
                                                 "Tasa ": _vm.formatNumber(
                                                   item.item.mo_tasa
+                                                ),
+                                                "Mto Dolares ": _vm.formatNumber(
+                                                  item.item.mo_dolares
                                                 ),
                                                 "F. Ingreso": _vm.formatDate(
                                                   item.item.fe_ingreso
@@ -70326,7 +70420,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70483,6 +70577,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -70492,7 +70588,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
-            headers: [{ text: 'Categoria', value: 'solicitud.categoria.nb_categoria' }, { text: 'Ente', value: 'instruccion.ente.nb_ente' }, { text: 'Concepto', value: 'instruccion.tx_concepto' }, { text: 'Monto', value: 'mo_instruccion' }, { text: 'Fecha', value: 'fe_instruccion' }, { text: 'Esquema Pago', value: 'esquema.nb_esquema' }, { text: 'Acciones', value: 'id_status' }],
+            headers: [{ text: 'Categoria', value: 'solicitud.categoria.nb_categoria' }, { text: 'Ente', value: 'instruccion.ente.nb_ente' }, { text: 'Concepto', value: 'instruccion.tx_concepto' }, { text: 'Monto', value: 'mo_instruccion' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Fecha', value: 'fe_instruccion' }, { text: 'Esquema Pago', value: 'esquema.nb_esquema' }, { text: 'Acciones', value: 'id_status' }],
             listas: {
                 categoria: []
             }
@@ -70705,6 +70801,10 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
+                                  _c("td", { staticClass: "text-xs-rigth" }, [
+                                    _vm._v(_vm._s(item.item.moneda.nb_moneda))
+                                  ]),
+                                  _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
                                     _vm._v(
                                       _vm._s(
@@ -70812,6 +70912,8 @@ var render = function() {
                                                   item.item.solicitud
                                                     .mo_solicitud
                                                 ),
+                                                Moneda:
+                                                  item.item.moneda.nb_moneda,
                                                 "Nro Solicitud":
                                                   item.item.solicitud
                                                     .nu_solicitud,
@@ -77016,7 +77118,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             },
             listas: {
-                banco: ['/grupo/1'],
+                banco: ['/grupo/3'],
                 etapaEnvio: [],
                 status: ['/grupo/6']
             },

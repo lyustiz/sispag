@@ -60,6 +60,7 @@
                         <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
                         <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
                         <td class="text-xs-right">{{ item.item.mo_instruccion | formatNumber }}</td>
+                        <td class="text-xs-right">{{ item.item.moneda.nb_moneda }}</td>
                         <td class="text-xs-left">{{ item.item.fe_instruccion | formDate  }}</td>
                         <td class="text-xs-center">{{ item.item.esquema.nb_esquema }}</td>
                         <!--status-->

@@ -55,6 +55,7 @@
                 <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
                 <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
                 <td class="text-xs-rigth">{{ item.item.mo_instruccion | formatNumber }}</td>
+                <td class="text-xs-rigth">{{ item.item.moneda.nb_moneda }}</td>
                 <td class="text-xs-left">{{ item.item.fe_instruccion | formDate }}</td>
                 <td class="text-xs-left">{{ item.item.esquema.nb_esquema }}</td>
                 <!--acciones-->
@@ -83,6 +84,7 @@
                             'Ente'            : item.item.solicitud.ente.nb_ente,
                             'Concepto'        : item.item.solicitud.tx_concepto,
                             'Monto Solicitado': formatNumber(item.item.solicitud.mo_solicitud),
+                            'Moneda'          : item.item.moneda.nb_moneda,
                             'Nro Solicitud'   : item.item.solicitud.nu_solicitud,
                             'F. Solicitud'    : formatDate(item.item.solicitud.fe_solicitud),
                             'Obs. Solicitud'  : item.item.solicitud.tx_observaciones,
@@ -156,6 +158,7 @@ export default {
         { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
         { text: 'Concepto',     value: 'instruccion.tx_concepto' },
         { text: 'Monto',        value: 'mo_instruccion' },
+        { text: 'Moneda',       value: 'moneda.nb_moneda' },
         { text: 'Fecha',        value: 'fe_instruccion' },
         { text: 'Esquema Pago', value: 'esquema.nb_esquema' },
         { text: 'Acciones',     value: 'id_status'  },

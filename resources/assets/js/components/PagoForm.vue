@@ -53,27 +53,27 @@
             </v-flex>
 
             <v-flex xs12 sm3>
-            <v-menu
+                <v-text-field
+                :value="fe_liq_bcv"
+                :rules="rules.fecha"
+                label="Fecha liquidacion BCV"
+                prepend-icon="event"
+                disabled
+                required
+                ></v-text-field>
+
+                <!--<v-menu
                 v-model="pickers.fe_liq_bcv"
                 :ref="pickers.fe_liq_bcv"
                 full-width
                 min-width="290px"
-            >
-                <v-text-field
-                slot="activator"
-                v-model="dates.fe_liq_bcv"
-                :rules="rules.fecha"
-                label="Fecha liquidacion BCV"
-                prepend-icon="event"
-                readonly
-                required
-                ></v-text-field>
+                >
                 <v-date-picker 
                     v-model="form.fe_liq_bcv" 
                     locale="es" 
                     @input="dates.fe_liq_bcv = formatDate( form.fe_liq_bcv )"
                 ></v-date-picker>
-            </v-menu>
+            </v-menu>-->
             </v-flex>
 
             <v-flex xs12 sm3>
@@ -101,8 +101,8 @@
             </v-menu>
             </v-flex>
 
-            <v-flex xs12 sm4>
-                <v-text-field
+            <v-flex xs12 sm3>
+               <!-- <v-text-field
                 v-model="form.mo_final_pago"
                 :rules="rules.montoPago"
                 label="Monto del Pago"
@@ -110,10 +110,28 @@
                 :hint="`Pendiente de pago: ${moPendiente}`"
                 required
                 :readonly="pagoTotal"
-                ></v-text-field>
+                ></v-text-field> -->
+                <v-autonumeric
+                v-model="form.mo_final_pago"
+                ref="mo_final_pago"
+                label="Monto del Pago"
+                :rules="rules.requerido"
+                placeholder="Monto del Pago"
+                hint="Ej 845.456,12"
+                required
+                :options="{
+                    digitGroupSeparator: '.',
+                    decimalCharacter: ',',
+                    decimalCharacterAlternative: '.',
+                    currencySymbolPlacement: 's',
+                    roundingMethod: 'U',
+                    minimumValue: '0',
+                }"
+            ></v-autonumeric>
+
             </v-flex>
 
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm3>
                 <v-select
                 :items="listas.moneda"
                 item-text="nb_moneda"
@@ -127,16 +145,44 @@
                 ></v-select>
             </v-flex>
 
-            <v-flex xs12 sm4>
-                <v-text-field
+            <v-flex xs12 sm3>
+                <!--<v-text-field
                 v-model="form.mo_tasa"
-                :rules="rules.montoNR"
+                :rules="rules.monto"
                 label="Tasa de Cambio"
                 placeholder="Ingrese Tasa"
                 hint="Ej 107,02"
                 :disabled="tasaReadOnly"
+                ></v-text-field> -->
+                <v-autonumeric
+                v-model="form.mo_tasa"
+                ref="mo_tasa"
+                :rules="rules.requerido"
+                label="Tasa de Cambio"
+                placeholder="Ingrese Tasa"
+                hint="Ej 1,43333"
+                :disabled="tasaReadOnly"
+                :options="{
+                    digitGroupSeparator: '.',
+                    decimalCharacter: ',',
+                    decimalCharacterAlternative: '.',
+                    currencySymbolPlacement: 's',
+                    roundingMethod: 'U',
+                    minimumValue: '0',
+                    decimalPlaces: 5
+                }"
+                ></v-autonumeric>
+            </v-flex>
+
+            <v-flex xs12 sm3>
+                <v-text-field
+                :value="mo_total_pago"
+                label="Monto Total del Pago"
+                placeholder="Ingrese monto/moneda/tasa"
+                disabled
                 ></v-text-field>
-            </v-flex>    
+            </v-flex>
+
             <!--
             <v-flex xs12 sm6>  
                 <v-select
@@ -185,6 +231,7 @@
 <script>
 import withSnackbar from '../components/mixins/withSnackbar';
 import formHelper from '../components/mixins/formHelper';
+import VueAutonumeric from 'vue-autonumeric';
 
 export default {
     mixins: [ formHelper, withSnackbar ],
@@ -193,7 +240,6 @@ export default {
             tabla: 'pago',
             pagoTotal: false,
             pickers: {
-                fe_liq_bcv: false,
                 fe_pago:    false
             },
             tasaReadOnly: false,
@@ -244,6 +290,25 @@ export default {
                   ? this.montos.pendiente 
                   : this.montos.pendiente + Number(this.item.mo_final_pago)
         },
+        fe_liq_bcv()
+        {
+            return this.formatDate(this.instruccion.fe_instruccion);
+        },
+        mo_total_pago()
+        {
+            return this.formatNumber(this.form.mo_final_pago * this.form.mo_tasa);
+        }
+
+    },
+    watch:
+    {
+        accion(accion)
+        {
+            if(accion == 'ins')
+            {
+                this.form.fe_liq_bcv = this.instruccion.fe_instruccion
+            }
+        }
     },
     props:['instruccion', 'montos'],
     methods:{
@@ -280,9 +345,10 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {               
-               this.form.id_instruccion = this.instruccion.id_instruccion               
+                this.form.id_instruccion = this.instruccion.id_instruccion               
+                this.form.fe_liq_bcv     = this.instruccion.fe_instruccion;
 
-               axios.put(this.basePath + '/' + this.item.id_pago, this.form)
+                axios.put(this.basePath + '/' + this.item.id_pago, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                     this.$emit('cerrarModal');
@@ -297,7 +363,9 @@ export default {
             if (this.$refs.form.validate()) 
             {                
                 this.form.id_instruccion = this.instruccion.id_instruccion;
-                this.form.id_status = 10; 
+                this.form.id_status      = 10; 
+                this.form.fe_liq_bcv     = this.instruccion.fe_instruccion;
+
                 axios.post(this.basePath, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)

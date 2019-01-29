@@ -4,7 +4,7 @@ export default {
         this.listasLoader()
         this.rstForm();
         this.basePath += this.tabla 
-        this.form.id_usuario = 1;
+        this.form.id_usuario = this.$store.getters.user.id_usuario;
 
     },
     data() {
@@ -26,6 +26,19 @@ export default {
                     ],
                 monto: [
                     v => !!v || 'Monto Requerido',
+                    v => {
+                        let valor = true 
+
+                        if(v)
+                        {
+                            console.log(Number(v.replace(',','')))
+
+                            valor = isNaN(Number(v.replace(',','')))
+                                    ? `Monto no Valido` 
+                                    : true;
+                        }
+                        return valor;
+                    }
                    ],
                 fecha: [
                     v => !!v || 'Fecha Requerida',
@@ -153,7 +166,7 @@ export default {
 
                 this.dates[key] = null;
             }
-            this.form.id_usuario = 1
+            this.form.id_usuario = this.$store.getters.user.id_usuario
         },
 
         clear () {

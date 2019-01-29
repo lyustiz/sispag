@@ -26,13 +26,13 @@
             <template slot="items" slot-scope="items">
                 <tr >
                     <td v-for="(valor, campo) in items.item" :key="campo" class="text-xs-left">
-                            {{ formatValue(valor, campo) }}   
+                        {{ formatValue(valor, campo) }}   
                     </td>
                 </tr>
             </template>
 
             <v-alert slot="no-results" :value="true" color="info" icon="info">
-            Busqueda de: "{{ buscar }}" Sin resultados
+                Busqueda de: "{{ buscar }}" Sin resultados
             </v-alert>
 
             <template slot="pageText" slot-scope="item">

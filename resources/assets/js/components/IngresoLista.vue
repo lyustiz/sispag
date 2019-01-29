@@ -58,6 +58,7 @@
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
             <td class="text-xs-right">{{ item.item.mo_ingreso | formatNumber }}</td>
             <td class="text-xs-right">{{ item.item.mo_tasa | formatNumber }}</td>
+            <td class="text-xs-right">{{ item.item.mo_dolares | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.fe_ingreso | formDate }}</td>
             <!--acciones | formDate-->
             <td class="text-xs-center" v-if="item.item.id_status != 1">
@@ -89,8 +90,9 @@
                         'Origen Ingreso'  : item.item.ente.nb_ente, 
                         'Banco Receptor'  : item.item.banco.nb_banco,
                         'Moneda'          : item.item.moneda.nb_moneda,
-                        'Monto Ingreso'   : formatNumber(item.item.mo_ingreso),
+                        'Mto Ingreso'     : formatNumber(item.item.mo_ingreso),
                         'Tasa '           : formatNumber(item.item.mo_tasa),
+                        'Mto Dolares '    : formatNumber(item.item.mo_dolares),
                         'F. Ingreso'      : formatDate(item.item.fe_ingreso),
                         'Status'          : item.item.status.nb_status,
                         'Obs. Solicitud'  : item.item.tx_observaciones,
@@ -149,6 +151,7 @@ export default {
         { text: 'Moneda',        value: 'moneda.nb_moneda' },
         { text: 'Monto',         value: 'mo_ingreso' },
         { text: 'Tasa',          value: 'mo_tasa' },
+        { text: 'Mto Dolares',   value: 'mo_dolares' },
         { text: 'Fecha',         value: 'fe_ingreso' },
         { text: 'Acciones',      value: 'id_status'  },
         ],

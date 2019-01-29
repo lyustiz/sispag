@@ -33,6 +33,13 @@ class Ingreso extends Model
     
     protected $hidden     = ['id_usuario','fe_creado', 'fe_actualizado'];
 
+    protected $appends = ['mo_dolares'];
+
+    public function getMoDolaresAttribute()
+    {
+        return $this->attributes['mo_ingreso'] * $this->attributes['mo_tasa'];
+    }
+    
     public function getFeIngresoAttribute($value) {
   
         return \Carbon\Carbon::parse($value)->format('Y-m-d');

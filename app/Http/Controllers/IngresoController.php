@@ -93,16 +93,14 @@ class IngresoController extends Controller
                 
         $ingreso = Ingreso::find($ingreso->id_ingreso);
 
-		if($ingreso->id_status == 1 & request()->id_status == 2)
+        $isReverso = $ingreso->id_status == 1 & request()->id_status == 2;
+
+		if($isReverso)
 		{
 			return (['msj'=>'Proceso de Reverso en Construccion ', 'ingreso' =>$ingreso]);
 		}
-		else
-		{
-			$ingreso->update($request->all());
-		}
-			
-		//
+
+		$ingreso->update($request->all());
 
         return (['msj'=>'Registro Actualizado Correctamente ', 'ingreso' =>$ingreso]);
     }
