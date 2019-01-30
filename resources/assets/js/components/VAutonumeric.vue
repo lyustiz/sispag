@@ -62,6 +62,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 						v-on:autoNumeric:formatted.native="updateCurrentValue"
 						v-on:autoNumeric:rawValueModified.native="updateVModel"
 						v-on:autoNumeric:initialized.native="updateAutoNumericElement"
+                        :rules="rules"
 				/>
 				<i aria-hidden="true"
 				   v-show="isDirty && clearable"
@@ -123,6 +124,11 @@ OTHER DEALINGS IN THE SOFTWARE.
                 type   : Boolean,
                 default: false,
             },
+
+            rules: {
+                type   :  [Object, String, Array],
+                default: {}
+            }
         },
 
         data() {
@@ -162,7 +168,7 @@ OTHER DEALINGS IN THE SOFTWARE.
             },
 
             topLevelClasses() {
-                const defaultTopLevelClass = 'an';
+                const defaultTopLevelClass = 'ans';
                 if (Array.isArray(this.classes)) {
                     this.classes.push(defaultTopLevelClass);
 

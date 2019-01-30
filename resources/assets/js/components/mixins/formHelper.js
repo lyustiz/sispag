@@ -17,6 +17,20 @@ export default {
             btnAccion: '',
             picker: false,
             dates: {},
+            moneda:{
+                default: {
+                            decimal: ',',
+                            thousands: '.',
+                            precision: 2,
+                            masked: true /* doesn't work with directive */
+                },
+                tasa:{
+                            decimal: ',',
+                            thousands: '.',
+                            precision: 4,
+                            masked: true /* doesn't work with directive */
+                }
+            },
             rules: {
                 select: [
                     v => !!v || 'Seleccione una Opcion (Campo Requerido)',
@@ -28,12 +42,11 @@ export default {
                     v => !!v || 'Monto Requerido',
                     v => {
                         let valor = true 
-
+                        let monto = 0
                         if(v)
                         {
-                            console.log(Number(v.replace(',','')))
-
-                            valor = isNaN(Number(v.replace(',','')))
+                            monto = Number(v.replace('.','').replace(',','.'));
+                            valor = (isNaN(monto) || monto == 0)
                                     ? `Monto no Valido` 
                                     : true;
                         }
@@ -44,6 +57,7 @@ export default {
                     v => !!v || 'Fecha Requerida',
                     ],
             }
+            
 
         }
     },

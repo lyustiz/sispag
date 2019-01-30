@@ -1,18 +1,16 @@
 <template>
-
-    <v-text-field
-     ref="field"
-    :prefix="prefix"
-    v-model="model"
-    @focus="onFocus"
-    @keyup="onKeyUp"
-    :error-messages="errorMessages"
-    v-bind="$attrs"
-    @change="onChange"
-    @blur="onBlur"
-    >
-    </v-text-field>
-
+      <v-text-field
+        ref='field',
+        :prefix='prefix',
+        v-model='model',
+        @focus='onFocus',
+        @keyup='onKeyUp',
+        :error-messages='errorMessages',
+        v-bind='$attrs',
+        @change='onChange'
+        @blur='onBlur'
+        >
+        </v-text-field>
 </template>
 
 <script>
@@ -37,19 +35,19 @@ export default {
     },
     prefix: {
       type: String,
-      default: ''
+      default: '$ '
     },
     thousandsSeparator: {
       type: String,
-      default: '.'
+      default: ','
     },
     decimalSeparator: {
       type: String,
-      default: ','
+      default: '.'
     },
     languageCode: {
       type: String,
-      default: 'es-ES'
+      default: 'en-US'
     }
   },
   data () {
@@ -96,10 +94,8 @@ export default {
     },
     format () {
       if (this.numberValue === null) return
-      let v = Number(this.numberValue)
-      console.log(v)
-      v = v.toLocaleString(this.languageCode, {maximumFractionDigits: 3})
-      console.log(v)
+      let v = this.numberValue
+      v = v.toLocaleString(this.languageCode)
       if (v.length !== 1 && v.slice(v.indexOf(this.decimalSeparator) + 1).length === 1) v += '0'
       this.model = v
     }

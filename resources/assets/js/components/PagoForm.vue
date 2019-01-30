@@ -102,33 +102,16 @@
             </v-flex>
 
             <v-flex xs12 sm3>
-               <!-- <v-text-field
+               <v-text-field
                 v-model="form.mo_final_pago"
                 :rules="rules.montoPago"
                 label="Monto del Pago"
                 placeholder="Monto del Pago Pendiente"
                 :hint="`Pendiente de pago: ${moPendiente}`"
                 required
+                v-money="moneda.default"
                 :readonly="pagoTotal"
-                ></v-text-field> -->
-                <v-autonumeric
-                v-model="form.mo_final_pago"
-                ref="mo_final_pago"
-                label="Monto del Pago"
-                :rules="rules.requerido"
-                placeholder="Monto del Pago"
-                hint="Ej 845.456,12"
-                required
-                :options="{
-                    digitGroupSeparator: '.',
-                    decimalCharacter: ',',
-                    decimalCharacterAlternative: '.',
-                    currencySymbolPlacement: 's',
-                    roundingMethod: 'U',
-                    minimumValue: '0',
-                }"
-            ></v-autonumeric>
-
+                ></v-text-field> 
             </v-flex>
 
             <v-flex xs12 sm3>
@@ -146,32 +129,29 @@
             </v-flex>
 
             <v-flex xs12 sm3>
-                <!--<v-text-field
-                v-model="form.mo_tasa"
-                :rules="rules.monto"
-                label="Tasa de Cambio"
-                placeholder="Ingrese Tasa"
-                hint="Ej 107,02"
-                :disabled="tasaReadOnly"
-                ></v-text-field> -->
-                <v-autonumeric
-                v-model="form.mo_tasa"
+              <!--  <v-text-field
                 ref="mo_tasa"
-                :rules="rules.requerido"
+                v-model="form.mo_tasa"
+                v-model.lazy="form.mo_tasa"
+                :rules="rules.monto"
                 label="Tasa de Cambio"
                 placeholder="Ingrese Tasa"
                 hint="Ej 1,43333"
                 :disabled="tasaReadOnly"
-                :options="{
-                    digitGroupSeparator: '.',
-                    decimalCharacter: ',',
-                    decimalCharacterAlternative: '.',
-                    currencySymbolPlacement: 's',
-                    roundingMethod: 'U',
-                    minimumValue: '0',
-                    decimalPlaces: 5
-                }"
-                ></v-autonumeric>
+                v-money="moneda.tasa"
+                ></v-text-field>-->
+                <currency-field
+                ref="mo_tasa"
+                v-model.number="form.mo_tasa"
+                :rules="rules.monto"
+                label="Tasa de Cambio"
+                placeholder="Ingrese Tasa"
+                hint="Ej 1,43333"
+                :disabled="tasaReadOnly"
+                >
+               </currency-field>
+
+
             </v-flex>
 
             <v-flex xs12 sm3>
@@ -223,15 +203,17 @@
             </v-card-actions>
         </v-card>
         </v-form>
+        
     </v-flex>
     </v-layout>
+    <pre>{{$data}}</pre>
     </v-container>
 </template>
 
 <script>
 import withSnackbar from '../components/mixins/withSnackbar';
 import formHelper from '../components/mixins/formHelper';
-import VueAutonumeric from 'vue-autonumeric';
+
 
 export default {
     mixins: [ formHelper, withSnackbar ],
@@ -279,6 +261,7 @@ export default {
                          : true
                    ],
             },
+            
             
         }
     },
@@ -359,7 +342,7 @@ export default {
             }
         },
         store()
-        {
+        { 
             if (this.$refs.form.validate()) 
             {                
                 this.form.id_instruccion = this.instruccion.id_instruccion;

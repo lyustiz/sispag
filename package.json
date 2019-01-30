@@ -29,6 +29,7 @@
         "vue-chartkick": "^0.4.0",
         "vue-moment": "^4.0.0-0",
         "vue-slick": "^1.1.13",
-        "vue2-filters": "^0.3.0"
+        "vue2-filters": "^0.3.0",
+		"v-money": "^0.8.1"
     }
 }
