@@ -51,59 +51,55 @@
                 ></v-select>
             </v-flex>
 
-            <v-flex xs12 sm4>
-            <v-autonumeric
-                v-model="form.mo_ingreso"
-                ref="monto"
-                label="Monto Ingreso"
-                :rules="rules.requerido"
-                placeholder="Ingrese monto"
+            <v-flex xs12 sm3>
+                <currency-field
+                ref="mo_ingreso"
+                v-model.number="form.mo_ingreso"
+                :rules="rules.monto"
+                label="Monto del Pago"
+                placeholder="Ingrese Monto"
                 hint="Ej 845.456,12"
+                :decimales="2"
                 required
-                :options="{
-                    digitGroupSeparator: '.',
-                    decimalCharacter: ',',
-                    decimalCharacterAlternative: '.',
-                    currencySymbolPlacement: 's',
-                    roundingMethod: 'U',
-                    minimumValue: '0',
-                }"
-            ></v-autonumeric>
+                ></currency-field>
             </v-flex>
 
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm3>
                 <v-select
-                ref="motasa"
+                ref="moneda"
                 :items="listas.moneda"
                 item-text="nb_moneda"
                 item-value="id_moneda"
                 v-model="form.id_moneda"
                 :rules="rules.select"
                 label="Moneda"
-                @input="setTasaDolar"
+                @input="setTasa"
                 autocomplete
                 required
                 ></v-select>
             </v-flex>
 
-            <v-flex xs12 sm4>
-                <v-autonumeric
-                v-model="form.mo_tasa"
+            <v-flex xs12 sm3>
+               <currency-field
                 ref="mo_tasa"
-                :rules="rules.requerido"
+                v-model.number="form.mo_tasa"
+                :rules="rules.monto"
                 label="Tasa de Cambio"
                 placeholder="Ingrese Tasa"
-                hint="Ej 456,12"
-                :options="{
-                    digitGroupSeparator: '.',
-                    decimalCharacter: ',',
-                    decimalCharacterAlternative: '.',
-                    currencySymbolPlacement: 's',
-                    roundingMethod: 'U',
-                    minimumValue: '0',
-                    decimalPlaces: 5
-                }"
-            ></v-autonumeric>
+                hint="Ej 1,43333"
+                :disabled="tasaReadOnly"
+                :decimales="5"
+                ></currency-field>
+            </v-flex>
+
+            <v-flex xs12 sm3>
+                <v-text-field
+                :value="mo_total_ingreso"
+                label="Monto Total de Ingreso"
+                placeholder="Ingrese monto/moneda/tasa"
+                prepend-icon="attach_money"
+                disabled
+                ></v-text-field>
             </v-flex>
 
             <v-flex xs12 sm6>
@@ -182,6 +178,7 @@ export default {
     data () {
         return {
             tabla: 'ingreso',
+            tasaReadOnly: false,
             form:{
                 id_ingreso: '',
                 id_tipo_ingreso: '',
@@ -204,13 +201,28 @@ export default {
             }, 
         }
     },
+    computed:
+    {
+        mo_total_ingreso()
+        {
+            return this.formatNumber(this.form.mo_ingreso * this.form.mo_tasa);
+        }
+    },
     methods:
     {
-        setTasaDolar()
+        setTasa(val)
         {
-            if(this.form.id_moneda == 1)
+           if(this.form.id_moneda == 1)
             {
-                this.form.mo_tasa = 1;
+                this.form.mo_tasa        = 1;
+                this.$refs.mo_tasa.model = 1;
+                this.tasaReadOnly        = true;
+            }
+            else
+            {
+                this.form.mo_tasa        = null;
+                this.$refs.mo_tasa.model = null
+                this.tasaReadOnly        = false;
             }
         },
         update()
@@ -237,10 +249,7 @@ export default {
             }
         },
         store()
-        {               
-            
-            this.setTasaDolar();
-
+        {             
             if (this.$refs.form.validate()) 
             { 
                 if( this.form.id_status == 1 )

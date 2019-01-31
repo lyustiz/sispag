@@ -72,14 +72,16 @@
             </v-flex>
             
             <v-flex xs12 sm6>
-                <v-text-field
-                v-model="form.mo_solicitud"
+                <currency-field
+                ref="mo_solicitud"
+                v-model.number="form.mo_solicitud"
                 :rules="rules.monto"
                 label="Monto Solicitud"
-                placeholder="Ingrese monto"
+                placeholder="Ingrese Monto"
                 hint="Ej 845.456,12"
+                :decimales="2"
                 required
-                ></v-text-field>
+                ></currency-field>
             </v-flex>
 
             <v-flex xs12 sm6>

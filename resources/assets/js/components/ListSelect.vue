@@ -47,7 +47,7 @@
                             </v-alert>
 
                         </v-data-table>
-
+                         <pre>{{$data}}</pre>
                         </v-flex>
                         
                     </v-card-text>
@@ -76,17 +76,16 @@ created() {
     props: ['tabla', 'encabezados', 'items'],
     computed:
     {
-        idTabla(){
-
+        idTabla()
+        {
            return 'id_' + this.tabla;
         }
 
     },
     watch:{
-        tabla: function(val)  {
-
+        tabla: function(val)  
+        {
             this.list();
-
         }
     },
     methods:
@@ -94,25 +93,75 @@ created() {
         list() {
 
             axios.get('/api/v1/'+this.tabla)
-            .then(respuesta => {
+            .then(respuesta => 
+            {
                     this.lista = respuesta.data;
             })
-            .catch(error => {
+            .catch(error => 
+            {
                 this.showError(error)    
             })
         },
-        getItemText(item, key){
+        getItemText(item, key)
+        {
+            let itemText = null;
+            let tipo     = 'tx';
 
             if(key.indexOf(".") > -1)
             {
                 let subKey = key.split('.');
-                return item[subKey[0]][subKey[1]]
-
-            }else{
-                return item[key];
+                tipo     = this.getTipoDato(subKey);
+                itemText = item[subKey[0]][subKey[1]]
             }
-            
+            else
+            {
+                tipo     = this.getTipoDato(key);
+                itemText = item[key];
+            }
+
+            return formatTipo(itemText, tipo);
         },
+        getTipoDato(campo)
+        {
+            codTipo = substr(campo, 0, 2);
+        },
+        formatTipo(value, tipo)
+        {
+            let valorFinal = '';
+            
+            switch (tipo) 
+            {
+                case 'fe':
+                    
+                    valorFinal = this.formatDate(value);
+                    break;
+
+                case 'mo':
+
+                    valorFinal = this.formatNumber(value);
+                    break;
+            
+                default:
+
+                    valorFinal = value;
+                    break;
+            }
+
+            return  valorFinal
+        },
+        formatDate (date) 
+        { 
+            if (!date) return null
+    
+            const [year, month, day] = date.split('-')
+            return `${day}/${month}/${year}`
+        },
+        formatNumber: function (value) 
+        {
+            let val = (value/1).toFixed(2).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }
+
 
     }
 }

@@ -11,7 +11,6 @@ Vue.component('list-select',      require('./components/ListSelect.vue'));
 Vue.component('list-data',        require('./components/ListData.vue'));
 Vue.component('snackbar',         require('./components/SnackBarComponent.vue'));
 
-Vue.component('v-autonumeric',    require('./components/VAutonumeric.vue'));
 Vue.component('currency-field',   require('./components/CurrencyField.vue'));
 
 Vue.component('report',           require('./components/reports/Report.vue'));

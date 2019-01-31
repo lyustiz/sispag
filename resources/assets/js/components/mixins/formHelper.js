@@ -45,7 +45,7 @@ export default {
                         let monto = 0
                         if(v)
                         {
-                            monto = Number(v.replace('.','').replace(',','.'));
+                            monto = Number(v.replace(/\./g,'').replace(',','.'));
                             valor = (isNaN(monto) || monto == 0)
                                     ? `Monto no Valido` 
                                     : true;

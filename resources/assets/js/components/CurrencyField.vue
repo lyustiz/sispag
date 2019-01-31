@@ -6,6 +6,7 @@
     v-model="model"
     @focus="onFocus"
     @keyup="onKeyUp"
+    @keypress="onKeyPress($event)"
     :error-messages="errorMessages"
     v-bind="$attrs"
     @change="onChange"
@@ -22,6 +23,8 @@ function tryParseFloat (str, defaultValue) {
     if (str.length > 0) {
       if (!isNaN(str)) {
         retValue = parseFloat(str)
+      }else{
+        return false
       }
     }
   }
@@ -50,6 +53,10 @@ export default {
     languageCode: {
       type: String,
       default: 'es-ES'
+    },
+    decimales: {
+      type: Number,
+      default: 2
     }
   },
   data () {
@@ -74,19 +81,30 @@ export default {
     onKeyUp () {
       this.updateNumberValue()
     },
+    onKeyPress(event){
+      this.checkNumber(event)
+    },
     onChange () {
       if (this.$listeners.change) this.$listeners.change()
+    },
+    checkNumber(event){
+      let keyValid = ['1','2','3','4','5','6','7','8','9','0','.',',','Backspace','ArrowLeft','ArrowRight','Delete'];
+      if(!keyValid.includes(event.key)) event.preventDefault()
     },
     updateNumberValue () {
       let v = this.model
       let parsed
+      if(!v) return
       v = v.replace(this.thousandsSeparatorRegex, '')
       if (this.decimalSeparator !== '.') v = v.replace(this.decimalSeparatorRegex, this.thousandsSeparator)
+      
       const result = tryParseFloat(v)
       if (!result) parsed = 0
       else parsed = result
       if (!this.allowNegative && result < 0) parsed = 0
-      this.numberValue = Math.round(parsed * 100) / 100
+      this.numberValue = parsed.toFixed(this.decimales)
+
+      console.info( this.numberValue)
     },
     updateModel () {
       if (this.numberValue === null) return
@@ -97,9 +115,7 @@ export default {
     format () {
       if (this.numberValue === null) return
       let v = Number(this.numberValue)
-      console.log(v)
-      v = v.toLocaleString(this.languageCode, {maximumFractionDigits: 3})
-      console.log(v)
+      v = v.toLocaleString(this.languageCode, {maximumFractionDigits: this.decimales})
       if (v.length !== 1 && v.slice(v.indexOf(this.decimalSeparator) + 1).length === 1) v += '0'
       this.model = v
     }
