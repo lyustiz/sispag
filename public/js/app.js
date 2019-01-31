@@ -5275,7 +5275,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                     var valor = true;
                     var monto = 0;
                     if (v) {
-                        monto = Number(v.replace('.', '').replace(',', '.'));
+                        monto = Number(v.replace(/\./g, '').replace(',', '.'));
                         valor = isNaN(monto) || monto == 0 ? 'Monto no Valido' : true;
                     }
                     return valor;
@@ -54977,7 +54977,6 @@ Vue.component('list-select', __webpack_require__(204));
 Vue.component('list-data', __webpack_require__(209));
 Vue.component('snackbar', __webpack_require__(212));
 
-Vue.component('v-autonumeric', __webpack_require__(215));
 Vue.component('currency-field', __webpack_require__(224));
 
 Vue.component('report', __webpack_require__(229));
@@ -57430,7 +57429,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -57442,6 +57441,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_withSnackbar__ = __webpack_require__(2);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 //
 //
 //
@@ -57521,13 +57522,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['tabla', 'encabezados', 'items'],
     computed: {
         idTabla: function idTabla() {
-
             return 'id_' + this.tabla;
         }
     },
     watch: {
         tabla: function tabla(val) {
-
             this.list();
         }
     },
@@ -57542,14 +57541,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         getItemText: function getItemText(item, key) {
+            var itemText = null;
+            var tipo = 'tx';
 
             if (key.indexOf(".") > -1) {
                 var subKey = key.split('.');
-                return item[subKey[0]][subKey[1]];
+                tipo = this.getTipoDato(subKey);
+                itemText = item[subKey[0]][subKey[1]];
             } else {
-                return item[key];
+                tipo = this.getTipoDato(key);
+                itemText = item[key];
             }
+
+            return formatTipo(itemText, tipo);
+        },
+        getTipoDato: function getTipoDato(campo) {
+            codTipo = substr(campo, 0, 2);
+        },
+        formatTipo: function formatTipo(value, tipo) {
+            var valorFinal = '';
+
+            switch (tipo) {
+                case 'fe':
+
+                    valorFinal = this.formatDate(value);
+                    break;
+
+                case 'mo':
+
+                    valorFinal = this.formatNumber(value);
+                    break;
+
+                default:
+
+                    valorFinal = value;
+                    break;
+            }
+
+            return valorFinal;
+        },
+        formatDate: function formatDate(date) {
+            if (!date) return null;
+
+            var _date$split = date.split('-'),
+                _date$split2 = _slicedToArray(_date$split, 3),
+                year = _date$split2[0],
+                month = _date$split2[1],
+                day = _date$split2[2];
+
+            return day + '/' + month + '/' + year;
+        },
+
+        formatNumber: function formatNumber(value) {
+            var val = (value / 1).toFixed(2).replace('.', ',');
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
+
     }
 });
 
@@ -57688,7 +57735,9 @@ var render = function() {
                   )
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c("pre", [_vm._v(_vm._s(_vm.$data))])
             ],
             1
           )
@@ -58030,1277 +58079,11 @@ if (false) {
 }
 
 /***/ }),
-/* 215 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(216)
-}
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(218)
-/* template */
-var __vue_template__ = __webpack_require__(223)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-7a6011c2"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\VAutonumeric.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7a6011c2", Component.options)
-  } else {
-    hotAPI.reload("data-v-7a6011c2", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 216 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(217);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("0dd4b4e4", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7a6011c2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./VAutonumeric.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7a6011c2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./VAutonumeric.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 217 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.an[data-v-7a6011c2] {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.an input[data-v-7a6011c2] {\n    -webkit-box-shadow: none;\n            box-shadow: none;\n    -webkit-box-flex: unset;\n        -ms-flex: unset;\n            flex: unset;\n    height: 30px;\n    margin: 0;\n    min-width: 0;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    caret-color: #03A9F4 !important;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 218 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_autonumeric_dist_vue_autonumeric__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_autonumeric_dist_vue_autonumeric___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_vue_autonumeric_dist_vue_autonumeric__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-// Libraries
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'v-autonumeric',
-
-    components: {
-        VueAutonumeric: __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_autonumeric_dist_vue_autonumeric___default.a
-    },
-
-    props: {
-        value: {
-            type: [Number, String],
-            required: false
-        },
-
-        id: {
-            type: String,
-            required: false
-        },
-
-        label: {
-            type: String,
-            required: true
-        },
-
-        options: {
-            type: [Object, String, Array],
-            required: false
-        },
-
-        classes: { // The additional classes
-            type: [String, Array],
-            required: false
-        },
-
-        required: Boolean,
-
-        clearable: {
-            type: Boolean,
-            default: false
-        },
-
-        rules: {
-            type: [Object, String, Array],
-            default: {}
-        }
-    },
-
-    data: function data() {
-        return {
-            autoNumericElement: null, // Keep a reference to the AutoNumeric element
-            domElement: null,
-            isFocused: false,
-            theValue: null,
-            currentValue: null
-        };
-    },
-    mounted: function mounted() {
-        this.theValue = this.value;
-    },
-
-
-    computed: {
-        isDirty: function isDirty() {
-            return this.currentValue !== '' && this.currentValue !== null;
-        },
-
-
-        /**
-         * Generate a special AutoNumeric option array that disable the currency symbol on hover when the input is empty.
-         * This is needed since the label is moved onto that input when unfocused and empty, and this would make it difficult to read if the currency symbol is displayed too.
-         */
-        anOptions: function anOptions() {
-            var updatedOptions = [];
-            if (Array.isArray(this.options)) {
-                updatedOptions = this.options;
-            } else {
-                updatedOptions.push(this.options);
-            }
-
-            updatedOptions.push({ emptyInputBehavior: 'press' });
-
-            return updatedOptions;
-        },
-        topLevelClasses: function topLevelClasses() {
-            var defaultTopLevelClass = 'ans';
-            if (Array.isArray(this.classes)) {
-                this.classes.push(defaultTopLevelClass);
-
-                return this.classes.join(' ');
-            } else if (typeof this.classes === 'string') {
-                return this.classes;
-            }
-
-            return defaultTopLevelClass;
-        }
-    },
-
-    watch: {
-        /**
-         * This watch is needed in order to update the formatting if an external change is detected (ie. if the user modify the input value directly from the devtools for instance)
-         */
-        value: function value() {
-            this.theValue = this.value;
-        }
-    },
-
-    methods: {
-        updateAutoNumericElement: function updateAutoNumericElement(event) {
-            this.autoNumericElement = event.detail.aNElement;
-            this.domElement = this.autoNumericElement.node();
-        },
-
-
-        /**
-         * Whenever the AutoNumeric element dispatch an event saying that it got formatted, we update the `currentValue`, ie. the value displayed in the input element.
-         */
-        updateCurrentValue: function updateCurrentValue(event) {
-            this.currentValue = event.detail.newValue;
-        },
-
-
-        /**
-         * Update the v-model value and make the parent aware of that change.
-         *
-         * @param {Event} event This is needed if we want to use the `event.timeStamp` attribute
-         */
-        updateVModel: function updateVModel(event) {
-            if (this.autoNumericElement !== null) {
-                this.$emit('input', this.autoNumericElement.getNumber(), event);
-            }
-        },
-        focus: function focus() {
-            this.isFocused = true;
-        },
-        blur: function blur() {
-            this.isFocused = false;
-        },
-
-
-        /**
-         * Clear the AutoNumeric element.
-         * Using the `emptyInputBehavior` option set to `'null'` is needed for clearing the value completely, otherwise the `currentValue` is set to `0`.
-         */
-        clear: function clear() {
-            this.autoNumericElement.set(null, { emptyInputBehavior: 'null' });
-        }
-    }
-});
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * vue-autonumeric v1.2.5 (https://github.com/autoNumeric/vue-autoNumeric)
- * © 2018 Alexandre Bonneau <alexandre.bonneau@linuxfr.eu>
- * Released under the MIT License.
- */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(true)
-		module.exports = factory(__webpack_require__(32));
-	else if(typeof define === 'function' && define.amd)
-		define("VueAutonumeric", ["AutoNumeric"], factory);
-	else if(typeof exports === 'object')
-		exports["VueAutonumeric"] = factory(require("AutoNumeric"));
-	else
-		root["VueAutonumeric"] = factory(root["AutoNumeric"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_43__) {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
-
-var core = module.exports = { version: '2.5.4' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var global = module.exports = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self
-  // eslint-disable-next-line no-new-func
-  : Function('return this')();
-if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(4)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(7);
-var defined = __webpack_require__(8);
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(32);
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-// 7.2.1 RequireObjectCoercible(argument)
-module.exports = function (it) {
-  if (it == undefined) throw TypeError("Can't call method on  " + it);
-  return it;
-};
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-// 7.1.4 ToInteger
-var ceil = Math.ceil;
-var floor = Math.floor;
-module.exports = function (it) {
-  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-};
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.VueAutonumeric = undefined;
-
-var _VueAutonumeric = __webpack_require__(11);
-
-var _VueAutonumeric2 = _interopRequireDefault(_VueAutonumeric);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-if (typeof window !== 'undefined' && window.Vue) {
-    Vue.component('vue-autonumeric', _VueAutonumeric2.default);
-}
-
-exports.VueAutonumeric = _VueAutonumeric2.default;
-exports.default = _VueAutonumeric2.default;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(12)(
-  /* script */
-  __webpack_require__(13),
-  /* template */
-  null,
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = Object.create(options.computed || null)
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-    options.computed = computed
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _stringify = __webpack_require__(14);
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-var _assign = __webpack_require__(16);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-var _autoNumeric = __webpack_require__(43);
-
-var _autoNumeric2 = _interopRequireDefault(_autoNumeric);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var defaultOptions = {};
-
-exports.default = {
-    name: 'VueAutonumeric',
-
-    render: function render(createElement) {
-        var isInput = this.tag === 'input';
-
-        var attributes = void 0;
-        if (isInput) {
-            attributes = {
-                type: 'text',
-                placeholder: this.placeholder
-            };
-        } else {
-            attributes = {
-                contenteditable: this.hasContentEditable
-            };
-        }
-
-        return createElement(this.tag, {
-            attrs: attributes,
-            ref: 'autoNumericElement',
-            on: {
-                'autoNumeric:rawValueModified': this.updateVModel
-            }
-        });
-    },
-
-
-    props: {
-        value: {
-            required: false,
-            validator: function validator(val) {
-                return typeof val === 'number' || val === '' || val === null;
-            }
-        },
-
-        options: {
-            type: [Object, String, Array],
-            required: false,
-            default: function _default() {
-                return defaultOptions;
-            }
-        },
-
-        resetOnOptions: {
-            type: Boolean,
-            required: false,
-            default: true
-        },
-
-        placeholder: {
-            type: String,
-            required: false
-        },
-
-        tag: {
-            type: String,
-            required: false,
-            default: 'input'
-        }
-    },
-
-    data: function data() {
-        return {
-            anElement: null,
-            initialOptions: null,
-            hasContentEditable: true };
-    },
-    created: function created() {
-        var _this = this;
-
-        if (Array.isArray(this.options)) {
-            var optionObjects = {};
-            this.options.forEach(function (optionElement) {
-                _this.initialOptions = _this.manageOptionElement(optionElement);
-                optionObjects = (0, _assign2.default)(optionObjects, _this.initialOptions);
-            });
-
-            this.initialOptions = optionObjects;
-        } else {
-            this.initialOptions = this.manageOptionElement(this.options);
-        }
-
-        this.hasContentEditable = !this.initialOptions.readOnly;
-    },
-    mounted: function mounted() {
-        this.anElement = new _autoNumeric2.default(this.$refs.autoNumericElement, this.initialOptions);
-        if (this.value !== null && this.value !== '') {
-            this.anElement.set(this.value);
-
-            this.updateVModel();
-        }
-    },
-
-
-    computed: {
-        anInfo: function anInfo() {
-            return {
-                value: this.value,
-                options: this.options
-            };
-        }
-    },
-
-    methods: {
-        updateVModel: function updateVModel(event) {
-            if (this.anElement !== null) {
-                this.$emit('input', this.anElement.getNumber(), event);
-            }
-        },
-        manageOptionElement: function manageOptionElement(optionElement) {
-            var options = void 0;
-            if (typeof optionElement === 'string' || optionElement instanceof String) {
-                options = _autoNumeric2.default.getPredefinedOptions()[optionElement];
-                if (options === void 0 || options === null) {
-                    console.warn('The given pre-defined options [' + optionElement + '] is not recognized by AutoNumeric.\nSwitching back to the default options.');
-                    options = defaultOptions;
-                }
-            } else {
-                options = optionElement;
-            }
-
-            return options;
-        }
-    },
-
-    watch: {
-        anInfo: function anInfo(newValue, oldValue) {
-            if (oldValue.options && (0, _stringify2.default)(newValue.options) !== (0, _stringify2.default)(oldValue.options)) {
-                if (this.resetOnOptions) {
-                    this.anElement.options.reset();
-                }
-
-                var optionsToUse = void 0;
-                if (Array.isArray(newValue.options)) {
-                    optionsToUse = _autoNumeric2.default.mergeOptions(newValue.options);
-                } else {
-                    optionsToUse = _autoNumeric2.default._getOptionObject(newValue.options);
-                }
-
-                this.anElement.update(optionsToUse);
-            }
-
-            if (newValue.value !== void 0 && this.anElement.getNumber() !== newValue.value && newValue.value !== oldValue.value) {
-                this.anElement.set(newValue.value);
-            }
-        }
-    }
-};
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(15), __esModule: true };
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var core = __webpack_require__(0);
-var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
-module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
-  return $JSON.stringify.apply($JSON, arguments);
-};
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(17), __esModule: true };
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(18);
-module.exports = __webpack_require__(0).Object.assign;
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__(19);
-
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__(29) });
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(1);
-var core = __webpack_require__(0);
-var ctx = __webpack_require__(20);
-var hide = __webpack_require__(22);
-var has = __webpack_require__(5);
-var PROTOTYPE = 'prototype';
-
-var $export = function (type, name, source) {
-  var IS_FORCED = type & $export.F;
-  var IS_GLOBAL = type & $export.G;
-  var IS_STATIC = type & $export.S;
-  var IS_PROTO = type & $export.P;
-  var IS_BIND = type & $export.B;
-  var IS_WRAP = type & $export.W;
-  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
-  var expProto = exports[PROTOTYPE];
-  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
-  var key, own, out;
-  if (IS_GLOBAL) source = name;
-  for (key in source) {
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && has(exports, key)) continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-    // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global)
-    // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function (C) {
-      var F = function (a, b, c) {
-        if (this instanceof C) {
-          switch (arguments.length) {
-            case 0: return new C();
-            case 1: return new C(a);
-            case 2: return new C(a, b);
-          } return new C(a, b, c);
-        } return C.apply(this, arguments);
-      };
-      F[PROTOTYPE] = C[PROTOTYPE];
-      return F;
-    // make static versions for prototype methods
-    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if (IS_PROTO) {
-      (exports.virtual || (exports.virtual = {}))[key] = out;
-      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
-    }
-  }
-};
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
-module.exports = $export;
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// optional / simple context binding
-var aFunction = __webpack_require__(21);
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var dP = __webpack_require__(23);
-var createDesc = __webpack_require__(28);
-module.exports = __webpack_require__(3) ? function (object, key, value) {
-  return dP.f(object, key, createDesc(1, value));
-} : function (object, key, value) {
-  object[key] = value;
-  return object;
-};
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(24);
-var IE8_DOM_DEFINE = __webpack_require__(25);
-var toPrimitive = __webpack_require__(27);
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__(3) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(2);
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = !__webpack_require__(3) && !__webpack_require__(4)(function () {
-  return Object.defineProperty(__webpack_require__(26)('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(2);
-var document = __webpack_require__(1).document;
-// typeof document.createElement is 'object' in old IE
-var is = isObject(document) && isObject(document.createElement);
-module.exports = function (it) {
-  return is ? document.createElement(it) : {};
-};
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(2);
-// instead of the ES6 spec version, we didn't implement @@toPrimitive case
-// and the second argument - flag - preferred type is a string
-module.exports = function (it, S) {
-  if (!isObject(it)) return it;
-  var fn, val;
-  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  throw TypeError("Can't convert object to primitive value");
-};
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 19.1.2.1 Object.assign(target, source, ...)
-var getKeys = __webpack_require__(30);
-var gOPS = __webpack_require__(40);
-var pIE = __webpack_require__(41);
-var toObject = __webpack_require__(42);
-var IObject = __webpack_require__(7);
-var $assign = Object.assign;
-
-// should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(4)(function () {
-  var A = {};
-  var B = {};
-  // eslint-disable-next-line no-undef
-  var S = Symbol();
-  var K = 'abcdefghijklmnopqrst';
-  A[S] = 7;
-  K.split('').forEach(function (k) { B[k] = k; });
-  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
-}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
-  var T = toObject(target);
-  var aLen = arguments.length;
-  var index = 1;
-  var getSymbols = gOPS.f;
-  var isEnum = pIE.f;
-  while (aLen > index) {
-    var S = IObject(arguments[index++]);
-    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
-    var length = keys.length;
-    var j = 0;
-    var key;
-    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
-  } return T;
-} : $assign;
-
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(31);
-var enumBugKeys = __webpack_require__(39);
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var has = __webpack_require__(5);
-var toIObject = __webpack_require__(6);
-var arrayIndexOf = __webpack_require__(33)(false);
-var IE_PROTO = __webpack_require__(36)('IE_PROTO');
-
-module.exports = function (object, names) {
-  var O = toIObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = function (it) {
-  return toString.call(it).slice(8, -1);
-};
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = __webpack_require__(6);
-var toLength = __webpack_require__(34);
-var toAbsoluteIndex = __webpack_require__(35);
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.15 ToLength
-var toInteger = __webpack_require__(9);
-var min = Math.min;
-module.exports = function (it) {
-  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-};
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__(9);
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var shared = __webpack_require__(37)('keys');
-var uid = __webpack_require__(38);
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(1);
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-module.exports = function (key) {
-  return store[key] || (store[key] = {});
-};
-
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports) {
-
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-exports.f = Object.getOwnPropertySymbols;
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-exports.f = {}.propertyIsEnumerable;
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.13 ToObject(argument)
-var defined = __webpack_require__(8);
-module.exports = function (it) {
-  return Object(defined(it));
-};
-
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_43__;
-
-/***/ })
-/******/ ])["default"];
-});
-
-/***/ }),
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
 /* 220 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -59709,110 +58492,7 @@ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0__AutoNumeric__["a" /* default 
 
 
 /***/ }),
-/* 223 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("v-flex", { class: _vm.topLevelClasses }, [
-    _c(
-      "div",
-      {
-        class: {
-          "primary--text": true,
-          "input-group": true,
-          "input-group--text-field": true,
-          "input-group--required": _vm.required,
-          "input-group--focused": _vm.isFocused,
-          "input-group--dirty": _vm.isDirty
-        }
-      },
-      [
-        _c("label", { attrs: { for: _vm.id } }, [_vm._v(_vm._s(_vm.label))]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { ref: "inputParent", staticClass: "input-group__input" },
-          [
-            _c("vue-autonumeric", {
-              ref: "autoNumericElement",
-              attrs: {
-                options: _vm.anOptions,
-                id: _vm.id,
-                name: _vm.id,
-                rules: _vm.rules
-              },
-              nativeOn: {
-                focus: function($event) {
-                  return _vm.focus($event)
-                },
-                blur: function($event) {
-                  return _vm.blur($event)
-                },
-                "autoNumeric:formatted": function($event) {
-                  return _vm.updateCurrentValue($event)
-                },
-                "autoNumeric:rawValueModified": function($event) {
-                  return _vm.updateVModel($event)
-                },
-                "autoNumeric:initialized": function($event) {
-                  return _vm.updateAutoNumericElement($event)
-                }
-              },
-              model: {
-                value: _vm.theValue,
-                callback: function($$v) {
-                  _vm.theValue = $$v
-                },
-                expression: "theValue"
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "i",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.isDirty && _vm.clearable,
-                    expression: "isDirty && clearable"
-                  }
-                ],
-                class: {
-                  icon: true,
-                  "material-icons": true,
-                  "input-group__append-icon": true,
-                  "input-group__icon-cb": _vm.isDirty && _vm.clearable,
-                  "input-group__icon-clearable": _vm.isDirty && _vm.clearable
-                },
-                attrs: { "aria-hidden": "true" },
-                on: { click: _vm.clear }
-              },
-              [_vm._v("clear")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group__details" })
-      ]
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7a6011c2", module.exports)
-  }
-}
-
-/***/ }),
+/* 223 */,
 /* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -59926,6 +58606,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 function tryParseFloat(str, defaultValue) {
   var retValue = defaultValue;
@@ -59933,6 +58614,8 @@ function tryParseFloat(str, defaultValue) {
     if (str.length > 0) {
       if (!isNaN(str)) {
         retValue = parseFloat(str);
+      } else {
+        return false;
       }
     }
   }
@@ -59961,6 +58644,10 @@ function tryParseFloat(str, defaultValue) {
     languageCode: {
       type: String,
       default: 'es-ES'
+    },
+    decimales: {
+      type: Number,
+      default: 2
     }
   },
   data: function data() {
@@ -59986,18 +58673,29 @@ function tryParseFloat(str, defaultValue) {
     onKeyUp: function onKeyUp() {
       this.updateNumberValue();
     },
+    onKeyPress: function onKeyPress(event) {
+      this.checkNumber(event);
+    },
     onChange: function onChange() {
       if (this.$listeners.change) this.$listeners.change();
+    },
+    checkNumber: function checkNumber(event) {
+      var keyValid = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', 'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete'];
+      if (!keyValid.includes(event.key)) event.preventDefault();
     },
     updateNumberValue: function updateNumberValue() {
       var v = this.model;
       var parsed = void 0;
+      if (!v) return;
       v = v.replace(this.thousandsSeparatorRegex, '');
       if (this.decimalSeparator !== '.') v = v.replace(this.decimalSeparatorRegex, this.thousandsSeparator);
+
       var result = tryParseFloat(v);
       if (!result) parsed = 0;else parsed = result;
       if (!this.allowNegative && result < 0) parsed = 0;
-      this.numberValue = Math.round(parsed * 100) / 100;
+      this.numberValue = parsed.toFixed(this.decimales);
+
+      console.info(this.numberValue);
     },
     updateModel: function updateModel() {
       if (this.numberValue === null) return;
@@ -60008,9 +58706,7 @@ function tryParseFloat(str, defaultValue) {
     format: function format() {
       if (this.numberValue === null) return;
       var v = Number(this.numberValue);
-      console.log(v);
-      v = v.toLocaleString(this.languageCode, { maximumFractionDigits: 3 });
-      console.log(v);
+      v = v.toLocaleString(this.languageCode, { maximumFractionDigits: this.decimales });
       if (v.length !== 1 && v.slice(v.indexOf(this.decimalSeparator) + 1).length === 1) v += '0';
       this.model = v;
     }
@@ -60048,6 +58744,9 @@ var render = function() {
         on: {
           focus: _vm.onFocus,
           keyup: _vm.onKeyUp,
+          keypress: function($event) {
+            _vm.onKeyPress($event)
+          },
           change: _vm.onChange,
           blur: _vm.onBlur
         },
@@ -63520,7 +62219,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.$refs.form.validate()) {
                 this.form.id_usuario = this.item.id_usuario;
 
-                axios.put(this.basePath + 'update/password/' + this.form.id_usuario, this.form).then(function (respuesta) {
+                axios.put(this.basePath + '/update/password/' + this.form.id_usuario, this.form).then(function (respuesta) {
                     _this2.showMessage(respuesta.data.msj);
                     _this2.cancel();
                 }).catch(function (error) {
@@ -66121,29 +64820,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -66221,9 +64897,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setTasa: function setTasa(val) {
             if (this.form.id_moneda == this.instruccion.id_moneda) {
                 this.form.mo_tasa = 1;
+                this.$refs.mo_tasa.model = 1;
                 this.tasaReadOnly = true;
             } else {
                 this.form.mo_tasa = null;
+                this.$refs.mo_tasa.model = null;
                 this.tasaReadOnly = false;
             }
         },
@@ -66238,6 +64916,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 if (this.accion == 'ins') {
                     this.form.mo_final_pago = null;
+                    this.$refs.mo_final_pago.model = null;
                 }
                 this.pagoTotal = false;
             }
@@ -66410,24 +65089,6 @@ var render = function() {
                                 "v-flex",
                                 { attrs: { xs12: "", sm3: "" } },
                                 [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      value: _vm.fe_liq_bcv,
-                                      rules: _vm.rules.fecha,
-                                      label: "Fecha liquidacion BCV",
-                                      "prepend-icon": "event",
-                                      disabled: "",
-                                      required: ""
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm3: "" } },
-                                [
                                   _c(
                                     "v-menu",
                                     {
@@ -66493,27 +65154,44 @@ var render = function() {
                                 { attrs: { xs12: "", sm3: "" } },
                                 [
                                   _c("v-text-field", {
-                                    directives: [
-                                      {
-                                        name: "money",
-                                        rawName: "v-money",
-                                        value: _vm.moneda.default,
-                                        expression: "moneda.default"
-                                      }
-                                    ],
+                                    attrs: {
+                                      value: _vm.fe_liq_bcv,
+                                      rules: _vm.rules.fecha,
+                                      label: "Fecha liquidacion BCV",
+                                      "prepend-icon": "event",
+                                      disabled: "",
+                                      required: ""
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
+                                  _c("currency-field", {
+                                    ref: "mo_final_pago",
                                     attrs: {
                                       rules: _vm.rules.montoPago,
                                       label: "Monto del Pago",
-                                      placeholder: "Monto del Pago Pendiente",
+                                      placeholder: "Ingrese Monto",
                                       hint:
-                                        "Pendiente de pago: " + _vm.moPendiente,
+                                        "Pendiente de pago: " +
+                                        _vm.formatNumber(_vm.moPendiente),
+                                      decimales: 2,
                                       required: "",
                                       readonly: _vm.pagoTotal
                                     },
                                     model: {
                                       value: _vm.form.mo_final_pago,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "mo_final_pago", $$v)
+                                        _vm.$set(
+                                          _vm.form,
+                                          "mo_final_pago",
+                                          _vm._n($$v)
+                                        )
                                       },
                                       expression: "form.mo_final_pago"
                                     }
@@ -66560,7 +65238,8 @@ var render = function() {
                                       label: "Tasa de Cambio",
                                       placeholder: "Ingrese Tasa",
                                       hint: "Ej 1,43333",
-                                      disabled: _vm.tasaReadOnly
+                                      disabled: _vm.tasaReadOnly,
+                                      decimales: 5
                                     },
                                     model: {
                                       value: _vm.form.mo_tasa,
@@ -66587,6 +65266,7 @@ var render = function() {
                                       value: _vm.mo_total_pago,
                                       label: "Monto Total del Pago",
                                       placeholder: "Ingrese monto/moneda/tasa",
+                                      "prepend-icon": "attach_money",
                                       disabled: ""
                                     }
                                   })
@@ -68550,10 +67230,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -68564,6 +67240,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             tabla: 'ingreso',
+            tasaReadOnly: false,
             form: {
                 id_ingreso: '',
                 id_tipo_ingreso: '',
@@ -68587,10 +67264,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    computed: {
+        mo_total_ingreso: function mo_total_ingreso() {
+            return this.formatNumber(this.form.mo_ingreso * this.form.mo_tasa);
+        }
+    },
     methods: {
-        setTasaDolar: function setTasaDolar() {
+        setTasa: function setTasa(val) {
             if (this.form.id_moneda == 1) {
                 this.form.mo_tasa = 1;
+                this.$refs.mo_tasa.model = 1;
+                this.tasaReadOnly = true;
+            } else {
+                this.form.mo_tasa = null;
+                this.$refs.mo_tasa.model = null;
+                this.tasaReadOnly = false;
             }
         },
         update: function update() {
@@ -68612,8 +67300,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         store: function store() {
             var _this2 = this;
-
-            this.setTasaDolar();
 
             if (this.$refs.form.validate()) {
                 if (this.form.id_status == 1) {
@@ -68774,29 +67460,26 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm4: "" } },
+                                { attrs: { xs12: "", sm3: "" } },
                                 [
-                                  _c("v-autonumeric", {
-                                    ref: "monto",
+                                  _c("currency-field", {
+                                    ref: "mo_ingreso",
                                     attrs: {
-                                      label: "Monto Ingreso",
-                                      rules: _vm.rules.requerido,
-                                      placeholder: "Ingrese monto",
+                                      rules: _vm.rules.monto,
+                                      label: "Monto del Pago",
+                                      placeholder: "Ingrese Monto",
                                       hint: "Ej 845.456,12",
-                                      required: "",
-                                      options: {
-                                        digitGroupSeparator: ".",
-                                        decimalCharacter: ",",
-                                        decimalCharacterAlternative: ".",
-                                        currencySymbolPlacement: "s",
-                                        roundingMethod: "U",
-                                        minimumValue: "0"
-                                      }
+                                      decimales: 2,
+                                      required: ""
                                     },
                                     model: {
                                       value: _vm.form.mo_ingreso,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "mo_ingreso", $$v)
+                                        _vm.$set(
+                                          _vm.form,
+                                          "mo_ingreso",
+                                          _vm._n($$v)
+                                        )
                                       },
                                       expression: "form.mo_ingreso"
                                     }
@@ -68807,10 +67490,10 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm4: "" } },
+                                { attrs: { xs12: "", sm3: "" } },
                                 [
                                   _c("v-select", {
-                                    ref: "motasa",
+                                    ref: "moneda",
                                     attrs: {
                                       items: _vm.listas.moneda,
                                       "item-text": "nb_moneda",
@@ -68820,7 +67503,7 @@ var render = function() {
                                       autocomplete: "",
                                       required: ""
                                     },
-                                    on: { input: _vm.setTasaDolar },
+                                    on: { input: _vm.setTasa },
                                     model: {
                                       value: _vm.form.id_moneda,
                                       callback: function($$v) {
@@ -68835,31 +67518,45 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm4: "" } },
+                                { attrs: { xs12: "", sm3: "" } },
                                 [
-                                  _c("v-autonumeric", {
+                                  _c("currency-field", {
                                     ref: "mo_tasa",
                                     attrs: {
-                                      rules: _vm.rules.requerido,
+                                      rules: _vm.rules.monto,
                                       label: "Tasa de Cambio",
                                       placeholder: "Ingrese Tasa",
-                                      hint: "Ej 456,12",
-                                      options: {
-                                        digitGroupSeparator: ".",
-                                        decimalCharacter: ",",
-                                        decimalCharacterAlternative: ".",
-                                        currencySymbolPlacement: "s",
-                                        roundingMethod: "U",
-                                        minimumValue: "0",
-                                        decimalPlaces: 5
-                                      }
+                                      hint: "Ej 1,43333",
+                                      disabled: _vm.tasaReadOnly,
+                                      decimales: 5
                                     },
                                     model: {
                                       value: _vm.form.mo_tasa,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "mo_tasa", $$v)
+                                        _vm.$set(
+                                          _vm.form,
+                                          "mo_tasa",
+                                          _vm._n($$v)
+                                        )
                                       },
                                       expression: "form.mo_tasa"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      value: _vm.mo_total_ingreso,
+                                      label: "Monto Total de Ingreso",
+                                      placeholder: "Ingrese monto/moneda/tasa",
+                                      "prepend-icon": "attach_money",
+                                      disabled: ""
                                     }
                                   })
                                 ],
@@ -69911,6 +68608,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -70170,18 +68869,24 @@ var render = function() {
                                 "v-flex",
                                 { attrs: { xs12: "", sm6: "" } },
                                 [
-                                  _c("v-text-field", {
+                                  _c("currency-field", {
+                                    ref: "mo_solicitud",
                                     attrs: {
                                       rules: _vm.rules.monto,
                                       label: "Monto Solicitud",
-                                      placeholder: "Ingrese monto",
+                                      placeholder: "Ingrese Monto",
                                       hint: "Ej 845.456,12",
+                                      decimales: 2,
                                       required: ""
                                     },
                                     model: {
                                       value: _vm.form.mo_solicitud,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "mo_solicitud", $$v)
+                                        _vm.$set(
+                                          _vm.form,
+                                          "mo_solicitud",
+                                          _vm._n($$v)
+                                        )
                                       },
                                       expression: "form.mo_solicitud"
                                     }

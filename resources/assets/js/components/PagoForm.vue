@@ -53,30 +53,6 @@
             </v-flex>
 
             <v-flex xs12 sm3>
-                <v-text-field
-                :value="fe_liq_bcv"
-                :rules="rules.fecha"
-                label="Fecha liquidacion BCV"
-                prepend-icon="event"
-                disabled
-                required
-                ></v-text-field>
-
-                <!--<v-menu
-                v-model="pickers.fe_liq_bcv"
-                :ref="pickers.fe_liq_bcv"
-                full-width
-                min-width="290px"
-                >
-                <v-date-picker 
-                    v-model="form.fe_liq_bcv" 
-                    locale="es" 
-                    @input="dates.fe_liq_bcv = formatDate( form.fe_liq_bcv )"
-                ></v-date-picker>
-            </v-menu>-->
-            </v-flex>
-
-            <v-flex xs12 sm3>
             <v-menu
                 v-model="pickers.fe_pago"
                 :ref="pickers.fe_pago"
@@ -102,16 +78,29 @@
             </v-flex>
 
             <v-flex xs12 sm3>
-               <v-text-field
-                v-model="form.mo_final_pago"
+                <v-text-field
+                :value="fe_liq_bcv"
+                :rules="rules.fecha"
+                label="Fecha liquidacion BCV"
+                prepend-icon="event"
+                disabled
+                required
+                ></v-text-field>
+            </v-flex>
+
+            <v-flex xs12 sm3>
+                <currency-field
+                ref="mo_final_pago"
+                v-model.number="form.mo_final_pago"
                 :rules="rules.montoPago"
                 label="Monto del Pago"
-                placeholder="Monto del Pago Pendiente"
-                :hint="`Pendiente de pago: ${moPendiente}`"
+                placeholder="Ingrese Monto"
+                :hint="`Pendiente de pago: ${ formatNumber(moPendiente) }`"
+                :decimales="2"
                 required
-                v-money="moneda.default"
                 :readonly="pagoTotal"
-                ></v-text-field> 
+                >
+               </currency-field>
             </v-flex>
 
             <v-flex xs12 sm3>
@@ -129,17 +118,6 @@
             </v-flex>
 
             <v-flex xs12 sm3>
-              <!--  <v-text-field
-                ref="mo_tasa"
-                v-model="form.mo_tasa"
-                v-model.lazy="form.mo_tasa"
-                :rules="rules.monto"
-                label="Tasa de Cambio"
-                placeholder="Ingrese Tasa"
-                hint="Ej 1,43333"
-                :disabled="tasaReadOnly"
-                v-money="moneda.tasa"
-                ></v-text-field>-->
                 <currency-field
                 ref="mo_tasa"
                 v-model.number="form.mo_tasa"
@@ -148,10 +126,8 @@
                 placeholder="Ingrese Tasa"
                 hint="Ej 1,43333"
                 :disabled="tasaReadOnly"
-                >
-               </currency-field>
-
-
+                :decimales="5"
+                ></currency-field>
             </v-flex>
 
             <v-flex xs12 sm3>
@@ -159,6 +135,7 @@
                 :value="mo_total_pago"
                 label="Monto Total del Pago"
                 placeholder="Ingrese monto/moneda/tasa"
+                prepend-icon="attach_money"
                 disabled
                 ></v-text-field>
             </v-flex>
@@ -299,13 +276,15 @@ export default {
         {
            if(this.form.id_moneda == this.instruccion.id_moneda)
             {
-                this.form.mo_tasa = 1;
-                this.tasaReadOnly = true;
+                this.form.mo_tasa        = 1;
+                this.$refs.mo_tasa.model = 1;
+                this.tasaReadOnly        = true;
             }
             else
             {
-                this.form.mo_tasa = null;
-                this.tasaReadOnly = false;
+                this.form.mo_tasa        = null;
+                this.$refs.mo_tasa.model = null
+                this.tasaReadOnly        = false;
             }
         },
         tipoPago()
@@ -320,6 +299,7 @@ export default {
                 if(this.accion == 'ins')
                 {
                     this.form.mo_final_pago = null;
+                    this.$refs.mo_final_pago.model = null
                 }
                 this.pagoTotal = false;
             }

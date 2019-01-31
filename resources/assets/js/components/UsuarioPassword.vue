@@ -108,7 +108,7 @@ export default {
             {           
                 this.form.id_usuario = this.item.id_usuario;
 
-                axios.put(this.basePath +'update/password/' + this.form.id_usuario, this.form)
+                axios.put(this.basePath +'/update/password/' + this.form.id_usuario, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
                     this.cancel();
