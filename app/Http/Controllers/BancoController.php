@@ -46,6 +46,7 @@ class BancoController extends Controller
         $validate = request()->validate([
 
             'nb_banco'          => 'required',
+            'co_switf'          => 'required',
             'id_tipo_banco'     => 'required',
             'id_usuario'        => 'required',
             'id_status'         => 'required',
@@ -81,6 +82,7 @@ class BancoController extends Controller
         $validate = request()->validate([
 
             'nb_banco'          => 'required',
+            'co_switf'          => 'required',
             'id_tipo_banco'     => 'required',
             'id_usuario'        => 'required',
             'id_status'         => 'required',

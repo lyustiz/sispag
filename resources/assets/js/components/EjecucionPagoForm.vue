@@ -43,7 +43,7 @@
             <v-flex xs12 sm6>  
                 <v-select
                 :items="listas.banco"
-                item-text="nb_banco"
+                item-text="tx_switf_nombre"
                 item-value="id_banco"
                 v-model="form.corresponsal.id_banco"
                 :rules="rules.etapaCo"
@@ -119,7 +119,7 @@
             <v-flex xs12 sm6>  
                 <v-select
                 :items="listas.banco"
-                item-text="nb_banco"
+                item-text="tx_switf_nombre"
                 item-value="id_banco"
                 v-model="form.intermediario.id_banco"
                 :rules="rules.etapaIn"
@@ -196,7 +196,7 @@
             <v-flex xs12 sm6>  
                 <v-select
                 :items="listas.banco"
-                item-text="nb_banco"
+                item-text="tx_switf_nombre"
                 item-value="id_banco"
                 v-model="form.beneficiario.id_banco"
                 :rules="rules.etapaBe"

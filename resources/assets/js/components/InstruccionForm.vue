@@ -78,17 +78,31 @@
                 >
                 
                     <v-list-tile>
-                        <v-text-field
-                        v-model="form.mo_instruccion"
+                        <currency-field
+                        ref="montoInstruccion"
+                        v-model.number="form.mo_instruccion"
                         :rules="rules.montoInstruccion"
-                        name="name"
                         label="Monto de la Instuccion"
                         placeholder="Ingrese Monto"
-                        hint="Ej 3.107.000,02"
-                        required
+                        hint="Ej 845.456,12"
+                        :decimales="2"
                         append-icon="swap_horiz"
                         :append-icon-cb="getMontoSolicitud"
-                        ></v-text-field>
+                        required
+                        ></currency-field>
+                    </v-list-tile>
+
+                    <v-list-tile>
+                        <currency-field
+                        ref="mo_tasa"
+                        v-model.number="form.mo_tasa"
+                        :rules="rules.monto"
+                        label="Tasa de Cambio"
+                        placeholder="Ingrese Tasa"
+                        hint="Ej 1,43333"
+                        :disabled="tasaReadOnly"
+                        :decimales="5"
+                        ></currency-field>
                     </v-list-tile>
 
                 </list-data >
@@ -119,6 +133,7 @@
                         v-model="form.nu_esquema"
                         name="name"
                         label="Nro Esquema de Pago"
+                        :rules="rules.requerido"
                     ></v-text-field>
 
                     <v-text-field
@@ -252,6 +267,7 @@ export default {
                 bo_ofi_cta_mte:   0,
                 fe_instruccion:  '',
                 mo_instruccion:  '',
+                mo_tasa:         '',
                 id_moneda:       '',
                 tx_observaciones:'',
                 id_usuario:      '',

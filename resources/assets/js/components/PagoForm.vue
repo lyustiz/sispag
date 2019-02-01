@@ -29,7 +29,7 @@
             <v-flex xs12 sm6>  
                 <v-select
                 :items="listas.banco"
-                item-text="nb_banco"
+                item-text="tx_switf_nombre"
                 item-value="id_banco"
                 v-model="form.id_banco"
                 :rules="rules.select"

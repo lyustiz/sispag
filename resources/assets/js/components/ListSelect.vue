@@ -13,7 +13,6 @@
                         </v-flex>
                         
                         <v-flex xs12>
-
                         <v-data-table
                         :headers="headers"
                         :items  ="lista"
@@ -47,7 +46,6 @@
                             </v-alert>
 
                         </v-data-table>
-                         <pre>{{$data}}</pre>
                         </v-flex>
                         
                     </v-card-text>
@@ -110,7 +108,7 @@ created() {
             if(key.indexOf(".") > -1)
             {
                 let subKey = key.split('.');
-                tipo     = this.getTipoDato(subKey);
+                tipo     = this.getTipoDato(subKey[1]);
                 itemText = item[subKey[0]][subKey[1]]
             }
             else
@@ -119,11 +117,11 @@ created() {
                 itemText = item[key];
             }
 
-            return formatTipo(itemText, tipo);
+            return this.formatTipo(itemText, tipo);
         },
         getTipoDato(campo)
         {
-            codTipo = substr(campo, 0, 2);
+            return campo.substr(0, 2);
         },
         formatTipo(value, tipo)
         {
@@ -132,17 +130,14 @@ created() {
             switch (tipo) 
             {
                 case 'fe':
-                    
                     valorFinal = this.formatDate(value);
                     break;
 
                 case 'mo':
-
                     valorFinal = this.formatNumber(value);
                     break;
             
                 default:
-
                     valorFinal = value;
                     break;
             }
@@ -154,11 +149,13 @@ created() {
             if (!date) return null
     
             const [year, month, day] = date.split('-')
+
             return `${day}/${month}/${year}`
         },
         formatNumber: function (value) 
         {
             let val = (value/1).toFixed(2).replace('.', ',')
+
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         }
 

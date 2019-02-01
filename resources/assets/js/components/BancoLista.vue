@@ -39,16 +39,10 @@
             <template slot="items" slot-scope="item">
                 
                 <td class="text-xs-left">{{ item.item.nb_banco }}</td>
+                <td class="text-xs-left">{{ item.item.co_switf }}</td>
                 <td class="text-xs-left">{{ item.item.tipo_banco.nb_tipo_banco }}</td>
                 <td class="text-xs-left">{{ item.item.grupo_banco.nb_grupo_banco }}</td>
-                <td class="text-xs-center"> 
-                    {{ item.item.status.nb_status }}
-                     <!-- status
-                    <v-switch 
-                    v-model="item.item.id_status">
-                    </v-switch> 
-                    -->
-                </td>
+                <td class="text-xs-center">{{ item.item.status.nb_status }}</td>
                 <!--acciones-->
                 <td class="text-xs-left">
                     <list-buttons @editar="updItem(item.item)" :del="false">
@@ -99,6 +93,7 @@ export default {
     return {
         headers: [
         { text: 'Nombre',   value: 'nb_banco' },
+        { text: 'Switf',    value: 'co_switf' },
         { text: 'Tipo',     value: 'tipo_banco.nb_tipo_banco' },
         { text: 'Grupo',    value: 'grupo_banco.nb_grupo_banco' },
         { text: 'Status',   value: 'id_status'  },

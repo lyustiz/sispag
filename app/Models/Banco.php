@@ -16,6 +16,7 @@ class Banco extends Model
 
     protected $fillable   = [
                             'nb_banco',
+                            'co_switf',
                             'id_tipo_banco',
                             'id_grupo_banco',
                             'tx_observaciones',
@@ -27,6 +28,12 @@ class Banco extends Model
     
     protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
 
+    protected $appends = ['tx_switf_nombre'];
+
+    public function getTxSwitfNombreAttribute()
+    {
+        return $this->attributes['co_switf'] . ' - ' . $this->attributes['nb_banco'];
+    }
 
     public function scopeGrupo($query, $grupo)
     {

@@ -12,12 +12,22 @@
         <v-card-text>
         <v-layout wrap>
         
-            <v-flex xs12 >
+            <v-flex xs12 sm6 >
             <v-text-field
                 v-model="form.nb_banco"
-                :rules="rules.nb_banco"
+                :rules="rules.requerido"
                 label="Nombre del Banco"
                 placeholder="Indique Nombre"
+                required
+            ></v-text-field>
+            </v-flex>
+
+            <v-flex xs12 sm6 >
+            <v-text-field
+                v-model="form.co_switf"
+                :rules="rules.requerido"
+                label="Codigo Swift"
+                placeholder="Indique Codigo Swift"
                 required
             ></v-text-field>
             </v-flex>
@@ -104,13 +114,14 @@ export default {
         return {
             tabla: 'banco',
             form:{
-                id_banco: '',
-                nb_banco: '',
-                id_tipo_banco: '',
-                id_grupo_banco: '',
-                id_status: '',
+                id_banco:         '',
+                nb_banco:         '',
+                co_swift:         '',
+                id_tipo_banco:    '',
+                id_grupo_banco:   '',
+                id_status:        '',
                 tx_observaciones: '',
-                id_usuario:''
+                id_usuario:       ''
             },
             listas:{
                 tipoBanco:  [],

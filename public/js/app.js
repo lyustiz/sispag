@@ -57429,7 +57429,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -57443,8 +57443,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_withSnackbar__ = __webpack_require__(2);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-//
-//
 //
 //
 //
@@ -57546,34 +57544,31 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
             if (key.indexOf(".") > -1) {
                 var subKey = key.split('.');
-                tipo = this.getTipoDato(subKey);
+                tipo = this.getTipoDato(subKey[1]);
                 itemText = item[subKey[0]][subKey[1]];
             } else {
                 tipo = this.getTipoDato(key);
                 itemText = item[key];
             }
 
-            return formatTipo(itemText, tipo);
+            return this.formatTipo(itemText, tipo);
         },
         getTipoDato: function getTipoDato(campo) {
-            codTipo = substr(campo, 0, 2);
+            return campo.substr(0, 2);
         },
         formatTipo: function formatTipo(value, tipo) {
             var valorFinal = '';
 
             switch (tipo) {
                 case 'fe':
-
                     valorFinal = this.formatDate(value);
                     break;
 
                 case 'mo':
-
                     valorFinal = this.formatNumber(value);
                     break;
 
                 default:
-
                     valorFinal = value;
                     break;
             }
@@ -57594,6 +57589,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
         formatNumber: function formatNumber(value) {
             var val = (value / 1).toFixed(2).replace('.', ',');
+
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
@@ -57735,9 +57731,7 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("pre", [_vm._v(_vm._s(_vm.$data))])
+              )
             ],
             1
           )
@@ -65040,7 +65034,7 @@ var render = function() {
                                   _c("v-select", {
                                     attrs: {
                                       items: _vm.listas.banco,
-                                      "item-text": "nb_banco",
+                                      "item-text": "tx_switf_nombre",
                                       "item-value": "id_banco",
                                       rules: _vm.rules.select,
                                       label: "Banco Receptor",
@@ -65438,7 +65432,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65535,12 +65529,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -65550,7 +65538,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
-            headers: [{ text: 'Nombre', value: 'nb_banco' }, { text: 'Tipo', value: 'tipo_banco.nb_tipo_banco' }, { text: 'Grupo', value: 'grupo_banco.nb_grupo_banco' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
+            headers: [{ text: 'Nombre', value: 'nb_banco' }, { text: 'Switf', value: 'co_switf' }, { text: 'Tipo', value: 'tipo_banco.nb_tipo_banco' }, { text: 'Grupo', value: 'grupo_banco.nb_grupo_banco' }, { text: 'Status', value: 'id_status' }, { text: 'Acciones', value: 'id_status' }]
         };
     },
 
@@ -65685,6 +65673,10 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
+                                    _vm._v(_vm._s(item.item.co_switf))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-xs-left" }, [
                                     _vm._v(
                                       _vm._s(item.item.tipo_banco.nb_tipo_banco)
                                     )
@@ -65699,11 +65691,7 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-center" }, [
-                                    _vm._v(
-                                      " \n                " +
-                                        _vm._s(item.item.status.nb_status) +
-                                        "\n                 "
-                                    )
+                                    _vm._v(_vm._s(item.item.status.nb_status))
                                   ]),
                                   _vm._v(" "),
                                   _c(
@@ -65971,6 +65959,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -65984,6 +65982,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             form: {
                 id_banco: '',
                 nb_banco: '',
+                co_swift: '',
                 id_tipo_banco: '',
                 id_grupo_banco: '',
                 id_status: '',
@@ -66080,11 +66079,11 @@ var render = function() {
                             [
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "" } },
+                                { attrs: { xs12: "", sm6: "" } },
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      rules: _vm.rules.nb_banco,
+                                      rules: _vm.rules.requerido,
                                       label: "Nombre del Banco",
                                       placeholder: "Indique Nombre",
                                       required: ""
@@ -66095,6 +66094,29 @@ var render = function() {
                                         _vm.$set(_vm.form, "nb_banco", $$v)
                                       },
                                       expression: "form.nb_banco"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm6: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      rules: _vm.rules.requerido,
+                                      label: "Codigo Swift",
+                                      placeholder: "Indique Codigo Swift",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.co_switf,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "co_switf", $$v)
+                                      },
+                                      expression: "form.co_switf"
                                     }
                                   })
                                 ],
@@ -67439,7 +67461,7 @@ var render = function() {
                                   _c("v-select", {
                                     attrs: {
                                       items: _vm.listas.banco,
-                                      "item-text": "nb_banco",
+                                      "item-text": "tx_switf_nombre",
                                       "item-value": "id_banco",
                                       rules: _vm.rules.select,
                                       label: "Banco Receptor",
@@ -69877,7 +69899,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -69890,6 +69912,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -70146,6 +70183,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 bo_ofi_cta_mte: 0,
                 fe_instruccion: '',
                 mo_instruccion: '',
+                mo_tasa: '',
                 id_moneda: '',
                 tx_observaciones: '',
                 id_usuario: '',
@@ -70515,19 +70553,20 @@ var render = function() {
                                           _c(
                                             "v-list-tile",
                                             [
-                                              _c("v-text-field", {
+                                              _c("currency-field", {
+                                                ref: "montoInstruccion",
                                                 attrs: {
                                                   rules:
                                                     _vm.rules.montoInstruccion,
-                                                  name: "name",
                                                   label:
                                                     "Monto de la Instuccion",
                                                   placeholder: "Ingrese Monto",
-                                                  hint: "Ej 3.107.000,02",
-                                                  required: "",
+                                                  hint: "Ej 845.456,12",
+                                                  decimales: 2,
                                                   "append-icon": "swap_horiz",
                                                   "append-icon-cb":
-                                                    _vm.getMontoSolicitud
+                                                    _vm.getMontoSolicitud,
+                                                  required: ""
                                                 },
                                                 model: {
                                                   value:
@@ -70536,11 +70575,40 @@ var render = function() {
                                                     _vm.$set(
                                                       _vm.form,
                                                       "mo_instruccion",
-                                                      $$v
+                                                      _vm._n($$v)
                                                     )
                                                   },
                                                   expression:
                                                     "form.mo_instruccion"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile",
+                                            [
+                                              _c("currency-field", {
+                                                ref: "mo_tasa",
+                                                attrs: {
+                                                  rules: _vm.rules.monto,
+                                                  label: "Tasa de Cambio",
+                                                  placeholder: "Ingrese Tasa",
+                                                  hint: "Ej 1,43333",
+                                                  disabled: _vm.tasaReadOnly,
+                                                  decimales: 5
+                                                },
+                                                model: {
+                                                  value: _vm.form.mo_tasa,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "mo_tasa",
+                                                      _vm._n($$v)
+                                                    )
+                                                  },
+                                                  expression: "form.mo_tasa"
                                                 }
                                               })
                                             ],
@@ -70596,7 +70664,8 @@ var render = function() {
                                           _c("v-text-field", {
                                             attrs: {
                                               name: "name",
-                                              label: "Nro Esquema de Pago"
+                                              label: "Nro Esquema de Pago",
+                                              rules: _vm.rules.requerido
                                             },
                                             model: {
                                               value: _vm.form.nu_esquema,
@@ -76154,7 +76223,7 @@ var render = function() {
                                       _c("v-select", {
                                         attrs: {
                                           items: _vm.listas.banco,
-                                          "item-text": "nb_banco",
+                                          "item-text": "tx_switf_nombre",
                                           "item-value": "id_banco",
                                           rules: _vm.rules.etapaCo,
                                           label: "Banco Corresponsal",
@@ -76388,7 +76457,7 @@ var render = function() {
                                       _c("v-select", {
                                         attrs: {
                                           items: _vm.listas.banco,
-                                          "item-text": "nb_banco",
+                                          "item-text": "tx_switf_nombre",
                                           "item-value": "id_banco",
                                           rules: _vm.rules.etapaIn,
                                           label: "Banco Intermediario",
@@ -76624,7 +76693,7 @@ var render = function() {
                                       _c("v-select", {
                                         attrs: {
                                           items: _vm.listas.banco,
-                                          "item-text": "nb_banco",
+                                          "item-text": "tx_switf_nombre",
                                           "item-value": "id_banco",
                                           rules: _vm.rules.etapaBe,
                                           label: "Banco Beneficiario",
