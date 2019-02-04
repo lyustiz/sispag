@@ -182,23 +182,19 @@ export default {
             .catch(error => {
                 this.showError(error)
             })
-
-
         },
         delItem(){
             axios.delete('/api/v1/ingreso/'+this.item.id_ingreso)
-            .then(respuesta => {
-
+            .then(respuesta => 
+            {
                 this.showMessage(respuesta.data.msj)
                 this.list();
                 this.item = '';
-                this.dialogo = false;
-                
+                this.dialogo = false; 
             })
             .catch(error => {
                 this.showError(error)    
             })
-
         },
         reversarIngreso(item)
         {

@@ -66,7 +66,7 @@
                         <!--status-->
                         <td class="text-xs-left">
                             
-                            <v-tooltip bottom v-if="getMontos(item.item).pendiente == 0 || acreditado">
+                            <v-tooltip bottom v-if="getMontos(item.item).pendiente == 0 ">
                             <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
                                 <v-icon >thumb_up</v-icon>
                             </v-btn>
@@ -77,7 +77,7 @@
                                 <v-btn slot="activator" fab small color="warning" @click.native="dsolicitud = true" >
                                     <v-icon >notification_important</v-icon>
                                 </v-btn>
-                                <span>Pendiente {{getMontos(item.item).pendiente | formatNumber}}</span>
+                                <span>Pendiente {{ getMontos(item.item).pendiente | formatNumber }}</span>
                             </v-tooltip>
                             
                         </td>
@@ -88,13 +88,13 @@
                         
                         <v-card flat>
                             <v-card-text>
-                                <pago-det :instruccion="item.item" @acreditado="acreditado=true"></pago-det>
+                                <pago-det :instruccion="item.item" @acreditado="setAcreditado"></pago-det>
                             </v-card-text>
                         </v-card>
                     </template>
 
-                    <template slot="pageText" slot-scope="instruccion">
-                        Pagina {{ item.pageStart }} - {{ item.pageStop }} de {{ instruccion.itemsLength }}
+                    <template slot="pageText" slot-scope="item">
+                        Pagina {{ item.pageStart }} - {{ item.pageStop }} de {{ item.itemsLength }}
                     </template>
 
                     <v-alert slot="no-results" :value="true" color="info" icon="info">
@@ -106,8 +106,8 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
+            
         </v-layout>
-
     </v-container>
 
 </template>
@@ -121,7 +121,7 @@ export default {
     mixins:[ listHelper, withSnackbar ],
     data () {
     return {
-        acreditado: false,
+        acreditado: [],
         headers: [
         { text: 'Categoria',    value: 'solicitud.categoria.nb_categoria' },
         { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
@@ -136,8 +136,27 @@ export default {
         }
     }
     },
+    computed:
+    {
+       isAcreditado()
+        {
+            /*if(!istruccion)
+            {
+                return false
+            }else{
+            console.info(acreditado , istruccion.id_instruccion, acreditado.id_instruccion == istruccion.id_instruccion)
+            return acreditado.id_instruccion == istruccion.id_instruccion
+            }*/
+            return true;
+            
+        },
+    },
     methods:
     {
+        setAcreditado(instruccion)
+        {
+            console.log(instruccion)
+        },
         list () {
 
             axios.get('/api/v1/instruccion')
@@ -180,7 +199,9 @@ export default {
             }
             monto.pendiente = monto.instruido - monto.pagado;
             return monto;
-        }
+        },
+        
+
     }
 }
 

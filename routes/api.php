@@ -34,6 +34,7 @@ Route::group(['prefix'=>'v1','middleware' => ['auth:api', 'check.rol:administrad
     Route::apiResource('/tipoPago',          'TipoPagoController');
     Route::apiResource('/ejecucionPago',     'EjecucionPagoController');
     Route::put('/ejecucionPago/update',      'EjecucionPagoController@update');
+    Route::put('/ejecucionPago/cancelar/{ejecucionPago}', 'EjecucionPagoController@cancelarEjecucion');
     Route::get('/pago/instruccion/{id_instruccion}', 'PagoController@pagoInstruccion');
     Route::get('/ejecucionPago/pago/{id_pago}', 'EjecucionPagoController@ejecucionPagoPago');
 

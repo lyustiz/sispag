@@ -22,13 +22,13 @@ export default {
                             decimal: ',',
                             thousands: '.',
                             precision: 2,
-                            masked: true /* doesn't work with directive */
+                            masked: true 
                 },
                 tasa:{
                             decimal: ',',
                             thousands: '.',
                             precision: 4,
-                            masked: true /* doesn't work with directive */
+                            masked: true 
                 }
             },
             rules: {
@@ -171,30 +171,29 @@ export default {
             
         },
 
-        rstForm(){
-            for(var key in this.form) {
-
+        rstForm()
+        {
+            for(var key in this.form) 
+            {
                 this.form[key] = null;
             }
-            for(var key in this.dates) {
-
+            
+            for(var key in this.dates) 
+            {
                 this.dates[key] = null;
             }
+
             this.form.id_usuario = this.$store.getters.user.id_usuario
         },
-
-        clear () {
-
+        clear () 
+        {
             this.$refs.form.reset();
             this.rstForm();
-
         },
-
-        cancel(){
-
+        cancel()
+        {
             this.$emit('cerrarModal');
-            this.clear();
-
+            setTimeout( this.clear() , 2000);
         },
    
     }

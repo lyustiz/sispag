@@ -32,22 +32,24 @@
             <td class="text-xs-left">{{ item.item.fe_envio_inst | formDate }}</td>
             <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
             <!--acciones-->
-            <td class="text-xs-left" v-if="!acreditado">
-                <list-buttons @editar="updItem(item)" :del="false">
+            <td class="text-xs-left" v-if="item.item.id_status != 31">
+                <list-buttons @editar="updItem(item)" @eliminar="delForm(item.item)">
                 </list-buttons>
             </td>
             <td class="text-xs-center" v-else>
-                <v-tooltip bottom>
-                    <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
-                        <v-icon >thumb_up</v-icon>
-                    </v-btn>
-                    <span>Acreditado</span>
-                </v-tooltip>
+                <list-buttons icono="thumb_up" color="green" :del="false" :upd="false">
+                    <v-tooltip top>
+                        <v-btn slot="activator" fab dark small color="error" @click="cancelarPago(item.item)">
+                            <v-icon>reply_all</v-icon>
+                        </v-btn>
+                        <span>Cancelar Pago</span>
+                   </v-tooltip>
+                </list-buttons>
             </td>
 
         </template>
 
-        <template slot="expand" slot-scope="item">
+        <template slot="expand" slot-scope="items">
             <v-card flat>
                 <v-card-text>
                   <pre>{{items}}</pre> 
@@ -66,6 +68,14 @@
         <ejecucion-form :accion="accion" :etapa="etapa" :pago="pago" :item="items" @cerrarModal="cerrarModal"></ejecucion-form>
     </form-container>
 
+    <dialogo 
+        :dialogo="dialogo" 
+        :mensaje="'Desea Eliminar la Ejecucion del Pago? ' "
+        @delItem="delItem"
+        @delCancel="delCancel"
+    >
+    </dialogo>
+
     </v-container>
 
 </template>
@@ -80,7 +90,7 @@ export default {
     data () {
     return {
         etapa: 0,
-        acreditado: false,
+        pagado:  [],
         headers: [
         { text: 'Etapa',    value: 'etapa_envio.nb_etapa_envio' },
         { text: 'Banco',    value: 'banco' },
@@ -120,34 +130,72 @@ export default {
                 {
                     if(item.id_etapa_envio == 3 && item.id_status == 31) 
                     {
-                        this.acreditado = true;
+                        this.pagado.push(item.id_ejecucion_pago)
+                        this.$emit('pagado', item.id_pago );
                     }
-
                 }, this);
             }
         },
-        acreditado: function(acreditado)
+        isPagado(id_ejecucion_pago)
         {
-            if(acreditado) { this.$emit('acreditado') } 
-        }
+            return this.pagado.includes(id_ejecucion_pago);
+        },
     },
     methods:
     {
-        list () {
+        
+        list () 
+        {
 
             axios.get('/api/v1/ejecucionPago/pago/'+this.pago.id_pago)
-            .then(respuesta => {
+            .then(respuesta => 
+            {
                 this.IsLoading = false
-                
                 this.items = respuesta.data;
                 this.item = this.items;
-      
             })
-            .catch(error => {
+            .catch(error => 
+            {
                 this.IsLoading = false
                 this.showError(error);        
             })
         },
+        delItem(){
+            axios.delete('/api/v1/ejecucionPago/'+this.item.id_ejecucion_pago)
+            .then(respuesta => 
+            {
+                this.showMessage(respuesta.data.msj)
+                this.list();
+                this.item = '';
+                this.dialogo = false;
+            })
+            .catch(error => 
+            {
+                this.showError(error)    
+            })
+
+        },
+        cancelarPago(ejecucionPago)
+        {
+            if(confirm('Desea cancelar el Pago Seleccionado?'))
+            {
+                ejecucionPago.id_status  = 27;
+                ejecucionPago.id_usuario = this.id_usuario;
+
+                axios.put('/api/v1/ejecucionPago/cancelar/'+ ejecucionPago.id_ejecucion_pago, ejecucionPago)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                    this.list();
+                    this.item = '';
+                    this.dialogo = false;
+                })
+                .catch(error => 
+                {
+                    this.showError(error)    
+                })
+            }
+        }
        
     }
 }

@@ -172,6 +172,34 @@ class EjecucionPagoController extends Controller
         return (['msj'=>'Registro Editado Correctamente ', 'ejecucion' => $ejecucion]);
     }
 
+
+        /**
+     * Cancelar Ejecucion Pago
+     *
+     * @bodyParam  \Illuminate\Http\Request  $request
+     * @bodyParam  \App\models\EjecucionPago  $ejecucionPago
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelarEjecucion(Request $request, EjecucionPago $ejecucionPago)
+    {
+        $validate = request()->validate(
+            [  
+                "id_ejecucion_pago" => 'required',
+                "id_usuario"        => 'required',
+                "id_status"         => 'required',
+            ]
+        );
+
+        $ejecucionPago = $ejecucionPago->update(
+            [
+                'id_usuario'        => $request->id_usuario,
+                'id_status'         => $request->id_status,  
+            ] 
+        );
+    
+        return (['msj'=>'Registro Editado Correctamente ', 'ejecucionPago' => $ejecucionPago]);
+    }
+
     /**
      * Eliminar Ejecucion Pago
      *

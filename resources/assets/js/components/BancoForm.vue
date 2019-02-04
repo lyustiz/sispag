@@ -144,7 +144,6 @@ export default {
                 })
                 .catch(error => {
                     this.showError(error);
-                    
                 })
             }
         },

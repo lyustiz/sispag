@@ -41,21 +41,21 @@
                 </v-btn>
                {{ item.item.tipo_pago.nb_tipo_pago }}
             </td>
-            <td class="text-xs-left">{{ item.item.ente.nb_ente }}</td>
+            <td class="text-xs-left"> {{ item.item.ente.nb_ente }}</td>
             <td class="text-xs-right">{{ item.item.mo_final_pago | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
             <td class="text-xs-right">{{ item.item.mo_tasa | formatNumber }}</td>
             <td class="text-xs-right">{{ item.item.mo_total_pago | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.fe_pago | formDate  }}</td>
-            <td class="text-xs-left"> {{ item.item.status.nb_status }}</td>
+            <td class="text-xs-left"> {{ item.item.status.nb_status + pagados}}</td>
             <!--acciones-->
-            <td class="text-xs-left" v-if="item.item.id_status == 10 && !acreditado ">
+            <td class="text-xs-left" v-if="item.item.ejecucion_pago.length < 1 ">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
             </td>
             <td class="text-xs-center" v-else>
                 <v-tooltip bottom>
-                    <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
+                    <v-btn slot="activator" fab small color="success" >
                         <v-icon >thumb_up</v-icon>
                     </v-btn>
                     <span>Acreditado</span>
@@ -68,7 +68,7 @@
         <template slot="expand" slot-scope="item">
             <v-card flat>
                 <v-card-text>
-                    <ejecucion-lista :pago="item.item" @acreditado="acreditado=true"></ejecucion-lista>
+                    <ejecucion-lista :pago="item.item" @pagados="setPagados"></ejecucion-lista>
                 </v-card-text>
             </v-card>
         </template>
@@ -92,7 +92,6 @@
         @delCancel="delCancel"
     >
     </dialogo>
-    
     </v-container>
 
 </template>
@@ -112,7 +111,7 @@ export default {
             pendiente:  0,
             pagado:     0,
         },
-        acreditado: false,
+        pagados: [],
         headers: [
         { text: 'Tipo Pago',value: 'tipo_pago.nb_tipo_pago' },
         { text: 'Proveedor',value: 'ente.nb_ente' },
@@ -127,7 +126,15 @@ export default {
     }
     },
     props:['instruccion'],
-    watch:{
+    computed:
+    {
+        isPagados()
+        {
+            return this.pagados;
+        }
+    },
+    watch:
+    {
         items: function(val){
             let moPagado = 0
             if (!val) 
@@ -144,13 +151,13 @@ export default {
             this.montos.pagado    = moPagado;
             this.montos.pendiente = this.montos.instruido - moPagado;
         },
-        acreditado: function(val)
-        {
-            if(val) { this.$emit('acreditado') } 
-        }
     },
     methods:
     {
+        setPagados(pagado)
+        {
+            this.pagados.push(pagado);
+        },
         list () {
 
             axios.get('/api/v1/pago/instruccion/'+this.instruccion.id_instruccion)
@@ -179,6 +186,7 @@ export default {
             })
 
         }
+        
     }
 }
 

@@ -63,7 +63,7 @@ class PagoController extends Controller
 
     public function pagoInstruccion($id_instruccion)
     {        
-        $pago = Pago::with(['moneda', 'banco', 'tipoPago', 'ente', 'status'])
+        $pago = Pago::with(['ejecucionPago', 'moneda', 'banco', 'tipoPago', 'ente', 'status'])
                     ->where('id_instruccion','=', $id_instruccion)
                     ->get();
         return $pago;

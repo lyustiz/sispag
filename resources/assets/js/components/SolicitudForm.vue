@@ -193,7 +193,8 @@ export default {
             { 
                 axios.put(this.basePath + '/' + this.item.id_solicitud, this.form)
                 .then(respuesta => {
-                    this.showMessage(respuesta.data.msj)
+                    this.showMessage(respuesta.data.msj);
+                    this.cancel();
                 })
                 .catch(error => {
                     this.showError(error);

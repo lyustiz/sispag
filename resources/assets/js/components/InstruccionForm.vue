@@ -258,6 +258,7 @@ export default {
             ingreso:     false,
             instruccion: false,
             listSol:     false,
+            tasaReadOnly: false,
             form:{
                 id_solicitud:    '',
                 tx_concepto:     '',
@@ -402,6 +403,7 @@ export default {
                 axios.put(this.basePath + '/' + this.item.id_instruccion, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
+                    this.cancel();
                 })
                 .catch(error => {
                     this.showError(error);

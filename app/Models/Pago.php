@@ -52,7 +52,7 @@ class Pago extends Model
 
     public function ejecucionPago(){
     
-        return $this->HasMany('App\Models\Pago', 'id_pago');
+        return $this->HasMany('App\Models\EjecucionPago', 'id_pago');
     
     }
 
