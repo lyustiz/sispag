@@ -57257,9 +57257,7 @@ var render = function() {
               _vm._v(" "),
               _c("v-toolbar-title", [
                 _vm._v(
-                  "\r\n                " +
-                    _vm._s(_vm.nbAccion) +
-                    "\r\n            "
+                  "\n                " + _vm._s(_vm.nbAccion) + "\n            "
                 )
               ])
             ],
@@ -63484,7 +63482,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63621,7 +63619,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             acreditado: [],
-            headers: [{ text: 'Categoria', value: 'solicitud.categoria.nb_categoria' }, { text: 'Ente', value: 'instruccion.ente.nb_ente' }, { text: 'Concepto', value: 'solicitud.tx_concepto' }, { text: 'Monto', value: 'mo_instruccion' }, { text: 'Fecha', value: 'fe_instruccion' }, { text: 'Esq. Pago', value: 'esquema.nb_esquema' }, { text: 'Sta. Pago', value: 'id_status' }],
+            headers: [{ text: 'Categoria', value: 'solicitud.categoria.nb_categoria' }, { text: 'Ente', value: 'instruccion.ente.nb_ente' }, { text: 'Concepto', value: 'solicitud.tx_concepto' }, { text: 'Monto', value: 'mo_instruccion' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Fecha', value: 'fe_instruccion' }, { text: 'Esq. Pago', value: 'esquema.nb_esquema' }, { text: 'Estatus', value: 'id_status' }],
             listas: {
                 categoria: []
             }
@@ -64385,7 +64383,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id_status: ''
             },
             listas: {
-                banco: ['/grupo/1'],
+                banco: ['/tipo/2'],
                 moneda: [],
                 tipoPago: [],
                 ente: ['/grupo/6']
@@ -64576,7 +64574,7 @@ var render = function() {
                                       "item-text": "tx_switf_nombre",
                                       "item-value": "id_banco",
                                       rules: _vm.rules.select,
-                                      label: "Banco Receptor",
+                                      label: "Banco Corresponsal",
                                       autocomplete: "",
                                       required: ""
                                     },
@@ -64707,12 +64705,12 @@ var render = function() {
                                   _c("currency-field", {
                                     ref: "mo_final_pago",
                                     attrs: {
-                                      rules: _vm.rules.montoPago,
                                       label: "Monto del Pago",
                                       placeholder: "Ingrese Monto",
                                       hint:
                                         "Pendiente de pago: " +
                                         _vm.formatNumber(_vm.moPendiente),
+                                      rules: _vm.rules.montoPago,
                                       decimales: 2,
                                       required: "",
                                       readonly: _vm.pagoTotal
@@ -64868,9 +64866,7 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.$data))])
+      )
     ],
     1
   )

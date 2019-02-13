@@ -39,8 +39,12 @@ class Banco extends Model
     {
         return $query->where('id_grupo_banco', $grupo);
     }
-    
 
+    public function scopeTipo($query, $tipo)
+    {
+        return $query->where('id_tipo_banco', $tipo);
+    }
+    
     public function instruccion(){
     
         return $this->HasMany('App\Models\Instruccion', 'id_banco');

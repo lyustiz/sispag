@@ -35,6 +35,20 @@ class BancoController extends Controller
     }
 
     /**
+     * Listar Banco por Tipo     
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bancoTipo($tipo)
+    {
+        $bancos = Banco::tipo($tipo)
+                        ->get()
+                        ->where('id_status',22);
+        
+        return $bancos;
+    }
+
+    /**
      * Almacenar Banco
      *
      * @bodyParam  \Illuminate\Http\Request  $request

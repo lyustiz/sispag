@@ -24,7 +24,7 @@ class Pago extends Model
                             'mo_final_pago',
                             'id_tipo_pago',
                             'id_ente',
-                            'tx_observacion',
+                            'tx_observaciones',
                             'id_usuario',
                             'id_status',
                             'fe_creado',

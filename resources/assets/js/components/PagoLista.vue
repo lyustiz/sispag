@@ -127,9 +127,10 @@ export default {
         { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
         { text: 'Concepto',     value: 'solicitud.tx_concepto' },
         { text: 'Monto',        value: 'mo_instruccion' },
+        { text: 'Moneda',       value:'moneda.nb_moneda' },
         { text: 'Fecha',        value: 'fe_instruccion' },
         { text: 'Esq. Pago',    value: 'esquema.nb_esquema' },
-        { text: 'Sta. Pago',    value: 'id_status' },
+        { text: 'Estatus',      value: 'id_status' },
         ],
         listas:{
             categoria: []

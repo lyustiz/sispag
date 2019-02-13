@@ -33,7 +33,7 @@
                 item-value="id_banco"
                 v-model="form.id_banco"
                 :rules="rules.select"
-                label="Banco Receptor"
+                label="Banco Corresponsal"
                 autocomplete
                 required
                 ></v-select>
@@ -92,10 +92,10 @@
                 <currency-field
                 ref="mo_final_pago"
                 v-model.number="form.mo_final_pago"
-                :rules="rules.montoPago"
                 label="Monto del Pago"
                 placeholder="Ingrese Monto"
                 :hint="`Pendiente de pago: ${ formatNumber(moPendiente) }`"
+                :rules="rules.montoPago"
                 :decimales="2"
                 required
                 :readonly="pagoTotal"
@@ -183,7 +183,7 @@
         
     </v-flex>
     </v-layout>
-    <pre>{{$data}}</pre>
+    <!--<pre>{{$data}}</pre>-->
     </v-container>
 </template>
 
@@ -218,7 +218,7 @@ export default {
                 id_status:       '',
             },
             listas:{
-                banco:    ['/grupo/1'],
+                banco:    ['/tipo/2'],
                 moneda:   [],
                 tipoPago: [],
                 ente:     ['/grupo/6']

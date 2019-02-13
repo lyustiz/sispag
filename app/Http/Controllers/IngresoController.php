@@ -95,10 +95,10 @@ class IngresoController extends Controller
 
         $isReverso = $ingreso->id_status == 1 & request()->id_status == 2;
 
-		if($isReverso)
+		/*if($isReverso)
 		{
 			return (['msj'=>'Proceso de Reverso en Construccion ', 'ingreso' =>$ingreso]);
-		}
+		}*/
 
 		$ingreso->update($request->all());
 

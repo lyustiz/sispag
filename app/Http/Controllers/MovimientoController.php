@@ -25,6 +25,7 @@ class MovimientoController extends Controller
     {
         $movimientos  = Movimiento::with(['moneda','status'])
                         ->moneda($moneda)
+                        ->orderBy('fe_movimiento', 'desc')
                         ->get();
         return $movimientos;
     }

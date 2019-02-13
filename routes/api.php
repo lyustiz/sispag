@@ -15,6 +15,7 @@ Route::group(['prefix'=>'v1','middleware' => ['auth:api', 'check.rol:administrad
     Route::apiResource('/tipoBanco',         'TipoBancoController');
     Route::apiResource('/grupoBanco',        'GrupoBancoController');
     Route::get('/banco/grupo/{id_grupo_banco}', 'BancoController@bancoGrupo');
+    Route::get('/banco/tipo/{id_tipo_banco}',  'BancoController@bancoTipo');
     
     Route::apiResource('/ente',              'EnteController');
     Route::apiResource('/grupoEnte',         'GrupoEnteController');
