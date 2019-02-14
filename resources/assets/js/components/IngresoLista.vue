@@ -57,7 +57,7 @@
             <td class="text-xs-left"> {{ item.item.banco.nb_banco }}</td>
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
             <td class="text-xs-right">{{ item.item.mo_ingreso | formatNumber }}</td>
-            <td class="text-xs-right">{{ item.item.mo_tasa | formatNumber }}</td>
+            <td class="text-xs-right">{{ item.item.mo_tasa | formatTasa }}</td>
             <td class="text-xs-right">{{ item.item.mo_dolares | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.fe_ingreso | formDate }}</td>
             <!--acciones | formDate-->
@@ -91,7 +91,7 @@
                         'Banco Receptor'  : item.item.banco.nb_banco,
                         'Moneda'          : item.item.moneda.nb_moneda,
                         'Mto Ingreso'     : formatNumber(item.item.mo_ingreso),
-                        'Tasa '           : formatNumber(item.item.mo_tasa),
+                        'Tasa '           : formatTasa(item.item.mo_tasa),
                         'Mto Dolares '    : formatNumber(item.item.mo_dolares),
                         'F. Ingreso'      : formatDate(item.item.fe_ingreso),
                         'Status'          : item.item.status.nb_status,

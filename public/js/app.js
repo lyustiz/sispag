@@ -5169,8 +5169,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             return value.substr(8, 2) + '/' + value.substr(5, 2) + '/' + value.substr(0, 4) + ' ' + value.substr(12, 10);
         },
         formatNumber: function formatNumber(value) {
-            var val = (value / 1).toFixed(2).replace('.', ',');
+            var val = (value / 1).toFixed(3).replace('.', ',');
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+        formatTasa: function formatTasa(value) {
+            return (value / 1).toString().replace('.', ',');
         }
 
     },
@@ -5189,6 +5192,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 day = _date$split2[2];
 
             return day + '/' + month + '/' + year;
+        },
+
+        formatTasa: function formatTasa(value) {
+            return (value / 1).toString().replace('.', ',');
         },
         cerrarModal: function cerrarModal() {
             this.modal = false;
@@ -5321,7 +5328,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             return day + '/' + month + '/' + year;
         },
         formatNumber: function formatNumber(value) {
-            var val = (value / 1).toFixed(2).replace('.', ',');
+            var val = (value / 1).toFixed(4).replace('.', ',');
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
@@ -66297,9 +66304,7 @@ var render = function() {
                                   _c("td", { staticClass: "text-xs-right" }, [
                                     _vm._v(
                                       _vm._s(
-                                        _vm._f("formatNumber")(
-                                          item.item.mo_tasa
-                                        )
+                                        _vm._f("formatTasa")(item.item.mo_tasa)
                                       )
                                     )
                                   ]),
@@ -66434,7 +66439,7 @@ var render = function() {
                                                 "Mto Ingreso": _vm.formatNumber(
                                                   item.item.mo_ingreso
                                                 ),
-                                                "Tasa ": _vm.formatNumber(
+                                                "Tasa ": _vm.formatTasa(
                                                   item.item.mo_tasa
                                                 ),
                                                 "Mto Dolares ": _vm.formatNumber(

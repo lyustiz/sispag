@@ -35,9 +35,14 @@ export default {
         },
         formatNumber: function (value) 
         {
-            let val = (value/1).toFixed(2).replace('.', ',')
+            let val = (value/1).toFixed(3).replace('.', ',')
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        }
+        },
+        formatTasa: function(value)
+        {
+            return (value/1).toString().replace('.', ',');
+        },
+               
 
     },
     methods: {
@@ -52,6 +57,10 @@ export default {
     
             const [year, month, day] = date.split('-')
             return `${day}/${month}/${year}`
+        },
+        formatTasa: function(value)
+        {
+            return (value/1).toString().replace('.', ',');
         },
         cerrarModal(){
             this.modal  = false;
