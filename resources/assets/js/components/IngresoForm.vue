@@ -195,7 +195,7 @@ export default {
             listas:{
                 ente:        ['/grupo/4'],
                 tipoIngreso: [],
-                banco:       ['/grupo/1'],
+                banco:       ['/tipo/2'],
                 moneda:      [],
                 status:      ['/grupo/4'],
             }, 

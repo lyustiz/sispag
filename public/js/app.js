@@ -64472,7 +64472,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.$refs.form.validate()) {
                 this.form.id_instruccion = this.instruccion.id_instruccion;
-                this.form.id_status = 10;
+                this.form.id_status = 27; //en transito
                 this.form.fe_liq_bcv = this.instruccion.fe_instruccion;
 
                 axios.post(this.basePath, this.form).then(function (respuesta) {
@@ -64600,7 +64600,7 @@ var render = function() {
                                       "item-text": "nb_ente",
                                       "item-value": "id_ente",
                                       rules: _vm.rules.select,
-                                      label: "Provedor",
+                                      label: "Proveedor",
                                       autocomplete: "",
                                       required: ""
                                     },
@@ -66813,7 +66813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             listas: {
                 ente: ['/grupo/4'],
                 tipoIngreso: [],
-                banco: ['/grupo/1'],
+                banco: ['/tipo/2'],
                 moneda: [],
                 status: ['/grupo/4']
             }
@@ -75970,7 +75970,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             },
             listas: {
-                banco: ['/grupo/3'],
+                banco: ['/tipo/2'],
                 etapaEnvio: [],
                 status: ['/grupo/6']
             },

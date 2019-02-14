@@ -46,7 +46,7 @@
                 item-value="id_ente"
                 v-model="form.id_ente"
                 :rules="rules.select"
-                label="Provedor"
+                label="Proveedor"
                 autocomplete
                 required
                 ></v-select>
@@ -191,7 +191,6 @@
 import withSnackbar from '../components/mixins/withSnackbar';
 import formHelper from '../components/mixins/formHelper';
 
-
 export default {
     mixins: [ formHelper, withSnackbar ],
     data () {
@@ -326,7 +325,7 @@ export default {
             if (this.$refs.form.validate()) 
             {                
                 this.form.id_instruccion = this.instruccion.id_instruccion;
-                this.form.id_status      = 10; 
+                this.form.id_status      = 27;  //en transito
                 this.form.fe_liq_bcv     = this.instruccion.fe_instruccion;
 
                 axios.post(this.basePath, this.form)

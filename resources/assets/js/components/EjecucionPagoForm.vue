@@ -350,7 +350,7 @@ export default {
                 },
             },
             listas:{
-                banco:      ['/grupo/3'],
+                banco:      ['/tipo/2'],
                 etapaEnvio: [],
                 status:     ['/grupo/6'],
             },
