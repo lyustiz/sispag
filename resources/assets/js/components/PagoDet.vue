@@ -44,7 +44,7 @@
             <td class="text-xs-left"> {{ item.item.ente.nb_ente }}</td>
             <td class="text-xs-right">{{ item.item.mo_final_pago | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.moneda.nb_moneda }}</td>
-            <td class="text-xs-right">{{ item.item.mo_tasa | formatNumber }}</td>
+            <td class="text-xs-right">{{ item.item.mo_tasa | formatTasa }}</td>
             <td class="text-xs-right">{{ item.item.mo_total_pago | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.fe_pago | formDate  }}</td>
             <td class="text-xs-left"> {{ item.item.status.nb_status + pagados}}</td>

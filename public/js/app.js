@@ -63228,7 +63228,7 @@ var render = function() {
                                     _c("td", { staticClass: "text-xs-right" }, [
                                       _vm._v(
                                         _vm._s(
-                                          _vm._f("formatNumber")(
+                                          _vm._f("formatTasa")(
                                             item.item.mo_tasa
                                           )
                                         )
