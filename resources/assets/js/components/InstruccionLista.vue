@@ -52,12 +52,12 @@
             <template slot="items" slot-scope="item">
                 
                 <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.solicitud.categoria.nb_categoria }}</td>
-                <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
-                <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
+                <td class="text-xs-left"> {{ item.item.ente.nb_ente }}</td>
+                <td class="text-xs-left"> {{ item.item.tx_concepto  }}</td>
                 <td class="text-xs-rigth">{{ item.item.mo_instruccion | formatNumber }}</td>
                 <td class="text-xs-rigth">{{ item.item.moneda.nb_moneda }}</td>
-                <td class="text-xs-left">{{ item.item.fe_instruccion | formDate }}</td>
-                <td class="text-xs-left">{{ item.item.esquema.nb_esquema }}</td>
+                <td class="text-xs-left"> {{ item.item.fe_instruccion | formDate }}</td>
+                <td class="text-xs-left"> {{ item.item.esquema.nb_esquema }}</td>
                 <!--acciones-->
                 <td class="text-xs-left" v-if="item.item.pago.length < 1 ">
                     <list-buttons  @editar="updItem(item.item)" @eliminar="delForm(item.item)">
@@ -80,14 +80,11 @@
                 <list-data 
                     titulo="Detalle Solicitud" 
                     :items="{ 
-                            'Categoria'       : item.item.solicitud.categoria.nb_categoria,
-                            'Ente'            : item.item.solicitud.ente.nb_ente,
-                            'Concepto'        : item.item.solicitud.tx_concepto,
+                            'Categoria'       : item.item.categoria.nb_categoria,
+                            'Ente'            : item.item.ente.nb_ente,
+                            'Concepto'        : item.item.tx_concepto,
                             'Monto Solicitado': formatNumber(item.item.solicitud.mo_solicitud),
                             'Moneda'          : item.item.moneda.nb_moneda,
-                            'Nro Solicitud'   : item.item.solicitud.nu_solicitud,
-                            'F. Solicitud'    : formatDate(item.item.solicitud.fe_solicitud),
-                            'Obs. Solicitud'  : item.item.solicitud.tx_observaciones,
                             }" 
                     :visible="true"
                     @cerrar="item.expanded = !item.expanded">
@@ -154,14 +151,37 @@ export default {
     data () {
     return {
         headers: [
-        { text: 'Categoria',    value: 'solicitud.categoria.nb_categoria' },
-        { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
-        { text: 'Concepto',     value: 'instruccion.tx_concepto' },
+        { text: 'Categoria',    value: 'categoria.nb_categoria' },
+        { text: 'Ente',         value: 'ente.nb_ente' },
+        { text: 'Concepto',     value: 'tx_concepto' },
         { text: 'Monto',        value: 'mo_instruccion' },
         { text: 'Moneda',       value: 'moneda.nb_moneda' },
+        { text: 'Tasa',         value: 'mo_tasa' },
+        { text: 'Monto Total',  value: 'mo_total' },
         { text: 'Fecha',        value: 'fe_instruccion' },
         { text: 'Esquema Pago', value: 'esquema.nb_esquema' },
         { text: 'Acciones',     value: 'id_status'  },
+        
+        /*
+        'id_categoria',
+        'id_ente',
+        'tx_concepto',
+        'id_esquema',
+        'nu_esquema',
+        'tx_ofi_cta_mte',
+        'bo_ofi_cta_mte',
+        'fe_instruccion',
+        'mo_instruccion',
+        'id_moneda',
+        'mo_tasa',
+        'mo_total',
+        'tx_observaciones',
+        'id_usuario',
+        'id_status',
+        'fe_creado',
+        'fe_actualizado',
+        */
+        
         ],
         listas:{
             categoria: []

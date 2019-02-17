@@ -15,28 +15,42 @@ class Instruccion extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'id_solicitud',
-                            'tx_concepto',
-                            'id_esquema',
-                            'nu_esquema',
-                            'tx_ofi_cta_mte',
-                            'bo_ofi_cta_mte',
-                            'fe_instruccion',
-                            'mo_instruccion',
-                            'id_moneda',
-                            'tx_observacion',
-                            'id_usuario',
-                            'id_status',
-                            'fe_creado',
-                            'fe_actualizado'
+                                'id_categoria',
+                                'id_ente',
+                                'tx_concepto',
+                                'id_esquema',
+                                'nu_esquema',
+                                'tx_ofi_cta_mte',
+                                'bo_ofi_cta_mte',
+                                'fe_instruccion',
+                                'mo_instruccion',
+                                'id_moneda',
+                                'mo_tasa',
+                                'mo_total',
+                                'tx_observaciones',
+                                'id_usuario',
+                                'id_status',
+                                'fe_creado',
+                                'fe_actualizado',
                             ]; 
-                            
 
-    protected $hidden     = ['id_usuario','fe_creado','fe_actualizado'];
+    protected $hidden     = ['id_usuario', 'fe_creado', 'fe_actualizado'];
 
     public function getFeInstruccionAttribute($value) {
   
         return \Carbon\Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function categoria(){
+    
+        return $this->BelongsTo('App\Models\Categoria', 'id_categoria');
+    
+    }
+
+    public function ente(){
+    
+        return $this->BelongsTo('App\Models\Ente', 'id_ente');
+    
     }
 
     public function pago(){
@@ -56,12 +70,6 @@ class Instruccion extends Model
         return $this->BelongsTo('App\Models\Moneda', 'id_moneda');
     
     }   
-    
-    public function solicitud(){
-    
-        return $this->BelongsTo('App\Models\Solicitud', 'id_solicitud');
-    
-    } 
 
     public function status(){
     
