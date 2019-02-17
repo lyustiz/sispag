@@ -47,19 +47,50 @@
             <td class="text-xs-right">{{ item.item.mo_tasa | formatTasa }}</td>
             <td class="text-xs-right">{{ item.item.mo_total_pago | formatNumber }}</td>
             <td class="text-xs-left"> {{ item.item.fe_pago | formDate  }}</td>
-            <td class="text-xs-left"> {{ item.item.status.nb_status + pagados}}</td>
+            <td class="text-xs-left"> {{ item.item.status.nb_status}}</td>
             <!--acciones-->
             <td class="text-xs-left" v-if="item.item.ejecucion_pago.length < 1 ">
                 <list-buttons @editar="updItem(item.item)" @eliminar="delForm(item.item)">
                 </list-buttons>
             </td>
             <td class="text-xs-center" v-else>
-                <v-tooltip bottom>
+
+                <template v-if="item.item.id_status == 27">
+                    <v-tooltip bottom>
+                    <v-btn slot="activator" fab small color="warning" >
+                        <v-icon >access_time</v-icon>
+                        </v-btn>
+                        <span>Tansito</span>
+                    </v-tooltip>
+                </template>
+
+                <template v-else-if="item.item.id_status == 29">
+                    <v-tooltip bottom>
+                    <v-btn slot="activator" fab small color="error" >
+                        <v-icon >reply</v-icon>
+                        </v-btn>
+                        <span>Devuelto</span>
+                    </v-tooltip>
+                </template>
+
+                <template v-else-if="item.item.id_status == 30">
+                    <v-tooltip bottom>
+                    <v-btn slot="activator" fab small color="error" >
+                        <v-icon >highlight_off</v-icon>
+                        </v-btn>
+                        <span>Anulado</span>
+                    </v-tooltip>
+                </template>
+
+                 <template v-else-if="item.item.id_status == 31">
+                    <v-tooltip bottom>
                     <v-btn slot="activator" fab small color="success" >
                         <v-icon >thumb_up</v-icon>
-                    </v-btn>
-                    <span>Acreditado</span>
-                </v-tooltip>
+                        </v-btn>
+                        <span>Acreditado</span>
+                    </v-tooltip>
+                </template>
+
             </td>
 
 
