@@ -10,181 +10,182 @@
                 <h2>Instruccion</h2>
             </v-card-title>
 
-        <v-card-text>     
-        <v-layout row wrap>
-            
-            <v-flex xs12 sm6 v-show="btnAccion != 'upd'" >
+            <v-card-text>    
+            <v-layout row wrap>
+
+                <v-flex xs12 sm6 >
                 <v-select
+                    label="Categoria"
+                    v-model="form.id_categoria"
                     :items="listas.categoria"
                     item-value="id_categoria"
                     item-text="nb_categoria"
-                    v-model="categoria"
-                    label="Categoria"
-                    clearable
+                    :rules="rules.select"
+                    autocomplete
+                    required
                 ></v-select>
-            </v-flex>
+                </v-flex>
 
-        <v-flex xs12 sm6 v-if="categoria" v-show="btnAccion != 'upd'">
-            
-            <v-tooltip bottom>
-            <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
-                <v-icon >record_voice_over</v-icon>
-            </v-btn>
-            <span>Solicitud</span>
-            </v-tooltip>
+                <v-flex xs12 sm6 >
+                <v-select
+                    label="Ente Beneficiario"
+                    v-model="form.id_ente"
+                    :items="listas.ente"
+                    item-value="id_ente"
+                    item-text="nb_ente"
+                    :rules="rules.select"
+                    autocomplete
+                    required
+                ></v-select>
+                </v-flex>
 
-            <v-tooltip bottom>
-            <v-btn slot="activator" fab small color="warning" @click.native="dingreso  = true" >
-                <v-icon>attach_money</v-icon>
-            </v-btn>
-            <span>Ingresos</span>
-            </v-tooltip>
-            
-        </v-flex>
-            
-        </v-layout>
+                <v-flex xs12 sm4 >
+                <v-text-field
+                    label="Concepto"
+                    v-model="form.tx_concepto"
+                    placeholder="Concepto de la Instrucion"
+                    :rules="rules.requerido"
+                    required
+                ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm4 >
+                <v-select
+                    label="Esquema de Pago"
+                    v-model="form.id_esquema"
+                    :items="listas.esquema"
+                    item-value="id_esquema"
+                    item-text="nb_esquema"
+                    :rules="rules.select"
+                    autocomplete
+                    required
+                ></v-select>
+                </v-flex>
+
+                <v-flex xs12 sm4 >
+                <v-text-field
+                    label="Numero Esquema de Pago"
+                    v-model="form.nu_esquema"
+                    placeholder="Nro segun el esquema de pago"
+                    :rules="rules.requerido"
+                ></v-text-field>
+                </v-flex>
 
 
-         <v-layout row wrap>
-             
-            <v-flex xs12 sm4 v-if="solicitud">
-                <list-data 
-                titulo="Solicitud" 
-                :items="{ 
-                          'Ente Solicitante': solicitud.ente.nb_ente,
-                          'Concepto'        : solicitud.tx_concepto,
-                          'Moneda Solicitud': solicitud.moneda.nb_moneda,
-                          'Monto Solicitado': formatNumber(solicitud.mo_solicitud),
-                          'Fecha Solicitud' : formatDate(solicitud.fe_solicitud),
-                        }" 
-                :visible="true"
-                @cerrar="remSolicitud"
-                 >
-                </list-data >
-            </v-flex>
+                <v-flex xs12 sm3>
+                <currency-field
+                    label="Monto Instruccion"
+                    v-model.number="form.mo_instruccion"
+                    placeholder="Ingrese Monto"
+                    ref="mo_instruccion"
+                    :rules="rules.monto"
+                    hint="Ej 845.456,12"
+                    :decimales="2"
+                    required
+                ></currency-field>
+                </v-flex>
 
-            <v-flex xs12 sm4 v-if="ingreso">
+                <v-flex xs12 sm3>
+                <v-select
+                    :items="listas.cuenta"
+                    item-text="moneda.nb_moneda"
+                    item-value="moneda.id_moneda"
+                    v-model="form.id_moneda"
+                    :rules="rules.select"
+                    label="Moneda"
+                    :hint="'Diponible: '+ moDisponible"
+                    @input="setDisponible()"
+                    autocomplete
+                ></v-select>
+                </v-flex>
 
-                <list-data 
-                titulo="Ingreso" 
-                :items="{ 
-                          'Moneda'          : ingreso.moneda.nb_moneda,
-                          'Monto Total'     : formatNumber(ingreso.mo_total),
-                          'Monto Instruido' : formatNumber(ingreso.mo_instruido),
-                          'Monto Disponible': formatNumber(ingreso.mo_disponible),
-                        }"
-                :visible="true" 
-                @cerrar="remIngreso"
+                <v-flex xs12 sm3>
+                <currency-field
+                    ref="mo_tasa"
+                    v-model="form.mo_tasa"
+                    :rules="rules.monto"
+                    label="Tasa de Cambio"
+                    placeholder="Ingrese Tasa"
+                    hint="Ej 1,43333"
+                    :disabled="tasaReadOnly"
+                    :decimales="5"
+                ></currency-field>
+                </v-flex>
+
+                <v-flex xs12 sm3>
+                <v-text-field
+                    label="Monto Total de Instruccion"
+                    v-model="form.mo_total"
+                    :value="mo_total"
+                    placeholder="Ingrese monto/moneda/tasa"
+                    prepend-icon="attach_money"
+                    disabled
+                ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm4 >
+                <v-text-field
+                    label="Oficio de Cta. Mandante"
+                    v-model="form.tx_ofi_cta_mte"
+                    :rules="rules.requerido"
+                ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm4>
+                <v-menu
+                    ref="picker"
+                    v-model="picker"
+                    full-width
+                    min-width="290px"
                 >
-                
-                    <v-list-tile>
-                        <currency-field
-                        ref="montoInstruccion"
-                        v-model.number="form.mo_instruccion"
-                        :rules="rules.montoInstruccion"
-                        label="Monto de la Instuccion"
-                        placeholder="Ingrese Monto"
-                        hint="Ej 845.456,12"
-                        :decimales="2"
-                        append-icon="swap_horiz"
-                        :append-icon-cb="getMontoSolicitud"
-                        required
-                        ></currency-field>
-                    </v-list-tile>
-
-                    <v-list-tile>
-                        <currency-field
-                        ref="mo_tasa"
-                        v-model.number="form.mo_tasa"
-                        :rules="rules.monto"
-                        label="Tasa de Cambio"
-                        placeholder="Ingrese Tasa"
-                        hint="Ej 1,43333"
-                        :disabled="tasaReadOnly"
-                        :decimales="5"
-                        ></currency-field>
-                    </v-list-tile>
-
-                </list-data >
-
-            </v-flex>
-
-
-            <v-flex xs12 sm4 v-if="ingreso">
-
-                <list-data 
-                titulo="Detalle Instruccion" 
-                :items="{}" 
-                :visible="true"
-                @cerrar="remIngreso">
-       
-                    <v-select
-                        :items="listas.esquema"
-                        item-value="id_esquema"
-                        item-text="nb_esquema"
-                        label="Esquema de Pago"
-                        v-model="form.id_esquema"
-                        :rules="rules.select"
-                        autocomplete
-                        required
-                    ></v-select>
-
                     <v-text-field
-                        v-model="form.nu_esquema"
-                        name="name"
-                        label="Nro Esquema de Pago"
-                        :rules="rules.requerido"
-                    ></v-text-field>
-
-                    <v-text-field
-                        v-model="form.tx_ofi_cta_mte"
-                        name="name"
-                        label="Oficio Cuenta Mandante"
-                    ></v-text-field>
-
-                    <v-flex>
-                    <v-menu
-                        ref="picker"
-                        v-model="picker"
-                        full-width
-                        min-width="290px"
-                    >
-                        <v-text-field
                         slot="activator"
                         v-model="dates.fe_instruccion"
                         :rules="rules.fecha"
-                        label="Seleccione Fecha"
+                        label="Fecha de la Instruccion"
                         prepend-icon="event"
                         readonly
                         required
-                        ></v-text-field>
-                        <v-date-picker 
-                            v-model="form.fe_instruccion" 
-                            locale="es" 
-                            @input="dates.fe_instruccion = formatDate( form.fe_instruccion )"
-                        ></v-date-picker>
-                    </v-menu>
-                        
-                    </v-flex>
-                    
-                    <v-text-field
-                        v-model="form.tx_observaciones"
-                        name="name"
-                        label="observaciones"
                     ></v-text-field>
+                    <v-date-picker 
+                        v-model="form.fe_instruccion" 
+                        locale="es" 
+                        @input="dates.fe_instruccion = formatDate( form.fe_instruccion )">
+                    </v-date-picker>
+                </v-menu>
+                </v-flex>
 
-                </list-data >
- 
-             </v-flex>
-         </v-layout>
+                
+
+                <v-flex xs12 sm4>  
+                <v-select
+                    :items="listas.status"
+                    item-text="nb_status"
+                    item-value="id_status"
+                    v-model="form.id_status"
+                    :rules="rules.select"
+                    label="Status de la Instruccion"
+                    autocomplete
+                    required
+                ></v-select>
+                </v-flex>
+
+                <v-flex xs12 >
+                <v-text-field
+                    :rules="rules.tx_observaciones"
+                    v-model="form.tx_observaciones"
+                    label="Observaciones"
+                    placeholder="Indique Observaciones"
+                ></v-text-field>
+                </v-flex>
 
 
-       </v-card-text>
+            </v-layout>
+            </v-card-text>
 
-       <v-card-actions>
+            <v-card-actions>
 
-                <form-buttons 
-                    v-if="ingreso"
+                <form-buttons
                     @update="update"
                     @store="store"
                     @clear="clear"
@@ -194,45 +195,9 @@
                 ></form-buttons>  
 
             </v-card-actions>
-       
-   </v-card >
-   </v-form>
-
-    <div v-if="categoria">
-
-        <v-dialog v-model="dsolicitud" > 
-
-            <list-select
-                :tabla="tablaCategoria" 
-                :encabezados="[
-                                { text: 'Ente',     value: 'ente.nb_ente' },
-                                { text: 'Concepto', value: 'tx_concepto' },
-                                { text: 'Monto',    value: 'mo_solicitud' },
-                                { text: 'Status',   value: 'status.nb_status' },
-                              ]"
-                @seleccion="setSolicitud"
-            >
-            </list-select>
-
-        </v-dialog>
-
-        <v-dialog v-model="dingreso"> 
-
-            <list-select 
-                tabla="cuenta" 
-                :encabezados="[
-                                { text: 'moneda',   value: 'moneda.nb_moneda' },
-                                { text: 'Monto',    value: 'mo_disponible' },
-                                { text: 'Status',   value: 'status.nb_status' },
-                                ]"
-                @seleccion="setIngreso"
-            >
-            </list-select>
-
-        </v-dialog>
-
-        </div>
-
+            
+        </v-card>            
+        </v-form>
     </v-flex>
     </v-layout>
     </v-container>
@@ -250,30 +215,30 @@ export default {
     mixins: [ formHelper, withSnackbar ],
     data () {
         return {
-            tabla:       'instruccion',
-            categoria:   false,
-            dsolicitud:  false,
-            dingreso:    false,
-            solicitud:   false,
-            ingreso:     false,
-            instruccion: false,
-            listSol:     false,
-            tasaReadOnly: false,
+            tabla:          'instruccion',
+            moDisponible:   0,
+            tasaReadOnly:   false,
             form:{
-                id_solicitud:    '',
-                tx_concepto:     '',
-                id_esquema:      '',
-                nu_esquema:      '',
-                tx_ofi_cta_mte:  '',
-                bo_ofi_cta_mte:   0,
-                fe_instruccion:  '',
-                mo_instruccion:  '',
-                mo_tasa:         '',
-                id_moneda:       '',
-                tx_observaciones:'',
-                id_usuario:      '',
-                id_status:        1,  
+                id_categoria:       '',
+                id_ente:            '',
+                tx_concepto:        '',
+                id_esquema:         '',
+                nu_esquema:         '',
+                tx_ofi_cta_mte:     '',
+                bo_ofi_cta_mte:     0,
+                fe_instruccion:     '',
+                mo_instruccion:     '',
+                id_moneda:          '',
+                mo_tasa:            '',
+                mo_total:           '',
+                tx_observaciones:   '',
+                id_usuario:         '',
+                id_status:          '',
             },
+
+            /*
+        
+        */
             rules:{
                 montoInstruccion: [
                     v => !!v || 'Indique Monto',
@@ -281,119 +246,49 @@ export default {
                    ],
             },
             listas: {
-                categoria: [],
-                esquema: [],
+                categoria:  [],
+                ente:       ['/grupo/5'],
+                cuenta:     [],
+                esquema:    [],
+                status:     ['/grupo/1']
             }
         }
     },
-    computed:{
-        tablaCategoria()
+    computed:
+    {
+        mo_total()
         {
-            return 'solicitud/categoria/'+this.categoria;
-        },
+            return this.formatNumber(this.form.mo_instruccion * this.form.mo_tasa);
+        }
     },
     watch:{
         tx_ofi_cta_mte: function (val) 
         {
-            
-            this.form.bo_ofi_cta_mte =  (val = '') ? 0 :1;
-            
+            this.form.bo_ofi_cta_mte =  (val = '') ? 0 : 1;
         },
-        btnAccion: function (val)
-        {
-            if( val == 'upd')
-            {
-                this.categoria = 1;
-                this.getSolicitud();
-                this.getIngreso();
-            }else
-            {
-                this.form.id_status = 1;
-                this.form.bo_ofi_cta_mte = 1; 
-
-            }
-        },
-        categoria: function(val)
-        {
-          this.solicitud = false;
-          this.ingreso   = false;
-        }
-    },
-    filters: {
-
-        formatNumber: function (value) 
-        {
-            let val = (value/1).toFixed(2).replace('.', ',')
-            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        }
-
     },
     methods:
     {
-        getMontoSolicitud()
+        setDisponible()
         {
-            this.form.mo_instruccion = this.solicitud.mo_solicitud;
-
+            let cuenta =  this.listas.cuenta.filter( item => item.id_moneda == this.form.id_moneda)
+            this.moDisponible = this.formatNumber(cuenta[0].mo_disponible || 0 )
+            this.setTasa()
         },
-        setSolicitud(item)
+        setTasa()
         {
-            this.dsolicitud = false;
-            this.solicitud  = item;
-            this.form.id_solicitud = item.id_solicitud
-        },
-        remSolicitud()
-        {
-           if(this.btnAccion != 'upd')
-           {
-                this.solicitud          = false;
-                this.form.id_solicitud  = false;
-           }
-        },
-        setIngreso(item)
-        {
-            this.dingreso = false;
-            this.ingreso  = item;
-            this.form.id_moneda = item.id_moneda
-        },
-        remIngreso()
-        {
-            if(this.btnAccion != 'upd')
+           if(this.form.id_moneda == 1)
             {
-                this.ingreso        = false;
-                this.form.id_moneda = false;
-                
+                this.form.mo_tasa        = 1;
+                this.$refs.mo_tasa.model = 1;
+                this.tasaReadOnly        = true;
             }
-        },
-        clear () 
-        {
-            this.$refs.form.reset()
-            this.ingreso  = false;
-            this.solicitud      = false;
-            this.categoria      = false;
-        },
-        getSolicitud()
-        {
-             axios.get('/api/v1/solicitud/'+this.item.id_solicitud)
-            .then(respuesta => {
-
-                this.solicitud = respuesta.data;
-            })
-            .catch(error => {
-                this.showError(error)    
-            })
-
-        },
-        getIngreso()
-        {
-             axios.get('/api/v1/cuenta/moneda/'+this.item.id_moneda)
-            .then(respuesta => {
-                
-                this.ingreso = respuesta.data;
-            })
-            .catch(error => {
-                this.showError(error)    
-            })
-
+            else
+            {
+                this.form.mo_tasa        = null;
+                this.$refs.mo_tasa.model = null
+                this.tasaReadOnly        = false;
+            }
         },
         update()
         {

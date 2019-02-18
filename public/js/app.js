@@ -69307,7 +69307,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -69320,6 +69320,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
+//
 //
 //
 //
@@ -69655,10 +69657,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        _vm._s(
-                                          item.item.solicitud.categoria
-                                            .nb_categoria
-                                        )
+                                        _vm._s(item.item.categoria.nb_categoria)
                                       )
                                     ]
                                   ),
@@ -69683,6 +69682,22 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-rigth" }, [
                                     _vm._v(_vm._s(item.item.moneda.nb_moneda))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-xs-rigth" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatTasa")(item.item.mo_tasa)
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-xs-rigth" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("formatTasa")(item.item.mo_total)
+                                      )
+                                    )
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
@@ -69788,8 +69803,7 @@ var render = function() {
                                                 Ente: item.item.ente.nb_ente,
                                                 Concepto: item.item.tx_concepto,
                                                 "Monto Solicitado": _vm.formatNumber(
-                                                  item.item.solicitud
-                                                    .mo_solicitud
+                                                  item.item.mo_solicitud
                                                 ),
                                                 Moneda:
                                                   item.item.moneda.nb_moneda
@@ -70031,7 +70045,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70252,41 +70266,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -70299,16 +70278,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         return {
             tabla: 'instruccion',
-            categoria: false,
-            dsolicitud: false,
-            dingreso: false,
-            solicitud: false,
-            ingreso: false,
-            instruccion: false,
-            listSol: false,
+            moDisponible: 0,
             tasaReadOnly: false,
             form: {
-                id_solicitud: '',
+                id_categoria: '',
+                id_ente: '',
                 tx_concepto: '',
                 id_esquema: '',
                 nu_esquema: '',
@@ -70316,12 +70290,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 bo_ofi_cta_mte: 0,
                 fe_instruccion: '',
                 mo_instruccion: '',
-                mo_tasa: '',
                 id_moneda: '',
+                mo_tasa: '',
+                mo_total: '',
                 tx_observaciones: '',
                 id_usuario: '',
-                id_status: 1
+                id_status: ''
             },
+
+            /*
+                  */
             rules: {
                 montoInstruccion: [function (v) {
                     return !!v || 'Indique Monto';
@@ -70331,119 +70309,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             listas: {
                 categoria: [],
-                esquema: []
+                ente: ['/grupo/5'],
+                cuenta: [],
+                esquema: [],
+                status: ['/grupo/1']
             }
         };
     },
 
     computed: {
-        tablaCategoria: function tablaCategoria() {
-            return 'solicitud/categoria/' + this.categoria;
+        mo_total: function mo_total() {
+            return this.formatNumber(this.form.mo_instruccion * this.form.mo_tasa);
         }
     },
     watch: {
         tx_ofi_cta_mte: function tx_ofi_cta_mte(val) {
-
             this.form.bo_ofi_cta_mte = (val = '') ? 0 : 1;
-        },
-        btnAccion: function btnAccion(val) {
-            if (val == 'upd') {
-                this.categoria = 1;
-                this.getSolicitud();
-                this.getIngreso();
-            } else {
-                this.form.id_status = 1;
-                this.form.bo_ofi_cta_mte = 1;
-            }
-        },
-        categoria: function categoria(val) {
-            this.solicitud = false;
-            this.ingreso = false;
         }
-    },
-    filters: {
-
-        formatNumber: function formatNumber(value) {
-            var val = (value / 1).toFixed(2).replace('.', ',');
-            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-
     },
     methods: {
-        getMontoSolicitud: function getMontoSolicitud() {
-            this.form.mo_instruccion = this.solicitud.mo_solicitud;
-        },
-        setSolicitud: function setSolicitud(item) {
-            this.dsolicitud = false;
-            this.solicitud = item;
-            this.form.id_solicitud = item.id_solicitud;
-        },
-        remSolicitud: function remSolicitud() {
-            if (this.btnAccion != 'upd') {
-                this.solicitud = false;
-                this.form.id_solicitud = false;
-            }
-        },
-        setIngreso: function setIngreso(item) {
-            this.dingreso = false;
-            this.ingreso = item;
-            this.form.id_moneda = item.id_moneda;
-        },
-        remIngreso: function remIngreso() {
-            if (this.btnAccion != 'upd') {
-                this.ingreso = false;
-                this.form.id_moneda = false;
-            }
-        },
-        clear: function clear() {
-            this.$refs.form.reset();
-            this.ingreso = false;
-            this.solicitud = false;
-            this.categoria = false;
-        },
-        getSolicitud: function getSolicitud() {
+        setDisponible: function setDisponible() {
             var _this2 = this;
 
-            axios.get('/api/v1/solicitud/' + this.item.id_solicitud).then(function (respuesta) {
-
-                _this2.solicitud = respuesta.data;
-            }).catch(function (error) {
-                _this2.showError(error);
+            var cuenta = this.listas.cuenta.filter(function (item) {
+                return item.id_moneda == _this2.form.id_moneda;
             });
+            this.moDisponible = this.formatNumber(cuenta[0].mo_disponible || 0);
+            this.setTasa();
         },
-        getIngreso: function getIngreso() {
-            var _this3 = this;
-
-            axios.get('/api/v1/cuenta/moneda/' + this.item.id_moneda).then(function (respuesta) {
-
-                _this3.ingreso = respuesta.data;
-            }).catch(function (error) {
-                _this3.showError(error);
-            });
+        setTasa: function setTasa() {
+            if (this.form.id_moneda == 1) {
+                this.form.mo_tasa = 1;
+                this.$refs.mo_tasa.model = 1;
+                this.tasaReadOnly = true;
+            } else {
+                this.form.mo_tasa = null;
+                this.$refs.mo_tasa.model = null;
+                this.tasaReadOnly = false;
+            }
         },
         update: function update() {
-            var _this4 = this;
+            var _this3 = this;
 
             if (this.$refs.form.validate()) {
 
                 axios.put(this.basePath + '/' + this.item.id_instruccion, this.form).then(function (respuesta) {
-                    _this4.showMessage(respuesta.data.msj);
-                    _this4.cancel();
+                    _this3.showMessage(respuesta.data.msj);
+                    _this3.cancel();
                 }).catch(function (error) {
-                    _this4.showError(error);
+                    _this3.showError(error);
                 });
             }
         },
         store: function store() {
-            var _this5 = this;
+            var _this4 = this;
 
             if (this.$refs.form.validate()) {
 
                 axios.post(this.basePath, this.form).then(function (respuesta) {
-                    _this5.showMessage(respuesta.data.msj);
-                    _this5.$emit('cerrarModal');
+                    _this4.showMessage(respuesta.data.msj);
+                    _this4.$emit('cerrarModal');
                 }).catch(function (error) {
-                    _this5.showError(error);
+                    _this4.showError(error);
                 });
             }
         }
@@ -70502,438 +70429,387 @@ var render = function() {
                             [
                               _c(
                                 "v-flex",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.btnAccion != "upd",
-                                      expression: "btnAccion != 'upd'"
-                                    }
-                                  ],
-                                  attrs: { xs12: "", sm6: "" }
-                                },
+                                { attrs: { xs12: "", sm6: "" } },
                                 [
                                   _c("v-select", {
                                     attrs: {
+                                      label: "Categoria",
                                       items: _vm.listas.categoria,
                                       "item-value": "id_categoria",
                                       "item-text": "nb_categoria",
-                                      label: "Categoria",
-                                      clearable: ""
+                                      rules: _vm.rules.select,
+                                      autocomplete: "",
+                                      required: ""
                                     },
                                     model: {
-                                      value: _vm.categoria,
+                                      value: _vm.form.id_categoria,
                                       callback: function($$v) {
-                                        _vm.categoria = $$v
+                                        _vm.$set(_vm.form, "id_categoria", $$v)
                                       },
-                                      expression: "categoria"
+                                      expression: "form.id_categoria"
                                     }
                                   })
                                 ],
                                 1
                               ),
                               _vm._v(" "),
-                              _vm.categoria
-                                ? _c(
-                                    "v-flex",
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm6: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      label: "Ente Beneficiario",
+                                      items: _vm.listas.ente,
+                                      "item-value": "id_ente",
+                                      "item-text": "nb_ente",
+                                      rules: _vm.rules.select,
+                                      autocomplete: "",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.id_ente,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "id_ente", $$v)
+                                      },
+                                      expression: "form.id_ente"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm4: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Concepto",
+                                      placeholder: "Concepto de la Instrucion",
+                                      rules: _vm.rules.requerido,
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.tx_concepto,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "tx_concepto", $$v)
+                                      },
+                                      expression: "form.tx_concepto"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm4: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      label: "Esquema de Pago",
+                                      items: _vm.listas.esquema,
+                                      "item-value": "id_esquema",
+                                      "item-text": "nb_esquema",
+                                      rules: _vm.rules.select,
+                                      autocomplete: "",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.id_esquema,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "id_esquema", $$v)
+                                      },
+                                      expression: "form.id_esquema"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm4: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Numero Esquema de Pago",
+                                      placeholder:
+                                        "Nro segun el esquema de pago",
+                                      rules: _vm.rules.requerido
+                                    },
+                                    model: {
+                                      value: _vm.form.nu_esquema,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "nu_esquema", $$v)
+                                      },
+                                      expression: "form.nu_esquema"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
+                                  _c("currency-field", {
+                                    ref: "mo_instruccion",
+                                    attrs: {
+                                      label: "Monto Instruccion",
+                                      placeholder: "Ingrese Monto",
+                                      rules: _vm.rules.monto,
+                                      hint: "Ej 845.456,12",
+                                      decimales: 2,
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.mo_instruccion,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.form,
+                                          "mo_instruccion",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "form.mo_instruccion"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.listas.cuenta,
+                                      "item-text": "moneda.nb_moneda",
+                                      "item-value": "moneda.id_moneda",
+                                      rules: _vm.rules.select,
+                                      label: "Moneda",
+                                      hint: "Diponible: " + _vm.moDisponible,
+                                      autocomplete: ""
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        _vm.setDisponible()
+                                      }
+                                    },
+                                    model: {
+                                      value: _vm.form.id_moneda,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "id_moneda", $$v)
+                                      },
+                                      expression: "form.id_moneda"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
+                                  _c("currency-field", {
+                                    ref: "mo_tasa",
+                                    attrs: {
+                                      rules: _vm.rules.monto,
+                                      label: "Tasa de Cambio",
+                                      placeholder: "Ingrese Tasa",
+                                      hint: "Ej 1,43333",
+                                      disabled: _vm.tasaReadOnly,
+                                      decimales: 5
+                                    },
+                                    model: {
+                                      value: _vm.form.mo_tasa,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "mo_tasa", $$v)
+                                      },
+                                      expression: "form.mo_tasa"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Monto Total de Instruccion",
+                                      value: _vm.mo_total,
+                                      placeholder: "Ingrese monto/moneda/tasa",
+                                      "prepend-icon": "attach_money",
+                                      disabled: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.mo_total,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "mo_total", $$v)
+                                      },
+                                      expression: "form.mo_total"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm4: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Oficio de Cta. Mandante",
+                                      rules: _vm.rules.requerido
+                                    },
+                                    model: {
+                                      value: _vm.form.tx_ofi_cta_mte,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.form,
+                                          "tx_ofi_cta_mte",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "form.tx_ofi_cta_mte"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm4: "" } },
+                                [
+                                  _c(
+                                    "v-menu",
                                     {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value: _vm.btnAccion != "upd",
-                                          expression: "btnAccion != 'upd'"
-                                        }
-                                      ],
-                                      attrs: { xs12: "", sm6: "" }
+                                      ref: "picker",
+                                      attrs: {
+                                        "full-width": "",
+                                        "min-width": "290px"
+                                      },
+                                      model: {
+                                        value: _vm.picker,
+                                        callback: function($$v) {
+                                          _vm.picker = $$v
+                                        },
+                                        expression: "picker"
+                                      }
                                     },
                                     [
-                                      _c(
-                                        "v-tooltip",
-                                        { attrs: { bottom: "" } },
-                                        [
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              attrs: {
-                                                slot: "activator",
-                                                fab: "",
-                                                small: "",
-                                                color: "success"
-                                              },
-                                              nativeOn: {
-                                                click: function($event) {
-                                                  _vm.dsolicitud = true
-                                                }
-                                              },
-                                              slot: "activator"
-                                            },
-                                            [
-                                              _c("v-icon", [
-                                                _vm._v("record_voice_over")
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("span", [_vm._v("Solicitud")])
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-tooltip",
-                                        { attrs: { bottom: "" } },
-                                        [
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              attrs: {
-                                                slot: "activator",
-                                                fab: "",
-                                                small: "",
-                                                color: "warning"
-                                              },
-                                              nativeOn: {
-                                                click: function($event) {
-                                                  _vm.dingreso = true
-                                                }
-                                              },
-                                              slot: "activator"
-                                            },
-                                            [
-                                              _c("v-icon", [
-                                                _vm._v("attach_money")
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("span", [_vm._v("Ingresos")])
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                : _vm._e()
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-layout",
-                            { attrs: { row: "", wrap: "" } },
-                            [
-                              _vm.solicitud
-                                ? _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "", sm4: "" } },
-                                    [
-                                      _c("list-data", {
+                                      _c("v-text-field", {
                                         attrs: {
-                                          titulo: "Solicitud",
-                                          items: {
-                                            "Ente Solicitante":
-                                              _vm.solicitud.ente.nb_ente,
-                                            Concepto: _vm.solicitud.tx_concepto,
-                                            "Moneda Solicitud":
-                                              _vm.solicitud.moneda.nb_moneda,
-                                            "Monto Solicitado": _vm.formatNumber(
-                                              _vm.solicitud.mo_solicitud
-                                            ),
-                                            "Fecha Solicitud": _vm.formatDate(
-                                              _vm.solicitud.fe_solicitud
+                                          slot: "activator",
+                                          rules: _vm.rules.fecha,
+                                          label: "Fecha de la Instruccion",
+                                          "prepend-icon": "event",
+                                          readonly: "",
+                                          required: ""
+                                        },
+                                        slot: "activator",
+                                        model: {
+                                          value: _vm.dates.fe_instruccion,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.dates,
+                                              "fe_instruccion",
+                                              $$v
                                             )
                                           },
-                                          visible: true
+                                          expression: "dates.fe_instruccion"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("v-date-picker", {
+                                        attrs: { locale: "es" },
+                                        on: {
+                                          input: function($event) {
+                                            _vm.dates.fe_instruccion = _vm.formatDate(
+                                              _vm.form.fe_instruccion
+                                            )
+                                          }
                                         },
-                                        on: { cerrar: _vm.remSolicitud }
+                                        model: {
+                                          value: _vm.form.fe_instruccion,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.form,
+                                              "fe_instruccion",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "form.fe_instruccion"
+                                        }
                                       })
                                     ],
                                     1
                                   )
-                                : _vm._e(),
+                                ],
+                                1
+                              ),
                               _vm._v(" "),
-                              _vm.ingreso
-                                ? _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "", sm4: "" } },
-                                    [
-                                      _c(
-                                        "list-data",
-                                        {
-                                          attrs: {
-                                            titulo: "Ingreso",
-                                            items: {
-                                              Moneda:
-                                                _vm.ingreso.moneda.nb_moneda,
-                                              "Monto Total": _vm.formatNumber(
-                                                _vm.ingreso.mo_total
-                                              ),
-                                              "Monto Instruido": _vm.formatNumber(
-                                                _vm.ingreso.mo_instruido
-                                              ),
-                                              "Monto Disponible": _vm.formatNumber(
-                                                _vm.ingreso.mo_disponible
-                                              )
-                                            },
-                                            visible: true
-                                          },
-                                          on: { cerrar: _vm.remIngreso }
-                                        },
-                                        [
-                                          _c(
-                                            "v-list-tile",
-                                            [
-                                              _c("currency-field", {
-                                                ref: "montoInstruccion",
-                                                attrs: {
-                                                  rules:
-                                                    _vm.rules.montoInstruccion,
-                                                  label:
-                                                    "Monto de la Instuccion",
-                                                  placeholder: "Ingrese Monto",
-                                                  hint: "Ej 845.456,12",
-                                                  decimales: 2,
-                                                  "append-icon": "swap_horiz",
-                                                  "append-icon-cb":
-                                                    _vm.getMontoSolicitud,
-                                                  required: ""
-                                                },
-                                                model: {
-                                                  value:
-                                                    _vm.form.mo_instruccion,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      _vm.form,
-                                                      "mo_instruccion",
-                                                      _vm._n($$v)
-                                                    )
-                                                  },
-                                                  expression:
-                                                    "form.mo_instruccion"
-                                                }
-                                              })
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile",
-                                            [
-                                              _c("currency-field", {
-                                                ref: "mo_tasa",
-                                                attrs: {
-                                                  rules: _vm.rules.monto,
-                                                  label: "Tasa de Cambio",
-                                                  placeholder: "Ingrese Tasa",
-                                                  hint: "Ej 1,43333",
-                                                  disabled: _vm.tasaReadOnly,
-                                                  decimales: 5
-                                                },
-                                                model: {
-                                                  value: _vm.form.mo_tasa,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      _vm.form,
-                                                      "mo_tasa",
-                                                      _vm._n($$v)
-                                                    )
-                                                  },
-                                                  expression: "form.mo_tasa"
-                                                }
-                                              })
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                : _vm._e(),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm4: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.listas.status,
+                                      "item-text": "nb_status",
+                                      "item-value": "id_status",
+                                      rules: _vm.rules.select,
+                                      label: "Status de la Instruccion",
+                                      autocomplete: "",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.form.id_status,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "id_status", $$v)
+                                      },
+                                      expression: "form.id_status"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
                               _vm._v(" "),
-                              _vm.ingreso
-                                ? _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "", sm4: "" } },
-                                    [
-                                      _c(
-                                        "list-data",
-                                        {
-                                          attrs: {
-                                            titulo: "Detalle Instruccion",
-                                            items: {},
-                                            visible: true
-                                          },
-                                          on: { cerrar: _vm.remIngreso }
-                                        },
-                                        [
-                                          _c("v-select", {
-                                            attrs: {
-                                              items: _vm.listas.esquema,
-                                              "item-value": "id_esquema",
-                                              "item-text": "nb_esquema",
-                                              label: "Esquema de Pago",
-                                              rules: _vm.rules.select,
-                                              autocomplete: "",
-                                              required: ""
-                                            },
-                                            model: {
-                                              value: _vm.form.id_esquema,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.form,
-                                                  "id_esquema",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "form.id_esquema"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              name: "name",
-                                              label: "Nro Esquema de Pago",
-                                              rules: _vm.rules.requerido
-                                            },
-                                            model: {
-                                              value: _vm.form.nu_esquema,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.form,
-                                                  "nu_esquema",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "form.nu_esquema"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              name: "name",
-                                              label: "Oficio Cuenta Mandante"
-                                            },
-                                            model: {
-                                              value: _vm.form.tx_ofi_cta_mte,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.form,
-                                                  "tx_ofi_cta_mte",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "form.tx_ofi_cta_mte"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-flex",
-                                            [
-                                              _c(
-                                                "v-menu",
-                                                {
-                                                  ref: "picker",
-                                                  attrs: {
-                                                    "full-width": "",
-                                                    "min-width": "290px"
-                                                  },
-                                                  model: {
-                                                    value: _vm.picker,
-                                                    callback: function($$v) {
-                                                      _vm.picker = $$v
-                                                    },
-                                                    expression: "picker"
-                                                  }
-                                                },
-                                                [
-                                                  _c("v-text-field", {
-                                                    attrs: {
-                                                      slot: "activator",
-                                                      rules: _vm.rules.fecha,
-                                                      label: "Seleccione Fecha",
-                                                      "prepend-icon": "event",
-                                                      readonly: "",
-                                                      required: ""
-                                                    },
-                                                    slot: "activator",
-                                                    model: {
-                                                      value:
-                                                        _vm.dates
-                                                          .fe_instruccion,
-                                                      callback: function($$v) {
-                                                        _vm.$set(
-                                                          _vm.dates,
-                                                          "fe_instruccion",
-                                                          $$v
-                                                        )
-                                                      },
-                                                      expression:
-                                                        "dates.fe_instruccion"
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c("v-date-picker", {
-                                                    attrs: { locale: "es" },
-                                                    on: {
-                                                      input: function($event) {
-                                                        _vm.dates.fe_instruccion = _vm.formatDate(
-                                                          _vm.form
-                                                            .fe_instruccion
-                                                        )
-                                                      }
-                                                    },
-                                                    model: {
-                                                      value:
-                                                        _vm.form.fe_instruccion,
-                                                      callback: function($$v) {
-                                                        _vm.$set(
-                                                          _vm.form,
-                                                          "fe_instruccion",
-                                                          $$v
-                                                        )
-                                                      },
-                                                      expression:
-                                                        "form.fe_instruccion"
-                                                    }
-                                                  })
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              name: "name",
-                                              label: "observaciones"
-                                            },
-                                            model: {
-                                              value: _vm.form.tx_observaciones,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.form,
-                                                  "tx_observaciones",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "form.tx_observaciones"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                : _vm._e()
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      rules: _vm.rules.tx_observaciones,
+                                      label: "Observaciones",
+                                      placeholder: "Indique Observaciones"
+                                    },
+                                    model: {
+                                      value: _vm.form.tx_observaciones,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.form,
+                                          "tx_observaciones",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "form.tx_observaciones"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
                             ],
                             1
                           )
@@ -70944,20 +70820,18 @@ var render = function() {
                       _c(
                         "v-card-actions",
                         [
-                          _vm.ingreso
-                            ? _c("form-buttons", {
-                                attrs: {
-                                  btnAccion: _vm.btnAccion,
-                                  valido: _vm.valido
-                                },
-                                on: {
-                                  update: _vm.update,
-                                  store: _vm.store,
-                                  clear: _vm.clear,
-                                  cancel: _vm.cancel
-                                }
-                              })
-                            : _vm._e()
+                          _c("form-buttons", {
+                            attrs: {
+                              btnAccion: _vm.btnAccion,
+                              valido: _vm.valido
+                            },
+                            on: {
+                              update: _vm.update,
+                              store: _vm.store,
+                              clear: _vm.clear,
+                              cancel: _vm.cancel
+                            }
+                          })
                         ],
                         1
                       )
@@ -70966,70 +70840,7 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _vm.categoria
-                ? _c(
-                    "div",
-                    [
-                      _c(
-                        "v-dialog",
-                        {
-                          model: {
-                            value: _vm.dsolicitud,
-                            callback: function($$v) {
-                              _vm.dsolicitud = $$v
-                            },
-                            expression: "dsolicitud"
-                          }
-                        },
-                        [
-                          _c("list-select", {
-                            attrs: {
-                              tabla: _vm.tablaCategoria,
-                              encabezados: [
-                                { text: "Ente", value: "ente.nb_ente" },
-                                { text: "Concepto", value: "tx_concepto" },
-                                { text: "Monto", value: "mo_solicitud" },
-                                { text: "Status", value: "status.nb_status" }
-                              ]
-                            },
-                            on: { seleccion: _vm.setSolicitud }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-dialog",
-                        {
-                          model: {
-                            value: _vm.dingreso,
-                            callback: function($$v) {
-                              _vm.dingreso = $$v
-                            },
-                            expression: "dingreso"
-                          }
-                        },
-                        [
-                          _c("list-select", {
-                            attrs: {
-                              tabla: "cuenta",
-                              encabezados: [
-                                { text: "moneda", value: "moneda.nb_moneda" },
-                                { text: "Monto", value: "mo_disponible" },
-                                { text: "Status", value: "status.nb_status" }
-                              ]
-                            },
-                            on: { seleccion: _vm.setIngreso }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e()
+              )
             ],
             1
           )

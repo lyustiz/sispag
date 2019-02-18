@@ -14,7 +14,7 @@ class CuentaController extends Controller
      */
     public function index()
     {
-        $cuentas  = Cuenta::with(['moneda.instruccion','status'])->get();
+        $cuentas  = Cuenta::with(['moneda','moneda.instruccion','status'])->get();
         
         return $cuentas;
     }

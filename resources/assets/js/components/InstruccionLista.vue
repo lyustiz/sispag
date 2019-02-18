@@ -51,11 +51,13 @@
             >
             <template slot="items" slot-scope="item">
                 
-                <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.solicitud.categoria.nb_categoria }}</td>
+                <td class="text-xs-left" @click="item.expanded = !item.expanded" >{{ item.item.categoria.nb_categoria }}</td>
                 <td class="text-xs-left"> {{ item.item.ente.nb_ente }}</td>
                 <td class="text-xs-left"> {{ item.item.tx_concepto  }}</td>
                 <td class="text-xs-rigth">{{ item.item.mo_instruccion | formatNumber }}</td>
                 <td class="text-xs-rigth">{{ item.item.moneda.nb_moneda }}</td>
+                <td class="text-xs-rigth">{{ item.item.mo_tasa | formatTasa }}</td>
+                <td class="text-xs-rigth">{{ item.item.mo_total | formatTasa }}</td>
                 <td class="text-xs-left"> {{ item.item.fe_instruccion | formDate }}</td>
                 <td class="text-xs-left"> {{ item.item.esquema.nb_esquema }}</td>
                 <!--acciones-->
@@ -83,7 +85,7 @@
                             'Categoria'       : item.item.categoria.nb_categoria,
                             'Ente'            : item.item.ente.nb_ente,
                             'Concepto'        : item.item.tx_concepto,
-                            'Monto Solicitado': formatNumber(item.item.solicitud.mo_solicitud),
+                            'Monto Solicitado': formatNumber(item.item.mo_solicitud),
                             'Moneda'          : item.item.moneda.nb_moneda,
                             }" 
                     :visible="true"
