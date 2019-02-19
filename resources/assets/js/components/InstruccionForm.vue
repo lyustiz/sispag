@@ -71,21 +71,6 @@
                 ></v-text-field>
                 </v-flex>
 
-
-                <v-flex xs12 sm3>
-                <currency-field
-                    label="Monto Instruccion"
-                    v-model.number="form.mo_instruccion"
-                    placeholder="Ingrese Monto"
-                    ref="mo_instruccion"
-                    :rules="rules.monto"
-                    hint="Ej 845.456,12"
-                    @input="setTotal()"
-                    :decimales="2"
-                    required
-                ></currency-field>
-                </v-flex>
-
                 <v-flex xs12 sm3>
                 <v-select
                     :items="listas.cuenta"
@@ -94,12 +79,27 @@
                     v-model="form.id_moneda"
                     :rules="rules.select"
                     label="Moneda"
-                    :hint="'Diponible: '+ moDisponible"
+                    :hint="'Diponible: '+ formatNumber(moDisponible)"
                     @input="setDisponible()"
+                    persistent-hint
                     autocomplete
                 ></v-select>
                 </v-flex>
 
+                <v-flex xs12 sm3>
+                <currency-field
+                    label="Monto Instruccion"
+                    v-model.number="form.mo_instruccion"
+                    placeholder="Ingrese Monto"
+                    ref="mo_instruccion"
+                    :rules="rules.montoInstruccion"
+                    hint="Ej 845.456,12"
+                    @input="setTotal()"
+                    :decimales="2"
+                    required
+                ></currency-field>
+                </v-flex>
+                
                 <v-flex xs12 sm3>
                 <currency-field
                     ref="mo_tasa"
@@ -116,6 +116,7 @@
 
                 <v-flex xs12 sm3>
                 <currency-field
+                    ref="mo_total"
                     v-model="form.mo_total"
                     :rules="rules.monto"
                     label="Monto Total de Instruccion"
@@ -129,6 +130,7 @@
                     label="Oficio de Cta. Mandante"
                     v-model="form.tx_ofi_cta_mte"
                     :rules="rules.requerido"
+                    @input="oficioCtaMdte()"
                 ></v-text-field>
                 </v-flex>
 
@@ -155,8 +157,6 @@
                     </v-date-picker>
                 </v-menu>
                 </v-flex>
-
-                
 
                 <v-flex xs12 sm4>  
                 <v-select
@@ -201,6 +201,7 @@
         </v-form>
     </v-flex>
     </v-layout>
+    <pre>{{$data}} </pre>
     </v-container>
 
       
@@ -237,13 +238,19 @@ export default {
                 id_status:          '',
             },
 
-            /*
-        
-        */
-            rules:{
+       /*tedisis  
+       viernes 12 mediodia presencial  2 horas 
+       el recreo */
+             rules:{
                 montoInstruccion: [
                     v => !!v || 'Indique Monto',
-                    v => (Number(v) > Number(this.ingreso.mo_disponible)) ? 'Monto mayor al disponible' : true
+                    (v) => 
+                    {
+                       console.log(v, this.form.mo_instruccion)
+                       return (Number(this.form.mo_instruccion) > Number(this.moDisponible)) 
+                               ? 'Monto mayor al disponible' 
+                               : true
+                    }
                    ],
             },
             listas: {
@@ -255,20 +262,17 @@ export default {
             }
         }
     },
-
-    watch:{
-        tx_ofi_cta_mte: function (val) 
-        {
-            this.form.bo_ofi_cta_mte =  (val = '') ? 0 : 1;
-        },
-    },
     methods:
     {
+        oficioCtaMdte: function () 
+        {
+            this.form.bo_ofi_cta_mte =  (this.form.tx_ofi_cta_mte == '') ? 0 : 1;
+        },
         setDisponible()
         {
             let cuenta =  this.listas.cuenta.filter( item => item.id_moneda == this.form.id_moneda) 
 
-            this.moDisponible = (cuenta[0]) ? this.formatNumber(cuenta[0].mo_disponible) : 3
+            this.moDisponible = (cuenta[0]) ? cuenta[0].mo_disponible : 0
 
             this.setTasa()
         },
@@ -289,13 +293,20 @@ export default {
         },
         setTotal()
         {
-            this.form.mo_total = this.form.mo_instruccion * this.form.mo_tasa
+            if(this.form.mo_instruccion && this.form.mo_tasa) 
+            {
+                this.form.mo_total = this.form.mo_instruccion * this.form.mo_tasa;
+            }
+            else
+            {   
+                this.form.mo_total = null
+                this.$refs.mo_total.model = null
+            }
         },
         update()
         {
             if (this.$refs.form.validate()) 
             {
-                
                 axios.put(this.basePath + '/' + this.item.id_instruccion, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
@@ -310,7 +321,6 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {            
-                
                 axios.post(this.basePath, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)

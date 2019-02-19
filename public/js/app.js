@@ -57262,9 +57262,7 @@ var render = function() {
               _vm._v(" "),
               _c("v-toolbar-title", [
                 _vm._v(
-                  "\r\n                " +
-                    _vm._s(_vm.nbAccion) +
-                    "\r\n            "
+                  "\n                " + _vm._s(_vm.nbAccion) + "\n            "
                 )
               ])
             ],
@@ -70043,7 +70041,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70056,6 +70054,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+//
 //
 //
 //
@@ -70297,13 +70296,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id_status: ''
             },
 
-            /*
-                  */
+            /*tedisis  
+            viernes 12 mediodia presencial  2 horas 
+            el recreo */
             rules: {
                 montoInstruccion: [function (v) {
                     return !!v || 'Indique Monto';
                 }, function (v) {
-                    return Number(v) > Number(_this.ingreso.mo_disponible) ? 'Monto mayor al disponible' : true;
+                    console.log(v, _this.form.mo_instruccion);
+                    return Number(_this.form.mo_instruccion) > Number(_this.moDisponible) ? 'Monto mayor al disponible' : true;
                 }]
             },
             listas: {
@@ -70316,13 +70317,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-
-    watch: {
-        tx_ofi_cta_mte: function tx_ofi_cta_mte(val) {
-            this.form.bo_ofi_cta_mte = (val = '') ? 0 : 1;
-        }
-    },
     methods: {
+        oficioCtaMdte: function oficioCtaMdte() {
+            this.form.bo_ofi_cta_mte = this.form.tx_ofi_cta_mte == '' ? 0 : 1;
+        },
         setDisponible: function setDisponible() {
             var _this2 = this;
 
@@ -70330,7 +70328,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return item.id_moneda == _this2.form.id_moneda;
             });
 
-            this.moDisponible = cuenta[0] ? this.formatNumber(cuenta[0].mo_disponible) : 3;
+            this.moDisponible = cuenta[0] ? cuenta[0].mo_disponible : 0;
 
             this.setTasa();
         },
@@ -70346,13 +70344,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         setTotal: function setTotal() {
-            this.form.mo_total = this.form.mo_instruccion * this.form.mo_tasa;
+            if (this.form.mo_instruccion && this.form.mo_tasa) {
+                this.form.mo_total = this.form.mo_instruccion * this.form.mo_tasa;
+            } else {
+                this.form.mo_total = null;
+                this.$refs.mo_total.model = null;
+            }
         },
         update: function update() {
             var _this3 = this;
 
             if (this.$refs.form.validate()) {
-
                 axios.put(this.basePath + '/' + this.item.id_instruccion, this.form).then(function (respuesta) {
                     _this3.showMessage(respuesta.data.msj);
                     _this3.cancel();
@@ -70365,7 +70367,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             if (this.$refs.form.validate()) {
-
                 axios.post(this.basePath, this.form).then(function (respuesta) {
                     _this4.showMessage(respuesta.data.msj);
                     _this4.$emit('cerrarModal');
@@ -70555,12 +70556,46 @@ var render = function() {
                                 "v-flex",
                                 { attrs: { xs12: "", sm3: "" } },
                                 [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.listas.cuenta,
+                                      "item-text": "moneda.nb_moneda",
+                                      "item-value": "moneda.id_moneda",
+                                      rules: _vm.rules.select,
+                                      label: "Moneda",
+                                      hint:
+                                        "Diponible: " +
+                                        _vm.formatNumber(_vm.moDisponible),
+                                      "persistent-hint": "",
+                                      autocomplete: ""
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        _vm.setDisponible()
+                                      }
+                                    },
+                                    model: {
+                                      value: _vm.form.id_moneda,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "id_moneda", $$v)
+                                      },
+                                      expression: "form.id_moneda"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm3: "" } },
+                                [
                                   _c("currency-field", {
                                     ref: "mo_instruccion",
                                     attrs: {
                                       label: "Monto Instruccion",
                                       placeholder: "Ingrese Monto",
-                                      rules: _vm.rules.monto,
+                                      rules: _vm.rules.montoInstruccion,
                                       hint: "Ej 845.456,12",
                                       decimales: 2,
                                       required: ""
@@ -70580,37 +70615,6 @@ var render = function() {
                                         )
                                       },
                                       expression: "form.mo_instruccion"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm3: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.listas.cuenta,
-                                      "item-text": "moneda.nb_moneda",
-                                      "item-value": "moneda.id_moneda",
-                                      rules: _vm.rules.select,
-                                      label: "Moneda",
-                                      hint: "Diponible: " + _vm.moDisponible,
-                                      autocomplete: ""
-                                    },
-                                    on: {
-                                      input: function($event) {
-                                        _vm.setDisponible()
-                                      }
-                                    },
-                                    model: {
-                                      value: _vm.form.id_moneda,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "id_moneda", $$v)
-                                      },
-                                      expression: "form.id_moneda"
                                     }
                                   })
                                 ],
@@ -70653,6 +70657,7 @@ var render = function() {
                                 { attrs: { xs12: "", sm3: "" } },
                                 [
                                   _c("currency-field", {
+                                    ref: "mo_total",
                                     attrs: {
                                       rules: _vm.rules.monto,
                                       label: "Monto Total de Instruccion",
@@ -70679,6 +70684,11 @@ var render = function() {
                                     attrs: {
                                       label: "Oficio de Cta. Mandante",
                                       rules: _vm.rules.requerido
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        _vm.oficioCtaMdte()
+                                      }
                                     },
                                     model: {
                                       value: _vm.form.tx_ofi_cta_mte,
@@ -70855,7 +70865,9 @@ var render = function() {
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("pre", [_vm._v(_vm._s(_vm.$data) + " ")])
     ],
     1
   )
