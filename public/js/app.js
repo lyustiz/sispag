@@ -58220,8 +58220,6 @@ function tryParseFloat(str, defaultValue) {
       if (!result) parsed = 0;else parsed = result;
       if (!this.allowNegative && result < 0) parsed = 0;
       this.numberValue = parsed.toFixed(this.decimales);
-
-      console.info(this.numberValue);
     },
     updateModel: function updateModel() {
       if (this.numberValue === null) return;
@@ -70045,7 +70043,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70058,6 +70056,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_formHelper__ = __webpack_require__(8);
+//
 //
 //
 //
@@ -70279,7 +70278,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             tabla: 'instruccion',
             moDisponible: 0,
-            tasaReadOnly: false,
+            tasaReadOnly: true,
             form: {
                 id_categoria: '',
                 id_ente: '',
@@ -70317,11 +70316,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    computed: {
-        mo_total: function mo_total() {
-            return this.formatNumber(this.form.mo_instruccion * this.form.mo_tasa);
-        }
-    },
+
     watch: {
         tx_ofi_cta_mte: function tx_ofi_cta_mte(val) {
             this.form.bo_ofi_cta_mte = (val = '') ? 0 : 1;
@@ -70334,7 +70329,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var cuenta = this.listas.cuenta.filter(function (item) {
                 return item.id_moneda == _this2.form.id_moneda;
             });
-            this.moDisponible = this.formatNumber(cuenta[0].mo_disponible || 0);
+
+            this.moDisponible = cuenta[0] ? this.formatNumber(cuenta[0].mo_disponible) : 3;
+
             this.setTasa();
         },
         setTasa: function setTasa() {
@@ -70347,6 +70344,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$refs.mo_tasa.model = null;
                 this.tasaReadOnly = false;
             }
+        },
+        setTotal: function setTotal() {
+            this.form.mo_total = this.form.mo_instruccion * this.form.mo_tasa;
         },
         update: function update() {
             var _this3 = this;
@@ -70565,6 +70565,11 @@ var render = function() {
                                       decimales: 2,
                                       required: ""
                                     },
+                                    on: {
+                                      input: function($event) {
+                                        _vm.setTotal()
+                                      }
+                                    },
                                     model: {
                                       value: _vm.form.mo_instruccion,
                                       callback: function($$v) {
@@ -70626,6 +70631,11 @@ var render = function() {
                                       disabled: _vm.tasaReadOnly,
                                       decimales: 5
                                     },
+                                    on: {
+                                      input: function($event) {
+                                        _vm.setTotal()
+                                      }
+                                    },
                                     model: {
                                       value: _vm.form.mo_tasa,
                                       callback: function($$v) {
@@ -70642,13 +70652,12 @@ var render = function() {
                                 "v-flex",
                                 { attrs: { xs12: "", sm3: "" } },
                                 [
-                                  _c("v-text-field", {
+                                  _c("currency-field", {
                                     attrs: {
+                                      rules: _vm.rules.monto,
                                       label: "Monto Total de Instruccion",
-                                      value: _vm.mo_total,
                                       placeholder: "Ingrese monto/moneda/tasa",
-                                      "prepend-icon": "attach_money",
-                                      disabled: ""
+                                      decimales: 5
                                     },
                                     model: {
                                       value: _vm.form.mo_total,

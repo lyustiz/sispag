@@ -80,6 +80,7 @@
                     ref="mo_instruccion"
                     :rules="rules.monto"
                     hint="Ej 845.456,12"
+                    @input="setTotal()"
                     :decimales="2"
                     required
                 ></currency-field>
@@ -107,20 +108,20 @@
                     label="Tasa de Cambio"
                     placeholder="Ingrese Tasa"
                     hint="Ej 1,43333"
+                    @input="setTotal()"
                     :disabled="tasaReadOnly"
                     :decimales="5"
                 ></currency-field>
                 </v-flex>
 
                 <v-flex xs12 sm3>
-                <v-text-field
-                    label="Monto Total de Instruccion"
+                <currency-field
                     v-model="form.mo_total"
-                    :value="mo_total"
+                    :rules="rules.monto"
+                    label="Monto Total de Instruccion"
                     placeholder="Ingrese monto/moneda/tasa"
-                    prepend-icon="attach_money"
-                    disabled
-                ></v-text-field>
+                    :decimales="5"
+                ></currency-field>
                 </v-flex>
 
                 <v-flex xs12 sm4 >
@@ -217,7 +218,7 @@ export default {
         return {
             tabla:          'instruccion',
             moDisponible:   0,
-            tasaReadOnly:   false,
+            tasaReadOnly:   true,
             form:{
                 id_categoria:       '',
                 id_ente:            '',
@@ -254,13 +255,7 @@ export default {
             }
         }
     },
-    computed:
-    {
-        mo_total()
-        {
-            return this.formatNumber(this.form.mo_instruccion * this.form.mo_tasa);
-        }
-    },
+
     watch:{
         tx_ofi_cta_mte: function (val) 
         {
@@ -271,8 +266,10 @@ export default {
     {
         setDisponible()
         {
-            let cuenta =  this.listas.cuenta.filter( item => item.id_moneda == this.form.id_moneda)
-            this.moDisponible = this.formatNumber(cuenta[0].mo_disponible || 0 )
+            let cuenta =  this.listas.cuenta.filter( item => item.id_moneda == this.form.id_moneda) 
+
+            this.moDisponible = (cuenta[0]) ? this.formatNumber(cuenta[0].mo_disponible) : 3
+
             this.setTasa()
         },
         setTasa()
@@ -289,6 +286,10 @@ export default {
                 this.$refs.mo_tasa.model = null
                 this.tasaReadOnly        = false;
             }
+        },
+        setTotal()
+        {
+            this.form.mo_total = this.form.mo_instruccion * this.form.mo_tasa
         },
         update()
         {

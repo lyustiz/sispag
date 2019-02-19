@@ -103,8 +103,6 @@ export default {
       else parsed = result
       if (!this.allowNegative && result < 0) parsed = 0
       this.numberValue = parsed.toFixed(this.decimales)
-
-      console.info( this.numberValue)
     },
     updateModel () {
       if (this.numberValue === null) return
