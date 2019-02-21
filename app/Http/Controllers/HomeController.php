@@ -106,22 +106,16 @@ class HomeController extends Controller
         $instruccion = \DB::select( \DB::raw(
                             "SELECT cat.nb_categoria, SUM(ins.mo_instruccion) AS mo_instruccion  
                                 FROM instruccion ins
-                                JOIN solicitud sol ON sol.id_solicitud = ins.id_solicitud
-                                JOIN categoria cat ON cat.id_categoria = sol.id_categoria
+                                JOIN categoria cat ON cat.id_categoria = ins.id_categoria
                             GROUP BY (cat.nb_categoria)"
                             ));
+
         $procesos = \DB::select( \DB::raw(
                          "SELECT 'ingreso' AS tipo,
                                  COUNT(ing.id_ingreso) AS cantidad, 
                                  DATE(ing.fe_ingreso) AS fecha
                             FROM ingreso ing
                         GROUP BY (ing.fe_ingreso)
-                        UNION 
-                          SELECT 'solicitud' AS tipo,
-                                 COUNT(sol.id_solicitud) AS cantidad, 
-                                 DATE(sol.fe_solicitud) AS fecha
-                            FROM solicitud sol
-                        GROUP BY (sol.fe_solicitud)
                         UNION
                           SELECT 'instruccion' AS tipo,
                                  COUNT(ins.id_instruccion) AS cantidad, 
@@ -136,7 +130,7 @@ class HomeController extends Controller
                         GROUP BY (pag.fe_pago)"
                             ));
         
-        return compact('cuenta','ingreso','instruccion','procesos');
+        return compact('cuenta', 'ingreso','instruccion','procesos');
     }
 
     public function getAyuda() 

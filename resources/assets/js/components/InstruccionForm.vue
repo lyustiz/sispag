@@ -79,8 +79,8 @@
                     v-model="form.id_moneda"
                     :rules="rules.select"
                     label="Moneda"
-                    :hint="'Diponible: '+ formatNumber(moDisponible)"
                     @input="setDisponible()"
+                    :hint="'Diponible: '+ formatNumber(moDisponible)"
                     persistent-hint
                     autocomplete
                 ></v-select>
@@ -93,7 +93,7 @@
                     placeholder="Ingrese Monto"
                     ref="mo_instruccion"
                     :rules="rules.montoInstruccion"
-                    hint="Ej 845.456,12"
+                    :hint="'Diponible: '+ formatNumber(moDisponible)"
                     @input="setTotal()"
                     :decimales="2"
                     required
@@ -237,7 +237,7 @@ export default {
                 id_usuario:         '',
                 id_status:          '',
             },
-
+    
        /*tedisis  
        viernes 12 mediodia presencial  2 horas 
        el recreo */
@@ -246,10 +246,10 @@ export default {
                     v => !!v || 'Indique Monto',
                     (v) => 
                     {
-                       console.log(v, this.form.mo_instruccion)
+                                    
                        return (Number(this.form.mo_instruccion) > Number(this.moDisponible)) 
-                               ? 'Monto mayor al disponible' 
-                               : true
+                              ? 'Monto mayor al disponible' 
+                              : true
                     }
                    ],
             },
@@ -262,6 +262,15 @@ export default {
             }
         }
     },
+    watch:{
+        accion(val)
+        {
+            if(val == 'upd')
+            {
+                this.setDisponible()
+            }
+        }
+    },
     methods:
     {
         oficioCtaMdte: function () 
@@ -270,10 +279,16 @@ export default {
         },
         setDisponible()
         {
-            let cuenta =  this.listas.cuenta.filter( item => item.id_moneda == this.form.id_moneda) 
+            let cuenta       =  this.listas.cuenta.filter( item => item.id_moneda == this.form.id_moneda ) 
 
-            this.moDisponible = (cuenta[0]) ? cuenta[0].mo_disponible : 0
+            let mo_instruido = (this.accion == 'upd') 
+                               ? this.item.mo_instruccion 
+                               : 0
 
+            this.moDisponible = ( cuenta[0] ) 
+                                ? Number(cuenta[0].mo_disponible) + Number(mo_instruido) 
+                                : 0
+   
             this.setTasa()
         },
         setTasa()

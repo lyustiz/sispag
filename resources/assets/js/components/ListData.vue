@@ -1,7 +1,8 @@
 <template>
-    <v-card v-if="visible">
+
+    <v-card v-if="visible" class="list-data">
     
-    <v-toolbar dark color="blue accent-1 white--text">
+    <v-toolbar dark color="blue white--text" dense flat>
         <v-card-title primary-title primary>
            <h3> {{ titulo }} </h3>
         </v-card-title>
@@ -13,20 +14,23 @@
     
     <v-card-text>
         
-    <v-list dense two-line subheader>
+         
+            
+        <v-layout row wrap v-for="(texto, titulo) in items" :key="titulo" >
+            
+                <v-flex sm4 >
+                     <div class="caption text-sm-left">{{titulo}}</div>
+                </v-flex>
 
-        <v-list-tile v-for="(texto, titulo) in items" :key="titulo" >
-            <v-list-tile-content>
-            <v-list-tile-title>{{titulo}}</v-list-tile-title>
-            <v-list-tile-sub-title>{{texto}}</v-list-tile-sub-title>
-            </v-list-tile-content>
-        </v-list-tile> 
-
+                <v-flex sm8>
+                    <div class="font-weight-light text-sm-left">{{texto}}</div>
+                </v-flex>
+                
            <slot></slot>
-
-    </v-list>
+        </v-layout>
     
     </v-card-text>
+
 </v-card>
 </template>
 
@@ -35,3 +39,14 @@ export default {
     props: ['titulo' , 'items', 'visible'],
 }
 </script>
+
+<style scope>
+
+    .list-data{
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    .label{
+
+    }
+</style>

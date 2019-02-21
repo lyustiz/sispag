@@ -55,10 +55,10 @@
                             <v-btn flat icon color="primary">
                                 <v-icon>touch_app</v-icon>
                             </v-btn>
-                            {{ item.item.solicitud.categoria.nb_categoria }}
+                            {{ item.item.categoria.nb_categoria }}
                         </td>
-                        <td class="text-xs-left">{{ item.item.solicitud.ente.nb_ente }}</td>
-                        <td class="text-xs-left">{{ item.item.solicitud.tx_concepto  }}</td>
+                        <td class="text-xs-left">{{ item.item.ente.nb_ente }}</td>
+                        <td class="text-xs-left">{{ item.item.tx_concepto  }}</td>
                         <td class="text-xs-right">{{ item.item.mo_instruccion | formatNumber }}</td>
                         <td class="text-xs-right">{{ item.item.moneda.nb_moneda }}</td>
                         <td class="text-xs-left">{{ item.item.fe_instruccion | formDate  }}</td>
@@ -123,11 +123,11 @@ export default {
     return {
         acreditado: [],
         headers: [
-        { text: 'Categoria',    value: 'solicitud.categoria.nb_categoria' },
+        { text: 'Categoria',    value: 'categoria.nb_categoria' },
         { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
-        { text: 'Concepto',     value: 'solicitud.tx_concepto' },
+        { text: 'Concepto',     value: 'tx_concepto' },
         { text: 'Monto',        value: 'mo_instruccion' },
-        { text: 'Moneda',       value:'moneda.nb_moneda' },
+        { text: 'Moneda',       value: 'moneda.nb_moneda' },
         { text: 'Fecha',        value: 'fe_instruccion' },
         { text: 'Esq. Pago',    value: 'esquema.nb_esquema' },
         { text: 'Estatus',      value: 'id_status' },
