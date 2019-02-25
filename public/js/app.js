@@ -57262,7 +57262,9 @@ var render = function() {
               _vm._v(" "),
               _c("v-toolbar-title", [
                 _vm._v(
-                  "\n                " + _vm._s(_vm.nbAccion) + "\n            "
+                  "\r\n                " +
+                    _vm._s(_vm.nbAccion) +
+                    "\r\n            "
                 )
               ])
             ],
