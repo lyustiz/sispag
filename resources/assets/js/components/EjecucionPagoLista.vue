@@ -146,7 +146,6 @@ export default {
         
         list () 
         {
-
             axios.get('/api/v1/ejecucionPago/pago/'+this.pago.id_pago)
             .then(respuesta => 
             {
@@ -189,6 +188,8 @@ export default {
                     this.list();
                     this.item = '';
                     this.dialogo = false;
+
+                    this.$emit('cancelado', item.id_pago );
                 })
                 .catch(error => 
                 {

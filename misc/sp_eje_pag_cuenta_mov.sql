@@ -60,8 +60,8 @@ IF  (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE') THEN
             --Actualizo en la tabla cuenta
 			UPDATE pagos.cuenta
 			   SET  
-			       mo_total         = ( mo_total      - v_mo_total_pago)
-                   mo_instruido     = ( mo_instruido  - v_mo_total_pago)
+			       mo_total         = ( mo_total      - v_mo_total_pago )
+                   mo_instruido     = ( mo_instruido  - v_mo_total_pago )
 			       tx_observaciones = new.tx_observaciones,
 			       id_usuario       = new.id_usuario,			       
 			       fe_actualizado   = now()
@@ -76,8 +76,8 @@ IF  (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE') THEN
             --Actualizo en la tabla cuenta
 			UPDATE pagos.cuenta
 			   SET  
-			       mo_total         = ( mo_total      + v_mo_total_pago)
-                   mo_instruido     = ( mo_instruido  + v_mo_total_pago)
+			       mo_total         = ( mo_total      + v_mo_total_pago )
+                   mo_instruido     = ( mo_instruido  + v_mo_total_pago )
 			       tx_observaciones = new.tx_observaciones,
 			       id_usuario       = new.id_usuario,			       
 			       fe_actualizado   = now()
@@ -95,8 +95,8 @@ IF  (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE') THEN
                                         id_usuario, 
                                         id_status, 
                                         fe_creado, 
-                                        id_moneda)
-                                VALUES (new.id_pago,
+                                        id_moneda )
+                               VALUES ( new.id_pago,
                                         v_nb_modulo,
                                         v_tx_tipomov,
                                         v_mo_total_pago,
@@ -105,7 +105,7 @@ IF  (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE') THEN
                                         new.id_usuario,
                                         new.id_status,
                                         now(),
-                                        v_id_moneda_cue);
+                                        v_id_moneda_cue );
     
     RETURN NEW;
 
