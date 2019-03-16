@@ -154,27 +154,6 @@ export default {
         { text: 'Fecha',        value: 'fe_instruccion' },
         { text: 'Esquema Pago', value: 'esquema.nb_esquema' },
         { text: 'Acciones',     value: 'id_status'  },
-        
-        /*
-        'id_categoria',
-        'id_ente',
-        'tx_concepto',
-        'id_esquema',
-        'nu_esquema',
-        'tx_ofi_cta_mte',
-        'bo_ofi_cta_mte',
-        'fe_instruccion',
-        'mo_instruccion',
-        'id_moneda',
-        'mo_tasa',
-        'mo_total',
-        'tx_observaciones',
-        'id_usuario',
-        'id_status',
-        'fe_creado',
-        'fe_actualizado',
-        */
-        
         ],
         listas:{
             categoria: []

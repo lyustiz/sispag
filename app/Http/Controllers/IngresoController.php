@@ -14,7 +14,7 @@ class IngresoController extends Controller
      */
     public function index()
     {
-        $ingresos = Ingreso::with(['tipoIngreso', 'ente', 'moneda', 'banco', 'status'])
+        $ingresos = Ingreso::with(['tipoIngreso', 'ente', 'moneda.instruccion', 'banco', 'status'])
                             ->orderby('fe_creado', 'desc')
                             ->get();
         
@@ -65,7 +65,7 @@ class IngresoController extends Controller
      */
     public function show(Ingreso $ingreso)
     {
-        return $ingreso->load(['tipoIngreso', 'ente', 'moneda', 'banco', 'status']);
+        return $ingreso->load(['tipoIngreso', 'ente', 'moneda', 'banco', 'status', 'moneda']);
     }
 
     /**

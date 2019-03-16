@@ -123,7 +123,6 @@
         @delCancel="delCancel"
     >
     </dialogo>
-    <pre>{{$data}}</pre>
     </v-container>
 
 </template>

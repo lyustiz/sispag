@@ -201,7 +201,6 @@
         </v-form>
     </v-flex>
     </v-layout>
-    <pre>{{$data}} </pre>
     </v-container>
 
       
@@ -237,10 +236,6 @@ export default {
                 id_usuario:         '',
                 id_status:          '',
             },
-    
-       /*tedisis  
-       viernes 12 mediodia presencial  2 horas 
-       el recreo */
              rules:{
                 montoInstruccion: [
                     v => !!v || 'Indique Monto',

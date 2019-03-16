@@ -71,9 +71,6 @@ import withSnackbar from './components/mixins/withSnackbar'
 import Slick from 'vue-slick';
 import colors from 'vuetify/es5/util/colors';
 
-//import {VMoney} from 'v-money'
-//Vue.directive('money', VMoney);
-
 if (window.user) {
  
   store.commit(mutations.USER,  user)

@@ -165,6 +165,7 @@ export default {
             {
                 this.showMessage(respuesta.data.msj)
                 this.list();
+                this.listasLoader();
                 this.item = '';
                 this.dialogo = false;
             })
@@ -189,7 +190,7 @@ export default {
                     this.item = '';
                     this.dialogo = false;
 
-                    this.$emit('cancelado', item.id_pago );
+                    this.$emit('cancelado', ejecucionPago.id_pago );
                 })
                 .catch(error => 
                 {

@@ -69,7 +69,8 @@
 
                 <list-buttons icono="lock" color="green" :del="false" :upd="false">
                     <v-tooltip top>
-                        <v-btn slot="activator" fab dark small color="error" @click="reversarIngreso(item.item)">
+                        
+                        <v-btn slot="activator" v-if="item.item.moneda.instruccion.length < 1" fab dark small color="error" @click="reversarIngreso(item.item)">
                             <v-icon>reply_all</v-icon>
                         </v-btn>
                         <span>Reversar Ingreso</span>
@@ -202,6 +203,7 @@ export default {
             {
                 item.id_status  = 2;
                 item.id_usuario = this.id_usuario;
+                
                 axios.put('/api/v1/ingreso/'+ item.id_ingreso, item)
                 .then(respuesta => {
 

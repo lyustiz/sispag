@@ -56,7 +56,7 @@ class Ingreso extends Model
         return $this->BelongsTo('App\Models\Ente', 'id_ente');
     
     }
-    
+
     public function moneda(){
     
         return $this->BelongsTo('App\Models\Moneda', 'id_moneda');
