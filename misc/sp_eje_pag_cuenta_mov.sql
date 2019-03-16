@@ -54,6 +54,35 @@ IF  (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE') THEN
 		v_nb_modulo    = 'Pago';
 		v_tx_tipomov   = 'Débito';
             
+<<<<<<< HEAD
+            --Actualizo en la tabla cuenta
+			UPDATE pagos.cuenta
+			   SET  
+			       mo_total         = ( mo_total      - v_mo_total_pago )
+                   mo_instruido     = ( mo_instruido  - v_mo_total_pago )
+			       tx_observaciones = new.tx_observaciones,
+			       id_usuario       = new.id_usuario,			       
+			       fe_actualizado   = now()
+			 WHERE id_moneda        = v_id_moneda_cue;
+
+ 		--REVERSO
+        ELSE IF (TG_OP = 'UPDATE') AND (new.id_etapa_envio = 3) AND (old.id_status = 31) AND (new.id_status <> 31) THEN 
+
+            v_nb_modulo    = 'Reverso';
+            v_tx_tipomov   = 'Crédito' 
+            
+            --Actualizo en la tabla cuenta
+			UPDATE pagos.cuenta
+			   SET  
+			       mo_total         = ( mo_total      + v_mo_total_pago )
+                   mo_instruido     = ( mo_instruido  + v_mo_total_pago )
+			       tx_observaciones = new.tx_observaciones,
+			       id_usuario       = new.id_usuario,			       
+			       fe_actualizado   = now()
+			 WHERE id_moneda        = v_id_moneda_cue;
+		
+		END IF; 
+=======
 		--Actualizo en la tabla cuenta
 		UPDATE pagos.cuenta
 		   SET mo_total         = ( mo_total      - v_mo_total_pago),
@@ -79,6 +108,7 @@ IF  (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE') THEN
 		  WHERE id_moneda    = v_id_moneda_cue;
 
 	END IF; 
+>>>>>>> 1805e5c0b662a1a50860a8bfc6bde082ecac8ab8
 
         --MOVIMIENTO
         INSERT INTO pagos.movimiento (  nu_movimiento,
@@ -90,8 +120,8 @@ IF  (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE') THEN
                                         id_usuario, 
                                         id_status, 
                                         fe_creado, 
-                                        id_moneda)
-                                VALUES (new.id_pago,
+                                        id_moneda )
+                               VALUES ( new.id_pago,
                                         v_nb_modulo,
                                         v_tx_tipomov,
                                         v_mo_total_pago,
@@ -100,7 +130,7 @@ IF  (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE') THEN
                                         new.id_usuario,
                                         new.id_status,
                                         now(),
-                                        v_id_moneda_cue);
+                                        v_id_moneda_cue );
     
     
 
