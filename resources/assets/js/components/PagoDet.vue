@@ -60,7 +60,7 @@
                     <v-btn slot="activator" fab small color="warning" >
                         <v-icon >access_time</v-icon>
                         </v-btn>
-                        <span>Tansito</span>
+                        <span>Transito</span>
                     </v-tooltip>
                 </template>
 
@@ -123,6 +123,7 @@
         @delCancel="delCancel"
     >
     </dialogo>
+    <pre>{{$data}}</pre>
     </v-container>
 
 </template>
@@ -176,7 +177,7 @@ export default {
             {
                 val.forEach(function(item) 
                 {
-                    moPagado += Number(item.mo_final_pago)
+                   moPagado += (item.id_status == 31) ? Number(item.mo_final_pago) : 0
                 });
             }
             this.montos.pagado    = moPagado;
