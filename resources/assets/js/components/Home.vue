@@ -114,7 +114,7 @@
               <v-list-tile>
                 <v-list-tile-content>
                   <v-list-tile-title><h3>Procesos</h3></v-list-tile-title>
-                  <v-list-tile-sub-title>Ingresos / Solicitudes / Intruciones / Pagos </v-list-tile-sub-title>
+                  <v-list-tile-sub-title>Ingresos / Intruciones / Pagos </v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -262,7 +262,6 @@ export default {
         setProcesos()
         {
           let ingreso     = new Object();
-          let solicitud   = new Object();
           let instruccion = new Object();
           let pago        = new Object();
 
@@ -271,9 +270,6 @@ export default {
                switch (item.tipo) {
                 case 'ingreso':
                   ingreso[item.fecha]     = item.cantidad;
-                  break;
-                case 'solicitud':
-                  solicitud[item.fecha]   = item.cantidad;
                   break;
                 case 'instruccion':
                   instruccion[item.fecha] = item.cantidad;
@@ -289,12 +285,10 @@ export default {
                                   data: 
                                         [
                                           {name: 'Ingresos',    data: ingreso},
-                                          {name: 'solicitud',   data: solicitud},
                                           {name: 'instruccion', data: instruccion},
                                           {name: 'pago',        data: pago}
                                         ] 
                                 } ;
-
         },
         setIngresos()
         {

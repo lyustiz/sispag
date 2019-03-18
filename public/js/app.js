@@ -57259,9 +57259,7 @@ var render = function() {
               _vm._v(" "),
               _c("v-toolbar-title", [
                 _vm._v(
-                  "\r\n                " +
-                    _vm._s(_vm.nbAccion) +
-                    "\r\n            "
+                  "\n                " + _vm._s(_vm.nbAccion) + "\n            "
                 )
               ])
             ],
@@ -66133,7 +66131,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -66146,7 +66144,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
-//
 //
 //
 //
@@ -66817,9 +66814,7 @@ var render = function() {
       _c("dialogo", {
         attrs: { dialogo: _vm.dialogo, mensaje: "Desea Eliminar el Ingreso" },
         on: { delItem: _vm.delItem, delCancel: _vm.delCancel }
-      }),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.$data))])
+      })
     ],
     1
   )
@@ -77429,7 +77424,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_chartkick__["a" /* default */], { adapte
     },
     setProcesos: function setProcesos() {
       var ingreso = new Object();
-      var solicitud = new Object();
       var instruccion = new Object();
       var pago = new Object();
 
@@ -77437,9 +77431,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_chartkick__["a" /* default */], { adapte
         switch (item.tipo) {
           case 'ingreso':
             ingreso[item.fecha] = item.cantidad;
-            break;
-          case 'solicitud':
-            solicitud[item.fecha] = item.cantidad;
             break;
           case 'instruccion':
             instruccion[item.fecha] = item.cantidad;
@@ -77451,7 +77442,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_chartkick__["a" /* default */], { adapte
       }, this);
 
       this.chartProcesos = {
-        data: [{ name: 'Ingresos', data: ingreso }, { name: 'solicitud', data: solicitud }, { name: 'instruccion', data: instruccion }, { name: 'pago', data: pago }]
+        data: [{ name: 'Ingresos', data: ingreso }, { name: 'instruccion', data: instruccion }, { name: 'pago', data: pago }]
       };
     },
     setIngresos: function setIngresos() {
@@ -93087,9 +93078,7 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v(
-                                      "Ingresos / Solicitudes / Intruciones / Pagos "
-                                    )
+                                    _vm._v("Ingresos / Intruciones / Pagos ")
                                   ])
                                 ],
                                 1
