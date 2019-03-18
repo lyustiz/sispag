@@ -99,7 +99,7 @@
         <template slot="expand" slot-scope="item">
             <v-card flat>
                 <v-card-text>
-                    <ejecucion-lista :pago="item.item" @pagados="setPagados"></ejecucion-lista>
+                    <ejecucion-lista :pago="item.item" @pagado="pagado($event)" @cancelado="cancelado($event)"></ejecucion-lista>
                 </v-card-text>
             </v-card>
         </template>
@@ -113,7 +113,14 @@
     </v-layout>
     
     <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-        <pago-form :accion="accion" :montos="montos" :instruccion="instruccion" :item="item" @cerrarModal="cerrarModal"></pago-form>
+        <pago-form  
+            :accion="accion" 
+            :montos="montos" 
+            :instruccion="instruccion" 
+            :item="item" 
+            @cerrarModal="cerrarModal"
+            >
+        </pago-form>
     </form-container>
 
     <dialogo 
@@ -123,6 +130,7 @@
         @delCancel="delCancel"
     >
     </dialogo>
+    
     </v-container>
 
 </template>
@@ -144,50 +152,56 @@ export default {
         },
         pagados: [],
         headers: [
-        { text: 'Tipo Pago',value: 'tipo_pago.nb_tipo_pago' },
-        { text: 'Proveedor',value: 'ente.nb_ente' },
-        { text: 'Mto Pago', value: 'mo_final_pago' },
-        { text: 'Moneda',   value: 'moneda.nb_moneda' },
-        { text: 'Tasa',     value: 'mo_tasa' },
-        { text: 'Mto Total',value: 'mo_total_pago' },
-        { text: 'Fecha',    value: 'fe_pago' },
-        { text: 'Status',   value: 'id_status'  },
-        { text: 'Acciones', value: 'id_status'  },
+            { text: 'Tipo Pago',value: 'tipo_pago.nb_tipo_pago' },
+            { text: 'Proveedor',value: 'ente.nb_ente' },
+            { text: 'Mto Pago', value: 'mo_final_pago' },
+            { text: 'Moneda',   value: 'moneda.nb_moneda' },
+            { text: 'Tasa',     value: 'mo_tasa' },
+            { text: 'Mto Total',value: 'mo_total_pago' },
+            { text: 'Fecha',    value: 'fe_pago' },
+            { text: 'Status',   value: 'id_status'  },
+            { text: 'Acciones', value: 'id_status'  },
         ],
     }
     },
     props:['instruccion'],
-    computed:
-    {
-        isPagados()
-        {
-            return this.pagados;
-        }
-    },
     watch:
     {
-        items: function(val){
+        items: function(pagos){
+
+            this.calcularMontos(pagos);
+
+        },
+    },
+    methods:
+    {
+        calcularMontos(pagos)
+        {
             let moPagado = 0
-            if (!val) 
+            if (!pagos) 
             {
                 this.montos.pagado = 0
             }
             else
             {
-                val.forEach(function(item) 
+                pagos.forEach(function(pago) 
                 {
-                   moPagado += (item.id_status == 31) ? Number(item.mo_final_pago) : 0
-                });
+                    moPagado += (pago.id_status == 31) ? Number(pago.mo_final_pago) : 0 ;
+
+                }, this);
             }
+            
             this.montos.pagado    = moPagado;
             this.montos.pendiente = this.montos.instruido - moPagado;
-        },
-    },
-    methods:
-    {
-        setPagados(pagado)
-        {
-            this.pagados.push(pagado);
+            
+            if( this.montos.pendiente == 0)
+            {
+                this.$emit('pagado', this.instruccion.id_instruccion);
+            }
+            else
+            {
+                this.$emit('pendiente', this.instruccion.id_instruccion);
+            }
         },
         list () {
 
@@ -216,8 +230,36 @@ export default {
                 this.showError(error)    
             })
 
+        },
+        pagado(id_pago)
+        {
+            this.items.forEach(function(pago, index) {
+
+                if(pago.id_pago == id_pago)
+                {
+                    this.items[index].id_status = 31
+                    this.items[index].status.nb_status = 'Acreditado'
+                }
+
+            },this)
+
+            this.calcularMontos(this.items);
+            
+        },
+        cancelado(id_pago)
+        {
+            this.items.forEach(function(pago, index) {
+
+                if(pago.id_pago == id_pago)
+                {
+                    this.items[index].id_status = 27
+                    this.items[index].status.nb_status = 'En tránsito'
+                }
+
+            },this)
+
+            this.calcularMontos(this.items);
         }
-        
     }
 }
 

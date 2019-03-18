@@ -68,12 +68,17 @@
             <td class="text-xs-center" v-else>
 
                 <list-buttons icono="lock" color="green" :del="false" :upd="false">
-                    <v-tooltip top>
-                        
-                        <v-btn slot="activator" v-if="item.item.moneda.instruccion.length < 1" fab dark small color="error" @click="reversarIngreso(item.item)">
+                    <v-tooltip top v-if="item.item.moneda.instruccion.length < 1">
+                        <v-btn slot="activator"  fab dark small color="error" @click="reversarIngreso(item.item)">
                             <v-icon>reply_all</v-icon>
                         </v-btn>
                         <span>Reversar Ingreso</span>
+                   </v-tooltip>
+                   <v-tooltip top v-else>
+                        <v-btn slot="activator"  fab dark small color="warning" >
+                            <v-icon>warning</v-icon>
+                        </v-btn>
+                        <span>Posee Instrucciones</span>
                    </v-tooltip>
                 </list-buttons>
 
@@ -131,7 +136,7 @@
         @delCancel="delCancel"
     >
     </dialogo>
-        
+        <pre>{{$data}}</pre>
     </v-container>
 
 </template>

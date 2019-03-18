@@ -119,7 +119,8 @@
     </v-layout>
 
         <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-           <instruccion-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></instruccion-form>
+           <instruccion-form :accion="accion" :item="item" @cerrarModal="cerrarModal"  ref="instruccionForm">
+           </instruccion-form>
         </form-container>
 
     <dialogo 
@@ -188,6 +189,7 @@ export default {
 
                 this.showMessage(respuesta.data.msj)
                 this.list();
+                this.$refs.instruccionForm.listCuenta();
                 this.item = '';
                 this.dialogo = false;
                 

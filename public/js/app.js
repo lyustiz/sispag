@@ -57259,7 +57259,9 @@ var render = function() {
               _vm._v(" "),
               _c("v-toolbar-title", [
                 _vm._v(
-                  "\n                " + _vm._s(_vm.nbAccion) + "\n            "
+                  "\r\n                " +
+                    _vm._s(_vm.nbAccion) +
+                    "\r\n            "
                 )
               ])
             ],
@@ -62925,7 +62927,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -62938,6 +62940,14 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -63087,28 +63097,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     props: ['instruccion'],
-    computed: {
-        isPagados: function isPagados() {
-            return this.pagados;
-        }
-    },
     watch: {
-        items: function items(val) {
-            var moPagado = 0;
-            if (!val) {
-                this.montos.pagado = 0;
-            } else {
-                val.forEach(function (item) {
-                    moPagado += item.id_status == 31 ? Number(item.mo_final_pago) : 0;
-                });
-            }
-            this.montos.pagado = moPagado;
-            this.montos.pendiente = this.montos.instruido - moPagado;
+        items: function items(pagos) {
+
+            this.calcularMontos(pagos);
         }
     },
     methods: {
-        setPagados: function setPagados(pagado) {
-            this.pagados.push(pagado);
+        calcularMontos: function calcularMontos(pagos) {
+            var moPagado = 0;
+            if (!pagos) {
+                this.montos.pagado = 0;
+            } else {
+                pagos.forEach(function (pago) {
+                    moPagado += pago.id_status == 31 ? Number(pago.mo_final_pago) : 0;
+                }, this);
+            }
+
+            this.montos.pagado = moPagado;
+            this.montos.pendiente = this.montos.instruido - moPagado;
+
+            if (this.montos.pendiente == 0) {
+                this.$emit('pagado', this.instruccion.id_instruccion);
+            } else {
+                this.$emit('pendiente', this.instruccion.id_instruccion);
+            }
         },
         list: function list() {
             var _this = this;
@@ -63133,6 +63146,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 _this2.showError(error);
             });
+        },
+        pagado: function pagado(id_pago) {
+            this.items.forEach(function (pago, index) {
+
+                if (pago.id_pago == id_pago) {
+                    this.items[index].id_status = 31;
+                    this.items[index].status.nb_status = 'Acreditado';
+                }
+            }, this);
+
+            this.calcularMontos(this.items);
+        },
+        cancelado: function cancelado(id_pago) {
+            this.items.forEach(function (pago, index) {
+
+                if (pago.id_pago == id_pago) {
+                    this.items[index].id_status = 27;
+                    this.items[index].status.nb_status = 'En tránsito';
+                }
+            }, this);
+
+            this.calcularMontos(this.items);
         }
     }
 });
@@ -63524,7 +63559,14 @@ var render = function() {
                                           [
                                             _c("ejecucion-lista", {
                                               attrs: { pago: item.item },
-                                              on: { pagados: _vm.setPagados }
+                                              on: {
+                                                pagado: function($event) {
+                                                  _vm.pagado($event)
+                                                },
+                                                cancelado: function($event) {
+                                                  _vm.cancelado($event)
+                                                }
+                                              }
                                             })
                                           ],
                                           1
@@ -63677,7 +63719,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63804,6 +63846,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -63813,30 +63858,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
-            acreditado: [],
             headers: [{ text: 'Categoria', value: 'categoria.nb_categoria' }, { text: 'Ente', value: 'instruccion.ente.nb_ente' }, { text: 'Concepto', value: 'tx_concepto' }, { text: 'Monto', value: 'mo_instruccion' }, { text: 'Moneda', value: 'moneda.nb_moneda' }, { text: 'Fecha', value: 'fe_instruccion' }, { text: 'Esq. Pago', value: 'esquema.nb_esquema' }, { text: 'Estatus', value: 'id_status' }],
+            pagados: [],
             listas: {
                 categoria: []
             }
         };
     },
 
-    computed: {
-        isAcreditado: function isAcreditado() {
-            /*if(!istruccion)
-            {
-                return false
-            }else{
-            console.info(acreditado , istruccion.id_instruccion, acreditado.id_instruccion == istruccion.id_instruccion)
-            return acreditado.id_instruccion == istruccion.id_instruccion
-            }*/
-            return true;
-        }
-    },
     methods: {
-        setAcreditado: function setAcreditado(instruccion) {
-            console.log(instruccion);
-        },
         list: function list() {
             var _this = this;
 
@@ -63854,24 +63884,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.showError(error);
             });
         },
-        getMontos: function getMontos(item) {
+        getMontos: function getMontos(instruccion) {
 
             var monto = {
-                instruido: Number(item.mo_instruccion),
-                pendiente: Number(item.mo_instruccion),
+                instruido: Number(instruccion.mo_instruccion),
+                pendiente: Number(instruccion.mo_instruccion),
                 pagado: 0
             };
 
-            if (item.pago.length > 0) {
-
-                item.pago.forEach(function (item) {
-                    if (item.id_status == 31) {
-                        monto.pagado += Number(item.mo_final_pago);
+            if (instruccion.pago.length > 0) {
+                instruccion.pago.forEach(function (pago) {
+                    if (pago.id_status == 31) {
+                        monto.pagado += Number(pago.mo_final_pago);
                     }
-                });
+                }, this);
             }
             monto.pendiente = monto.instruido - monto.pagado;
+
+            if (monto.pendiente == 0) {
+                this.pagado(instruccion.id_instruccion);
+            }
+
             return monto;
+        },
+        pagado: function pagado(id_instruccion) {
+            if (!this.pagados.includes(id_instruccion)) {
+                this.pagados.push(id_instruccion);
+            }
+        },
+        pendiente: function pendiente(id_instruccion) {
+            if (this.pagados.includes(id_instruccion)) {
+                this.pagados.slice(this.pagados.indexOf(id_instruccion), 1);
+            }
         }
     }
 });
@@ -64093,8 +64137,9 @@ var render = function() {
                                         "td",
                                         { staticClass: "text-xs-left" },
                                         [
-                                          _vm.getMontos(item.item).pendiente ==
-                                          0
+                                          _vm.pagados.includes(
+                                            item.item.id_instruccion
+                                          )
                                             ? _c(
                                                 "v-tooltip",
                                                 { attrs: { bottom: "" } },
@@ -64200,7 +64245,12 @@ var render = function() {
                                                   instruccion: item.item
                                                 },
                                                 on: {
-                                                  acreditado: _vm.setAcreditado
+                                                  pagado: function($event) {
+                                                    _vm.pagado($event)
+                                                  },
+                                                  pendiente: function($event) {
+                                                    _vm.pendiente($event)
+                                                  }
                                                 }
                                               })
                                             ],
@@ -66083,7 +66133,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -66096,6 +66146,11 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -66540,13 +66595,13 @@ var render = function() {
                                               }
                                             },
                                             [
-                                              _c(
-                                                "v-tooltip",
-                                                { attrs: { top: "" } },
-                                                [
-                                                  item.item.moneda.instruccion
-                                                    .length < 1
-                                                    ? _c(
+                                              item.item.moneda.instruccion
+                                                .length < 1
+                                                ? _c(
+                                                    "v-tooltip",
+                                                    { attrs: { top: "" } },
+                                                    [
+                                                      _c(
                                                         "v-btn",
                                                         {
                                                           attrs: {
@@ -66573,15 +66628,48 @@ var render = function() {
                                                           ])
                                                         ],
                                                         1
-                                                      )
-                                                    : _vm._e(),
-                                                  _vm._v(" "),
-                                                  _c("span", [
-                                                    _vm._v("Reversar Ingreso")
-                                                  ])
-                                                ],
-                                                1
-                                              )
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c("span", [
+                                                        _vm._v(
+                                                          "Reversar Ingreso"
+                                                        )
+                                                      ])
+                                                    ],
+                                                    1
+                                                  )
+                                                : _c(
+                                                    "v-tooltip",
+                                                    { attrs: { top: "" } },
+                                                    [
+                                                      _c(
+                                                        "v-btn",
+                                                        {
+                                                          attrs: {
+                                                            slot: "activator",
+                                                            fab: "",
+                                                            dark: "",
+                                                            small: "",
+                                                            color: "warning"
+                                                          },
+                                                          slot: "activator"
+                                                        },
+                                                        [
+                                                          _c("v-icon", [
+                                                            _vm._v("warning")
+                                                          ])
+                                                        ],
+                                                        1
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c("span", [
+                                                        _vm._v(
+                                                          "Posee Instrucciones"
+                                                        )
+                                                      ])
+                                                    ],
+                                                    1
+                                                  )
                                             ],
                                             1
                                           )
@@ -66729,7 +66817,9 @@ var render = function() {
       _c("dialogo", {
         attrs: { dialogo: _vm.dialogo, mensaje: "Desea Eliminar el Ingreso" },
         on: { delItem: _vm.delItem, delCancel: _vm.delCancel }
-      })
+      }),
+      _vm._v(" "),
+      _c("pre", [_vm._v(_vm._s(_vm.$data))])
     ],
     1
   )
@@ -69342,7 +69432,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -69355,6 +69445,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_listHelper__ = __webpack_require__(7);
+//
 //
 //
 //
@@ -69532,6 +69623,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 _this2.showMessage(respuesta.data.msj);
                 _this2.list();
+                _this2.$refs.instruccionForm.listCuenta();
                 _this2.item = '';
                 _this2.dialogo = false;
             }).catch(function (error) {
@@ -69935,6 +70027,7 @@ var render = function() {
         },
         [
           _c("instruccion-form", {
+            ref: "instruccionForm",
             attrs: { accion: _vm.accion, item: _vm.item },
             on: { cerrarModal: _vm.cerrarModal }
           })
@@ -70049,7 +70142,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70369,6 +70462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.$refs.form.validate()) {
                 axios.put(this.basePath + '/' + this.item.id_instruccion, this.form).then(function (respuesta) {
                     _this3.showMessage(respuesta.data.msj);
+                    _this3.listCuenta();
                     _this3.cancel();
                 }).catch(function (error) {
                     _this3.showError(error);
@@ -70381,11 +70475,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.$refs.form.validate()) {
                 axios.post(this.basePath, this.form).then(function (respuesta) {
                     _this4.showMessage(respuesta.data.msj);
+                    _this4.listCuenta();
                     _this4.$emit('cerrarModal');
                 }).catch(function (error) {
                     _this4.showError(error);
                 });
             }
+        },
+        listCuenta: function listCuenta() {
+            var _this5 = this;
+
+            axios.get('/api/v1/cuenta').then(function (respuesta) {
+                _this5.listas.cuenta = respuesta.data;
+            }).catch(function (error) {
+                _this5.showError(error);
+            });
         }
     }
 });

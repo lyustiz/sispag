@@ -65,8 +65,7 @@
                         <td class="text-xs-center">{{ item.item.esquema.nb_esquema }}</td>
                         <!--status-->
                         <td class="text-xs-left">
-                            
-                            <v-tooltip bottom v-if="getMontos(item.item).pendiente == 0 ">
+                            <v-tooltip bottom v-if="pagados.includes(item.item.id_instruccion)">
                             <v-btn slot="activator" fab small color="success" @click.native="dsolicitud = true" >
                                 <v-icon >thumb_up</v-icon>
                             </v-btn>
@@ -88,7 +87,11 @@
                         
                         <v-card flat>
                             <v-card-text>
-                                <pago-det :instruccion="item.item" @acreditado="setAcreditado"></pago-det>
+                                <pago-det 
+                                :instruccion="item.item" 
+                                @pagado="pagado($event)"
+                                @pendiente="pendiente($event)">
+                                </pago-det>
                             </v-card-text>
                         </v-card>
                     </template>
@@ -121,7 +124,6 @@ export default {
     mixins:[ listHelper, withSnackbar ],
     data () {
     return {
-        acreditado: [],
         headers: [
         { text: 'Categoria',    value: 'categoria.nb_categoria' },
         { text: 'Ente',         value: 'instruccion.ente.nb_ente' },
@@ -132,32 +134,14 @@ export default {
         { text: 'Esq. Pago',    value: 'esquema.nb_esquema' },
         { text: 'Estatus',      value: 'id_status' },
         ],
+        pagados: [],
         listas:{
             categoria: []
         }
     }
     },
-    computed:
-    {
-       isAcreditado()
-        {
-            /*if(!istruccion)
-            {
-                return false
-            }else{
-            console.info(acreditado , istruccion.id_instruccion, acreditado.id_instruccion == istruccion.id_instruccion)
-            return acreditado.id_instruccion == istruccion.id_instruccion
-            }*/
-            return true;
-            
-        },
-    },
     methods:
     {
-        setAcreditado(instruccion)
-        {
-            console.log(instruccion)
-        },
         list () {
 
             axios.get('/api/v1/instruccion')
@@ -178,30 +162,49 @@ export default {
                 this.showError(error)
             })
         },
-        getMontos(item){
+        getMontos(instruccion){
             
             let monto = {
-                            instruido : Number(item.mo_instruccion),
-                            pendiente : Number(item.mo_instruccion),
+                            instruido : Number(instruccion.mo_instruccion),
+                            pendiente : Number(instruccion.mo_instruccion),
                             pagado    : 0
                         }
 
-            if(item.pago.length > 0)
+            if(instruccion.pago.length > 0)
             {
-               
-               item.pago.forEach(function(item) 
+               instruccion.pago.forEach(function(pago) 
                {
-                    if(item.id_status == 31)
+                    if(pago.id_status == 31)
                     {
-                        monto.pagado += Number(item.mo_final_pago);
+                        monto.pagado += Number(pago.mo_final_pago);
+                        
                     }
                     
-                });
+                },this);
             }
             monto.pendiente = monto.instruido - monto.pagado;
+
+            if(monto.pendiente == 0)
+            {
+                this.pagado(instruccion.id_instruccion)
+            }
+
             return monto;
         },
-        
+        pagado(id_instruccion)
+        {
+            if( !this.pagados.includes(id_instruccion) )
+            {
+                this.pagados.push(id_instruccion)
+            }
+        },
+        pendiente(id_instruccion)
+        {
+            if(this.pagados.includes(id_instruccion) )
+            {
+                this.pagados.slice(this.pagados.indexOf(id_instruccion), 1)
+            }
+        }
 
     }
 }

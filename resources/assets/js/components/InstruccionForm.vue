@@ -320,6 +320,7 @@ export default {
                 axios.put(this.basePath + '/' + this.item.id_instruccion, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
+                    this.listCuenta()
                     this.cancel();
                 })
                 .catch(error => {
@@ -334,12 +335,25 @@ export default {
                 axios.post(this.basePath, this.form)
                 .then(respuesta => {
                     this.showMessage(respuesta.data.msj)
+                    this.listCuenta();
                     this.$emit('cerrarModal');
                 })
                 .catch(error => {
                     this.showError(error);
                 })
             }
+        },
+        listCuenta()
+        {
+            axios.get('/api/v1/cuenta')
+            .then(respuesta => 
+            {
+                this.listas.cuenta = respuesta.data
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+            })
         }
     }
 }
